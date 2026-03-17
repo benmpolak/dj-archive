@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Spotify Token Helper</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,system-ui,sans-serif;background:#1a1a2e;color:#e0e0e0;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#16213e;padding:40px;border-radius:16px;max-width:520px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+h1{font-size:1.4em;margin-bottom:8px;color:#fff}
+p{font-size:0.9em;color:#aaa;margin-bottom:24px;line-height:1.5}
+.btn{background:#1DB954;color:#fff;border:none;padding:14px 32px;border-radius:24px;font-size:1em;font-weight:600;cursor:pointer;transition:all 0.15s;display:inline-block;text-decoration:none}
+.btn:hover{background:#1ed760;transform:scale(1.03)}
+.token-box{background:#0a0a1a;border:1px solid #333;border-radius:8px;padding:16px;margin-top:20px;word-break:break-all;font-family:monospace;font-size:0.8em;color:#1DB954;text-align:left;max-height:120px;overflow-y:auto;user-select:all}
+.copy-btn{background:#333;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:0.85em;cursor:pointer;margin-top:12px}
+.copy-btn:hover{background:#444}
+.step{color:#888;font-size:0.8em;margin-top:16px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🎧 Spotify Token Helper</h1>
+  <p>Click below to connect your Spotify account. This grabs a temporary access token for the DJ Archive matcher.</p>
+
+  <div id="pre-auth">
+    <a class="btn" id="auth-btn" href="#">Connect to Spotify</a>
+    <div class="step">Uses Spotify's implicit grant flow. Token expires in 1 hour.</div>
+  </div>
+
+  <div id="post-auth" class="hidden">
+    <p style="color:#1DB954;font-weight:600">✓ Token grabbed successfully</p>
+    <div class="token-box" id="token-display"></div>
+    <button class="copy-btn" onclick="copyToken()">Copy Token</button>
+    <div class="step" style="margin-top:16px">
+      Paste this into Claude and I'll run the matcher.<br>
+      Token expires in ~1 hour.
+    </div>
+  </div>
+</div>
+
+<script>
+// Using Spotify's implicit grant with a public client
+// This is a common public client ID used for local tools
+const CLIENT_ID = '6eab28ca0e1f4a6e81ad64dc46c37a2a';
+const REDIRECT_URI = window.location.href.split('#')[0].split('?')[0];
+const SCOPES = 'user-library-read playlist-read-private';
+
+document.getElementById('auth-btn').href =
+  'https://accounts.spotify.com/authorize?' +
+  'client_id=' + CLIENT_ID +
+  '&response_type=token' +
+  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+  '&scope=' + encodeURIComponent(SCOPES) +
+  '&show_dialog=true';
+
+// Check if we're returning from auth
+if (window.location.hash) {
+  const params = new URLSearchParams(window.location.hash.substring(1));
+  const token = params.get('access_token');
+  if (token) {
+    document.getElementById('pre-auth').classList.add('hidden');
+    document.getElementById('post-auth').classList.remove('hidden');
+    document.getElementById('token-display').textContent = token;
+    // Clean the URL
+    history.replaceState(null, '', window.location.pathname);
+  }
+}
+
+function copyToken() {
+  const token = document.getElementById('token-display').textContent;
+  navigator.clipboard.writeText(token).then(() => {
+    document.querySelector('.copy-btn').textContent = 'Copied!';
+    setTimeout(() => document.querySelector('.copy-btn').textContent = 'Copy Token', 2000);
+  });
+}
+</script>
+</body>
+</html>
