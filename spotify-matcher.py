@@ -13,7 +13,7 @@ if len(sys.argv) < 2:
 TOKEN = sys.argv[1]
 ARCHIVE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'index.html')
 CHECKPOINT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'match-checkpoint.json')
-MAX_ALBUMS = 330  # Stop after this many to stay under rate limit
+MAX_ALBUMS = int(os.environ.get('MAX_ALBUMS', '330'))  # Stop after this many to stay under rate limit
 
 def norm(s):
     s = s.lower().strip()
