@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" role="img" aria-labelledby="title desc">
+  <title id="title">DJ Archive logo concept B - crate label</title>
+  <desc id="desc">A crate label inspired DJ Archive wordmark with archive stripes and a compact vinyl icon.</desc>
+  <defs>
+    <style>
+      .word{font-family:Inter,Arial,sans-serif;font-size:36px;font-weight:850;letter-spacing:2.4px}
+      .mono{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:11px;font-weight:600;letter-spacing:1.9px}
+      .line{stroke:#d8d2c3;stroke-width:2;fill:none;stroke-linecap:round}
+    </style>
+  </defs>
+  <rect width="520" height="180" rx="18" fill="#0a0a0f"/>
+  <g transform="translate(34 31)">
+    <path d="M0 14C0 6.3 6.3 0 14 0h424c7.7 0 14 6.3 14 14v90c0 7.7-6.3 14-14 14H14c-7.7 0-14-6.3-14-14V14Z" fill="#15151e" stroke="#2a2a37" stroke-width="2"/>
+    <path d="M19 22h414M19 96h414" stroke="#2f2f3e" stroke-width="2"/>
+    <path d="M90 0v118M102 0v118" stroke="#262635" stroke-width="2"/>
+    <g transform="translate(20 28)">
+      <rect x="0" y="0" width="58" height="58" rx="4" fill="none" stroke="#d8d2c3" stroke-width="2.4"/>
+      <circle cx="29" cy="29" r="20" fill="#0a0a0f" stroke="#d8d2c3" stroke-width="2.2"/>
+      <circle cx="29" cy="29" r="11" fill="none" stroke="#e8a040" stroke-width="2"/>
+      <circle cx="29" cy="29" r="3" fill="#40e8d0"/>
+      <path d="M8 8h42M8 50h42" class="line"/>
+    </g>
+    <g transform="translate(124 28)">
+      <text class="word" x="0" y="36" fill="#f0e7d2">DJ ARCHIVE</text>
+      <text class="mono" x="2" y="63" fill="#7f8496">PERSONAL CRATES / NO ALGO</text>
+    </g>
+    <g transform="translate(366 26)">
+      <path d="M0 0h50v66H0z" fill="#0f0f16" stroke="#343445" stroke-width="1.6"/>
+      <path d="M9 15h32M9 27h32M9 39h23" stroke="#e8a040" stroke-width="2" stroke-linecap="round"/>
+      <text class="mono" x="6" y="58" fill="#40e8d0" style="font-size:8px;letter-spacing:1.1px">16544</text>
+    </g>
+  </g>
+</svg>

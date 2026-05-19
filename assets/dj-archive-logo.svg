@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-labelledby="title desc">
+  <title id="title">DJ Archive</title>
+  <desc id="desc">A stylised vinyl record and archive crate mark beside the DJ Archive wordmark.</desc>
+  <defs>
+    <linearGradient id="markGradient" x1="8" y1="12" x2="86" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e8a040"/>
+      <stop offset="0.48" stop-color="#40e8d0"/>
+      <stop offset="1" stop-color="#40a0e8"/>
+    </linearGradient>
+    <linearGradient id="textGradient" x1="108" y1="22" x2="330" y2="74" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0bd6d"/>
+      <stop offset="0.52" stop-color="#e0e0e8"/>
+      <stop offset="1" stop-color="#67c2f4"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <path d="M18 70.5V27.8c0-5.6 4.5-10.1 10.1-10.1h42.6c5.6 0 10.1 4.5 10.1 10.1v42.7c0 5.6-4.5 10.1-10.1 10.1H28.1C22.5 80.6 18 76.1 18 70.5Z" stroke="url(#markGradient)" stroke-width="4"/>
+    <path d="M28 29.8h42.8M28 68.4h42.8" stroke="#2b2b3c" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="49.4" cy="49.1" r="22.4" fill="#0b0b12" stroke="url(#markGradient)" stroke-width="3.5"/>
+    <circle cx="49.4" cy="49.1" r="15.2" stroke="#303046" stroke-width="1.8"/>
+    <circle cx="49.4" cy="49.1" r="8.7" fill="#171723" stroke="#e8a040" stroke-width="2"/>
+    <circle cx="49.4" cy="49.1" r="2.4" fill="#40e8d0"/>
+    <path d="M73.2 24.6l9.7-8.7M76.5 49.1h13.2M73.2 73.6l9.7 8.7" stroke="#40a0e8" stroke-width="3" stroke-linecap="round"/>
+    <text x="108" y="45" fill="url(#textGradient)" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="800" letter-spacing="2.5">DJ ARCHIVE</text>
+    <text x="110" y="67" fill="#6a6a80" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, monospace" font-size="10.5" font-weight="500" letter-spacing="2.1">CURATED BY EAR</text>
+  </g>
+</svg>

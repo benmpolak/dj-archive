@@ -1,0 +1,396 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1120" role="img" aria-labelledby="title desc">
+<title id="title">DJ Archive Taste Atlas</title><desc id="desc">A data-driven map of Ben Polak's DJ Archive, showing crates, artist hubs, genres and overlaps.</desc>
+<defs><style>
+.bg{fill:#0a0a0f}.panel{fill:#101019;stroke:#242432;stroke-width:1.5}.title{font-family:Inter,Arial,sans-serif;font-size:58px;font-weight:850;letter-spacing:2px;fill:#f0e7d2}.sub{font-family:"JetBrains Mono",Consolas,monospace;font-size:16px;font-weight:600;letter-spacing:2px;fill:#d99b45}.small{font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;font-weight:600;letter-spacing:1.1px;fill:#858599}.tiny{font-family:"JetBrains Mono",Consolas,monospace;font-size:10px;font-weight:500;letter-spacing:.4px;fill:#77778a}.label{font-family:Inter,Arial,sans-serif;font-size:16px;font-weight:760;fill:#f0e7d2}.artist{font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:650;fill:#d9d2c3}.count{font-family:"JetBrains Mono",Consolas,monospace;font-size:11px;font-weight:650;fill:#0a0a0f}.hubText{font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:800;fill:#0a0a0f}.edge{fill:none;stroke-linecap:round;opacity:.46}.route{fill:none;stroke-linecap:round;opacity:.9}.station{fill:#f0e7d2;stroke:#0a0a0f;stroke-width:2}.hub{stroke:#f0e7d2;stroke-width:4}.legendText{font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:650;fill:#d9d2c3}
+</style><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0.08"/></feComponentTransfer></filter></defs>
+<rect class="bg" width="1800" height="1120"/><rect width="1800" height="1120" filter="url(#grain)" opacity=".42"/>
+<text class="title" x="64" y="96">DJ ARCHIVE</text>
+<text class="sub" x="68" y="132">16,946 TRACKS / CURATED BY EAR</text>
+<text class="small" x="68" y="176">A taste atlas built from crates, genres, artist counts and overlaps.</text>
+<circle cx="900" cy="555" r="120" fill="none" stroke="#f0e7d2" stroke-width="1" opacity="0.12"/>
+<circle cx="900" cy="555" r="210" fill="none" stroke="#f0e7d2" stroke-width="1" opacity="0.1"/>
+<circle cx="900" cy="555" r="300" fill="none" stroke="#f0e7d2" stroke-width="1" opacity="0.08"/>
+<circle cx="900" cy="555" r="390" fill="none" stroke="#f0e7d2" stroke-width="1" opacity="0.06"/>
+<path class="edge" d="M600.9,415.5 Q900.0,555.0 1218.8,469.6" stroke="#f05a4f" stroke-width="1.9"/>
+<path class="edge" d="M1199.1,694.5 Q900.0,555.0 1218.8,469.6" stroke="#38a7b8" stroke-width="1.9"/>
+<path class="edge" d="M888.5,884.8 Q900.0,555.0 589.9,667.9" stroke="#83b85c" stroke-width="1.9"/>
+<path class="edge" d="M600.9,415.5 Q900.0,555.0 706.0,822.0" stroke="#f05a4f" stroke-width="2.0"/>
+<path class="edge" d="M985.4,236.2 Q900.0,555.0 1112.1,302.2" stroke="#ff7e79" stroke-width="2.0"/>
+<path class="edge" d="M760.5,255.9 Q900.0,555.0 589.9,667.9" stroke="#ff8a2a" stroke-width="2.2"/>
+<path class="edge" d="M1199.1,694.5 Q900.0,555.0 589.9,667.9" stroke="#38a7b8" stroke-width="2.3"/>
+<path class="edge" d="M1199.1,694.5 Q900.0,555.0 1054.9,846.4" stroke="#38a7b8" stroke-width="2.4"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 1218.8,469.6" stroke="#f2b84b" stroke-width="2.6"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 706.0,822.0" stroke="#f2b84b" stroke-width="3.0"/>
+<path class="edge" d="M600.9,415.5 Q900.0,555.0 1199.1,694.5" stroke="#f05a4f" stroke-width="3.0"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 888.5,884.8" stroke="#f2b84b" stroke-width="3.3"/>
+<path class="edge" d="M600.9,415.5 Q900.0,555.0 589.9,667.9" stroke="#f05a4f" stroke-width="3.3"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 1112.1,302.2" stroke="#f2b84b" stroke-width="4.1"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 985.4,236.2" stroke="#f2b84b" stroke-width="4.1"/>
+<path class="edge" d="M600.9,415.5 Q900.0,555.0 760.5,255.9" stroke="#f05a4f" stroke-width="4.3"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 589.9,667.9" stroke="#f2b84b" stroke-width="4.7"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 600.9,415.5" stroke="#f2b84b" stroke-width="5.3"/>
+<path class="edge" d="M1199.1,694.5 Q900.0,555.0 760.5,255.9" stroke="#38a7b8" stroke-width="6.2"/>
+<path class="edge" d="M985.4,236.2 Q900.0,555.0 760.5,255.9" stroke="#ff7e79" stroke-width="6.9"/>
+<path class="edge" d="M985.4,236.2 Q900.0,555.0 1199.1,694.5" stroke="#ff7e79" stroke-width="7.1"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 1199.1,694.5" stroke="#f2b84b" stroke-width="7.3"/>
+<path class="edge" d="M871.2,226.3 Q900.0,555.0 760.5,255.9" stroke="#f2b84b" stroke-width="7.4"/>
+<path class="edge" d="M985.4,236.2 Q900.0,555.0 600.9,415.5" stroke="#ff7e79" stroke-width="8.2"/>
+<path class="route" d="M900,555 L871.2,226.3" stroke="#f2b84b" stroke-width="7"/>
+<circle class="hub" cx="871.2" cy="226.3" r="46.0" fill="#f2b84b"/>
+<text class="hubText" x="871.2" y="224.3" text-anchor="middle">JAZZ</text><text class="count" x="871.2" y="239.3" text-anchor="middle">4821</text>
+<text class="label" x="865.5" y="160.5" text-anchor="middle" fill="#f2b84b">Jazz</text>
+<line x1="871.2" y1="226.3" x2="871.2" y2="132.3" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="871.2" cy="132.3" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="879.2" y="136.3" text-anchor="start">Marcos Valle <tspan class="tiny">44</tspan></text>
+<line x1="871.2" y1="226.3" x2="847.5" y2="106.6" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="847.5" cy="106.6" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="839.5" y="110.6" text-anchor="end">Greg Foat <tspan class="tiny">38</tspan></text>
+<line x1="871.2" y1="226.3" x2="877.5" y2="76.4" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="877.5" cy="76.4" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="885.5" y="80.4" text-anchor="start">Azymuth <tspan class="tiny">30</tspan></text>
+<line x1="871.2" y1="226.3" x2="829.4" y2="53.2" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="829.4" cy="53.2" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="821.4" y="57.2" text-anchor="end">Wayne Shorter <tspan class="tiny">28</tspan></text>
+<line x1="871.2" y1="226.3" x2="888.5" y2="21.0" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="888.5" cy="21.0" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="896.5" y="25.0" text-anchor="start">Bonobo <tspan class="tiny">24</tspan></text>
+<line x1="871.2" y1="226.3" x2="806.7" y2="1.3" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="806.7" cy="1.3" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="798.7" y="5.3" text-anchor="end">Donald Byrd <tspan class="tiny">24</tspan></text>
+<line x1="871.2" y1="226.3" x2="904.1" y2="-33.7" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="904.1" cy="-33.7" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="912.1" y="-29.7" text-anchor="start">Jorge Ben Jor <tspan class="tiny">24</tspan></text>
+<line x1="871.2" y1="226.3" x2="779.7" y2="-48.9" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="779.7" cy="-48.9" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="771.7" y="-44.9" text-anchor="end">Steely Dan <tspan class="tiny">24</tspan></text>
+<line x1="871.2" y1="226.3" x2="924.3" y2="-87.3" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="924.3" cy="-87.3" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="932.3" y="-83.3" text-anchor="start">Patrice Rushen <tspan class="tiny">23</tspan></text>
+<line x1="871.2" y1="226.3" x2="748.4" y2="-97.2" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="748.4" cy="-97.2" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="740.4" y="-93.2" text-anchor="end">Ashley Henry <tspan class="tiny">19</tspan></text>
+<line x1="871.2" y1="226.3" x2="949.0" y2="-139.6" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="949.0" cy="-139.6" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="957.0" y="-135.6" text-anchor="start">Matthew Halsall <tspan class="tiny">19</tspan></text>
+<line x1="871.2" y1="226.3" x2="712.9" y2="-143.2" stroke="#f2b84b" stroke-width="1.4" opacity=".22"/><circle class="station" cx="712.9" cy="-143.2" r="4.6" fill="#f2b84b"/>
+<text class="artist" x="704.9" y="-139.2" text-anchor="end">Emma-Jean Thackray <tspan class="tiny">19</tspan></text>
+<path class="route" d="M900,555 L985.4,236.2" stroke="#ff7e79" stroke-width="7"/>
+<circle class="hub" cx="985.4" cy="236.2" r="40.6" fill="#ff7e79"/>
+<text class="hubText" x="985.4" y="234.2" text-anchor="middle">DISCO</text><text class="count" x="985.4" y="249.2" text-anchor="middle">3630</text>
+<text class="label" x="1001.1" y="177.7" text-anchor="start" fill="#ff7e79">Disco &amp; Boogie</text>
+<line x1="985.4" y1="236.2" x2="1015.7" y2="153.0" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1015.7" cy="153.0" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1023.7" y="157.0" text-anchor="start">Sister Sledge <tspan class="tiny">30</tspan></text>
+<line x1="985.4" y1="236.2" x2="1003.2" y2="121.1" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1003.2" cy="121.1" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1011.2" y="125.1" text-anchor="start">Earth, Wind &amp; Fire <tspan class="tiny">26</tspan></text>
+<line x1="985.4" y1="236.2" x2="1040.5" y2="102.6" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1040.5" cy="102.6" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1048.5" y="106.6" text-anchor="start">Crazy P <tspan class="tiny">24</tspan></text>
+<line x1="985.4" y1="236.2" x2="1004.6" y2="64.8" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1004.6" cy="64.8" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1012.6" y="68.8" text-anchor="start">Leroy Hutson <tspan class="tiny">24</tspan></text>
+<line x1="985.4" y1="236.2" x2="1069.5" y2="54.2" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1069.5" cy="54.2" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1077.5" y="58.2" text-anchor="start">CHIC <tspan class="tiny">19</tspan></text>
+<line x1="985.4" y1="236.2" x2="1001.4" y2="8.2" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1001.4" cy="8.2" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1009.4" y="12.2" text-anchor="start">Patrice Rushen <tspan class="tiny">17</tspan></text>
+<line x1="985.4" y1="236.2" x2="1102.7" y2="8.1" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1102.7" cy="8.1" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1110.7" y="12.1" text-anchor="start">KC &amp; The Sunshine Band <tspan class="tiny">17</tspan></text>
+<line x1="985.4" y1="236.2" x2="993.4" y2="-48.2" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="993.4" cy="-48.2" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1001.4" y="-44.2" text-anchor="start">Sandra De Sá <tspan class="tiny">13</tspan></text>
+<line x1="985.4" y1="236.2" x2="1139.8" y2="-35.5" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1139.8" cy="-35.5" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1147.8" y="-31.5" text-anchor="start">Breakbot <tspan class="tiny">12</tspan></text>
+<line x1="985.4" y1="236.2" x2="980.7" y2="-104.3" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="980.7" cy="-104.3" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="972.7" y="-100.3" text-anchor="end">Change <tspan class="tiny">12</tspan></text>
+<line x1="985.4" y1="236.2" x2="1180.7" y2="-76.3" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1180.7" cy="-76.3" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="1188.7" y="-72.3" text-anchor="start">Evelyn &quot;Champagne&quot; King <tspan class="tiny">12</tspan></text>
+<line x1="985.4" y1="236.2" x2="963.3" y2="-159.7" stroke="#ff7e79" stroke-width="1.4" opacity=".22"/><circle class="station" cx="963.3" cy="-159.7" r="4.6" fill="#ff7e79"/>
+<text class="artist" x="955.3" y="-155.7" text-anchor="end">Chic <tspan class="tiny">12</tspan></text>
+<path class="route" d="M900,555 L600.9,415.5" stroke="#f05a4f" stroke-width="7"/>
+<circle class="hub" cx="600.9" cy="415.5" r="40.3" fill="#f05a4f"/>
+<text class="hubText" x="600.9" y="413.5" text-anchor="middle">SOUL</text><text class="count" x="600.9" y="428.5" text-anchor="middle">3575</text>
+<text class="label" x="546.3" y="390.0" text-anchor="end" fill="#f05a4f">Soul &amp; R&amp;B</text>
+<line x1="600.9" y1="415.5" x2="524.4" y2="371.4" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="524.4" cy="371.4" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="516.4" y="375.4" text-anchor="end">Stevie Wonder <tspan class="tiny">86</tspan></text>
+<line x1="600.9" y1="415.5" x2="490.8" y2="378.1" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="490.8" cy="378.1" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="482.8" y="382.1" text-anchor="end">Sault <tspan class="tiny">63</tspan></text>
+<line x1="600.9" y1="415.5" x2="479.1" y2="338.2" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="479.1" cy="338.2" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="471.1" y="342.2" text-anchor="end">Marvin Gaye <tspan class="tiny">48</tspan></text>
+<line x1="600.9" y1="415.5" x2="435.6" y2="366.9" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="435.6" cy="366.9" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="427.6" y="370.9" text-anchor="end">Al Green <tspan class="tiny">24</tspan></text>
+<line x1="600.9" y1="415.5" x2="436.4" y2="301.2" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="436.4" cy="301.2" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="428.4" y="305.2" text-anchor="end">Michael Kiwanuka <tspan class="tiny">21</tspan></text>
+<line x1="600.9" y1="415.5" x2="379.4" y2="360.3" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="379.4" cy="360.3" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="371.4" y="364.3" text-anchor="end">Aretha Franklin <tspan class="tiny">21</tspan></text>
+<line x1="600.9" y1="415.5" x2="396.8" y2="260.6" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="396.8" cy="260.6" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="388.8" y="264.6" text-anchor="end">Yazmin Lacey <tspan class="tiny">21</tspan></text>
+<line x1="600.9" y1="415.5" x2="322.4" y2="358.4" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="322.4" cy="358.4" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="314.4" y="362.4" text-anchor="end">D&#x27;Angelo <tspan class="tiny">20</tspan></text>
+<line x1="600.9" y1="415.5" x2="360.3" y2="216.5" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="360.3" cy="216.5" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="352.3" y="220.5" text-anchor="end">Cleo Sol <tspan class="tiny">20</tspan></text>
+<line x1="600.9" y1="415.5" x2="265.0" y2="361.1" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="265.0" cy="361.1" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="257.0" y="365.1" text-anchor="end">Otis Redding <tspan class="tiny">18</tspan></text>
+<line x1="600.9" y1="415.5" x2="327.2" y2="169.1" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="327.2" cy="169.1" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="319.2" y="173.1" text-anchor="end">Bill Withers <tspan class="tiny">17</tspan></text>
+<line x1="600.9" y1="415.5" x2="207.4" y2="368.6" stroke="#f05a4f" stroke-width="1.4" opacity=".22"/><circle class="station" cx="207.4" cy="368.6" r="4.6" fill="#f05a4f"/>
+<text class="artist" x="199.4" y="372.6" text-anchor="end">Hiatus Kaiyote <tspan class="tiny">16</tspan></text>
+<path class="route" d="M900,555 L1199.1,694.5" stroke="#38a7b8" stroke-width="7"/>
+<circle class="hub" cx="1199.1" cy="694.5" r="39.4" fill="#38a7b8"/>
+<text class="hubText" x="1199.1" y="692.5" text-anchor="middle">HOUSE</text><text class="count" x="1199.1" y="707.5" text-anchor="middle">3372</text>
+<text class="label" x="1252.9" y="719.6" text-anchor="start" fill="#38a7b8">House</text>
+<line x1="1199.1" y1="694.5" x2="1274.8" y2="738.2" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1274.8" cy="738.2" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1282.8" y="742.2" text-anchor="start">Crazy P <tspan class="tiny">24</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1308.3" y2="731.6" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1308.3" cy="731.6" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1316.3" y="735.6" text-anchor="start">letherette <tspan class="tiny">18</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1320.1" y2="771.3" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1320.1" cy="771.3" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1328.1" y="775.3" text-anchor="start">HNNY <tspan class="tiny">15</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1363.5" y2="742.9" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1363.5" cy="742.9" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1371.5" y="746.9" text-anchor="start">Lone <tspan class="tiny">14</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1362.8" y2="808.3" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1362.8" cy="808.3" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1370.8" y="812.3" text-anchor="start">Moodymann <tspan class="tiny">13</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1419.7" y2="749.5" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1419.7" cy="749.5" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1427.7" y="753.5" text-anchor="start">Breakbot <tspan class="tiny">12</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1402.5" y2="848.9" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1402.5" cy="848.9" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1410.5" y="852.9" text-anchor="start">CINTHIE <tspan class="tiny">11</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1476.7" y2="751.4" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1476.7" cy="751.4" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1484.7" y="755.4" text-anchor="start">Dam Swindle <tspan class="tiny">10</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1439.0" y2="893.0" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1439.0" cy="893.0" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1447.0" y="897.0" text-anchor="start">Crackazat <tspan class="tiny">10</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1534.1" y2="748.7" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1534.1" cy="748.7" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1542.1" y="752.7" text-anchor="start">John Beltran <tspan class="tiny">10</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1472.1" y2="940.3" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1472.1" cy="940.3" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1480.1" y="944.3" text-anchor="start">Disclosure <tspan class="tiny">10</tspan></text>
+<line x1="1199.1" y1="694.5" x2="1591.7" y2="741.3" stroke="#38a7b8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1591.7" cy="741.3" r="4.6" fill="#38a7b8"/>
+<text class="artist" x="1599.7" y="745.3" text-anchor="start">Felipe Gordon <tspan class="tiny">10</tspan></text>
+<path class="route" d="M900,555 L760.5,255.9" stroke="#ff8a2a" stroke-width="7"/>
+<circle class="hub" cx="760.5" cy="255.9" r="33.5" fill="#ff8a2a"/>
+<text class="hubText" x="760.5" y="253.9" text-anchor="middle">FUNK</text><text class="count" x="760.5" y="268.9" text-anchor="middle">2078</text>
+<text class="label" x="737.9" y="207.4" text-anchor="end" fill="#ff8a2a">Funk</text>
+<line x1="760.5" y1="255.9" x2="732.7" y2="179.3" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="732.7" cy="179.3" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="724.7" y="183.3" text-anchor="end">Crazy P <tspan class="tiny">24</tspan></text>
+<line x1="760.5" y1="255.9" x2="703.8" y2="162.3" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="703.8" cy="162.3" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="695.8" y="166.3" text-anchor="end">Earth, Wind &amp; Fire <tspan class="tiny">21</tspan></text>
+<line x1="760.5" y1="255.9" x2="719.0" y2="124.9" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="719.0" cy="124.9" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="711.0" y="128.9" text-anchor="end">Azymuth <tspan class="tiny">21</tspan></text>
+<line x1="760.5" y1="255.9" x2="669.0" y2="118.1" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="669.0" cy="118.1" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="661.0" y="122.1" text-anchor="end">CHIC <tspan class="tiny">18</tspan></text>
+<line x1="760.5" y1="255.9" x2="709.8" y2="69.2" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="709.8" cy="69.2" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="701.8" y="73.2" text-anchor="end">Jamila Woods <tspan class="tiny">18</tspan></text>
+<line x1="760.5" y1="255.9" x2="630.4" y2="76.7" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="630.4" cy="76.7" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="622.4" y="80.7" text-anchor="end">Patrice Rushen <tspan class="tiny">15</tspan></text>
+<line x1="760.5" y1="255.9" x2="705.3" y2="12.6" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="705.3" cy="12.6" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="697.3" y="16.6" text-anchor="end">Roy Ayers <tspan class="tiny">15</tspan></text>
+<line x1="760.5" y1="255.9" x2="588.2" y2="38.5" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="588.2" cy="38.5" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="580.2" y="42.5" text-anchor="end">Children of Zeus <tspan class="tiny">13</tspan></text>
+<line x1="760.5" y1="255.9" x2="705.4" y2="-44.5" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="705.4" cy="-44.5" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="697.4" y="-40.5" text-anchor="end">The Isley Brothers <tspan class="tiny">13</tspan></text>
+<line x1="760.5" y1="255.9" x2="542.6" y2="3.5" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="542.6" cy="3.5" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="534.6" y="7.5" text-anchor="end">Prince <tspan class="tiny">12</tspan></text>
+<line x1="760.5" y1="255.9" x2="710.2" y2="-102.0" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="710.2" cy="-102.0" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="702.2" y="-98.0" text-anchor="end">Evelyn &quot;Champagne&quot; King <tspan class="tiny">12</tspan></text>
+<line x1="760.5" y1="255.9" x2="493.9" y2="-28.0" stroke="#ff8a2a" stroke-width="1.4" opacity=".22"/><circle class="station" cx="493.9" cy="-28.0" r="4.6" fill="#ff8a2a"/>
+<text class="artist" x="485.9" y="-24.0" text-anchor="end">Gil Scott-Heron <tspan class="tiny">11</tspan></text>
+<path class="route" d="M900,555 L1112.1,302.2" stroke="#44c0a0" stroke-width="7"/>
+<circle class="hub" cx="1112.1" cy="302.2" r="29.0" fill="#44c0a0"/>
+<text class="hubText" x="1112.1" y="300.2" text-anchor="middle">BRAZILIAN</text><text class="count" x="1112.1" y="315.2" text-anchor="middle">1089</text>
+<text class="label" x="1143.6" y="264.7" text-anchor="start" fill="#44c0a0">Brazilian</text>
+<line x1="1112.1" y1="302.2" x2="1166.5" y2="247.8" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1166.5" cy="247.8" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1174.5" y="251.8" text-anchor="start">Seu Jorge <tspan class="tiny">38</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1170.5" y2="215.0" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1170.5" cy="215.0" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1178.5" y="219.0" text-anchor="start">Marcos Valle <tspan class="tiny">32</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1210.0" y2="212.2" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1210.0" cy="212.2" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1218.0" y="216.2" text-anchor="start">Jorge Ben Jor <tspan class="tiny">24</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1196.0" y2="164.8" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1196.0" cy="164.8" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1204.0" y="168.8" text-anchor="start">Azymuth <tspan class="tiny">21</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1256.5" y2="180.2" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1256.5" cy="180.2" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1264.5" y="184.2" text-anchor="start">Tim Maia <tspan class="tiny">21</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1217.3" y2="112.4" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1217.3" cy="112.4" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1225.3" y="116.4" text-anchor="start">Rogê <tspan class="tiny">17</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1305.7" y2="152.1" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1305.7" cy="152.1" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1313.7" y="156.1" text-anchor="start">Sérgio Mendes <tspan class="tiny">15</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1234.3" y2="58.1" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1234.3" cy="58.1" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1242.3" y="62.1" text-anchor="start">Sessa <tspan class="tiny">13</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1357.4" y2="127.9" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1357.4" cy="127.9" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1365.4" y="131.9" text-anchor="start">Criolo <tspan class="tiny">12</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1247.0" y2="2.1" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1247.0" cy="2.1" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1255.0" y="6.1" text-anchor="start">Gilberto Gil <tspan class="tiny">11</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1411.5" y2="107.8" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1411.5" cy="107.8" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1419.5" y="111.8" text-anchor="start">Sabrina Malheiros <tspan class="tiny">10</tspan></text>
+<line x1="1112.1" y1="302.2" x2="1255.1" y2="-55.2" stroke="#44c0a0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1255.1" cy="-55.2" r="4.6" fill="#44c0a0"/>
+<text class="artist" x="1263.1" y="-51.2" text-anchor="start">Arthur Verocai <tspan class="tiny">10</tspan></text>
+<path class="route" d="M900,555 L1218.8,469.6" stroke="#b07ac8" stroke-width="7"/>
+<circle class="hub" cx="1218.8" cy="469.6" r="28.0" fill="#b07ac8"/>
+<text class="hubText" x="1218.8" y="467.6" text-anchor="middle">AFRO</text><text class="count" x="1218.8" y="482.6" text-anchor="middle">869</text>
+<text class="label" x="1265.1" y="457.2" text-anchor="start" fill="#b07ac8">Afro &amp; World</text>
+<line x1="1218.8" y1="469.6" x2="1293.6" y2="456.4" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1293.6" cy="456.4" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1301.6" y="460.4" text-anchor="start">Ebo Taylor <tspan class="tiny">14</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1315.7" y2="432.0" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1315.7" cy="432.0" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1323.7" y="436.0" text-anchor="start">Fela Kuti <tspan class="tiny">12</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1349.6" y2="452.1" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1349.6" cy="452.1" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1357.6" y="456.1" text-anchor="start">Fabiano Nascimento &amp; Orquestra De Vittor Santos <tspan class="tiny">10</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1365.3" y2="405.5" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1365.3" cy="405.5" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1373.3" y="409.5" text-anchor="start">Gyedu-Blay Ambolley <tspan class="tiny">9</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1405.9" y2="452.6" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1405.9" cy="452.6" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1413.9" y="456.6" text-anchor="start">Fat Freddy&#x27;s Drop <tspan class="tiny">9</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1412.9" y2="374.9" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1412.9" cy="374.9" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1420.9" y="378.9" text-anchor="start">Grupo Magnético <tspan class="tiny">8</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1462.4" y2="457.7" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1462.4" cy="457.7" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1470.4" y="461.7" text-anchor="start">Novalima <tspan class="tiny">7</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1458.0" y2="340.2" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1458.0" cy="340.2" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1466.0" y="344.2" text-anchor="start">Ondatrópica <tspan class="tiny">7</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1518.7" y2="467.5" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1518.7" cy="467.5" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1526.7" y="471.5" text-anchor="start">Daymé Arocena <tspan class="tiny">6</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1500.5" y2="301.7" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1500.5" cy="301.7" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1508.5" y="305.7" text-anchor="start">Quantic <tspan class="tiny">6</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1574.5" y2="482.0" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1574.5" cy="482.0" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1582.5" y="486.0" text-anchor="start">K-Lone <tspan class="tiny">6</tspan></text>
+<line x1="1218.8" y1="469.6" x2="1540.0" y2="259.3" stroke="#b07ac8" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1540.0" cy="259.3" r="4.6" fill="#b07ac8"/>
+<text class="artist" x="1548.0" y="263.3" text-anchor="start">Manu Chao <tspan class="tiny">6</tspan></text>
+<path class="route" d="M900,555 L888.5,884.8" stroke="#83b85c" stroke-width="7"/>
+<circle class="hub" cx="888.5" cy="884.8" r="27.3" fill="#83b85c"/>
+<text class="hubText" x="888.5" y="882.8" text-anchor="middle">DOWNTEMPO</text><text class="count" x="888.5" y="897.8" text-anchor="middle">721</text>
+<text class="label" x="886.8" y="932.1" text-anchor="middle" fill="#83b85c">Downtempo</text>
+<line x1="888.5" y1="884.8" x2="879.3" y2="959.5" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="879.3" cy="959.5" r="4.6" fill="#83b85c"/>
+<text class="artist" x="871.3" y="963.5" text-anchor="end">Steely Dan <tspan class="tiny">22</tspan></text>
+<line x1="888.5" y1="884.8" x2="896.0" y2="987.8" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="896.0" cy="987.8" r="4.6" fill="#83b85c"/>
+<text class="artist" x="904.0" y="991.8" text-anchor="start">Greg Foat <tspan class="tiny">18</tspan></text>
+<line x1="888.5" y1="884.8" x2="867.0" y2="1014.3" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="867.0" cy="1014.3" r="4.6" fill="#83b85c"/>
+<text class="artist" x="859.0" y="1018.3" text-anchor="end">Lone <tspan class="tiny">13</tspan></text>
+<line x1="888.5" y1="884.8" x2="906.8" y2="1043.0" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="906.8" cy="1043.0" r="4.6" fill="#83b85c"/>
+<text class="artist" x="914.8" y="1047.0" text-anchor="start">Matthew Halsall <tspan class="tiny">12</tspan></text>
+<line x1="888.5" y1="884.8" x2="850.2" y2="1068.1" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="850.2" cy="1068.1" r="4.6" fill="#83b85c"/>
+<text class="artist" x="842.2" y="1072.1" text-anchor="end">Chip Wickham <tspan class="tiny">11</tspan></text>
+<line x1="888.5" y1="884.8" x2="922.2" y2="1097.4" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="922.2" cy="1097.4" r="4.6" fill="#83b85c"/>
+<text class="artist" x="930.2" y="1101.4" text-anchor="start">Daryl Hall &amp; John Oates <tspan class="tiny">9</tspan></text>
+<line x1="888.5" y1="884.8" x2="828.8" y2="1120.7" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="828.8" cy="1120.7" r="4.6" fill="#83b85c"/>
+<text class="artist" x="820.8" y="1124.7" text-anchor="end">Toro y Moi <tspan class="tiny">9</tspan></text>
+<line x1="888.5" y1="884.8" x2="942.1" y2="1150.7" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="942.1" cy="1150.7" r="4.6" fill="#83b85c"/>
+<text class="artist" x="950.1" y="1154.7" text-anchor="start">Bent <tspan class="tiny">9</tspan></text>
+<line x1="888.5" y1="884.8" x2="803.0" y2="1171.6" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="803.0" cy="1171.6" r="4.6" fill="#83b85c"/>
+<text class="artist" x="795.0" y="1175.6" text-anchor="end">Mr Twin Sister <tspan class="tiny">8</tspan></text>
+<line x1="888.5" y1="884.8" x2="966.6" y2="1202.6" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="966.6" cy="1202.6" r="4.6" fill="#83b85c"/>
+<text class="artist" x="974.6" y="1206.6" text-anchor="start">Bonobo <tspan class="tiny">8</tspan></text>
+<line x1="888.5" y1="884.8" x2="772.8" y2="1220.7" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="772.8" cy="1220.7" r="4.6" fill="#83b85c"/>
+<text class="artist" x="764.8" y="1224.7" text-anchor="end">John Carroll Kirby <tspan class="tiny">8</tspan></text>
+<line x1="888.5" y1="884.8" x2="995.4" y2="1252.9" stroke="#83b85c" stroke-width="1.4" opacity=".22"/><circle class="station" cx="995.4" cy="1252.9" r="4.6" fill="#83b85c"/>
+<text class="artist" x="1003.4" y="1256.9" text-anchor="start">Zero 7 <tspan class="tiny">8</tspan></text>
+<path class="route" d="M900,555 L706.0,822.0" stroke="#6387c7" stroke-width="7"/>
+<circle class="hub" cx="706.0" cy="822.0" r="26.6" fill="#6387c7"/>
+<text class="hubText" x="706.0" y="820.0" text-anchor="middle">HIP HOP</text><text class="count" x="706.0" y="835.0" text-anchor="middle">567</text>
+<text class="label" x="678.6" y="859.7" text-anchor="end" fill="#6387c7">Hip Hop</text>
+<line x1="706.0" y1="822.0" x2="657.1" y2="878.3" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="657.1" cy="878.3" r="4.6" fill="#6387c7"/>
+<text class="artist" x="649.1" y="882.3" text-anchor="end">Kendrick Lamar <tspan class="tiny">28</tspan></text>
+<line x1="706.0" y1="822.0" x2="655.0" y2="911.0" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="655.0" cy="911.0" r="4.6" fill="#6387c7"/>
+<text class="artist" x="647.0" y="915.0" text-anchor="end">A Tribe Called Quest <tspan class="tiny">15</tspan></text>
+<line x1="706.0" y1="822.0" x2="616.3" y2="916.9" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="616.3" cy="916.9" r="4.6" fill="#6387c7"/>
+<text class="artist" x="608.3" y="920.9" text-anchor="end">Criolo <tspan class="tiny">12</tspan></text>
+<line x1="706.0" y1="822.0" x2="633.0" y2="962.8" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="633.0" cy="962.8" r="4.6" fill="#6387c7"/>
+<text class="artist" x="625.0" y="966.8" text-anchor="end">Gang Starr <tspan class="tiny">11</tspan></text>
+<line x1="706.0" y1="822.0" x2="572.3" y2="952.1" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="572.3" cy="952.1" r="4.6" fill="#6387c7"/>
+<text class="artist" x="564.3" y="956.1" text-anchor="end">Liv.e <tspan class="tiny">10</tspan></text>
+<line x1="706.0" y1="822.0" x2="615.3" y2="1016.5" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="615.3" cy="1016.5" r="4.6" fill="#6387c7"/>
+<text class="artist" x="607.3" y="1020.5" text-anchor="end">Ezra Collective <tspan class="tiny">8</tspan></text>
+<line x1="706.0" y1="822.0" x2="525.2" y2="983.7" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="525.2" cy="983.7" r="4.6" fill="#6387c7"/>
+<text class="artist" x="517.2" y="987.7" text-anchor="end">Zero 7 <tspan class="tiny">8</tspan></text>
+<line x1="706.0" y1="822.0" x2="602.0" y2="1071.8" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="602.0" cy="1071.8" r="4.6" fill="#6387c7"/>
+<text class="artist" x="594.0" y="1075.8" text-anchor="end">Pete Rock &amp; C.L. Smooth <tspan class="tiny">7</tspan></text>
+<line x1="706.0" y1="822.0" x2="475.3" y2="1011.5" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="475.3" cy="1011.5" r="4.6" fill="#6387c7"/>
+<text class="artist" x="467.3" y="1015.5" text-anchor="end">Alfa Mist <tspan class="tiny">6</tspan></text>
+<line x1="706.0" y1="822.0" x2="593.3" y2="1128.5" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="593.3" cy="1128.5" r="4.6" fill="#6387c7"/>
+<text class="artist" x="585.3" y="1132.5" text-anchor="end">Outkast <tspan class="tiny">5</tspan></text>
+<line x1="706.0" y1="822.0" x2="422.8" y2="1035.4" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="422.8" cy="1035.4" r="4.6" fill="#6387c7"/>
+<text class="artist" x="414.8" y="1039.4" text-anchor="end">GENA;Liv.e;Karriem Riggins <tspan class="tiny">5</tspan></text>
+<line x1="706.0" y1="822.0" x2="589.1" y2="1186.2" stroke="#6387c7" stroke-width="1.4" opacity=".22"/><circle class="station" cx="589.1" cy="1186.2" r="4.6" fill="#6387c7"/>
+<text class="artist" x="581.1" y="1190.2" text-anchor="end">Slum Village <tspan class="tiny">5</tspan></text>
+<path class="route" d="M900,555 L1054.9,846.4" stroke="#a16bb0" stroke-width="7"/>
+<circle class="hub" cx="1054.9" cy="846.4" r="25.6" fill="#a16bb0"/>
+<text class="hubText" x="1054.9" y="844.4" text-anchor="middle">ELECTRONIC</text><text class="count" x="1054.9" y="859.4" text-anchor="middle">356</text>
+<text class="label" x="1076.3" y="886.7" text-anchor="start" fill="#a16bb0">Electronic</text>
+<line x1="1054.9" y1="846.4" x2="1083.7" y2="914.1" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1083.7" cy="914.1" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1091.7" y="918.1" text-anchor="start">Lone <tspan class="tiny">13</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1112.0" y2="930.4" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1112.0" cy="930.4" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1120.0" y="934.4" text-anchor="start">CINTHIE <tspan class="tiny">11</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1100.5" y2="967.7" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1100.5" cy="967.7" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1108.5" y="971.7" text-anchor="start">John Beltran <tspan class="tiny">10</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1148.9" y2="972.9" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1148.9" cy="972.9" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1156.9" y="976.9" text-anchor="start">Floating Points;Pharoah Sanders;London Symphony Orchestra <tspan class="tiny">9</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1112.9" y2="1022.7" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1112.9" cy="1022.7" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1120.9" y="1026.7" text-anchor="start">Caribou <tspan class="tiny">6</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1189.4" y2="1012.4" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1189.4" cy="1012.4" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1197.4" y="1016.4" text-anchor="start">Four Tet <tspan class="tiny">6</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1120.7" y2="1078.9" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1120.7" cy="1078.9" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1128.7" y="1082.9" text-anchor="start">K-Lone <tspan class="tiny">6</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1233.2" y2="1048.6" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1233.2" cy="1048.6" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1241.2" y="1052.6" text-anchor="start">Wayward <tspan class="tiny">6</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1123.9" y2="1135.9" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1123.9" cy="1135.9" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1131.9" y="1139.9" text-anchor="start">The Chemical Brothers <tspan class="tiny">6</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1280.3" y2="1081.4" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1280.3" cy="1081.4" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1288.3" y="1085.4" text-anchor="start">Floating Points <tspan class="tiny">5</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1122.4" y2="1193.5" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1122.4" cy="1193.5" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1130.4" y="1197.5" text-anchor="start">Gold Panda <tspan class="tiny">5</tspan></text>
+<line x1="1054.9" y1="846.4" x2="1330.4" y2="1110.5" stroke="#a16bb0" stroke-width="1.4" opacity=".22"/><circle class="station" cx="1330.4" cy="1110.5" r="4.6" fill="#a16bb0"/>
+<text class="artist" x="1338.4" y="1114.5" text-anchor="start">Lindstrøm <tspan class="tiny">5</tspan></text>
+<path class="route" d="M900,555 L589.9,667.9" stroke="#e6d7bd" stroke-width="7"/>
+<circle class="hub" cx="589.9" cy="667.9" r="31.7" fill="#e6d7bd"/>
+<text class="hubText" x="589.9" y="665.9" text-anchor="middle">INDIE</text><text class="count" x="589.9" y="680.9" text-anchor="middle">1692</text>
+<text class="label" x="541.3" y="685.6" text-anchor="end" fill="#e6d7bd">Indie &amp; Rock</text>
+<line x1="589.9" y1="667.9" x2="512.9" y2="688.5" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="512.9" cy="688.5" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="504.9" y="692.5" text-anchor="end">Doves <tspan class="tiny">37</tspan></text>
+<line x1="589.9" y1="667.9" x2="493.2" y2="715.4" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="493.2" cy="715.4" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="485.2" y="719.4" text-anchor="end">The National <tspan class="tiny">25</tspan></text>
+<line x1="589.9" y1="667.9" x2="457.4" y2="697.5" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="457.4" cy="697.5" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="449.4" y="701.5" text-anchor="end">Real Estate <tspan class="tiny">25</tspan></text>
+<line x1="589.9" y1="667.9" x2="446.2" y2="746.2" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="446.2" cy="746.2" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="438.2" y="750.2" text-anchor="end">Tame Impala <tspan class="tiny">24</tspan></text>
+<line x1="589.9" y1="667.9" x2="401.2" y2="701.8" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="401.2" cy="701.8" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="393.2" y="705.8" text-anchor="end">Oasis <tspan class="tiny">23</tspan></text>
+<line x1="589.9" y1="667.9" x2="401.6" y2="781.0" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="401.6" cy="781.0" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="393.6" y="785.0" text-anchor="end">Arctic Monkeys <tspan class="tiny">18</tspan></text>
+<line x1="589.9" y1="667.9" x2="344.5" y2="701.5" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="344.5" cy="701.5" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="336.5" y="705.5" text-anchor="end">Greg Foat <tspan class="tiny">18</tspan></text>
+<line x1="589.9" y1="667.9" x2="359.7" y2="819.6" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="359.7" cy="819.6" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="351.7" y="823.6" text-anchor="end">Radiohead <tspan class="tiny">17</tspan></text>
+<line x1="589.9" y1="667.9" x2="287.5" y2="696.4" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="287.5" cy="696.4" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="279.5" y="700.4" text-anchor="end">Hiatus Kaiyote <tspan class="tiny">16</tspan></text>
+<line x1="589.9" y1="667.9" x2="320.9" y2="861.9" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="320.9" cy="861.9" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="312.9" y="865.9" text-anchor="end">Yazmin Lacey <tspan class="tiny">15</tspan></text>
+<line x1="589.9" y1="667.9" x2="230.7" y2="686.7" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="230.7" cy="686.7" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="222.7" y="690.7" text-anchor="end">Beach House <tspan class="tiny">14</tspan></text>
+<line x1="589.9" y1="667.9" x2="285.2" y2="907.6" stroke="#e6d7bd" stroke-width="1.4" opacity=".22"/><circle class="station" cx="285.2" cy="907.6" r="4.6" fill="#e6d7bd"/>
+<text class="artist" x="277.2" y="911.6" text-anchor="end">Sampha <tspan class="tiny">14</tspan></text>
+<circle cx="900" cy="555" r="58" fill="#0a0a0f" stroke="#f0e7d2" stroke-width="3"/><circle cx="900" cy="555" r="34" fill="none" stroke="#e8a040" stroke-width="6"/><circle cx="900" cy="555" r="6" fill="#40e8d0"/><text class="small" x="900" y="641" text-anchor="middle">INTERCHANGE: JAZZ / SOUL / DISCO / HOUSE / FUNK</text>
+<g transform="translate(64 850)"><rect class="panel" x="0" y="0" width="470" height="205" rx="12"/><text class="label" x="24" y="38">Top Genre Signals</text>
+<text class="tiny" x="24" y="70">disco <tspan fill="#d99b45">1772</tspan></text>
+<text class="tiny" x="169" y="70">jazz <tspan fill="#d99b45">1711</tspan></text>
+<text class="tiny" x="314" y="70">nu jazz <tspan fill="#d99b45">1556</tspan></text>
+<text class="tiny" x="24" y="94">nu disco <tspan fill="#d99b45">1420</tspan></text>
+<text class="tiny" x="169" y="94">soul <tspan fill="#d99b45">1136</tspan></text>
+<text class="tiny" x="314" y="94">funk <tspan fill="#d99b45">1097</tspan></text>
+<text class="tiny" x="24" y="118">deep house <tspan fill="#d99b45">996</tspan></text>
+<text class="tiny" x="169" y="118">r&amp;b <tspan fill="#d99b45">969</tspan></text>
+<text class="tiny" x="314" y="118">house <tspan fill="#d99b45">964</tspan></text>
+<text class="tiny" x="24" y="142">neo soul <tspan fill="#d99b45">943</tspan></text>
+<text class="tiny" x="169" y="142">funk / soul <tspan fill="#d99b45">938</tspan></text>
+<text class="tiny" x="314" y="142">jazz house <tspan fill="#d99b45">930</tspan></text>
+<text class="tiny" x="24" y="166">jazz funk <tspan fill="#d99b45">928</tspan></text>
+<text class="tiny" x="169" y="166">electronic <tspan fill="#d99b45">916</tspan></text>
+<text class="tiny" x="314" y="166">boogie <tspan fill="#d99b45">884</tspan></text>
+<text class="tiny" x="24" y="190">disco house <tspan fill="#d99b45">852</tspan></text>
+<text class="tiny" x="169" y="190">post-disco <tspan fill="#d99b45">796</tspan></text>
+<text class="tiny" x="314" y="190">funky house <tspan fill="#d99b45">708</tspan></text>
+</g><g transform="translate(1266 842)"><rect class="panel" x="0" y="0" width="470" height="213" rx="12"/><text class="label" x="24" y="38">Playlist DNA</text>
+<text class="tiny" x="24" y="70">Soul &amp; Disco <tspan fill="#40e8d0">7765</tspan></text>
+<text class="tiny" x="244" y="70">Classic Jazz <tspan fill="#40e8d0">5322</tspan></text>
+<text class="tiny" x="24" y="92">New Jazz <tspan fill="#40e8d0">3752</tspan></text>
+<text class="tiny" x="244" y="92">Soulful House <tspan fill="#40e8d0">3700</tspan></text>
+<text class="tiny" x="24" y="114">Disco <tspan fill="#40e8d0">3601</tspan></text>
+<text class="tiny" x="244" y="114">Soul Disco Revival <tspan fill="#40e8d0">2903</tspan></text>
+<text class="tiny" x="24" y="136">Modern Indie <tspan fill="#40e8d0">2554</tspan></text>
+<text class="tiny" x="244" y="136">Dancefloor <tspan fill="#40e8d0">2428</tspan></text>
+<text class="tiny" x="24" y="158">Brazilian <tspan fill="#40e8d0">1265</tspan></text>
+<text class="tiny" x="244" y="158">Lo-Fi &amp; Chill <tspan fill="#40e8d0">884</tspan></text>
+<text class="tiny" x="24" y="180">Modern Hip Hop <tspan fill="#40e8d0">883</tspan></text>
+<text class="tiny" x="244" y="180">New Wave Soul <tspan fill="#40e8d0">876</tspan></text>
+<text class="tiny" x="24" y="202">Deep &amp; Techno <tspan fill="#40e8d0">810</tspan></text>
+<text class="tiny" x="244" y="202">Classic Dance <tspan fill="#40e8d0">778</tspan></text>
+<text class="tiny" x="24" y="224">Afrobeat &amp; African <tspan fill="#40e8d0">649</tspan></text>
+<text class="tiny" x="244" y="224">Balearic <tspan fill="#40e8d0">577</tspan></text>
+</g><g transform="translate(1266 78)"><rect class="panel" x="0" y="0" width="470" height="286" rx="12"/><text class="label" x="24" y="38">Crate Weight</text>
+<line x1="24" y1="65" x2="58" y2="65" stroke="#f2b84b" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="72" y="70">Jazz <tspan class="tiny">4821</tspan></text>
+<line x1="24" y1="97" x2="58" y2="97" stroke="#ff7e79" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="72" y="102">Disco &amp; Boogie <tspan class="tiny">3630</tspan></text>
+<line x1="24" y1="129" x2="58" y2="129" stroke="#f05a4f" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="72" y="134">Soul &amp; R&amp;B <tspan class="tiny">3575</tspan></text>
+<line x1="24" y1="161" x2="58" y2="161" stroke="#38a7b8" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="72" y="166">House <tspan class="tiny">3372</tspan></text>
+<line x1="24" y1="193" x2="58" y2="193" stroke="#ff8a2a" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="72" y="198">Funk <tspan class="tiny">2078</tspan></text>
+<line x1="24" y1="225" x2="58" y2="225" stroke="#44c0a0" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="72" y="230">Brazilian <tspan class="tiny">1089</tspan></text>
+<line x1="249" y1="65" x2="283" y2="65" stroke="#b07ac8" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="297" y="70">Afro &amp; World <tspan class="tiny">869</tspan></text>
+<line x1="249" y1="97" x2="283" y2="97" stroke="#83b85c" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="297" y="102">Downtempo <tspan class="tiny">721</tspan></text>
+<line x1="249" y1="129" x2="283" y2="129" stroke="#6387c7" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="297" y="134">Hip Hop <tspan class="tiny">567</tspan></text>
+<line x1="249" y1="161" x2="283" y2="161" stroke="#a16bb0" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="297" y="166">Electronic <tspan class="tiny">356</tspan></text>
+<line x1="249" y1="193" x2="283" y2="193" stroke="#e6d7bd" stroke-width="7" stroke-linecap="round"/><text class="legendText" x="297" y="198">Indie &amp; Rock <tspan class="tiny">1692</tspan></text>
+<text class="tiny" x="24" y="260">Line thickness between hubs = shared tracks across crates.</text></g>
+</svg>

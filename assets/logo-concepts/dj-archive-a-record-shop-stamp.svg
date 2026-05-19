@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" role="img" aria-labelledby="title desc">
+  <title id="title">DJ Archive logo concept A - record shop stamp</title>
+  <desc id="desc">A restrained record shop stamp style DJ Archive wordmark with a circular vinyl mark.</desc>
+  <defs>
+    <style>
+      .paper{fill:#f0e7d2}
+      .ink{fill:#111118}
+      .line{stroke:#111118;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .fine{stroke:#111118;stroke-width:1.5;fill:none;opacity:.72}
+      .small{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:12px;font-weight:600;letter-spacing:2.6px}
+      .word{font-family:Inter,Arial,sans-serif;font-size:40px;font-weight:850;letter-spacing:3px}
+    </style>
+  </defs>
+  <rect width="520" height="180" rx="18" fill="#0a0a0f"/>
+  <g transform="translate(31 24)">
+    <rect x="0" y="0" width="458" height="132" rx="8" fill="none" stroke="#f0e7d2" stroke-width="2.8" opacity=".94"/>
+    <rect x="10" y="10" width="438" height="112" rx="4" fill="none" stroke="#f0e7d2" stroke-width="1.2" opacity=".38"/>
+    <g transform="translate(28 22)">
+      <circle cx="44" cy="44" r="38" class="line" stroke="#f0e7d2"/>
+      <circle cx="44" cy="44" r="25" class="fine" stroke="#f0e7d2"/>
+      <circle cx="44" cy="44" r="10" fill="none" stroke="#e8a040" stroke-width="3"/>
+      <circle cx="44" cy="44" r="3.5" fill="#40e8d0"/>
+      <path d="M16 79h56" stroke="#f0e7d2" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+    </g>
+    <g transform="translate(126 36)">
+      <text class="word" x="0" y="38" fill="#f0e7d2">DJ ARCHIVE</text>
+      <path d="M2 53h278" stroke="#e8a040" stroke-width="3" stroke-linecap="round"/>
+      <text class="small" x="2" y="78" fill="#b8ad97">SELECTED BY EAR</text>
+    </g>
+  </g>
+</svg>

@@ -15,6 +15,7 @@ p{font-size:0.9em;color:#aaa;margin-bottom:24px;line-height:1.5}
 .copy-btn{background:#333;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:0.85em;cursor:pointer;margin-top:12px}
 .copy-btn:hover{background:#444}
 .step{color:#888;font-size:0.8em;margin-top:16px}
+.error{color:#e84060;font-weight:600;margin-top:16px}
 .hidden{display:none}
 </style>
 </head>
@@ -24,8 +25,8 @@ p{font-size:0.9em;color:#aaa;margin-bottom:24px;line-height:1.5}
   <p>Click below to connect your Spotify account. This grabs a temporary access token for the DJ Archive matcher.</p>
 
   <div id="pre-auth">
-    <a class="btn" id="auth-btn" href="#">Connect to Spotify</a>
-    <div class="step">Uses Spotify's implicit grant flow. Token expires in 1 hour.</div>
+    <a class="btn" id="auth-btn" href="#" onclick="startAuth(event)">Connect to Spotify</a>
+    <div class="step">Uses Spotify's PKCE auth flow. Token expires in 1 hour.</div>
   </div>
 
   <div id="post-auth" class="hidden">
@@ -37,35 +38,96 @@ p{font-size:0.9em;color:#aaa;margin-bottom:24px;line-height:1.5}
       Token expires in ~1 hour.
     </div>
   </div>
+
+  <div id="error-msg" class="error hidden"></div>
 </div>
 
 <script>
-// Using Spotify's implicit grant with a public client
-// This is a common public client ID used for local tools
 const CLIENT_ID = '6eab28ca0e1f4a6e81ad64dc46c37a2a';
 const REDIRECT_URI = window.location.href.split('#')[0].split('?')[0];
 const SCOPES = 'user-library-read playlist-read-private';
 
-document.getElementById('auth-btn').href =
-  'https://accounts.spotify.com/authorize?' +
-  'client_id=' + CLIENT_ID +
-  '&response_type=token' +
-  '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
-  '&scope=' + encodeURIComponent(SCOPES) +
-  '&show_dialog=true';
+// PKCE helpers
+function generateRandomString(length) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  const arr = new Uint8Array(length);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, b => chars[b % chars.length]).join('');
+}
 
-// Check if we're returning from auth
-if (window.location.hash) {
-  const params = new URLSearchParams(window.location.hash.substring(1));
-  const token = params.get('access_token');
-  if (token) {
-    document.getElementById('pre-auth').classList.add('hidden');
-    document.getElementById('post-auth').classList.remove('hidden');
-    document.getElementById('token-display').textContent = token;
-    // Clean the URL
-    history.replaceState(null, '', window.location.pathname);
+async function sha256(plain) {
+  const encoder = new TextEncoder();
+  return crypto.subtle.digest('SHA-256', encoder.encode(plain));
+}
+
+function base64urlEncode(buffer) {
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+async function startAuth(e) {
+  e.preventDefault();
+  const verifier = generateRandomString(64);
+  sessionStorage.setItem('pkce_verifier', verifier);
+  const challenge = base64urlEncode(await sha256(verifier));
+  const url = 'https://accounts.spotify.com/authorize?' +
+    'client_id=' + CLIENT_ID +
+    '&response_type=code' +
+    '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+    '&scope=' + encodeURIComponent(SCOPES) +
+    '&code_challenge_method=S256' +
+    '&code_challenge=' + challenge +
+    '&show_dialog=true';
+  window.location.href = url;
+}
+
+// Handle callback — exchange code for token
+async function handleCallback() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const error = params.get('error');
+  if (error) {
+    document.getElementById('error-msg').textContent = 'Auth error: ' + error;
+    document.getElementById('error-msg').classList.remove('hidden');
+    return;
+  }
+  if (!code) return;
+  const verifier = sessionStorage.getItem('pkce_verifier');
+  if (!verifier) {
+    document.getElementById('error-msg').textContent = 'Missing PKCE verifier. Try again.';
+    document.getElementById('error-msg').classList.remove('hidden');
+    return;
+  }
+  try {
+    const resp = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: REDIRECT_URI,
+        client_id: CLIENT_ID,
+        code_verifier: verifier
+      })
+    });
+    const data = await resp.json();
+    if (data.access_token) {
+      document.getElementById('pre-auth').classList.add('hidden');
+      document.getElementById('post-auth').classList.remove('hidden');
+      document.getElementById('token-display').textContent = data.access_token;
+      sessionStorage.removeItem('pkce_verifier');
+      history.replaceState(null, '', window.location.pathname);
+    } else {
+      document.getElementById('error-msg').textContent = 'Token error: ' + (data.error_description || data.error || 'Unknown');
+      document.getElementById('error-msg').classList.remove('hidden');
+    }
+  } catch (err) {
+    document.getElementById('error-msg').textContent = 'Network error: ' + err.message;
+    document.getElementById('error-msg').classList.remove('hidden');
   }
 }
+
+handleCallback();
 
 function copyToken() {
   const token = document.getElementById('token-display').textContent;

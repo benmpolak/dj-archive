@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" role="img" aria-labelledby="title desc">
+  <title id="title">DJ Archive logo concept C - private pressing label</title>
+  <desc id="desc">A private pressing record label style DJ Archive logo with a circular centre label and refined wordmark.</desc>
+  <defs>
+    <style>
+      .word{font-family:Inter,Arial,sans-serif;font-size:35px;font-weight:780;letter-spacing:2.8px}
+      .mono{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:10.5px;font-weight:600;letter-spacing:2px}
+    </style>
+  </defs>
+  <rect width="520" height="180" rx="18" fill="#0a0a0f"/>
+  <g transform="translate(38 18)">
+    <circle cx="72" cy="72" r="66" fill="#101018" stroke="#2a2a37" stroke-width="2"/>
+    <circle cx="72" cy="72" r="55" fill="none" stroke="#1f1f2c" stroke-width="2"/>
+    <circle cx="72" cy="72" r="42" fill="#e8a040"/>
+    <circle cx="72" cy="72" r="31" fill="#111118"/>
+    <circle cx="72" cy="72" r="18" fill="#f0e7d2"/>
+    <circle cx="72" cy="72" r="4" fill="#111118"/>
+    <path d="M47 72h50" stroke="#111118" stroke-width="2.8" stroke-linecap="round" opacity=".35"/>
+    <path d="M58 57c8-6 20-6 28 0M58 87c8 6 20 6 28 0" stroke="#40e8d0" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(168 50)">
+    <text class="word" x="0" y="34" fill="#f0e7d2">DJ ARCHIVE</text>
+    <text class="mono" x="2" y="59" fill="#e8a040">PRIVATE COLLECTION</text>
+    <path d="M2 75h236" stroke="#2f2f3e" stroke-width="2" stroke-linecap="round"/>
+    <text class="mono" x="2" y="97" fill="#7f8496">FOURTEEN YEARS OF LISTENING</text>
+  </g>
+</svg>
