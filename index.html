@@ -91,7 +91,7 @@
   .qt-scope input{accent-color:var(--accent)}
   .cc-quick-actions{display:flex;gap:6px;margin-top:4px}
   .cc-quick-btn{padding:5px 12px;border-radius:8px;font-size:0.72em;cursor:pointer;background:var(--card2);border:1px solid var(--border);color:var(--dim);transition:all 0.15s;font-weight:500}
-  .cc-quick-btn:hover{border-color:var(--accent);color:var(--text)}
+  .cc-quick-btn:hover{border-color:var(--accent);color:var(--text)}.cc-quick-btn.stats-hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0a0f;border:none;font-weight:700;padding:5px 16px;box-shadow:0 2px 10px rgba(232,160,64,0.35)}.cc-quick-btn.stats-hero:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,160,64,0.55);color:#0a0a0f}
   .search-box::placeholder{color:var(--dim)}
   .genre-search{width:100%;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:0.75em;outline:none;margin-bottom:4px}
   .genre-chips-wrap{max-height:120px;overflow-y:auto}
@@ -581,7 +581,7 @@
         <div class="cc-quick-actions">
           <button class="cc-quick-btn" onclick="generateSet()">🎲 Random Mix</button>
           <button class="cc-quick-btn" onclick="shuffleFiltered()">🔀 Shuffle</button>
-          <button class="cc-quick-btn" onclick="openStatsDash()">📊 Stats</button>
+          <button class="cc-quick-btn stats-hero" onclick="openStatsDash()">📊 Stats</button>
           <button class="cc-quick-btn" id="rediscover-btn" onclick="showRediscover()">Rediscover</button>
         </div>
         <div class="cc-dig-inline" id="cc-dig-inline" style="display:none">
@@ -2542,6 +2542,21 @@ function openStatsDash(){
   var digMaxD=Math.max.apply(null,digDOW.map(function(x){return x[1]}));
   var digMaxH=Math.max.apply(null,digHour);
   var digMaxM=Math.max.apply(null,digMonth.map(function(x){return x[1]}));
+  /* --- Depth stats (added) --- */
+  var topArtists=Object.entries(artistCounts).sort(function(a,b){return b[1]-a[1]}).slice(0,12);
+  var maxArtist=topArtists.length?topArtists[0][1]:1;
+  var vibeCounts={};DATA.forEach(function(t){var vv=(t.vb||'').trim();if(vv)vibeCounts[vv]=(vibeCounts[vv]||0)+1;});
+  var vibePairs=Object.entries(vibeCounts).sort(function(a,b){return b[1]-a[1]});
+  var maxVibe=vibePairs.length?vibePairs[0][1]:1;
+  var crateCounts={};DATA.forEach(function(t){(t.c||[]).forEach(function(cc){if(cc!=='Uncategorized'&&cc!=='Uncategorised')crateCounts[cc]=(crateCounts[cc]||0)+1;});});
+  var cratePairs=Object.entries(crateCounts).sort(function(a,b){return b[1]-a[1]});
+  var maxCrate=cratePairs.length?cratePairs[0][1]:1;
+  var distinctGenres=Object.keys(genreCounts).length;
+  var deepCuts=DATA.filter(function(t){var p=+t.p||0;return p>0&&p<20;}).length;
+  var deepPct=Math.round(deepCuts/total*100);
+  var oldest=DATA.reduce(function(m,t){var y=+t.r||0;return (y>1900&&(!m||y<m.r))?{r:y,a:t.a,t:t.t}:m;},null);
+  var gaps=[];DATA.forEach(function(t){var r=+t.r||0;var y=t.da?Math.floor(t.da/100):0;if(r>1900&&y>2000&&y>=r)gaps.push(y-r);});
+  gaps.sort(function(a,b){return a-b});var medGap=gaps.length?gaps[Math.floor(gaps.length/2)]:0;
   var h='<span class="sd-close" onclick="closeStatsDash()">✕</span>';
   h+='<h2>Your Collection</h2>';
   /* Big numbers row */
@@ -2620,6 +2635,34 @@ function openStatsDash(){
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'</span></div>';
   });
   h+='</div>';
+  /* Signature Artists section (added) */
+  h+='<div class="sd-section"><h3>Signature Artists</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Most-collected across the archive</div>';
+  topArtists.forEach(function(p,i){var pct=Math.round(p[1]/maxArtist*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'</span></div>';
+  });
+  h+='</div>';
+  /* By Crate section (added) */
+  h+='<div class="sd-section"><h3>By Crate</h3>';
+  cratePairs.forEach(function(p,i){var pct=Math.round(p[1]/maxCrate*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
+  });
+  h+='</div>';
+  /* Mood Map section (added) */
+  h+='<div class="sd-section"><h3>Mood Map</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Your collection by vibe</div>';
+  vibePairs.forEach(function(p,i){var pct=Math.round(p[1]/maxVibe*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
+  });
+  h+='</div>';
+  /* Deeper Cuts flavour (added) */
+  h+='<div class="sd-section"><h3>Deeper Cuts</h3>';
+  h+='<div style="display:flex;flex-direction:column;gap:10px;font-size:0.85em;line-height:1.5;color:var(--text)">';
+  h+='<p>You span <b style="color:var(--accent2)">'+distinctGenres.toLocaleString()+'</b> distinct genres.</p>';
+  h+='<p><b style="color:var(--accent)">'+deepPct+'%</b> of your picks are deep cuts &mdash; Spotify popularity under 20. You back the underdogs.</p>';
+  if(oldest)h+='<p>Your oldest track: <b style="color:var(--accent)">'+oldest.a+' &mdash; '+oldest.t+'</b> ('+oldest.r+').</p>';
+  h+='<p>Typical gap from a track being released to you adding it: <b style="color:var(--accent2)">'+medGap+' year'+(medGap===1?'':'s')+'</b>.</p>';
+  h+='</div></div>';
   /* Vinyl Collection section */
   h+='<div class="sd-section"><h3>The Vinyl Collection</h3>';
   h+='<div class="sd-grid">';
