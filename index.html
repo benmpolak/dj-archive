@@ -2575,8 +2575,6 @@ function openStatsDash(){
   var lcDOW=[['Mon',9080],['Tue',8788],['Wed',9067],['Thu',8510],['Fri',9750],['Sat',4990],['Sun',5660]];
   var lcMaxD=Math.max.apply(null,lcDOW.map(function(x){return x[1]}));
   var lcDeliberate=40;
-  var skipList=[['Parov Stelar','Catgroove',463],['Paul Simon','You Can Call Me Al',81],['Bobby Womack','Across 110th Street',73],['Prince','Raspberry Beret',73],['Earth, Wind & Fire','Sun Goddess',71],["The O'Jays",'I Love Music',67],['Todd Terje','Strandbar (disko)',65],['CHIC','I Want Your Love',65],["The O'Jays",'Back Stabbers',64],['The Doobie Brothers','What a Fool Believes',64]];
-  var skipMax=skipList[0][2];
   var forgotten=DATA.filter(function(t){return t.pc>=8&&t.lp&&t.lp<202505;}).sort(function(a,b){return b.pc-a.pc}).slice(0,12);
   var fMax=forgotten.length?forgotten[0].pc:1;
   var evergreen=DATA.filter(function(t){return t.pc>=10&&t.fp&&t.lp;}).map(function(t){return {t:t,span:Math.floor(t.lp/100)-Math.floor(t.fp/100)};}).filter(function(x){return x.span>=5;}).sort(function(a,b){return b.span-a.span||b.t.pc-a.t.pc}).slice(0,12);
@@ -2747,13 +2745,6 @@ function openStatsDash(){
     });
     h+='</div>';
   }
-  /* Most Skipped (added, snapshot) */
-  h+='<div class="sd-section"><h3>Most Skipped</h3>';
-  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">The ones you skip every time. Honesty hurts.</div>';
-  skipList.forEach(function(s,i){var pct=Math.round(s[2]/skipMax*100);
-    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+s[0]+' — '+s[1]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+s[2]+'</span></div>';
-  });
-  h+='</div>';
   /* Artist of the Year (added, snapshot) */
   h+='<div class="sd-section"><h3>Artist of the Year</h3>';
   h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Your most-played artist each year &middot; from your listening history</div>';
