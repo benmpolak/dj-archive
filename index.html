@@ -2598,6 +2598,11 @@ function openStatsDash(){
   var ugDeepPct=_tot?Math.round(100*_deep/_tot):0;
   var ug=DATA.filter(function(t){return (t.pc||0)>=8&&t.p>=0&&t.p<=10;}).sort(function(a,b){return b.pc-a.pc}).slice(0,14);
   var ugMax=ug.length?ug[0].pc:1;
+  /* --- Listening more (added) --- */
+  var hoursYr=[["2012", 128], ["2013", 258], ["2014", 249], ["2015", 232], ["2016", 262], ["2017", 258], ["2018", 267], ["2019", 322], ["2020", 333], ["2021", 231], ["2022", 201], ["2023", 184], ["2024", 174], ["2025", 180], ["2026", 62]];
+  var hoursMax=Math.max.apply(null,hoursYr.map(function(x){return x[1]}));
+  var trackYr=[["2012", "Wilson Simonal — Crioula · 17x"], ["2013", "Evergreen — Baby Blue · 22x"], ["2014", "Future Islands — Seasons (Waiting On You) · 29x"], ["2015", "Hiatus Kaiyote — Fingerprints · 21x"], ["2016", "Anderson .Paak — Put Me Thru · 27x"], ["2017", "Thundercat — Show You The Way · 18x"], ["2018", "Kali Uchis — Tyrant · 20x"], ["2019", "Liquideep — Angel (DJ Spen mix) · 21x"], ["2020", "Caserta — Luther (King Street Mix) · 17x"], ["2021", "Emma-Jean Thackray — Say Something · 24x"], ["2022", "Yard Act — 100% Endurance · 17x"], ["2023", "Rogê — Pra Vida · 19x"], ["2024", "Everton FC — Spirit Of The Blues · 43x"], ["2025", "Kendrick Lamar — luther (with sza) · 28x"], ["2026", "Everton FC — Spirit Of The Blues · 13x so far"]];
+  var obsess=[["Dec '14", "Future Islands — Seasons (Waiting On You) · 29x"], ["Jan '24", "Everton FC — Spirit Of The Blues · 22x"], ["Dec '14", "Spoon — Do You · 18x"], ["Aug '13", "Evergreen — Baby Blue · 18x"], ["Feb '20", "Ed O'Brien — Brasil · 15x"], ["Jul '16", "The Avalanches — Because I'm Me · 15x"], ["Dec '14", "Bonobo — Return to Air · 15x"], ["Sep '12", "Theme Park — Jamaica · 15x"], ["Jul '22", "Yard Act — 100% Endurance · 14x"], ["Aug '19", "Theo Parrish — What You Gonna Ask For · 14x"]];
   var h='<span class="sd-close" onclick="closeStatsDash()">✕</span>';
   h+='<h2>Your Collection</h2>';
   /* Big numbers row */
@@ -2807,6 +2812,27 @@ function openStatsDash(){
     });
     h+='</div>';
   }
+  /* Hours Per Year (added, listening) */
+  h+='<div class="sd-section" data-tab="listening"><h3>Hours Per Year</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Time on your own collection each year &middot; peaked in the 2020 lockdown</div>';
+  hoursYr.forEach(function(p,i){var pct=Math.round(p[1]/hoursMax*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'h</span></div>';
+  });
+  h+='</div>';
+  /* Track of the Year (added, listening) */
+  h+='<div class="sd-section" data-tab="listening"><h3>Track of the Year</h3>';
+  h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Your single most-played track each year (your crates only)</div>';
+  trackYr.slice().reverse().forEach(function(p){
+    h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">'+p[1]+'</span></div>';
+  });
+  h+='</div>';
+  /* Biggest Obsessions (added, listening) */
+  h+='<div class="sd-section" data-tab="listening"><h3>Biggest Obsessions</h3>';
+  h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Most you played one track in a single month</div>';
+  obsess.forEach(function(p){
+    h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent2)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">'+p[1]+'</span></div>';
+  });
+  h+='</div>';
   /* Vinyl Collection section */
   h+='<div class="sd-section" data-tab="vinyl"><h3>The Vinyl Collection</h3>';
   h+='<div class="sd-grid">';
