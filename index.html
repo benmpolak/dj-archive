@@ -91,7 +91,7 @@
   .qt-scope input{accent-color:var(--accent)}
   .cc-quick-actions{display:flex;gap:6px;margin-top:4px}
   .cc-quick-btn{padding:5px 12px;border-radius:8px;font-size:0.72em;cursor:pointer;background:var(--card2);border:1px solid var(--border);color:var(--dim);transition:all 0.15s;font-weight:500}
-  .cc-quick-btn:hover{border-color:var(--accent);color:var(--text)}.cc-quick-btn.stats-hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0a0f;border:none;font-weight:700;padding:5px 16px;box-shadow:0 2px 10px rgba(232,160,64,0.35)}.cc-quick-btn.stats-hero:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,160,64,0.55);color:#0a0a0f}.pc-badge{font-size:0.7em;color:var(--accent);background:var(--card2);border-radius:6px;padding:1px 5px;margin-left:6px;font-family:'JetBrains Mono',monospace;white-space:nowrap;vertical-align:middle}
+  .cc-quick-btn:hover{border-color:var(--accent);color:var(--text)}.cc-quick-btn.stats-hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0a0f;border:none;font-weight:700;padding:5px 16px;box-shadow:0 2px 10px rgba(232,160,64,0.35)}.cc-quick-btn.stats-hero:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,160,64,0.55);color:#0a0a0f}.pc-badge{font-size:0.7em;color:var(--accent);background:var(--card2);border-radius:6px;padding:1px 5px;margin-left:6px;font-family:'JetBrains Mono',monospace;white-space:nowrap;vertical-align:middle}.sd-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}.sd-tab{padding:6px 14px;border-radius:20px;font-size:0.8em;cursor:pointer;background:var(--card2);border:1px solid var(--border);color:var(--dim);font-weight:600}.sd-tab:hover{border-color:var(--accent);color:var(--text)}.sd-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0a0f;border:none}
   .search-box::placeholder{color:var(--dim)}
   .genre-search{width:100%;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:0.75em;outline:none;margin-bottom:4px}
   .genre-chips-wrap{max-height:120px;overflow-y:auto}
@@ -2608,7 +2608,7 @@ function openStatsDash(){
   h+='<div class="sd-card"><div class="sd-num" style="color:#1DB954">'+linkedCount.toLocaleString()+'</div><div class="sd-label">Spotify Linked</div></div>';
   h+='</div>';
   /* Insights — the good stuff */
-  h+='<div class="sd-section"><h3>The Story</h3>';
+  h+='<div class="sd-tabs"><div class="sd-tab active" data-st="collection">Collection</div><div class="sd-tab" data-st="listening">Listening</div><div class="sd-tab" data-st="taste">Taste</div><div class="sd-tab" data-st="timeline">Timeline</div><div class="sd-tab" data-st="vinyl">Vinyl</div></div><div class="sd-section" data-tab="collection"><h3>The Story</h3>';
   h+='<div style="display:flex;flex-direction:column;gap:10px;font-size:0.85em;line-height:1.5;color:var(--text)">';
   h+='<p>'+vinylPct+'% of the archive is on vinyl — '+vinylCount.toLocaleString()+' tracks you can hold in your hands.</p>';
   if(topDecade)h+='<p>Your heaviest decade is the <b style="color:var(--accent)">'+topDecade[0]+'</b> with '+topDecade[1].toLocaleString()+' tracks — '+Math.round(topDecade[1]/total*100)+'% of the collection.</p>';
@@ -2619,21 +2619,21 @@ function openStatsDash(){
   h+='<p>'+oneHitPct+'% of artists appear only once. '+oneHits.toLocaleString()+' one-track wonders — that\'s a lot of digging.</p>';
   h+='</div></div>';
   /* Decades — compact visual */
-  h+='<div class="sd-section"><h3>By Decade</h3>';
+  h+='<div class="sd-section" data-tab="collection"><h3>By Decade</h3>';
   decades.forEach(function(pair,i){
     var pct=Math.round(pair[1]/maxDecade*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+pair[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+pair[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
   /* Archive growth — compact visual */
-  h+='<div class="sd-section"><h3>When You Added It</h3><div style=\'font-size:0.72em;color:var(--dim);margin:-4px 0 8px\'>Excludes two bulk back-catalogue imports (2010, Feb 2019)</div>';
+  h+='<div class="sd-section" data-tab="timeline"><h3>When You Added It</h3><div style=\'font-size:0.72em;color:var(--dim);margin:-4px 0 8px\'>Excludes two bulk back-catalogue imports (2010, Feb 2019)</div>';
   addedYears.forEach(function(pair,i){
     var pct=Math.round(pair[1]/maxAdded*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+pair[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+pair[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
   /* Taste Drift section (added) */
-  h+='<div class="sd-section"><h3>How Your Taste Drifted</h3>';
+  h+='<div class="sd-section" data-tab="taste"><h3>How Your Taste Drifted</h3>';
   if(dFirst&&dLast){
     h+='<div style="font-size:0.85em;line-height:1.5;color:var(--text);margin-bottom:12px">';
     h+='<p>Your picks moved from <b style="color:var(--accent)">'+Math.round(dFirst.tp)+' BPM</b> in '+driftYears[0]+' to <b style="color:var(--accent)">'+Math.round(dLast.tp)+' BPM</b> in '+driftYears[driftYears.length-1]+', while instrumentalness climbed from <b style="color:var(--accent2)">'+dFirst.ins.toFixed(2)+'</b> to <b style="color:var(--accent2)">'+dLast.ins.toFixed(2)+'</b> &mdash; slower, deeper, more instrumental over time.</p>';
@@ -2653,14 +2653,14 @@ function openStatsDash(){
   });
   h+='</div>';
   /* Genre by Year section (added) */
-  h+='<div class="sd-section"><h3>Genre by Year</h3>';
+  h+='<div class="sd-section" data-tab="taste"><h3>Genre by Year</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Top genre you added each year</div>';
   genreYearTop.forEach(function(pair){
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+pair[0]+'</span><span style="flex:1;color:var(--text);font-size:0.85em;text-transform:capitalize">'+pair[1]+'</span></div>';
   });
   h+='</div>';
   /* When You Dig section (snapshot) */
-  h+='<div class="sd-section"><h3>When You Dig</h3>';
+  h+='<div class="sd-section" data-tab="timeline"><h3>When You Dig</h3>';
   h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Snapshot from playlist exports &middot; times UTC &middot; as of May 2026</div>';
   h+='<div style="font-size:0.85em;line-height:1.5;color:var(--text);margin-bottom:12px"><p>You dig on <b style="color:var(--accent)">weekdays</b> &mdash; Monday heaviest, Saturday quietest &mdash; in two windows: <b style="color:var(--accent2)">late morning to lunch</b> and around <b style="color:var(--accent2)">9pm</b>. Spring is your busiest stretch.</p></div>';
   h+='<h4 style="margin-top:8px;margin-bottom:6px;font-size:0.8em;color:var(--dim)">By day of week</h4>';
@@ -2677,27 +2677,27 @@ function openStatsDash(){
   });
   h+='</div>';
   /* Signature Artists section (added) */
-  h+='<div class="sd-section"><h3>Signature Artists</h3>';
+  h+='<div class="sd-section" data-tab="collection"><h3>Signature Artists</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Most-collected across the archive</div>';
   topArtists.forEach(function(p,i){var pct=Math.round(p[1]/maxArtist*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'</span></div>';
   });
   h+='</div>';
   /* By Crate section (added) */
-  h+='<div class="sd-section"><h3>By Crate</h3>';
+  h+='<div class="sd-section" data-tab="collection"><h3>By Crate</h3>';
   cratePairs.forEach(function(p,i){var pct=Math.round(p[1]/maxCrate*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
   /* Mood Map section (added) */
-  h+='<div class="sd-section"><h3>Mood Map</h3>';
+  h+='<div class="sd-section" data-tab="taste"><h3>Mood Map</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Your collection by vibe</div>';
   vibePairs.forEach(function(p,i){var pct=Math.round(p[1]/maxVibe*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
   /* Deeper Cuts flavour (added) */
-  h+='<div class="sd-section"><h3>Deeper Cuts</h3>';
+  h+='<div class="sd-section" data-tab="collection"><h3>Deeper Cuts</h3>';
   h+='<div style="display:flex;flex-direction:column;gap:10px;font-size:0.85em;line-height:1.5;color:var(--text)">';
   h+='<p>You span <b style="color:var(--accent2)">'+distinctGenres.toLocaleString()+'</b> distinct genres.</p>';
   h+='<p><b style="color:var(--accent)">'+deepPct+'%</b> of your picks are deep cuts &mdash; Spotify popularity under 20. You back the underdogs.</p>';
@@ -2705,7 +2705,7 @@ function openStatsDash(){
   h+='<p>Typical gap from a track being released to you adding it: <b style="color:var(--accent2)">'+medGap+' year'+(medGap===1?'':'s')+'</b>.</p>';
   h+='</div></div>';
   /* Most Played section (added) */
-  h+='<div class="sd-section"><h3>Most Played</h3>';
+  h+='<div class="sd-section" data-tab="listening"><h3>Most Played</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">'+totalPlays.toLocaleString()+' plays across '+played.length.toLocaleString()+' of your tracks &middot; from your Spotify listening history</div>';
   mostPlayed.forEach(function(t,i){var pct=Math.round(t.pc/maxPlay*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+t.a.split(';')[0]+' — '+t.t+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+t.pc+'</span></div>';
@@ -2716,7 +2716,7 @@ function openStatsDash(){
   });
   h+='</div>';
   /* Listening Clock (added, snapshot from streaming history) */
-  h+='<div class="sd-section"><h3>Your Listening Clock</h3>';
+  h+='<div class="sd-section" data-tab="listening"><h3>Your Listening Clock</h3>';
   h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">When you actually listen &middot; from your Spotify history &middot; '+lcDeliberate+'% deliberate, the rest on shuffle</div>';
   h+='<h4 style="margin:8px 0 6px;font-size:0.8em;color:var(--dim)">By hour</h4>';
   lcHours.forEach(function(c,hh){var pct=Math.round(c/lcMaxH*100);var lbl=(hh<10?'0':'')+hh+':00';
@@ -2729,7 +2729,7 @@ function openStatsDash(){
   h+='</div>';
   /* Forgotten Loves (added, live) */
   if(forgotten.length){
-    h+='<div class="sd-section"><h3>Forgotten Loves</h3>';
+    h+='<div class="sd-section" data-tab="listening"><h3>Forgotten Loves</h3>';
     h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Played to death once, not touched in over a year. Worth a revisit.</div>';
     forgotten.forEach(function(t,i){var pct=Math.round(t.pc/fMax*100);
       h+='<div class="sd-bar-row"><span class="sd-bar-label">'+t.a.split(';')[0]+' — '+t.t+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+t.pc+'</span></div>';
@@ -2738,7 +2738,7 @@ function openStatsDash(){
   }
   /* Evergreens (added, live) */
   if(evergreen.length){
-    h+='<div class="sd-section"><h3>Evergreens</h3>';
+    h+='<div class="sd-section" data-tab="listening"><h3>Evergreens</h3>';
     h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Still in rotation years after you found them &middot; years between first and last play</div>';
     evergreen.forEach(function(x,i){
       h+='<div class="sd-bar-row"><span class="sd-bar-label">'+x.t.a.split(';')[0]+' — '+x.t.t+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+Math.round(x.span/12*100)+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+x.span+'y &middot; '+x.t.pc+'</span></div>';
@@ -2746,21 +2746,21 @@ function openStatsDash(){
     h+='</div>';
   }
   /* Artist of the Year (added, snapshot) */
-  h+='<div class="sd-section"><h3>Artist of the Year</h3>';
+  h+='<div class="sd-section" data-tab="taste"><h3>Artist of the Year</h3>';
   h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Your most-played artist each year &middot; from your listening history</div>';
   aoty.slice().reverse().forEach(function(p){
     h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">'+p[1]+'</span></div>';
   });
   h+='</div>';
   /* Your Range (added, snapshot) */
-  h+='<div class="sd-section"><h3>Your Range</h3>';
+  h+='<div class="sd-section" data-tab="timeline"><h3>Your Range</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Different tracks you played each year &middot; 31,605 distinct tracks / 9,501 artists all-time</div>';
   rangeY.forEach(function(p,i){var pct=Math.round(p[1]/rangeMax*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
   /* Listening by Season (added, snapshot) */
-  h+='<div class="sd-section"><h3>Listening by Season</h3>';
+  h+='<div class="sd-section" data-tab="timeline"><h3>Listening by Season</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Plays by month &middot; you listen evenly year-round (unlike your spring-heavy digging)</div>';
   seasonM.forEach(function(p,i){var pct=Math.round(p[1]/seasonMax*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
@@ -2768,7 +2768,7 @@ function openStatsDash(){
   h+='</div>';
   /* You Were Early (added, live) */
   if(early.length){
-    h+='<div class="sd-section"><h3>You Were Early</h3>';
+    h+='<div class="sd-section" data-tab="taste"><h3>You Were Early</h3>';
     h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Played to bits, yet barely anyone else has — low Spotify popularity. You back the underdogs.</div>';
     early.forEach(function(t,i){var pct=Math.round(t.pc/earlyMax*100);
       h+='<div class="sd-bar-row"><span class="sd-bar-label">'+t.a.split(';')[0]+' — '+t.t+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+t.pc+' · p'+t.p+'</span></div>';
@@ -2776,14 +2776,14 @@ function openStatsDash(){
     h+='</div>';
   }
   /* Ride or Die (added, snapshot) */
-  h+='<div class="sd-section"><h3>Ride or Die</h3>';
+  h+='<div class="sd-section" data-tab="taste"><h3>Ride or Die</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Artists you\'ve played every year, for years &middot; distinct years they appear in your listening</div>';
   rideOrDie.forEach(function(p,i){var pct=Math.round(p[1]/15*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'y</span></div>';
   });
   h+='</div>';
   /* By The Numbers (added, snapshot) */
-  h+='<div class="sd-section"><h3>By The Numbers</h3>';
+  h+='<div class="sd-section" data-tab="listening"><h3>By The Numbers</h3>';
   h+='<div style="display:flex;flex-direction:column;gap:10px;font-size:0.85em;line-height:1.5;color:var(--text)">';
   h+='<p><b style="color:var(--accent)">308,727</b> streams logged since 2012.</p>';
   h+='<p><b style="color:var(--accent)">5,790 hours</b> of listening — 241 days solid.</p>';
@@ -2792,7 +2792,7 @@ function openStatsDash(){
   h+='<p>You skip roughly <b style="color:var(--accent)">1 in 3</b> of what comes on. Ruthless.</p>';
   h+='</div></div>';
   /* New Discoveries (added, snapshot) */
-  h+='<div class="sd-section"><h3>New Discoveries</h3>';
+  h+='<div class="sd-section" data-tab="listening"><h3>New Discoveries</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">New artists you heard for the first time each year &middot; you never stop digging</div>';
   newDisc.forEach(function(p,i){var pct=Math.round(p[1]/ndMax*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
@@ -2800,7 +2800,7 @@ function openStatsDash(){
   h+='</div>';
   /* The Underground (added, live) */
   if(ug.length){
-    h+='<div class="sd-section"><h3>The Underground</h3>';
+    h+='<div class="sd-section" data-tab="taste"><h3>The Underground</h3>';
     h+='<div style="font-size:0.85em;line-height:1.5;color:var(--text);margin-bottom:10px"><b style="color:var(--accent)">'+ugDeepPct+'%</b> of your listening is on tracks the world barely knows, and your play-weighted average popularity is <b style="color:var(--accent2)">'+ugAvgPop+'/100</b>. You live in the crates. These are the deepest you spin:</div>';
     ug.forEach(function(t,i){var pct=Math.round(t.pc/ugMax*100);
       h+='<div class="sd-bar-row"><span class="sd-bar-label">'+t.a.split(';')[0]+' — '+t.t+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+t.pc+' · p'+t.p+'</span></div>';
@@ -2808,7 +2808,7 @@ function openStatsDash(){
     h+='</div>';
   }
   /* Vinyl Collection section */
-  h+='<div class="sd-section"><h3>The Vinyl Collection</h3>';
+  h+='<div class="sd-section" data-tab="vinyl"><h3>The Vinyl Collection</h3>';
   h+='<div class="sd-grid">';
   h+='<div class="sd-card"><div class="sd-num" style="color:var(--accent)">'+vinylCount.toLocaleString()+'</div><div class="sd-label">Tracks</div></div>';
   h+='<div class="sd-card"><div class="sd-num" style="color:var(--accent2)">'+vinylArtistCount.toLocaleString()+'</div><div class="sd-label">Artists</div></div>';
@@ -2830,9 +2830,10 @@ function openStatsDash(){
   });
   h+='</div>';
   h+='<div style="text-align:center;color:var(--dim);font-size:0.72em;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)">14 years of digging · Every track chosen by ear</div>';
-  dash.innerHTML=h;
+  dash.innerHTML=h;dash.querySelectorAll('.sd-tab').forEach(function(b){b.onclick=function(){selectStatsTab(b.getAttribute('data-st'))}});selectStatsTab('collection');
   q('#stats-dash-overlay').classList.add('visible');
 }
+function selectStatsTab(tab){var d=document.getElementById('stats-dash');d.querySelectorAll('.sd-section').forEach(function(s){s.style.display=(s.getAttribute('data-tab')===tab)?'':'none'});d.querySelectorAll('.sd-tab').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-st')===tab)});}
 function closeStatsDash(){q('#stats-dash-overlay').classList.remove('visible')}
 
 /* === ARTIST MAP — interactive network visualization === */
