@@ -154,7 +154,7 @@
   .col-yr{width:3%;font-family:'JetBrains Mono',monospace;font-size:0.72em;color:var(--dim)}
   .col-da{width:7%;font-family:'JetBrains Mono',monospace;font-size:0.78em;color:var(--accent2);font-weight:600;white-space:nowrap}
   .mob-da{display:none}
-  .col-bpm{width:4%;font-family:'JetBrains Mono',monospace;font-size:0.72em;text-align:right}
+  .col-bpm{width:4%;font-family:'JetBrains Mono',monospace;font-size:0.72em;text-align:right}.col-pc{width:4%;font-family:'JetBrains Mono',monospace;font-size:0.72em;text-align:right;color:var(--accent)}
   .col-vb{width:9%} .col-cr{width:12%} .col-gr{width:12%}
   .play-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1DB954;color:#000;text-decoration:none;font-size:0.65em;font-weight:700;transition:all 0.12s}
   .play-btn:hover{background:#1ed760;transform:scale(1.15)}
@@ -334,7 +334,7 @@
     .mobile-toggle{font-size:0.82em;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
     .table-wrap{overflow-x:hidden;overflow-y:visible;-webkit-overflow-scrolling:touch} table{width:100%;min-width:0;table-layout:fixed}
     td,th{padding:8px 6px;font-size:0.78em}
-    .col-gr,.col-al,.col-yr,.col-da,.col-bpm,.col-cr{display:none}
+    .col-gr,.col-al,.col-yr,.col-da,.col-bpm,.col-pc,.col-cr{display:none}
     .col-play{width:36px} .col-a{width:34%} .col-t{width:34%} .col-vb{display:none}
     .track-sample{border-bottom:none} /* no dotted underline on mobile — touch targets differ */
     .sp-app-link{opacity:0.5!important;pointer-events:auto!important;width:16px;height:16px} /* always visible on mobile */
@@ -632,7 +632,7 @@
         <th class="col-play">▶</th>
         <th class="col-a sortable" data-sort="artist">Artist ↕</th><th class="col-t">Track</th><th class="col-al sortable" data-sort="album">Album ↕</th><th class="col-yr sortable" data-sort="year">Year ↕</th><th class="col-da sortable" data-sort="recent">Archived ↕</th>
         <th class="col-bpm sortable" data-sort="tempo">BPM ↕</th>
-        <th class="col-vb">Vibe</th><th class="col-cr">Crate</th><th class="col-gr">Genre</th>
+        <th class="col-pc sortable" data-sort="plays">Plays ↕</th><th class="col-vb">Vibe</th><th class="col-cr">Crate</th><th class="col-gr">Genre</th>
         </tr></thead>
         <tbody id="tbody"></tbody>
       </table>
@@ -817,7 +817,7 @@ function init(){
   }));
   // Clickable column headers
   document.querySelectorAll('th.sortable').forEach(th=>th.addEventListener('click',()=>{
-    const k=th.dataset.sort;if(k===sorted_key)sdir*=-1;else{sorted_key=k;sdir=k==='recent'?-1:1}
+    const k=th.dataset.sort;if(k===sorted_key)sdir*=-1;else{sorted_key=k;sdir=(k==='recent'||k.indexOf('plays')===0)?-1:1}
     document.querySelectorAll('.sort-btn').forEach(x=>x.classList.toggle('active',x.dataset.s===k));
     updateSortHeaders();
     applyFilters();
@@ -924,7 +924,7 @@ function rows(tracks,off){
     const titleHtml=isSp?'<span class="track-sample" data-sid="'+t.sid+'" title="Click to play">'+esc(t.t)+'</span>':esc(t.t);
     const editBtn='<span class="qt-edit" onclick="event.stopPropagation();openQuickTag(event,'+idx+')" title="Edit genre &amp; vibe">✎</span>';
     const mapBtn='<span class="qt-edit" onclick="event.stopPropagation();openArtistMap(\''+esc(t.a).replace(/'/g,"\\&#39;")+'\')" title="Artist map" style="margin-left:2px">🕸️</span>';
-    return '<tr data-i="'+idx+'"><td class="col-play">'+playBtn+'</td><td class="col-a"><span class="artist-link" data-artist="'+esc(t.a)+'">'+esc(t.a)+'</span>'+mapBtn+'</td><td class="col-t">'+titleHtml+spLink+vinyl+editBtn+(function(){var _v=sorted_key==='playsW'?t.pw:sorted_key==='playsM'?t.pm:sorted_key==='playsY'?t.py:t.pc;return _v?'<span class="pc-badge" title="'+_v+' plays">▶'+_v+'</span>':'';})()+(daStr?'<span class="mob-da">'+daStr+'</span>':'')+'</td><td class="col-al">'+esc(t.al||'')+'</td><td class="col-yr">'+(t.r||'')+'</td><td class="col-da">'+daStr+'</td><td class="col-bpm">'+(t.tp>0?t.tp.toFixed(0):'')+'</td><td class="col-vb"><span class="tag vibe-tag">'+t.vb+'</span></td><td class="col-cr">'+cTags+'</td><td class="col-gr">'+gTags+'</td></tr>';
+    return '<tr data-i="'+idx+'"><td class="col-play">'+playBtn+'</td><td class="col-a"><span class="artist-link" data-artist="'+esc(t.a)+'">'+esc(t.a)+'</span>'+mapBtn+'</td><td class="col-t">'+titleHtml+spLink+vinyl+editBtn+(daStr?'<span class="mob-da">'+daStr+'</span>':'')+'</td><td class="col-al">'+esc(t.al||'')+'</td><td class="col-yr">'+(t.r||'')+'</td><td class="col-da">'+daStr+'</td><td class="col-bpm">'+(t.tp>0?t.tp.toFixed(0):'')+'</td><td class="col-pc">'+(function(){var _v=sorted_key==='playsW'?t.pw:sorted_key==='playsM'?t.pm:sorted_key==='playsY'?t.py:t.pc;return _v||'';})()+'</td><td class="col-vb"><span class="tag vibe-tag">'+t.vb+'</span></td><td class="col-cr">'+cTags+'</td><td class="col-gr">'+gTags+'</td></tr>';
   }).join('');
 }
 
@@ -2580,6 +2580,12 @@ function openStatsDash(){
   var forgotten=DATA.filter(function(t){return t.pc>=8&&t.lp&&t.lp<202505;}).sort(function(a,b){return b.pc-a.pc}).slice(0,12);
   var fMax=forgotten.length?forgotten[0].pc:1;
   var evergreen=DATA.filter(function(t){return t.pc>=10&&t.fp&&t.lp;}).map(function(t){return {t:t,span:Math.floor(t.lp/100)-Math.floor(t.fp/100)};}).filter(function(x){return x.span>=5;}).sort(function(a,b){return b.span-a.span||b.t.pc-a.t.pc}).slice(0,12);
+  /* --- More stats (added, snapshot) --- */
+  var aoty=[["2012", "The xx (94) · Stevie Wonder (80) · Tame Impala (80)"], ["2013", "CHIC (150) · Daft Punk (133) · Fat Freddy's Drop (113)"], ["2014", "Real Estate (153) · Marvin Gaye (122) · Sonzeira (86)"], ["2015", "Tame Impala (140) · Marvin Gaye (126) · Kendrick Lamar (97)"], ["2016", "Radiohead (257) · Anderson .Paak (243) · The Avalanches (139)"], ["2017", "The National (160) · Erykah Badu (148) · Phoenix (132)"], ["2018", "Arctic Monkeys (121) · Kamasi Washington (87) · Leroy Hutson (80)"], ["2019", "Ashley Henry (145) · Anderson .Paak (135) · SAULT (127)"], ["2020", "SAULT (192) · Doves (158) · The Orielles (112)"], ["2021", "Emma-Jean Thackray (95) · Lewis Taylor (72) · Secret Night Gang (71)"], ["2022", "Yaya Bey (99) · Kendrick Lamar (95) · SAULT (85)"], ["2023", "Yazmin Lacey (126) · JIM (100) · Greg Foat (98)"], ["2024", "Greg Foat (159) · Jessica Pratt (65) · Ashley Henry (60)"], ["2025", "Radiohead (127) · Chaos In The CBD (108) · Kendrick Lamar (104)"], ["2026", "Maston (56) · Fabiano do Nascimento (53)  · so far"]];
+  var rangeY=[["2012", 1564, 799], ["2013", 3168, 1357], ["2014", 2621, 1142], ["2015", 2423, 1123], ["2016", 3119, 1457], ["2017", 2924, 1446], ["2018", 2986, 1406], ["2019", 3262, 1473], ["2020", 3768, 1717], ["2021", 2667, 1460], ["2022", 2589, 1344], ["2023", 2706, 1403], ["2024", 2984, 1444], ["2025", 3300, 1609], ["2026", 1651, 955]];
+  var rangeMax=Math.max.apply(null,rangeY.map(function(x){return x[1]}));
+  var seasonM=[["Jan", 7083], ["Feb", 7283], ["Mar", 8013], ["Apr", 7880], ["May", 8159], ["Jun", 7308], ["Jul", 7738], ["Aug", 7589], ["Sep", 7228], ["Oct", 8055], ["Nov", 7860], ["Dec", 8271]];
+  var seasonMax=Math.max.apply(null,seasonM.map(function(x){return x[1]}));
   var h='<span class="sd-close" onclick="closeStatsDash()">✕</span>';
   h+='<h2>Your Collection</h2>';
   /* Big numbers row */
@@ -2732,6 +2738,27 @@ function openStatsDash(){
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">The ones you skip every time. Honesty hurts.</div>';
   skipList.forEach(function(s,i){var pct=Math.round(s[2]/skipMax*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+s[0]+' — '+s[1]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+s[2]+'</span></div>';
+  });
+  h+='</div>';
+  /* Artist of the Year (added, snapshot) */
+  h+='<div class="sd-section"><h3>Artist of the Year</h3>';
+  h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Your most-played artist each year &middot; from your listening history</div>';
+  aoty.slice().reverse().forEach(function(p){
+    h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">'+p[1]+'</span></div>';
+  });
+  h+='</div>';
+  /* Your Range (added, snapshot) */
+  h+='<div class="sd-section"><h3>Your Range</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Different tracks you played each year &middot; 31,605 distinct tracks / 9,501 artists all-time</div>';
+  rangeY.forEach(function(p,i){var pct=Math.round(p[1]/rangeMax*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
+  });
+  h+='</div>';
+  /* Listening by Season (added, snapshot) */
+  h+='<div class="sd-section"><h3>Listening by Season</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Plays by month &middot; you listen evenly year-round (unlike your spring-heavy digging)</div>';
+  seasonM.forEach(function(p,i){var pct=Math.round(p[1]/seasonMax*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
   /* Vinyl Collection section */
