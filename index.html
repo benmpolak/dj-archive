@@ -2607,6 +2607,10 @@ function openStatsDash(){
   var ageBias=[["within 3 months", 69], ["3–12 months", 10], ["1–3 years", 8], ["3+ years", 12]];
   var ageMax=Math.max.apply(null,ageBias.map(function(x){return x[1]}));
   var crateLO=[["Jazz", 19, 21], ["Soul & R&B", 16, 14], ["Disco & Boogie", 14, 15], ["House", 14, 13], ["Indie & Rock", 10, 9], ["Funk", 8, 8], ["Brazilian", 4, 4], ["Downtempo", 3, 2], ["Hip Hop", 3, 2], ["Afro & World", 3, 3], ["Electronic", 1, 2]];
+  /* --- Where / mellow (added) --- */
+  var abroad=[["Spain", 701], ["Greece", 345], ["USA", 271], ["Italy", 241], ["Israel", 204], ["Cyprus", 165], ["Mexico", 152], ["South Africa", 126]];
+  var abroadMax=Math.max.apply(null,abroad.map(function(x){return x[1]}));
+  var ergYr=[["2012", 66], ["2013", 65], ["2014", 64], ["2015", 63], ["2016", 63], ["2017", 64], ["2018", 63], ["2019", 61], ["2020", 61], ["2021", 63], ["2022", 60], ["2023", 55], ["2024", 55], ["2025", 57], ["2026", 58]];
   var h='<span class="sd-close" onclick="closeStatsDash()">✕</span>';
   h+='<h2>Your Collection</h2>';
   /* Big numbers row */
@@ -2849,6 +2853,20 @@ function openStatsDash(){
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">You play almost exactly in proportion to what you collect — no genre runs the show. Properly eclectic.</div>';
   crateLO.forEach(function(p){
     h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">played '+p[1]+'% &middot; owned '+p[2]+'%</span></div>';
+  });
+  h+='</div>';
+  /* Listened Abroad (added, listening) */
+  h+='<div class="sd-section" data-tab="listening"><h3>Listened Abroad</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">97% of your listening is in the UK — the rest is basically your holidays. Plays logged abroad:</div>';
+  abroad.forEach(function(p,i){var pct=Math.round(p[1]/abroadMax*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
+  });
+  h+='</div>';
+  /* Your Listening Mellowed (added, taste) */
+  h+='<div class="sd-section" data-tab="taste"><h3>You Mellowed</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Average energy of what you play, by year. Down from 0.66 to ~0.56 — sharpest after 2022. Tempo held (~117bpm), so it is lower-energy, not slower.</div>';
+  ergYr.forEach(function(p,i){var pct=p[1];
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">0.'+p[1]+'</span></div>';
   });
   h+='</div>';
   /* Vinyl Collection section */
