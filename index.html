@@ -154,7 +154,7 @@
   .col-yr{width:3%;font-family:'JetBrains Mono',monospace;font-size:0.72em;color:var(--dim)}
   .col-da{width:7%;font-family:'JetBrains Mono',monospace;font-size:0.78em;color:var(--accent2);font-weight:600;white-space:nowrap}
   .mob-da{display:none}
-  .col-bpm{width:4%;font-family:'JetBrains Mono',monospace;font-size:0.72em;text-align:right}.col-pc{width:4%;font-family:'JetBrains Mono',monospace;font-size:0.72em;text-align:right;color:var(--accent)}
+  .col-bpm{width:4%;font-family:'JetBrains Mono',monospace;font-size:0.72em;text-align:right}.col-pc{width:5%;font-family:'JetBrains Mono',monospace;font-size:0.82em;text-align:right;color:var(--accent);font-weight:700}
   .col-vb{width:9%} .col-cr{width:12%} .col-gr{width:12%}
   .play-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1DB954;color:#000;text-decoration:none;font-size:0.65em;font-weight:700;transition:all 0.12s}
   .play-btn:hover{background:#1ed760;transform:scale(1.15)}
@@ -334,7 +334,7 @@
     .mobile-toggle{font-size:0.82em;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
     .table-wrap{overflow-x:hidden;overflow-y:visible;-webkit-overflow-scrolling:touch} table{width:100%;min-width:0;table-layout:fixed}
     td,th{padding:8px 6px;font-size:0.78em}
-    .col-gr,.col-al,.col-yr,.col-da,.col-bpm,.col-pc,.col-cr{display:none}
+    .col-gr,.col-al,.col-yr,.col-da,.col-bpm,.col-cr{display:none}
     .col-play{width:36px} .col-a{width:34%} .col-t{width:34%} .col-vb{display:none}
     .track-sample{border-bottom:none} /* no dotted underline on mobile — touch targets differ */
     .sp-app-link{opacity:0.5!important;pointer-events:auto!important;width:16px;height:16px} /* always visible on mobile */
@@ -2586,6 +2586,13 @@ function openStatsDash(){
   var rangeMax=Math.max.apply(null,rangeY.map(function(x){return x[1]}));
   var seasonM=[["Jan", 7083], ["Feb", 7283], ["Mar", 8013], ["Apr", 7880], ["May", 8159], ["Jun", 7308], ["Jul", 7738], ["Aug", 7589], ["Sep", 7228], ["Oct", 8055], ["Nov", 7860], ["Dec", 8271]];
   var seasonMax=Math.max.apply(null,seasonM.map(function(x){return x[1]}));
+  /* --- Panels 2 (added) --- */
+  var early=DATA.filter(function(t){return (t.pc||0)>=15&&t.p>0&&t.p<=25;}).sort(function(a,b){return b.pc-a.pc}).slice(0,12);
+  var earlyMax=early.length?early[0].pc:1;
+  var rideOrDie=[["Crazy P", 15], ["Bill Withers", 15], ["Aretha Franklin", 14], ["Kendrick Lamar", 14], ["Badly Drawn Boy", 14], ["Marvin Gaye", 14], ["Erykah Badu", 14], ["A Tribe Called Quest", 14], ["Gil Scott-Heron", 14], ["Marcos Valle", 14], ["Steely Dan", 14], ["Real Estate", 13]];
+  /* --- Panels 3 (added) --- */
+  var newDisc=[["2012", 316], ["2013", 477], ["2014", 680], ["2015", 440], ["2016", 347], ["2017", 429], ["2018", 1278], ["2019", 649], ["2020", 497], ["2021", 550], ["2022", 1040], ["2023", 777], ["2024", 701], ["2025", 898], ["2026", 422]];
+  var ndMax=Math.max.apply(null,newDisc.map(function(x){return x[1]}));
   var h='<span class="sd-close" onclick="closeStatsDash()">✕</span>';
   h+='<h2>Your Collection</h2>';
   /* Big numbers row */
@@ -2758,6 +2765,38 @@ function openStatsDash(){
   h+='<div class="sd-section"><h3>Listening by Season</h3>';
   h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Plays by month &middot; you listen evenly year-round (unlike your spring-heavy digging)</div>';
   seasonM.forEach(function(p,i){var pct=Math.round(p[1]/seasonMax*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
+  });
+  h+='</div>';
+  /* You Were Early (added, live) */
+  if(early.length){
+    h+='<div class="sd-section"><h3>You Were Early</h3>';
+    h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Played to bits, yet barely anyone else has — low Spotify popularity. You back the underdogs.</div>';
+    early.forEach(function(t,i){var pct=Math.round(t.pc/earlyMax*100);
+      h+='<div class="sd-bar-row"><span class="sd-bar-label">'+t.a.split(';')[0]+' — '+t.t+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+t.pc+' · p'+t.p+'</span></div>';
+    });
+    h+='</div>';
+  }
+  /* Ride or Die (added, snapshot) */
+  h+='<div class="sd-section"><h3>Ride or Die</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">Artists you\'ve played every year, for years &middot; distinct years they appear in your listening</div>';
+  rideOrDie.forEach(function(p,i){var pct=Math.round(p[1]/15*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'y</span></div>';
+  });
+  h+='</div>';
+  /* By The Numbers (added, snapshot) */
+  h+='<div class="sd-section"><h3>By The Numbers</h3>';
+  h+='<div style="display:flex;flex-direction:column;gap:10px;font-size:0.85em;line-height:1.5;color:var(--text)">';
+  h+='<p><b style="color:var(--accent)">308,727</b> streams logged since 2012.</p>';
+  h+='<p><b style="color:var(--accent)">5,790 hours</b> of listening — 241 days solid.</p>';
+  h+='<p>Your first ever Spotify play: <b style="color:var(--accent2)">JAY-Z — Otis</b>, 16 June 2012.</p>';
+  h+='<p>Busiest single day: <b style="color:var(--accent2)">14 April 2016</b> — 209 tracks in one day.</p>';
+  h+='<p>You skip roughly <b style="color:var(--accent)">1 in 3</b> of what comes on. Ruthless.</p>';
+  h+='</div></div>';
+  /* New Discoveries (added, snapshot) */
+  h+='<div class="sd-section"><h3>New Discoveries</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">New artists you heard for the first time each year &middot; you never stop digging</div>';
+  newDisc.forEach(function(p,i){var pct=Math.round(p[1]/ndMax*100);
     h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1].toLocaleString()+'</span></div>';
   });
   h+='</div>';
