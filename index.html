@@ -2603,6 +2603,10 @@ function openStatsDash(){
   var hoursMax=Math.max.apply(null,hoursYr.map(function(x){return x[1]}));
   var trackYr=[["2012", "Wilson Simonal — Crioula · 17x"], ["2013", "Evergreen — Baby Blue · 22x"], ["2014", "Future Islands — Seasons (Waiting On You) · 29x"], ["2015", "Hiatus Kaiyote — Fingerprints · 21x"], ["2016", "Anderson .Paak — Put Me Thru · 27x"], ["2017", "Thundercat — Show You The Way · 18x"], ["2018", "Kali Uchis — Tyrant · 20x"], ["2019", "Liquideep — Angel (DJ Spen mix) · 21x"], ["2020", "Caserta — Luther (King Street Mix) · 17x"], ["2021", "Emma-Jean Thackray — Say Something · 24x"], ["2022", "Yard Act — 100% Endurance · 17x"], ["2023", "Rogê — Pra Vida · 19x"], ["2024", "Everton FC — Spirit Of The Blues · 43x"], ["2025", "Kendrick Lamar — luther (with sza) · 28x"], ["2026", "Everton FC — Spirit Of The Blues · 13x so far"]];
   var obsess=[["Dec '14", "Future Islands — Seasons (Waiting On You) · 29x"], ["Jan '24", "Everton FC — Spirit Of The Blues · 22x"], ["Dec '14", "Spoon — Do You · 18x"], ["Aug '13", "Evergreen — Baby Blue · 18x"], ["Feb '20", "Ed O'Brien — Brasil · 15x"], ["Jul '16", "The Avalanches — Because I'm Me · 15x"], ["Dec '14", "Bonobo — Return to Air · 15x"], ["Sep '12", "Theme Park — Jamaica · 15x"], ["Jul '22", "Yard Act — 100% Endurance · 14x"], ["Aug '19", "Theo Parrish — What You Gonna Ask For · 14x"]];
+  /* --- Genre/fresh (added) --- */
+  var ageBias=[["within 3 months", 69], ["3–12 months", 10], ["1–3 years", 8], ["3+ years", 12]];
+  var ageMax=Math.max.apply(null,ageBias.map(function(x){return x[1]}));
+  var crateLO=[["Jazz", 19, 21], ["Soul & R&B", 16, 14], ["Disco & Boogie", 14, 15], ["House", 14, 13], ["Indie & Rock", 10, 9], ["Funk", 8, 8], ["Brazilian", 4, 4], ["Downtempo", 3, 2], ["Hip Hop", 3, 2], ["Afro & World", 3, 3], ["Electronic", 1, 2]];
   var h='<span class="sd-close" onclick="closeStatsDash()">✕</span>';
   h+='<h2>Your Collection</h2>';
   /* Big numbers row */
@@ -2831,6 +2835,20 @@ function openStatsDash(){
   h+='<div style="font-size:0.72em;color:var(--dim);margin:-4px 0 8px">Most you played one track in a single month</div>';
   obsess.forEach(function(p){
     h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent2)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">'+p[1]+'</span></div>';
+  });
+  h+='</div>';
+  /* New-Music Bias (added, listening) */
+  h+='<div class="sd-section" data-tab="listening"><h3>New-Music Bias</h3>';
+  h+='<div style="font-size:0.85em;line-height:1.5;color:var(--text);margin-bottom:10px"><b style="color:var(--accent)">69%</b> of your plays are on tracks you added in the last three months — and it has held near <b style="color:var(--accent2)">80% every year</b> since 2012. You chase the new and rarely look back. How old a track is when you play it:</div>';
+  ageBias.forEach(function(p,i){var pct=Math.round(p[1]/ageMax*100);
+    h+='<div class="sd-bar-row"><span class="sd-bar-label">'+p[0]+'</span><div class="sd-bar"><div class="sd-bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'"></div></div><span class="sd-bar-count">'+p[1]+'%</span></div>';
+  });
+  h+='</div>';
+  /* Genre: Listen vs Own (added, taste) */
+  h+='<div class="sd-section" data-tab="taste"><h3>Listen vs Own</h3>';
+  h+='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">You play almost exactly in proportion to what you collect — no genre runs the show. Properly eclectic.</div>';
+  crateLO.forEach(function(p){
+    h+='<div class="sd-bar-row"><span class="sd-bar-label" style="color:var(--accent)">'+p[0]+'</span><span style="flex:1;color:var(--text);font-size:0.82em">played '+p[1]+'% &middot; owned '+p[2]+'%</span></div>';
   });
   h+='</div>';
   /* Vinyl Collection section */
