@@ -49,11 +49,11 @@
   .sd-card .sd-label{font-size:0.72em;color:var(--dim);margin-top:4px}
   .sd-section{margin-bottom:24px}
   .sd-section h3{font-size:0.9em;font-weight:600;color:var(--accent2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
-  .sd-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:0.78em}
-  .sd-bar-label{width:140px;text-align:right;color:var(--dim);flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .sd-bar{flex:1;height:20px;background:var(--card2);border-radius:4px;overflow:hidden;position:relative}
-  .sd-bar-fill{height:100%;border-radius:4px;transition:width 0.4s ease}
-  .sd-bar-count{font-size:0.75em;color:var(--dim);width:50px;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+  .sd-bar-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;margin-bottom:8px;font-size:0.85em}
+  .sd-bar-label{flex:1;min-width:0;text-align:left;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sd-bar{order:2;flex-basis:100%;width:100%;height:3px;margin-top:4px;background:var(--card2);border-radius:2px;overflow:hidden}
+  .sd-bar-fill{height:100%;border-radius:2px;transition:width 0.4s ease}
+  .sd-bar-count{order:1;font-size:0.82em;color:var(--dim);flex-shrink:0;font-family:'JetBrains Mono',monospace}
   .rd-panel{background:var(--card);border-top:2px solid var(--purple);border-bottom:2px solid var(--purple);padding:14px 16px;flex-shrink:0;max-height:400px;overflow-y:auto;display:none}
   .rd-panel.visible{display:block}
   .rd-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -65,7 +65,7 @@
   .rd-track .rd-artist{font-weight:600;color:var(--purple)}
   .rd-track .rd-title{color:var(--text)}
   .rd-track .rd-meta{color:var(--dim);font-size:0.85em;margin-left:auto;white-space:nowrap}
-  @media(max-width:768px){.sd-grid{grid-template-columns:1fr 1fr}.stats-dash{padding:16px 18px;margin:10px}.sd-bar-label{width:100px;font-size:0.7em}}
+  @media(max-width:768px){.sd-grid{grid-template-columns:1fr 1fr}.stats-dash{padding:16px 18px;margin:10px}.sd-bar-row{font-size:0.8em}}
   .qt-edit{font-size:0.7em;color:var(--dim);opacity:0;cursor:pointer;margin-left:4px;transition:opacity 0.15s;vertical-align:middle}
   tr:hover .qt-edit{opacity:0.5}
   .qt-edit:hover{opacity:1!important;color:var(--accent)}
