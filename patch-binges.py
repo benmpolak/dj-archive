@@ -57,13 +57,14 @@ rows.sort(reverse=True)
 # keep the single biggest day per (artist, album)
 seen = set(); BINGES = []
 for n, d, a, al, sid in rows:
+    if n < 8: continue   # a real binge, not just half an album
     key = (a.lower(), al.lower())
     if key in seen: continue
     seen.add(key)
     y, m, day = d.split('-')
     dl = f"{int(day)} {MONTHS[int(m)-1]} {y}"
     BINGES.append({'a':a,'al':al,'n':n,'dl':dl,'sid':sid})
-    if len(BINGES) >= 15: break
+    if len(BINGES) >= 150: break
 
 inject = 'var BINGES=' + json.dumps(BINGES, separators=(',',':'), ensure_ascii=False) + ';'
 anchor = 'var MONTHLY={'
