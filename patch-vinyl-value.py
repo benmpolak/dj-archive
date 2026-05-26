@@ -13,18 +13,8 @@ def price(r):
     try: return float(r['lowest_gbp'])
     except: return -1
 
-def scarcity_weight(n):
-    if n <= 1: return 1.35
-    if n <= 3: return 1.20
-    if n <= 6: return 1.08
-    if n <= 15: return 1.00
-    return 0.90  # plenty about = easy to get, gently demote
-
 rows = [r for r in csv.DictReader(open(SRC)) if price(r) >= 0]
-for r in rows:
-    n = int(r['num_for_sale'] or 0)
-    r['_score'] = price(r) * scarcity_weight(n)
-rows.sort(key=lambda r: r['_score'], reverse=True)
+rows.sort(key=price, reverse=True)  # straight price order; copies shown as availability only
 total = round(sum(price(r) for r in rows))
 items = [{'a':r['artist'],'t':r['title'],'p':round(price(r),2),
           'n':int(r['num_for_sale'] or 0),'id':r['release_id']} for r in rows[:100]]
@@ -40,6 +30,6 @@ else:
 shutil.copy(ARCHIVE, os.path.join(HERE, f"_backup-pre-vinylval-{datetime.datetime.now():%Y%m%d-%H%M%S}.html"))
 open(ARCHIVE,'w').write(html)
 print(f"injected VINYLVAL: top {len(items)} of {len(rows)} priced, floor total £{total:,}")
-print("new top 10 (scarcity-weighted):")
+print("top 10 (price order):")
 for r in rows[:10]:
     print(f"  £{price(r):>6.0f}  [{r['num_for_sale']:>3} for sale]  {r['artist']} — {r['title']}")
