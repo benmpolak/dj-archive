@@ -34,6 +34,7 @@ PLAYLIST_CRATES = {
     'Older_Dance':           ['House'],
     'R&B_Soul':              ['Soul & R&B'],
     'Soul_&_Disco_revival_': ['Soul & R&B', 'Disco & Boogie'],
+    'Soul_&_Disco_revival':  ['Soul & R&B', 'Disco & Boogie'],
     'Summer_Sounds':         [],
     'Sunshine_dance':        ['House'],
 }
