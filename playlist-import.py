@@ -114,6 +114,17 @@ for i, t in enumerate(DATA):
     if sid and not sid.startswith('spotify:local:'):
         sid_index[sid] = i
 
+# Fallback lookup by (first artist, title) — the same song often carries a
+# different Spotify ID on different releases (single vs album vs comp), so
+# sid alone re-imports tracks the archive already has.
+def title_key(artist, title):
+    a = re.split(r'[;,]', artist or '')[0].strip().lower()
+    return (a, (title or '').strip().lower())
+
+title_index = {}
+for i, t in enumerate(DATA):
+    title_index.setdefault(title_key(t.get('a'), t.get('t')), i)
+
 # --- Read all CSVs ---
 csv_files = sorted(glob.glob(os.path.join(PLAYLIST_DIR, '*.csv')))
 print(f"\nFound {len(csv_files)} CSV files in {PLAYLIST_DIR}")
@@ -154,6 +165,12 @@ crates_added_total = 0
 for sid, info in tracks.items():
     row = info['row']
     new_crates = info['crates']
+
+    if sid not in sid_index:
+        # Same song under a different release ID? Treat as existing.
+        ti = title_index.get(title_key(row.get('Artist Name(s)'), row.get('Track Name')))
+        if ti is not None:
+            sid = DATA[ti].get('sid')
 
     if sid in sid_index:
         # Existing track: merge crates if any
