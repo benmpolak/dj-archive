@@ -11,7 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ARCHIVE = os.path.join(HERE, 'index.html')
 HIST = glob.glob('/tmp/sp_data/Spotify Extended Streaming History/Streaming_History_Audio_*.json')
 WINDOWS = [1, 2, 3, 5, 7, 10]
-REF = datetime.date(2026, 5, 25)  # "now" for windowing
+REF = datetime.date(2026, 6, 9)  # "now" for windowing = end of latest export
 
 def parse_data(html):
     ds = html.index('const DATA=') + len('const DATA=')
