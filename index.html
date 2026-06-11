@@ -900,7 +900,9 @@ function applyFilters(){
   });
   const sorters={recent:(a,b)=>((a.da||0)-(b.da||0))*sdir,artist:(a,b)=>a.a.localeCompare(b.a)*sdir,tempo:(a,b)=>(a.tp-b.tp)*sdir,year:(a,b)=>((parseInt(a.r)||0)-(parseInt(b.r)||0))*sdir,album:(a,b)=>(a.al||'').localeCompare(b.al||'')*sdir,plays:(a,b)=>((a.pc||0)-(b.pc||0))*sdir,playsY:(a,b)=>((a.py||0)-(b.py||0))*sdir,playsM:(a,b)=>((a.pm||0)-(b.pm||0))*sdir,playsW:(a,b)=>((a.pw||0)-(b.pw||0))*sdir};
   filtered.sort(sorters[sorted_key]||sorters.artist);
-  page=0;q('#tbody').innerHTML=rows(filtered.slice(0,PAGE_SZ),0);stats();pushState();var _sc=document.getElementById('similar-cta');if(_sc&&(!F.search||F.search!==(_sc.dataset.artist||'').toLowerCase()))_sc.style.display='none';
+  page=0;q('#tbody').innerHTML=rows(filtered.slice(0,PAGE_SZ),0);stats();pushState();
+  /* Similar-artists strip: show whenever the results are dominated by one artist, however the filter was reached */
+  (function(){var el=document.getElementById('similar-cta');if(!F.search||!filtered.length){if(el)el.style.display='none';return}var cnt={},best=null,bn=0;for(var ii=0;ii<filtered.length;ii++){var ba=filtered[ii].a.split(';')[0].trim().toLowerCase();cnt[ba]=(cnt[ba]||0)+1;if(cnt[ba]>bn){bn=cnt[ba];best=filtered[ii].a}}if(bn>=filtered.length*0.8){showSimilarCta(best)}else if(el){el.style.display='none'}})();
 }
 
 const MN=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
