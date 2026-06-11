@@ -696,6 +696,8 @@ function pushState(){
   if(sorted_key!=='recent')p.push('sort='+sorted_key);
   if(sdir===1&&sorted_key==='recent')p.push('asc=1');
   if(sdir===-1&&sorted_key!=='recent')p.push('desc=1');
+  if(window._statsTab){p.push('stats='+window._statsTab)}
+  else if(window._statsTab!==null){var _mh=(window.location.hash||'').match(/[#&]stats[=\/]([a-z]+)/);if(_mh)p.push('stats='+_mh[1])}
   var hash=p.length?'#'+p.join('&'):'';
   if(window.location.hash!==hash)history.replaceState(null,'',hash||window.location.pathname);
 }
@@ -3016,8 +3018,8 @@ function erDetailHtml(y){var ed=(window.ERASD||{})[y];if(!ed)return '<div style=
   if(window.VINYLVAL&&VINYLVAL.items&&VINYLVAL.items.length)pgInit('pgVinylVal',VINYLVAL.items,function(v,i){return sdNameRow('<span style="color:var(--dim)">'+(i+1)+'.</span> '+v.a+' — '+v.t,'&pound;'+Math.round(v.p)+' &middot; '+v.n,Math.round(v.p/VINYLVAL.items[0].p*100),_hamColors[i%8],'https://www.discogs.com/release/'+v.id);});
   q('#stats-dash-overlay').classList.add('visible');
 }
-function selectStatsTab(tab){var d=document.getElementById('stats-dash');d.querySelectorAll('.sd-section').forEach(function(s){s.style.display=(s.getAttribute('data-tab')===tab)?'':'none'});d.querySelectorAll('.sd-tab').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-st')===tab)});try{history.replaceState(null,'','#stats/'+tab)}catch(e){}}
-function closeStatsDash(){q('#stats-dash-overlay').classList.remove('visible');try{if(location.hash.indexOf('#stats')===0)history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
+function selectStatsTab(tab){var d=document.getElementById('stats-dash');d.querySelectorAll('.sd-section').forEach(function(s){s.style.display=(s.getAttribute('data-tab')===tab)?'':'none'});d.querySelectorAll('.sd-tab').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-st')===tab)});window._statsTab=tab;try{pushState()}catch(e){}}
+function closeStatsDash(){q('#stats-dash-overlay').classList.remove('visible');window._statsTab=null;try{pushState()}catch(e){}}
 
 /* === ARTIST MAP — interactive network visualization === */
 var _amNodes=[],_amEdges=[],_amAnim=null,_amCenter=null,_amPan={x:0,y:0},_amZoom=1,_amDrag=null;
@@ -3388,6 +3390,6 @@ function initHammered(){var w=document.getElementById('hamWin');if(!w)return;w.q
 function renderTimeOfYear(month){var el=document.getElementById('toy');if(!el)return;var mn=['January','February','March','April','May','June','July','August','September','October','November','December'];var m=month||(new Date().getMonth()+1);if(!el._init){el._init=1;el.innerHTML='<select id="toyMonth" style="width:100%;padding:8px;border-radius:8px;background:var(--card2);color:var(--text);border:1px solid var(--border);font-size:0.82em;margin-bottom:8px">'+mn.map(function(nm,i){return '<option value="'+(i+1)+'">'+nm+'</option>'}).join('')+'</select><div id="toyList"></div>';document.getElementById('toyMonth').onchange=function(){renderTimeOfYear(+this.value)};}document.getElementById('toyMonth').value=m;var list=MONTHLY[m]||[];var s='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">The tracks you have played most in <b style="color:var(--accent)">'+mn[m-1]+'</b> across every year — your soundtrack to this time of year. Tap to play.</div>';if(!list.length)s+='<div style="color:var(--dim);font-size:0.8em">Nothing stands out for this month yet.</div>';s+=list.map(function(r){return '<div class="sd-bar-row"><a href="https://open.spotify.com/track/'+r[2]+'" target="_blank" style="flex:1;color:var(--text);font-size:0.84em;text-decoration:none">'+r[0]+'</a><span class="sd-bar-count">'+r[1]+'</span></div>';}).join('');document.getElementById('toyList').innerHTML=s;}
 </script>
 <script>document.querySelectorAll(".live-count").forEach(function(el){el.textContent=DATA.length.toLocaleString()});</script>
-<script>(function(){function applyStatsHash(){var m=(location.hash||"").match(/^#stats(?:\/([a-z]+))?$/);if(m){openStatsDash();selectStatsTab(m[1]||"collection");}}applyStatsHash();window.addEventListener("hashchange",applyStatsHash);})();</script>
+<script>(function(){function applyStatsHash(){var h=location.hash||"";var m=h.match(/[#&]stats(?:[=\/]([a-z]+))?(?:&|$)/);if(m){openStatsDash();selectStatsTab(m[1]||"collection");}}applyStatsHash();window.addEventListener("hashchange",applyStatsHash);})();</script>
 </body>
 </html>
