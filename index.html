@@ -988,11 +988,21 @@ function showSimilarCta(n){
     if(!tbl||!tbl.parentNode)return;
     tbl.parentNode.insertBefore(el,tbl);
   }
-  el.dataset.artist=n;
-  var base=n.split(';')[0].trim();
-  el.innerHTML='<span class="sc-go" data-artist="'+esc(n)+'">\u25c6 More like '+esc(base)+' \u2014 surface similar artists from your archive</span>';
-  el.style.cssText='margin:8px 0;padding:9px 13px;border:1px solid var(--border);border-radius:10px;background:var(--card2);font-size:0.85em;color:var(--accent2);display:block;cursor:pointer';
-  el.onclick=function(){digDeeper(el.dataset.artist)};
+  if(el.dataset.artist!==n||!el.innerHTML){
+    el.dataset.artist=n;
+    var base=n.split(';')[0].trim();
+    var R=_digCompute(n);
+    if(!R||!R.picks||!R.picks.length){el.style.display='none';return}
+    var seen={},chips='';
+    for(var ci=0;ci<R.picks.length&&Object.keys(seen).length<8;ci++){
+      var pa=R.picks[ci].a,pb=pa.split(';')[0].trim();
+      if(seen[pb.toLowerCase()])continue;seen[pb.toLowerCase()]=1;
+      chips+='<span class="sc-chip" data-artist="'+esc(pa)+'" style="display:inline-block;padding:4px 11px;margin:3px 5px 3px 0;border:1px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font-size:0.95em;cursor:pointer;white-space:nowrap">'+esc(pb)+'</span>';
+    }
+    el.innerHTML='<div style="font-size:0.68em;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px">More like '+esc(base)+' <span style="color:var(--border)">&middot;</span> from your archive</div><div>'+chips+'<span class="sc-chip sc-dig" data-artist="'+esc(n)+'" style="display:inline-block;padding:4px 11px;margin:3px 0;border-radius:14px;background:transparent;color:var(--accent2);font-size:0.95em;cursor:pointer;white-space:nowrap">full dig &rarr;</span></div>';
+    el.style.cssText='margin:8px 0;padding:10px 13px;border:1px solid var(--border);border-radius:10px;background:var(--card2);font-size:0.85em;display:block';
+    el.onclick=function(ev){var c=ev.target.closest('.sc-chip');if(!c)return;if(c.classList.contains('sc-dig')){digDeeper(c.dataset.artist)}else{showSimilar(c.dataset.artist)}};
+  }
   el.style.display='block';
 }
 
@@ -1906,7 +1916,7 @@ function q(s){return document.querySelector(s)}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 function baseArtist(name){return name.split(';')[0].trim().toLowerCase()}
-function digDeeper(name){
+function _digCompute(name){
   if(!name){name=(q('#cc-dig-input').value||'').trim();if(!name){showToast('Type an artist name first');return}}
   const nl=name.toLowerCase().trim();
   const seedBase=nl.split(';')[0].trim();
@@ -1962,6 +1972,11 @@ function digDeeper(name){
   const picks=ranked.slice(0,20).map(r=>r.t);
   window._digPicks=picks;
   const topGenres=Object.keys(gFreq).sort((a,b)=>gFreq[b]-gFreq[a]).slice(0,4).join(', ')||'various';
+  return {exactName:exactName,picks:picks,at:at,topGenres:topGenres};
+}
+function digDeeper(name){
+  var R=_digCompute(name);if(!R)return;
+  var exactName=R.exactName,picks=R.picks,at=R.at,topGenres=R.topGenres;
   q('#dig-artist-name').textContent=exactName;
   q('#dig-desc').textContent='Based on '+at.length+' '+exactName+' track'+(at.length>1?'s':'')+' in the archive, here are '+picks.length+' artists from the collection who share similar genres, tags and crates ('+topGenres+'). Click any artist to filter the archive, or save the lot as a Spotify playlist.';
   q('#dig-tracks').innerHTML=picks.map((t,i)=>{
