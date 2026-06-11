@@ -4024,5 +4024,84 @@ window._dlrCore={parse:dlrParse,pool:dlrPool,deal:dealFromPool,seq:sequenceDeal,
 })();
 
 </script>
+<style id="design-pass">
+/* ===== DESIGN PASS (2026-06) =====
+   Override sheet injected after all other styles by patch-design.py.
+   Principles: one brand accent (gold), green reserved for Spotify actions,
+   The Dealer is the hero CTA, everything else is a quiet ghost. */
+
+/* -- wordmark + sidebar rhythm -- */
+.sidebar h1{font-size:1.12em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;
+  background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar .sub{font-size:0.7em;line-height:1.5;color:var(--dim);margin-top:-6px}
+.sidebar{gap:14px;scrollbar-width:thin}
+.filter-label{font-size:0.62em;letter-spacing:0.14em;opacity:0.85}
+.search-box{padding:10px 13px;border-radius:10px;transition:border-color 0.15s,box-shadow 0.15s}
+.search-box:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,160,64,0.12)}
+.chip{border-radius:8px;line-height:1.5}
+.chip:hover{border-color:var(--accent)}
+
+/* -- welcome / landing panel -- */
+.collection-context{background:linear-gradient(160deg,#13131c 0%,#101018 55%,#11111a 100%);padding:18px 22px 16px}
+.cc-title{font-size:0.66em;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin-bottom:6px}
+.cc-text{font-size:0.78em;color:#9a9ab0;max-width:640px}
+.cc-text b,.cc-text .live-count{color:var(--text);font-weight:600}
+.cc-inner{gap:10px}
+
+/* buttons: one ghost language, Spotify green kept, Dealer is the hero */
+.cc-btn{padding:8px 16px;border-radius:10px;font-size:0.74em;font-weight:600;border:1px solid var(--border);background:var(--card2);color:var(--text)}
+.cc-btn:hover{border-color:var(--accent)}
+.cc-btn-archive,.cc-btn-recent{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+.cc-btn-archive:hover,.cc-btn-recent:hover{border-color:var(--accent2);color:var(--accent2)}
+.cc-btn-spotify{background:#169c46;border:1px solid #169c46;color:#04130a}
+.cc-btn-spotify:hover{background:#1DB954;border-color:#1DB954}
+.cc-btn-spotify.connected{background:transparent;color:#1DB954;border:1px solid rgba(29,185,84,0.45)}
+.cc-quick-btn{padding:7px 14px;border-radius:10px;font-size:0.72em;font-weight:600}
+.cc-quick-btn.stats-hero{background:var(--card2);color:var(--text);border:1px solid var(--border);box-shadow:none;font-weight:600;padding:7px 14px}
+.cc-quick-btn.stats-hero:hover{transform:none;box-shadow:none;border-color:var(--accent);color:var(--accent)}
+#btn-dealer{background:linear-gradient(135deg,rgba(232,160,64,0.16),rgba(232,64,96,0.14)) !important;
+  border:1px solid rgba(232,160,64,0.55) !important;color:var(--accent) !important;font-weight:700 !important;
+  padding:7px 18px !important;box-shadow:0 2px 12px rgba(232,160,64,0.12)}
+#btn-dealer:hover{box-shadow:0 3px 18px rgba(232,160,64,0.3);border-color:var(--accent) !important}
+.cc-time-chips .time-chip{padding:5px 12px;font-size:0.7em;border-radius:8px;color:var(--dim)}
+.cc-footer{opacity:0.85}
+
+/* -- stats bar + sort controls -- */
+.stats-bar{padding:9px 16px}
+.stat b{font-variant-numeric:tabular-nums}
+.sort-controls{gap:3px}
+.sort-btn{border-radius:8px}
+
+/* -- table -- */
+th{font-size:0.62em;letter-spacing:0.12em;padding:8px 10px;opacity:0.9}
+td{padding:6px 10px;border-bottom:1px solid #13131b}
+tbody tr{transition:background 0.1s}
+tbody tr:hover{background:#15151f}
+.col-bpm,.col-pc,.col-yr,.col-da{font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;font-size:0.72em;color:#8a8aa0}
+.tag{border-radius:5px;padding:1px 6px;font-size:0.62em}
+.vibe-tag{background:rgba(160,64,232,0.10);color:#b07ae0}
+.genre-tag{background:rgba(255,255,255,0.04);color:#8a8aa0}
+
+/* -- scrollbars -- */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#22222e;border-radius:5px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#2e2e3c}
+
+/* -- mobile tidy-up -- */
+@media(max-width:768px){
+  /* the cc panel duplicates the header time chips — drop the duplicates */
+  #cc-time-chips{display:none}
+  /* rainbow quick buttons -> one quiet language (override inline styles) */
+  .mobile-quick-actions .cc-btn{background:var(--card2) !important;color:var(--text) !important;
+    border:1px solid var(--border) !important;font-weight:600;border-radius:10px}
+  .mobile-time-chips .time-chip{border-radius:8px}
+  .mobile-moods .chip{padding:5px 11px;font-size:0.74em}
+  .cc-quick-btn{padding:9px 14px;font-size:0.78em}
+  #btn-dealer{padding:9px 18px !important}
+  .sidebar{border-bottom:1px solid var(--border)}
+}
+
+</style>
 </body>
 </html>
