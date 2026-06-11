@@ -4082,6 +4082,41 @@ tbody tr:hover{background:#15151f}
 .vibe-tag{background:rgba(160,64,232,0.10);color:#b07ae0}
 .genre-tag{background:rgba(255,255,255,0.04);color:#8a8aa0}
 
+/* -- stats: a full-screen area of its own, not a floating modal -- */
+.stats-dash-overlay{background:var(--bg);backdrop-filter:none;padding:0;align-items:flex-start}
+.stats-dash{max-width:none;width:100%;min-height:100vh;max-height:none;border:none;border-radius:0;
+  padding:30px max(28px,calc((100vw - 1000px)/2)) 80px;
+  background:radial-gradient(1200px 500px at 18% -5%,rgba(232,160,64,0.05),transparent 60%),var(--bg)}
+.stats-dash h2{font-size:1.5em;margin-bottom:4px}
+.stats-dash h2::after{content:"The archive in numbers — what got kept, what got hammered, what got forgotten.";
+  display:block;font-size:0.5em;font-weight:400;color:var(--dim);-webkit-text-fill-color:var(--dim);letter-spacing:0;margin-top:4px}
+.stats-dash .sd-close{position:fixed;top:16px;right:20px;z-index:9;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  background:var(--card2);border:1px solid var(--border);border-radius:50%;font-size:0.95em}
+.stats-dash .sd-close:hover{border-color:var(--accent);color:var(--text)}
+/* hero numbers: one row, one colour */
+.sd-grid{grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 6px}
+.sd-card{background:var(--card);border-radius:14px;padding:18px 14px}
+.sd-card .sd-num{font-size:1.9em;color:var(--text) !important;font-variant-numeric:tabular-nums}
+.sd-card div:last-child{font-size:0.68em;text-transform:uppercase;letter-spacing:0.12em;color:var(--dim)}
+/* tabs: sticky nav for the area */
+.sd-tabs{position:sticky;top:0;z-index:8;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);
+  padding:14px 0 12px;margin:0 0 20px;border-bottom:1px solid var(--border)}
+.sd-tab{border-radius:9px;padding:7px 16px}
+.sd-tab.active{background:rgba(232,160,64,0.14);color:var(--accent);border:1px solid rgba(232,160,64,0.5);font-weight:700}
+/* each panel is a card */
+.sd-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px 16px;margin-bottom:14px}
+.sd-section h3{color:var(--accent);font-size:0.72em;letter-spacing:0.15em;opacity:0.95;margin-bottom:12px}
+.sd-section .sd-grid{margin:6px 0}
+.sd-section .sd-card{background:var(--card2)}
+@media(max-width:768px){
+  .stats-dash{padding:20px 14px 60px}
+  .sd-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .sd-tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+  .sd-tabs::-webkit-scrollbar{display:none}
+  .sd-section{padding:14px 14px 12px;border-radius:12px}
+  .stats-dash .sd-close{top:10px;right:12px}
+}
+
 /* -- scrollbars -- */
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-track{background:transparent}
