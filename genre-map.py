@@ -25,7 +25,8 @@ EXPLICIT = {
     'jazz fusion':'Jazz','soul jazz':'Jazz','hard bop':'Jazz','free jazz':'Jazz',
     'experimental jazz':'Jazz','contemporary jazz':'Jazz','bebop':'Jazz',
     'smooth jazz':'Jazz','cool jazz':'Jazz','vocal jazz':'Jazz','jazz ballads':'Jazz',
-    'jazz funk':'Jazz','jazz-funk':'Jazz','jazz pop':'Jazz','spiritual jazz':'Jazz',
+    'jazz funk':'Jazz|Funk','jazz-funk':'Jazz|Funk',   # fluid, Ben's call: counts half each
+    'jazz pop':'Jazz','spiritual jazz':'Jazz',
     'latin jazz':'Jazz','afro-cuban jazz':'Jazz','modal jazz':'Jazz','post-bop':'Jazz',
     'ambient jazz':'Jazz','jazz beats':'Downtempo','jazz house':'House',
     'jazz rap':'Hip Hop','brazilian jazz':'Brazilian',
