@@ -471,7 +471,7 @@
 <div class="intro-overlay" id="intro" style="display:none">
   <div class="intro-card">
     <h2>Welcome to the DJ Archive</h2>
-    <p style="text-align:center;margin-bottom:14px">This is 16544 tracks built up over 14 years by one DJ — thousands of hours listening, digging and curating. No algorithm decided what goes in here. Every track was chosen by ear.</p>
+    <p style="text-align:center;margin-bottom:14px">This is <span class="live-count">16,950</span> tracks built up over 14 years by one DJ — thousands of hours listening, digging and curating. No algorithm decided what goes in here. Every track was chosen by ear.</p>
     <div class="intro-item"><span class="intro-icon">📅</span><span class="intro-text"><b>Recently Added</b> is your starting view — the newest tracks added to the collection. Hit <b>Full Archive A–Z</b> to browse everything.</span></div>
     <div class="intro-item"><span class="intro-icon">🔍</span><span class="intro-text"><b>Search &amp; Filter</b> — find any artist, track or album. Use the moods, crates and vibes in the sidebar to explore by feel.</span></div>
     <div class="intro-item"><span class="intro-icon">🎛️</span><span class="intro-text"><b>Build Me a Mix</b> — generates a curated set from the archive. You can also hit the 🎛️ icon next to any track to build a mix starting from that song.</span></div>
@@ -485,7 +485,7 @@
   <div class="mobile-toggle" id="mobile-toggle"><span>☰ Filters</span><span id="mob-count" style="font-size:0.75em;color:var(--dim)"></span></div>
   <div class="sidebar">
     <h1>DJ Archive</h1>
-    <p class="sub">Not an algorithm. One DJ's 14-year collection — 16544 tracks curated by ear.</p>
+    <p class="sub">Not an algorithm. One DJ's 14-year collection — <span class="live-count">16,950</span> tracks curated by ear.</p>
     <div class="about-link" onclick="q('#intro').style.display='flex'">ℹ️ About this archive</div>
     <input type="text" class="search-box" id="search" placeholder="Search for an artist, track or album...">
     <div class="dig-inline-row">
@@ -570,7 +570,7 @@
       <div class="cc-inner">
         <div class="cc-section cc-welcome">
           <div class="cc-title">Recently Added to the Archive</div>
-          <div class="cc-text">You're looking at the newest additions — <b id="cc-recent">0</b> tracks added in the last 6 months, from a collection of 16544 tracks spanning 14 years. Not an algorithm — one DJ's ears.</div>
+          <div class="cc-text">You're looking at the newest additions — <b id="cc-recent">0</b> tracks added in the last 6 months, from a collection of <span class="live-count">16,950</span> tracks spanning 14 years. Not an algorithm — one DJ's ears.</div>
         </div>
         <div class="cc-actions">
           <button class="cc-btn cc-btn-archive" id="btn-full-az" onclick="resetToAZ()">📖 Full Archive A–Z</button>
@@ -3372,5 +3372,6 @@ function hamNav(which,delta){if(which==='t')_hamTp+=delta;else _hamAp+=delta;_ha
 function initHammered(){var w=document.getElementById('hamWin');if(!w)return;w.querySelectorAll('.ham-btn').forEach(function(b){b.onclick=function(){renderHammered(b.getAttribute('data-w'))}});renderHammered('p3');}
 function renderTimeOfYear(month){var el=document.getElementById('toy');if(!el)return;var mn=['January','February','March','April','May','June','July','August','September','October','November','December'];var m=month||(new Date().getMonth()+1);if(!el._init){el._init=1;el.innerHTML='<select id="toyMonth" style="width:100%;padding:8px;border-radius:8px;background:var(--card2);color:var(--text);border:1px solid var(--border);font-size:0.82em;margin-bottom:8px">'+mn.map(function(nm,i){return '<option value="'+(i+1)+'">'+nm+'</option>'}).join('')+'</select><div id="toyList"></div>';document.getElementById('toyMonth').onchange=function(){renderTimeOfYear(+this.value)};}document.getElementById('toyMonth').value=m;var list=MONTHLY[m]||[];var s='<div style="font-size:0.8em;color:var(--dim);margin-bottom:8px">The tracks you have played most in <b style="color:var(--accent)">'+mn[m-1]+'</b> across every year — your soundtrack to this time of year. Tap to play.</div>';if(!list.length)s+='<div style="color:var(--dim);font-size:0.8em">Nothing stands out for this month yet.</div>';s+=list.map(function(r){return '<div class="sd-bar-row"><a href="https://open.spotify.com/track/'+r[2]+'" target="_blank" style="flex:1;color:var(--text);font-size:0.84em;text-decoration:none">'+r[0]+'</a><span class="sd-bar-count">'+r[1]+'</span></div>';}).join('');document.getElementById('toyList').innerHTML=s;}
 </script>
+<script>document.querySelectorAll(".live-count").forEach(function(el){el.textContent=DATA.length.toLocaleString()});</script>
 </body>
 </html>
