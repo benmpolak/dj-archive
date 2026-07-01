@@ -6,7 +6,7 @@
 'use strict';
 
 /* ---------- slice state ---------- */
-var DLR={crates:[],vibes:[],mood:null,yr:null,vinyl:false,gf:[],ignored:[]};
+var DLR={crates:[],vibes:[],mood:null,yr:null,vinyl:false,gf:[],artist:null,bpm:null,ignored:[]};
 var _deal=null;          /* [{t,role}] current deal, sequenced */
 var _dealPools=null;     /* {banker:[],forgotten:[],wild:[]} leftover candidates for swaps */
 var _poolSize=0;
@@ -19,15 +19,28 @@ var CRATE_SYN={'indie & rock':'Indie & Rock','indie':'Indie & Rock','rock':'Indi
 'afro & world':'Afro & World','afro':'Afro & World','african':'Afro & World','world':'Afro & World',
 'brazilian':'Brazilian','brasil':'Brazilian','brazil':'Brazilian',
 'house':'House','jazz':'Jazz','funk':'Funk','downtempo':'Downtempo','electronic':'Electronic'};
-var VIBE_SYN={'deep & mellow':'Deep & Mellow','mellow':'Deep & Mellow',
-'feel good':'Feel Good','feelgood':'Feel Good','feel-good':'Feel Good',
-'sunshine':'Sunshine','sunny':'Sunshine',
-'groover':'Groover','groovy':'Groover','groove':'Groover',
-'peak time':'Peak Time','peak':'Peak Time','bangers':'Peak Time','banger':'Peak Time',
-'soulful':'Soulful','instrumental journey':'Instrumental Journey','instrumental':'Instrumental Journey',
-'dark & moody':'Dark & Moody','dark':'Dark & Moody','moody':'Dark & Moody',
-'ambient':'Ambient','chill':'Chill'};
-var STOPWORDS={'the':1,'a':1,'an':1,'and':1,'&':1,'of':1,'on':1,'in':1,'with':1,'some':1,'me':1,'my':1,'from':1,'for':1,'era':1,'vibes':1,'vibe':1,'music':1,'tracks':1,'stuff':1};
+var VIBE_SYN={'deep & mellow':'Deep & Mellow','mellow':'Deep & Mellow','deep':'Deep & Mellow','slow':'Deep & Mellow','dusty':'Deep & Mellow','dinner':'Deep & Mellow','dinner party':'Deep & Mellow','cooking':'Deep & Mellow','wine':'Deep & Mellow',
+'feel good':'Feel Good','feelgood':'Feel Good','feel-good':'Feel Good','upbeat':'Feel Good','uplifting':'Feel Good','happy':'Feel Good','fun':'Feel Good',
+'sunshine':'Sunshine','sunny':'Sunshine','summer':'Sunshine','summery':'Sunshine','warm':'Sunshine',
+'groover':'Groover','groovy':'Groover','groove':'Groover','grooves':'Groover',
+'peak time':'Peak Time','peak':'Peak Time','bangers':'Peak Time','banger':'Peak Time','high energy':'Peak Time','energetic':'Peak Time','banging':'Peak Time','driving':'Peak Time','uptempo':'Peak Time',
+'soulful':'Soulful','smooth':'Soulful','sexy':'Soulful','romantic':'Soulful',
+'instrumental journey':'Instrumental Journey','instrumental':'Instrumental Journey',
+'dark & moody':'Dark & Moody','dark':'Dark & Moody','moody':'Dark & Moody','brooding':'Dark & Moody',
+'ambient':'Ambient','spacey':'Ambient','dreamy':'Ambient','atmospheric':'Ambient',
+'chill':'Chill','chilled':'Chill','chillout':'Chill','laid back':'Chill','laidback':'Chill','laid-back':'Chill','relaxed':'Chill','relaxing':'Chill','easy':'Chill'};
+/* everyday phrases -> mood presets (checked after exact mood-key match) */
+var MOOD_SYN={'late night':'After Midnight','after midnight':'After Midnight','midnight':'After Midnight','small hours':'After Midnight','2am':'After Midnight',
+'sunset':'Balearic Sunset','golden hour':'Balearic Sunset','balearic':'Balearic Sunset','beach':'Balearic Sunset','terrace':'Balearic Sunset',
+'bbq':'Summer BBQ','barbecue':'Summer BBQ','garden':'Summer BBQ','poolside':'Summer BBQ',
+'sunday morning':'Sunday Morning','morning':'Sunday Morning','breakfast':'Sunday Morning','coffee':'Sunday Morning','hangover':'Sunday Morning','lazy sunday':'Sunday Morning',
+'party':'Dancefloor','dancefloor':'Dancefloor','dancing':'Dancefloor','club':'Dancefloor','peak hour':'Dancefloor',
+'meditation':'Meditative','yoga':'Meditative','zen':'Meditative','sleep':'Meditative',
+'work':'Chill Electronic','focus':'Chill Electronic','study':'Chill Electronic',
+'cosmic':'Cosmic & Spiritual','spiritual':'Cosmic & Spiritual',
+'wedding':'Wedding Party','yacht':'Yacht Rock & Soul Gliding','yacht rock':'Yacht Rock & Soul Gliding'};
+var STOPWORDS={'the':1,'a':1,'an':1,'and':1,'&':1,'of':1,'on':1,'in':1,'with':1,'some':1,'me':1,'my':1,'from':1,'for':1,'era':1,'vibes':1,'vibe':1,'music':1,'tracks':1,'stuff':1,
+'like':1,'something':1,'please':1,'want':1,'need':1,'give':1,'play':1,'put':1,'get':1,'feeling':1,'kind':1,'sort':1,'session':1,'playlist':1,'songs':1,'song':1,'records':1,'that':1,'this':1};
 
 /* genre vocabulary built lazily from DATA (terms appearing on 3+ tracks) */
 var _gvocab=null;
@@ -43,11 +56,32 @@ function gvocab(){
   return _gvocab;
 }
 
+/* artist vocabulary: lowercase first-artist -> display name, for artists with 3+ tracks */
+var _avocab=null;
+function avocab(){
+  if(_avocab)return _avocab;
+  var ct={},disp={};
+  DATA.forEach(function(t){
+    var a=(t.a||'').split(';')[0].trim();
+    var k=a.toLowerCase();
+    if(k.length<4||STOPWORDS[k])return;
+    ct[k]=(ct[k]||0)+1;disp[k]=a;
+  });
+  _avocab={};
+  Object.keys(ct).forEach(function(k){if(ct[k]>=3)_avocab[k]=disp[k]});
+  return _avocab;
+}
+
 /* parse free text into a slice. Longest phrase wins; crate > vibe > mood > genre on ties. */
 function dlrParse(text){
-  var S={crates:[],vibes:[],mood:null,yr:null,vinyl:false,gf:[],ignored:[]};
+  var S={crates:[],vibes:[],mood:null,yr:null,vinyl:false,gf:[],artist:null,bpm:null,ignored:[]};
   var s=(text||'').toLowerCase().replace(/[‘’']/g,'');
-  /* years first (regex), then blank them out */
+  /* bpm first (so "115-125 bpm" never reads as years) */
+  var bm=s.match(/\b(\d{2,3})\s*(?:-|–|—|to)\s*(\d{2,3})\s*bpm\b/);
+  if(bm){var b1=parseInt(bm[1]),b2=parseInt(bm[2]);if(b2<b1){var bt=b1;b1=b2;b2=bt}S.bpm=[b1,b2];s=s.replace(bm[0],' ')}
+  if(!S.bpm){bm=s.match(/\b(?:around|about|circa)?\s*~?\s*(\d{2,3})\s*bpm\b/);
+    if(bm){var bb=parseInt(bm[1]);S.bpm=[bb-6,bb+6];s=s.replace(bm[0],' ')}}
+  /* years next (regex), then blank them out */
   var m=s.match(/\b(19\d{2}|20\d{2})\s*(?:-|–|—|to)\s*(19\d{2}|20\d{2}|\d{2})\b/);
   if(m){var y1=parseInt(m[1]),y2=parseInt(m[2]);if(y2<100)y2=Math.floor(y1/100)*100+y2;if(y2<y1){var tmp=y1;y1=y2;y2=tmp}S.yr=[y1,y2];s=s.replace(m[0],' ')}
   if(!S.yr){
@@ -61,6 +95,7 @@ function dlrParse(text){
   /* phrase matching over word array */
   var words=s.split(/\s+/).filter(function(w){return w.length});
   var GV=gvocab();
+  var AV=avocab();
   var moodKeys={};Object.keys(MOODS).forEach(function(k){moodKeys[k.toLowerCase()]=k});
   var i=0;
   while(i<words.length){
@@ -71,7 +106,9 @@ function dlrParse(text){
       if(CRATE_SYN[ph])cand={k:'crate',v:CRATE_SYN[ph]};
       else if(VIBE_SYN[ph])cand={k:'vibe',v:VIBE_SYN[ph]};
       else if(moodKeys[ph])cand={k:'mood',v:moodKeys[ph]};
+      else if(MOOD_SYN[ph])cand={k:'mood',v:MOOD_SYN[ph]};
       else if(GV[ph]&&L>=1&&ph.length>=4)cand={k:'gf',v:ph};
+      else if(AV[ph]&&ph.length>=4)cand={k:'artist',v:ph};
       if(cand){hit=cand;hitLen=L;break}
     }
     if(hit){
@@ -79,6 +116,7 @@ function dlrParse(text){
       else if(hit.k==='vibe'&&S.vibes.indexOf(hit.v)<0)S.vibes.push(hit.v);
       else if(hit.k==='mood'&&!S.mood)S.mood=hit.v;
       else if(hit.k==='gf'&&S.gf.indexOf(hit.v)<0)S.gf.push(hit.v);
+      else if(hit.k==='artist'&&!S.artist)S.artist=hit.v;
       i+=hitLen;
     }else{
       if(!STOPWORDS[words[i]]&&words[i].length>2)S.ignored.push(words[i]);
@@ -91,6 +129,7 @@ function dlrParse(text){
 /* canonical display title for the slice */
 function dlrTitle(){
   var bits=[];
+  if(DLR.artist){var AV=avocab();bits.push('Like '+(AV[DLR.artist]||DLR.artist.replace(/\b\w/g,function(c){return c.toUpperCase()})))}
   if(DLR.yr){
     var y=DLR.yr;
     if(y[0]%10===0&&y[1]===y[0]+9)bits.push((y[0]%100===0?'20':'')+String(y[0]).slice(2)+'s');
@@ -101,6 +140,7 @@ function dlrTitle(){
   if(DLR.mood)bits.push(DLR.mood);
   bits=bits.concat(DLR.gf.map(function(g){return g.replace(/\b\w/g,function(c){return c.toUpperCase()})}));
   bits=bits.concat(DLR.vibes);
+  if(DLR.bpm)bits.push(DLR.bpm[0]+'–'+DLR.bpm[1]+' BPM');
   if(DLR.vinyl)bits.push('on Vinyl');
   return bits.length?bits.join(' · '):'The Whole Archive';
 }
@@ -122,14 +162,33 @@ function moodOk(t,mood){
 function dlrPool(S){
   S=S||DLR;
   var mood=S.mood?MOODS[S.mood]:null;
+  /* artist anchor: the artist's own tracks + kindred tracks (shared crate AND genre term) */
+  var anchor=null;
+  if(S.artist){
+    anchor={name:S.artist,crates:{},g:{}};
+    DATA.forEach(function(t){
+      if((t.a||'').split(';')[0].trim().toLowerCase()!==S.artist)return;
+      (t.c||[]).forEach(function(c){if(c.indexOf('Uncategor')<0)anchor.crates[c]=1});
+      (t.g||'').toLowerCase().split(',').forEach(function(g){g=g.trim();if(g.length>=4)anchor.g[g]=1});
+    });
+  }
   return DATA.filter(function(t){
     if(!t.sid||t.sid.length!==22)return false;
     if(S.vinyl&&!t.vy)return false;
     if(S.crates.length&&!t.c.some(function(c){return S.crates.indexOf(c)>=0}))return false;
     if(S.vibes.length&&S.vibes.indexOf(t.vb)<0)return false;
     if(S.yr){var r=parseInt(t.r)||0;if(!r||r<S.yr[0]||r>S.yr[1])return false}
+    if(S.bpm){if(!(t.tp>0)||t.tp<S.bpm[0]-0.5||t.tp>S.bpm[1]+0.5)return false}
     if(S.gf.length){var gl=(t.g||'').toLowerCase();if(!S.gf.some(function(g){return gl.indexOf(g)>=0}))return false}
     if(mood&&!moodOk(t,mood))return false;
+    if(anchor){
+      var fa=(t.a||'').split(';')[0].trim().toLowerCase();
+      if(fa!==anchor.name){
+        var shareC=(t.c||[]).some(function(c){return anchor.crates[c]});
+        var shareG=(t.g||'').toLowerCase().split(',').some(function(g){return anchor.g[g.trim()]});
+        if(!shareC||!shareG)return false;
+      }
+    }
     return true;
   });
 }
@@ -141,13 +200,16 @@ var VIBE_ADJ={'Deep & Mellow':['Chill','Ambient','Soulful'],'Sunshine':['Feel Go
 'Ambient':['Chill','Instrumental Journey'],'Dark & Moody':['Ambient','Peak Time'],'Chill':['Deep & Mellow','Ambient']};
 var MIN_DEAL=26;
 function relaxedPool(){
-  var S={crates:DLR.crates.slice(),vibes:DLR.vibes.slice(),mood:DLR.mood,yr:DLR.yr?DLR.yr.slice():null,vinyl:DLR.vinyl,gf:DLR.gf.slice(),ignored:[]};
+  var S={crates:DLR.crates.slice(),vibes:DLR.vibes.slice(),mood:DLR.mood,yr:DLR.yr?DLR.yr.slice():null,vinyl:DLR.vinyl,gf:DLR.gf.slice(),artist:DLR.artist,bpm:DLR.bpm?DLR.bpm.slice():null,ignored:[]};
   var notes=[];
   var pool=dlrPool(S);
   if(pool.length<MIN_DEAL&&S.vibes.length){
     var extra=[];
     S.vibes.forEach(function(v){(VIBE_ADJ[v]||[]).forEach(function(av){if(S.vibes.indexOf(av)<0&&extra.indexOf(av)<0)extra.push(av)})});
     if(extra.length){S.vibes=S.vibes.concat(extra);pool=dlrPool(S);notes.push('widened vibe to include '+extra.join(', '))}
+  }
+  if(pool.length<MIN_DEAL&&S.bpm){
+    S.bpm=[S.bpm[0]-10,S.bpm[1]+10];pool=dlrPool(S);notes.push('widened BPM to '+S.bpm[0]+'–'+S.bpm[1]);
   }
   if(pool.length<MIN_DEAL&&S.yr){
     S.yr=[S.yr[0]-5,S.yr[1]+5];pool=dlrPool(S);notes.push('stretched years to '+S.yr[0]+'–'+S.yr[1]);
@@ -320,7 +382,7 @@ function buildUI(){
     +'<span class="dlr-close" onclick="closeDealer()">✕</span>'
     +'<h2>🃏 The Dealer</h2>'
     +'<div class="dlr-sub">Name a slice — crate, vibe, era, mood, or any combo — and get dealt a 25-track loop from your own shelves: a spine of bankers, a few forgotten loves, a couple of wild cards. Sequenced, not shuffled.</div>'
-    +'<div class="dlr-inputrow"><input class="dlr-input" id="dlr-input" placeholder="Try “Brazilian sunshine”, “90s house deep &amp; mellow”, “indie 2009-2012”…" autocomplete="off"><button class="dlr-dealbtn" id="dlr-deal-btn" onclick="dealNow()">DEAL</button></div>'
+    +'<div class="dlr-inputrow"><input class="dlr-input" id="dlr-input" placeholder="Try “Brazilian sunshine”, “dinner party jazz”, “late night 120 bpm”, “like Marcos Valle”…" autocomplete="off"><button class="dlr-dealbtn" id="dlr-deal-btn" onclick="dealNow()">DEAL</button></div>'
     +'<div class="dlr-poolct" id="dlr-poolct"></div>'
     +'<div class="dlr-presets" id="dlr-presets">'+presetChips+'</div>'
     +'<div class="dlr-pickers">'
@@ -333,8 +395,9 @@ function buildUI(){
   document.body.appendChild(ov);
   ov.addEventListener('click',function(e){if(e.target===ov)closeDealer()});
   var inp=document.getElementById('dlr-input');
-  inp.addEventListener('input',syncFromInput);
-  inp.addEventListener('keydown',function(e){if(e.key==='Enter')dealNow()});
+  var _syncT=null;
+  inp.addEventListener('input',function(){clearTimeout(_syncT);_syncT=setTimeout(syncFromInput,120)});
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){clearTimeout(_syncT);syncFromInput();dealNow()}});
   document.getElementById('dlr-presets').addEventListener('click',function(e){
     var p=e.target.closest('[data-preset]');if(!p)return;
     var v=p.dataset.preset;
