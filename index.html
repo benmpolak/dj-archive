@@ -1478,7 +1478,6 @@ function copySetList(){const txt=djSet.map((t,i)=>(i+1)+'. '+t.a+' — '+t.t+(t.
 function showToast(m){const t=q('#set-toast');t.textContent=m;t.style.bottom=q('#mini-player').classList.contains('visible')?'100px':'20px';t.classList.add('show');const dur=m.toLowerCase().includes('error')||m.toLowerCase().includes('403')||m.toLowerCase().includes('fail')?5000:2500;setTimeout(()=>t.classList.remove('show'),dur)}
 function loadMore(){page++;const s=page*PAGE_SZ;if(s>=filtered.length)return;q('#tbody').insertAdjacentHTML('beforeend',rows(filtered.slice(s,s+PAGE_SZ),s))}
 async function saveAllRecentToSpotify(){
-  if(!spToken){showToast('Connect to Spotify first');return}
   const now=new Date(),threeAgo=new Date(now.getFullYear(),now.getMonth()-3,1);
   const cutoff=threeAgo.getFullYear()*100+(threeAgo.getMonth()+1);
   const recent=DATA.filter(t=>t.da>=cutoff&&t.sid&&t.sid.length===22);
@@ -1486,7 +1485,6 @@ async function saveAllRecentToSpotify(){
   _doSpotifySave(recent,'Recent Finds — DJ Archive',null);
 }
 async function saveNewReleasesToSpotify(){
-  if(!spToken){showToast('Connect to Spotify first');return}
   const yr=new Date().getFullYear();
   const fromYr=yr-1;
   const fresh=DATA.filter(t=>t.sid&&t.sid.length===22&&parseInt(t.r)>=fromYr);
@@ -1494,7 +1492,6 @@ async function saveNewReleasesToSpotify(){
   _doSpotifySave(fresh,'New Music '+fromYr+'–'+yr+' — DJ Archive',null);
 }
 async function saveRecentMood(moodName){
-  if(!spToken){showToast('Connect to Spotify first');return}
   const chip=document.querySelector('.mood-chip[data-mood="'+moodName+'"]');
   if(chip)chip.click();
   await new Promise(r=>setTimeout(r,300));
@@ -1505,7 +1502,6 @@ async function saveRecentMood(moodName){
   _doSpotifySave(recent,moodName+' — Recent Picks — DJ Archive',null);
 }
 async function saveRecentToSpotify(){
-  if(!spToken){showToast('Connect to Spotify first');return}
   const now=new Date(),threeAgo=new Date(now.getFullYear(),now.getMonth()-3,1);
   const cutoff=threeAgo.getFullYear()*100+(threeAgo.getMonth()+1);
   const recent=filtered.filter(t=>t.da>=cutoff&&t.sid&&t.sid.length===22);
@@ -1584,6 +1580,16 @@ function _spStore(data){
   }catch(e){return null}
 }
 function _spForget(){try{localStorage.removeItem('sp_tok')}catch(e){}spToken=null;updateSpotifyUI()}
+/* If a save was interrupted by the auth redirect, finish it now (confirm dialog still shows). */
+function _spResumePendingSave(){
+  var raw=null;
+  try{raw=sessionStorage.getItem('sp_pending_save');sessionStorage.removeItem('sp_pending_save')}catch(e){}
+  if(!raw)return;
+  try{
+    var p=JSON.parse(raw);
+    if(p&&p.sids&&p.sids.length)_doSpotifySave(p.sids.map(function(s){return{sid:s}}),p.name,null);
+  }catch(e){}
+}
 async function _spRefresh(rt){
   try{
     const resp=await fetch('https://accounts.spotify.com/api/token',{
@@ -1640,6 +1646,7 @@ async function handleAuthCallback(){
   const params=new URLSearchParams(window.location.search);
   const authErr=params.get('error');
   if(authErr){
+    try{sessionStorage.removeItem('sp_pending_save')}catch(e){}
     showToast('Spotify connect cancelled ('+authErr+')');
     window.history.replaceState(null,null,window.location.pathname+window.location.hash);
     return null;
@@ -1683,6 +1690,7 @@ let _authReady=false;
     if(spToken){
       console.log('[DJ] Connected to Spotify');
       showToast('Connected to Spotify — ready to save playlists');
+      _spResumePendingSave();
     }
   }
   if(!spToken){
@@ -1741,7 +1749,15 @@ function _confirmSpotifySave(plName,trackCount){
 // Core save function — uses /me/playlists (Feb 2026 API)
 async function _doSpotifySave(trackList, plName, btn){
   await ensureSpToken();
-  if(!spToken){showToast('Connect to Spotify first');return}
+  if(!spToken){
+    /* Not connected: stash the save, send them to Spotify auth;
+       _spResumePendingSave() finishes it when they land back. */
+    var pend={name:plName,sids:trackList.filter(function(t){return t.sid&&t.sid.length===22}).map(function(t){return t.sid})};
+    if(pend.sids.length){try{sessionStorage.setItem('sp_pending_save',JSON.stringify(pend))}catch(e){}}
+    showToast('Connecting to Spotify…');
+    spAuth();
+    return;
+  }
   const sp=trackList.filter(t=>t.sid&&t.sid.length===22);
   if(!sp.length){showToast('No Spotify tracks to save');return}
   var confirmed=await _confirmSpotifySave(plName,sp.length);
@@ -1793,21 +1809,18 @@ async function _doSpotifySave(trackList, plName, btn){
 }
 
 async function saveToSpotify(){
-  if(!spToken){showToast('Connect to Spotify first');return}
   const sp=filtered.filter(t=>t.sid&&t.sid.length===22);
   if(!sp.length){showToast('No Spotify tracks in view');return}
   _doSpotifySave(filtered, (F.mood||F.search||'The Full Archive')+' — DJ Archive', document.querySelector('.stats-bar .save-spotify'));
 }
 
 async function saveSetToSpotify(){
-  if(!spToken){showToast('Connect to Spotify first');return}
   if(!djSet.length){showToast('No tracks in set');return}
   const seed=_mixSeed||djSet[0];
   _doSpotifySave(djSet, seed.a.split(';')[0]+' Mix — DJ Archive', document.querySelector('#set-builder .save-spotify'));
 }
 
 async function saveDigToSpotify(){
-  if(!spToken){showToast('Connect to Spotify first');return}
   const picks=window._digPicks||[];
   if(!picks.length){showToast('Run a Dig Deeper search first');return}
   const artistName=q('#dig-artist-name').textContent||'Unknown';
