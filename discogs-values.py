@@ -5,7 +5,7 @@ num_for_sale. Anonymous, rate-limited ~25/min, checkpointed to discogs-values.cs
 import csv, json, os, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, 'benmpolak-collection-20260411-0944.csv')
+SRC = os.path.join(HERE, 'benmpolak-collection-20260713-1219.csv')
 OUT = os.path.join(HERE, 'discogs-values.csv')
 UA = 'DJArchiveValuation/1.0 +https://benmpolak.github.io/dj-archive'
 

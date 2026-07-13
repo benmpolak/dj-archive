@@ -106,6 +106,17 @@ print(f"  {len(DATA)} existing tracks")
 existing_dids = set(str(t['did']) for t in DATA if t.get('did'))
 print(f"  {len(existing_dids)} unique Discogs releases already in archive")
 
+# (first artist, title) lookup — same convention as playlist-import.py. A vinyl
+# purchase of an album often duplicates tracks the archive already has from
+# Spotify; merge those (set vy/did on the existing row) instead of appending.
+def title_key(artist, title):
+    a = re.split(r'[;,]', artist or '')[0].strip().lower()
+    return (a, (title or '').strip().lower())
+
+title_index = {}
+for i, t in enumerate(DATA):
+    title_index.setdefault(title_key(t.get('a'), t.get('t')), i)
+
 # --- Read CSV ---
 with open(CSV_PATH, encoding='utf-8-sig', newline='') as f:
     rows = list(csv.DictReader(f))
@@ -118,6 +129,8 @@ for r in new_rows:
 
 # --- Pull tracklists ---
 new_tracks = []
+new_keys = set()
+total_merged = 0
 for idx, row in enumerate(new_rows, 1):
     rid = row['release_id']
     print(f"\n[{idx}/{len(new_rows)}] Fetching release {rid}...")
@@ -159,6 +172,7 @@ for idx, row in enumerate(new_rows, 1):
         # else: skip headings, dividers
 
     added_here = 0
+    merged_here = 0
     for tr in flat:
         title = (tr.get('title') or '').strip()
         if not title:
@@ -169,6 +183,18 @@ for idx, row in enumerate(new_rows, 1):
             ta = ';'.join(clean_artist(a.get('name','')) for a in track_artists if a.get('name'))
         else:
             ta = release_artist
+
+        # Already in the archive (e.g. from Spotify)? Flag it as vinyl instead of duplicating.
+        k = title_key(ta, title)
+        hit = title_index.get(k)
+        if hit is not None:
+            ex = DATA[hit]
+            if not ex.get('vy'): ex['vy'] = 1
+            if not ex.get('did'): ex['did'] = str(rid)
+            merged_here += 1
+            continue
+        if k in new_keys:
+            continue
 
         new_track = {
             'a':   ta,
@@ -193,15 +219,17 @@ for idx, row in enumerate(new_rows, 1):
             'da':  da,
         }
         new_tracks.append(new_track)
+        new_keys.add(k)
         added_here += 1
-    print(f"  + {added_here} tracks queued")
+    total_merged += merged_here
+    print(f"  + {added_here} tracks queued, {merged_here} merged into existing archive tracks")
 
 # --- Append and save ---
 print(f"\n{'='*50}")
-print(f"Total new tracks to add: {len(new_tracks)}")
+print(f"Total new tracks to add: {len(new_tracks)}; merged into existing: {total_merged}")
 print(f"{'='*50}")
 
-if new_tracks:
+if new_tracks or total_merged:
     DATA.extend(new_tracks)
     print(f"\nNew DATA size: {len(DATA)}")
     print("Saving archive...")
