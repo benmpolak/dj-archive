@@ -377,6 +377,20 @@ def fetch_barbican():
     return events
 
 
+def fetch_spiritland():
+    html = http_get('https://spiritland.com/whats-on/')
+    events = []
+    for m in re.finditer(
+            r'<p class="title"><a href="(https://spiritland\.com/events/[^"]+)">([^<]+)</a></p>\s*'
+            r'<p class="time"><a[^>]*>(\d{2})/(\d{2})/(\d{4})\s+(\d{2}:\d{2})</a>', html):
+        url, title, dd, mm, yyyy, start = m.groups()
+        events.append({'date': f'{yyyy}-{mm}-{dd}', 'title': title.strip(),
+                       'venue': "Spiritland King's Cross", 'url': url,
+                       'names': [title.strip()], 'start': start,
+                       'source': 'Spiritland', 'hint': 'dj'})
+    return events
+
+
 AMG_SLUGS = {'O2 Academy Brixton': 'o2academybrixton',
              "O2 Shepherd's Bush Empire": 'o2shepherdsbushempire',
              'O2 Forum Kentish Town': 'o2forumkentishtown',
@@ -824,6 +838,7 @@ def main():
                       ('Roundhouse', fetch_roundhouse), ('Ally Pally', fetch_allypally),
                       ('Barbican', fetch_barbican),
                       ('AMG/Live Nation', fetch_amg), ('Apollo', fetch_apollo),
+                      ('Spiritland', fetch_spiritland),
                       ('Ticketmaster', lambda: fetch_ticketmaster(args.days))]:
         try:
             batch = fn()
@@ -884,7 +899,9 @@ def main():
 
     got = [k for k, v in src_counts.items() if v]
     note = ('Sources: ' + ', '.join(got) +
-            '. Gaps: Ronnie Scott&rsquo;s, Southbank, Union Chapel (bot-walled).')
+            '. Gaps: Ronnie Scott&rsquo;s, Southbank, Union Chapel (bot-walled); '
+            'Space Talk &amp; One Eighty One programme on Instagram only '
+            '(their RA-listed nights are covered).')
     render(matches, len(events), len(artists), note, args.out)
     print(f'Wrote {args.out}')
 
