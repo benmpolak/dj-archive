@@ -2,19 +2,20 @@
 """Gig Radar v2 — upcoming London gigs matched to the archive.
 
 Sources:
-  - Resident Advisor GraphQL (all-London backbone: clubs + live)
-  - KOKO whats-on, EartH events, Jazz Cafe whats-on (London shows only)
-  - Roundhouse whats-on (listing links -> detail-page schema, threaded)
-  - Alexandra Palace whats-on, Barbican contemporary music
-  - Ticketmaster Discovery API IF env TM_API_KEY is set (unlocks O2 Academy
-    Brixton, Shepherd's Bush Empire + other Live Nation rooms — free key from
-    developer.ticketmaster.com)
-Gaps (all bot-walled, checked 2026-07-20): Ronnie Scott's (Cloudflare),
-Southbank Centre, Union Chapel (JS-only), AMG/Live Nation venue sites.
+  - Resident Advisor GraphQL (all-London backbone: clubs + live + festivals)
+  - KOKO, EartH, Jazz Cafe, Roundhouse, Alexandra Palace, Barbican,
+    Eventim Apollo, Spiritland King's Cross, The O2 Arena (site scrapes)
+  - AMG/Live Nation internal API (O2 Academy Brixton, Shepherd's Bush Empire,
+    Forum Kentish Town, Islington Academies)
+  - Ronnie Scott's via r.jina.ai reader proxy (their site is Cloudflare-walled
+    for plain fetches; the proxy renders it)
+  - Ticketmaster Discovery API IF env TM_API_KEY is set (optional extra)
+Gaps (checked 2026-07-20): Union Chapel (JS-only); Space Talk & One Eighty One
+programme on Instagram only.
 
 Matching: structured lineup names exact + title phrase-scan (strict — see
 match_event). Weighted on plays + recency + newly-added artists.
-Tribute/covers/"vs" nights are flagged, kept out of Top Picks, and labelled.
+Tribute/covers/"vs" nights are dropped entirely (is_tribute).
 first_seen per show persists across runs via gigs-data.json -> "Just announced".
 
 Usage: python3 gigs-fetch.py [--days 365] [--out gigs.html]
@@ -42,7 +43,8 @@ TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasu
               'daughter', 'mother', 'brother', 'sister', 'lovers', 'dreams', 'magic',
               'joseph', 'simone', 'marcel', 'george', 'marie', 'james', 'thomas',
               'charlie', 'jamie', 'oscar', 'leon', 'otis', 'ruby', 'pearl',
-              'outside', 'return', 'prince', 'inside', 'weekend', 'holiday'}
+              'outside', 'return', 'prince', 'inside', 'weekend', 'holiday', 'disney',
+              'salute'}
 
 # hard signals always mean covers/tribute; soft ones ("celebrating", "vs") only
 # count when the artist was matched from the free-text title — a structured
@@ -86,7 +88,11 @@ def http_get(url, referer=None, data=None, timeout=30):
         headers['Content-Type'] = 'application/json'
         data = json.dumps(data).encode()
     req = urllib.request.Request(url, data=data, headers=headers)
-    return _OPENER.open(req, timeout=timeout).read().decode('utf-8', 'replace')
+    raw = _OPENER.open(req, timeout=timeout).read()
+    if raw[:2] == b'\x1f\x8b':  # some servers gzip regardless of Accept-Encoding
+        import gzip
+        raw = gzip.decompress(raw)
+    return raw.decode('utf-8', 'replace')
 
 
 # ---------- archive artists ----------
@@ -377,6 +383,102 @@ def fetch_barbican():
     return events
 
 
+RONNIE_DATE_RE = re.compile(
+    r'^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+(\d{1,2})'
+    r'(?:\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*)?'
+    r'(?:\s+(20\d\d))?\s*(?:-|–|$)')
+
+
+def fetch_ronnies():
+    """Ronnie Scott's find-a-show, rendered through the r.jina.ai reader proxy
+    (their site Cloudflare-blocks plain fetches). Markdown pattern per show:
+    a date line ("Tue 21 Jul 2026" / "Wed 22 - Wed 29 Jul 2026"), then
+    "## Title", then a "[Find out more](url)" link."""
+    events, seen = [], set()
+    for page in range(1, 16):
+        try:
+            md = http_get(f'https://r.jina.ai/https://www.ronniescotts.co.uk/find-a-show?page={page}',
+                          timeout=60)
+        except Exception:
+            break
+        pend_date, added = None, 0
+        for line in md.splitlines():
+            line = line.strip()
+            dm = RONNIE_DATE_RE.match(line)
+            if dm:
+                day = int(dm.group(1))
+                mon = dm.group(2)
+                yr = dm.group(3)
+                if not mon:  # "Wed 22 - Wed 29 Jul 2026": month/year only at range end
+                    tail = re.search(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(20\d\d)', line)
+                    if tail:
+                        mon, yr = tail.group(1), tail.group(2)
+                if mon:
+                    if yr:
+                        try:
+                            pend_date = date(int(yr), MONTHS[mon.lower()[:3]], day)
+                        except ValueError:
+                            pend_date = None
+                    else:
+                        pend_date = infer_year(day, MONTHS[mon.lower()[:3]])
+                continue
+            if line.startswith('## ') and pend_date:
+                title = line[3:].strip()
+                if (title, str(pend_date)) not in seen:
+                    seen.add((title, str(pend_date)))
+                    events.append({'date': str(pend_date), 'title': title,
+                                   'venue': "Ronnie Scott's",
+                                   'url': 'https://www.ronniescotts.co.uk/find-a-show',
+                                   'names': [title], 'start': '',
+                                   'source': 'RonnieScotts', 'hint': 'gig'})
+                    added += 1
+                continue
+            lm = re.search(r'\[Find out more\]\((https://www\.ronniescotts\.co\.uk[^)]+)\)', line)
+            if lm and events:
+                events[-1]['url'] = lm.group(1)
+        if not added:
+            break
+        time.sleep(2)
+    return events
+
+
+def fetch_theo2():
+    events = []
+    for off in ('', '/24', '/48', '/72'):
+        try:
+            h = http_get(f'https://www.theo2.co.uk/events/venue/the-o2-arena{off}')
+        except Exception:
+            break
+        blocks = [b for b in h.split('eventItem entry')[1:] if ':href=' not in b[:400]]
+        found = 0
+        for b in blocks:
+            um = re.search(r'href="(https://www\.theo2\.co\.uk/events/detail/[^"]+)"', b)
+            tm = re.search(r'<h3 class="title[^"]*">\s*<a[^>]*>([^<]+)</a>', b)
+            dm = re.search(r'm-date__day">\s*(\d{1,2})\s*</span><span class="m-date__month">\s*'
+                           r'([A-Za-z]{3})[a-z]*\s*</span>(?:<span class="m-date__year">\s*(\d{4}))?', b)
+            if not (um and tm and dm):
+                continue
+            yr = int(dm.group(3)) if dm.group(3) else TODAY.year
+            try:
+                dd = date(yr, MONTHS.get(dm.group(2).lower(), 1), int(dm.group(1)))
+            except ValueError:
+                continue
+            title = tm.group(1).strip()
+            events.append({'date': str(dd), 'title': title, 'venue': 'The O2 Arena',
+                           'url': um.group(1), 'names': [title], 'start': '',
+                           'source': 'TheO2', 'hint': 'gig'})
+            found += 1
+        if not found:
+            break
+    seen, out = set(), []
+    for e in events:
+        k = (e['title'], e['date'])
+        if k not in seen:
+            seen.add(k)
+            out.append(e)
+    return out
+
+
 def fetch_spiritland():
     html = http_get('https://spiritland.com/whats-on/')
     events = []
@@ -572,10 +674,9 @@ TYPE_LABEL = {'gig': 'Live gig', 'dj': 'DJ night', 'day': 'Day party'}
 def render(matches, n_events, n_artists, sources_note, out):
     matches = sorted(matches, key=lambda m: (m['date'], -m['score']))
     fresh_cut = str(TODAY - timedelta(days=10))
-    picks = sorted([m for m in matches if not m['tribute']], key=lambda m: -m['score'])[:12]
+    picks = sorted(matches, key=lambda m: -m['score'])[:12]
     upd = TODAY.strftime('%-d %b %Y')
-    venues = sorted({m['venue'] for m in matches if m['venue']},
-                    key=lambda v: -sum(1 for m in matches if m['venue'] == v))
+    venues = sorted({m['venue'] for m in matches if m['venue']}, key=str.lower)
     crates = sorted({m['artist']['crate'] for m in matches if m['artist']['crate']},
                     key=lambda c: -sum(1 for m in matches if m['artist']['crate'] == c))
     months = sorted({m['date'][:7] for m in matches})
@@ -600,8 +701,6 @@ def render(matches, n_events, n_artists, sources_note, out):
             for (k, lbl), (bg, fg) in ((b, BADGE_CSS[b[0]]) for b in badges(m['artist'])))
         if m['first_seen'] >= fresh_cut:
             h = '<span class="bdg bdg-just">Just announced</span>' + h
-        if m['tribute']:
-            h += '<span class="bdg bdg-trib">Their music, not them</span>'
         return h
 
     def attrs(m):
@@ -659,7 +758,7 @@ def render(matches, n_events, n_artists, sources_note, out):
         for ym in months)
     crate_chips = ''.join(f'<button class="fc fc-c" data-c="{esc(c)}">{esc(c)}</button>' for c in crates)
     venue_opts = '<option value="">All venues</option>' + ''.join(
-        f'<option value="{esc(v)}">{esc(v)}</option>' for v in venues[:40])
+        f'<option value="{esc(v)}">{esc(v)}</option>' for v in venues)
 
     html = f'''<!DOCTYPE html>
 <html lang="en"><head>
@@ -839,6 +938,7 @@ def main():
                       ('Barbican', fetch_barbican),
                       ('AMG/Live Nation', fetch_amg), ('Apollo', fetch_apollo),
                       ('Spiritland', fetch_spiritland),
+                      ("Ronnie Scott's", fetch_ronnies), ('The O2', fetch_theo2),
                       ('Ticketmaster', lambda: fetch_ticketmaster(args.days))]:
         try:
             batch = fn()
@@ -858,9 +958,13 @@ def main():
     per_event = [(ev, match_event(ev, artists)) for ev in events]
     drop_generic_title_matches(per_event)
 
-    matches, seen = [], set()
+    matches, seen, n_trib = [], set(), 0
     for ev, hits in per_event:
         for norm, how in hits.items():
+            # tribute / covers / "vs" nights: the artist isn't actually playing — drop
+            if is_tribute(ev['title'], how):
+                n_trib += 1
+                continue
             key = (norm, ev['date'])
             if key in seen:
                 continue
@@ -870,10 +974,10 @@ def main():
                             'url': ev['url'], 'source': ev['source'], 'how': how,
                             'artist': r, 'all_names': ev['names'],
                             'etype': classify(ev, ev['title']),
-                            'tribute': is_tribute(ev['title'], how),
                             'first_seen': ('2000-01-01' if bootstrap else
                                            prev_seen.get((r['name'], ev['date']), str(TODAY))),
                             'score': artist_score(r)})
+    print(f'  dropped {n_trib} tribute/covers-night matches')
 
     grouped = {}
     for m in matches:
@@ -892,16 +996,16 @@ def main():
 
     json.dump({'generated': str(TODAY), 'events': len(events),
                'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url', 'source',
-                                                 'how', 'score', 'etype', 'tribute', 'first_seen')},
+                                                 'how', 'score', 'etype', 'first_seen')},
                             'artist': m['artist']['name'],
                             'co': [r['name'] for r in m['co']]} for m in matches]},
               open(f'{HERE}/gigs-data.json', 'w'), indent=1)
 
     got = [k for k, v in src_counts.items() if v]
     note = ('Sources: ' + ', '.join(got) +
-            '. Gaps: Ronnie Scott&rsquo;s, Southbank, Union Chapel (bot-walled); '
-            'Space Talk &amp; One Eighty One programme on Instagram only '
-            '(their RA-listed nights are covered).')
+            '. Tribute / covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
+            'Gaps: Union Chapel (bot-walled); Space Talk &amp; One Eighty One '
+            'programme on Instagram only (their RA-listed nights are covered).')
     render(matches, len(events), len(artists), note, args.out)
     print(f'Wrote {args.out}')
 

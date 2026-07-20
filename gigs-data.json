@@ -1,6 +1,6 @@
 {
  "generated": "2026-07-20",
- "events": 2549,
+ "events": 2698,
  "matches": [
   {
    "date": "2026-07-23",
@@ -11,7 +11,6 @@
    "how": "lineup",
    "score": 20.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "George FitzGerald",
    "co": [
@@ -27,7 +26,6 @@
    "how": "lineup",
    "score": 116.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jimpster",
    "co": [
@@ -48,7 +46,6 @@
    "how": "lineup",
    "score": 77.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "IZCO",
    "co": []
@@ -62,7 +59,6 @@
    "how": "lineup",
    "score": 103.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dimitri From Paris",
    "co": []
@@ -76,7 +72,6 @@
    "how": "lineup",
    "score": 19.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Carl Craig",
    "co": []
@@ -90,7 +85,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Full Crate",
    "co": []
@@ -104,7 +98,6 @@
    "how": "title",
    "score": 75.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Church",
    "co": []
@@ -118,7 +111,6 @@
    "how": "lineup",
    "score": 49.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Asa Tate",
    "co": []
@@ -132,7 +124,6 @@
    "how": "lineup",
    "score": 10.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Karma Kid",
    "co": []
@@ -146,7 +137,6 @@
    "how": "lineup",
    "score": 11.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cousin",
    "co": [
@@ -162,7 +152,6 @@
    "how": "lineup",
    "score": 41.0,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jeff Mills",
    "co": []
@@ -176,7 +165,6 @@
    "how": "lineup",
    "score": 110.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Alex Kassian",
    "co": []
@@ -190,7 +178,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Egyptian Lover",
    "co": []
@@ -204,7 +191,6 @@
    "how": "lineup",
    "score": 18.1,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jarreau Vandal",
    "co": [
@@ -220,7 +206,6 @@
    "how": "lineup",
    "score": 14.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Klaxons",
    "co": []
@@ -234,7 +219,6 @@
    "how": "lineup",
    "score": 7.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Demi Riqu\u00edsimo",
    "co": []
@@ -248,23 +232,8 @@
    "how": "lineup",
    "score": 17.5,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Ian Pooley",
-   "co": []
-  },
-  {
-   "date": "2026-07-25",
-   "title": "RESCHEDULED Fred Again.. vs Daft Punk",
-   "venue": "Brixton Jamm",
-   "url": "https://ra.co/events/2450033",
-   "source": "RA",
-   "how": "title",
-   "score": 93.9,
-   "etype": "dj",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Daft Punk",
    "co": []
   },
   {
@@ -276,7 +245,6 @@
    "how": "lineup",
    "score": 14.0,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Maxwell Owin",
    "co": []
@@ -290,7 +258,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Roni Size",
    "co": []
@@ -304,7 +271,6 @@
    "how": "lineup",
    "score": 9.1,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Milo",
    "co": []
@@ -318,7 +284,6 @@
    "how": "lineup",
    "score": 17.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "COOKIE.",
    "co": []
@@ -332,7 +297,6 @@
    "how": "lineup",
    "score": 40.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Todd Terje",
    "co": []
@@ -346,7 +310,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Coco Maria",
    "co": []
@@ -360,7 +323,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Kay Suzuki",
    "co": []
@@ -374,7 +336,6 @@
    "how": "lineup",
    "score": 41.0,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "JUPiTA",
    "co": []
@@ -388,7 +349,6 @@
    "how": "lineup",
    "score": 13.8,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Horse Meat Disco",
    "co": []
@@ -402,7 +362,6 @@
    "how": "lineup",
    "score": 80.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Satoshi Tomiie",
    "co": [
@@ -419,7 +378,6 @@
    "how": "title",
    "score": 14.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Knee Deep",
    "co": []
@@ -433,7 +391,6 @@
    "how": "title",
    "score": 20.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "George FitzGerald",
    "co": [
@@ -449,7 +406,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Yuna",
    "co": []
@@ -463,7 +419,6 @@
    "how": "lineup",
    "score": 60.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Thakzin",
    "co": [
@@ -481,7 +436,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mall Grab",
    "co": []
@@ -495,7 +449,6 @@
    "how": "lineup",
    "score": 12.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Reaper",
    "co": [
@@ -511,7 +464,6 @@
    "how": "lineup",
    "score": 16.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Deep Dish",
    "co": [
@@ -527,7 +479,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Foster The People",
    "co": []
@@ -541,7 +492,6 @@
    "how": "title",
    "score": 16.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Musique",
    "co": []
@@ -555,7 +505,6 @@
    "how": "lineup",
    "score": 78.1,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Soul II Soul",
    "co": [
@@ -571,7 +520,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Shivum Sharma",
    "co": []
@@ -585,7 +533,6 @@
    "how": "lineup",
    "score": 64.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Apiento",
    "co": []
@@ -599,7 +546,6 @@
    "how": "lineup",
    "score": 11.5,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Raw Silk",
    "co": []
@@ -613,7 +559,6 @@
    "how": "lineup",
    "score": 65.8,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Aroop Roy",
    "co": [
@@ -629,7 +574,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dixon",
    "co": []
@@ -643,7 +587,6 @@
    "how": "lineup",
    "score": 28.8,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "DJ Marky",
    "co": [
@@ -661,7 +604,6 @@
    "how": "lineup",
    "score": 13.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Katy B",
    "co": []
@@ -675,7 +617,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Sam Girling",
    "co": []
@@ -689,7 +630,6 @@
    "how": "lineup",
    "score": 89.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Space Ghost",
    "co": [
@@ -705,7 +645,6 @@
    "how": "lineup",
    "score": 17.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "WheelUP",
    "co": []
@@ -719,7 +658,6 @@
    "how": "lineup",
    "score": 21.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Oliver Night",
    "co": []
@@ -733,7 +671,6 @@
    "how": "title",
    "score": 32.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Hot Chip",
    "co": [
@@ -749,7 +686,6 @@
    "how": "lineup",
    "score": 88.5,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "David Morales",
    "co": []
@@ -763,7 +699,6 @@
    "how": "lineup",
    "score": 43.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Purple Disco Machine",
    "co": [
@@ -781,7 +716,6 @@
    "how": "lineup",
    "score": 7.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Reaper",
    "co": []
@@ -795,7 +729,6 @@
    "how": "lineup",
    "score": 41.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "JUPiTA",
    "co": []
@@ -809,7 +742,6 @@
    "how": "lineup",
    "score": 58.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Greentea Peng",
    "co": [
@@ -828,7 +760,6 @@
    "how": "lineup",
    "score": 7.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Reaper",
    "co": []
@@ -842,7 +773,6 @@
    "how": "lineup",
    "score": 23.0,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Peggy Gou",
    "co": []
@@ -856,7 +786,6 @@
    "how": "lineup",
    "score": 2.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Sub Focus",
    "co": []
@@ -870,7 +799,6 @@
    "how": "lineup",
    "score": 90.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Max Sin\u00e0l",
    "co": [
@@ -886,23 +814,8 @@
    "how": "title",
    "score": 6.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Richie Spice",
-   "co": []
-  },
-  {
-   "date": "2026-08-02",
-   "title": "60 Years Strong: Wear WHITE | Birthday w/ Marcia Carr / DJ Spen / Afronaut / Paris Cesvette",
-   "venue": "The BBE Store",
-   "url": "https://ra.co/events/2355150",
-   "source": "RA",
-   "how": "title",
-   "score": 37.6,
-   "etype": "day",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "DJ Spen",
    "co": []
   },
   {
@@ -914,7 +827,6 @@
    "how": "lineup",
    "score": 11.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Special Occasion",
    "co": []
@@ -928,7 +840,6 @@
    "how": "title",
    "score": 56.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tanhai Collective",
    "co": [
@@ -944,7 +855,6 @@
    "how": "lineup",
    "score": 37.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Erika de Casier",
    "co": [
@@ -961,7 +871,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "CASISDEAD",
    "co": []
@@ -975,7 +884,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Juls",
    "co": []
@@ -989,7 +897,6 @@
    "how": "lineup",
    "score": 102.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Session Victim",
    "co": []
@@ -1003,7 +910,6 @@
    "how": "lineup",
    "score": 135.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dave Lee",
    "co": []
@@ -1017,7 +923,6 @@
    "how": "lineup",
    "score": 106.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cody Currie",
    "co": []
@@ -1031,7 +936,6 @@
    "how": "lineup",
    "score": 7.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Reaper",
    "co": []
@@ -1045,7 +949,6 @@
    "how": "title",
    "score": 54.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Odyssey",
    "co": []
@@ -1059,7 +962,6 @@
    "how": "title",
    "score": 80.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Donsurf",
    "co": [
@@ -1077,7 +979,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Confidence Man",
    "co": []
@@ -1091,7 +992,6 @@
    "how": "title",
    "score": 7.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Boat Club",
    "co": []
@@ -1105,7 +1005,6 @@
    "how": "lineup",
    "score": 48.3,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Four Tet",
    "co": [
@@ -1122,7 +1021,6 @@
    "how": "lineup",
    "score": 16.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "TSHA",
    "co": [
@@ -1138,7 +1036,6 @@
    "how": "lineup",
    "score": 121.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Shy One",
    "co": [
@@ -1154,7 +1051,6 @@
    "how": "lineup",
    "score": 13.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Barbara Boeing",
    "co": []
@@ -1168,7 +1064,6 @@
    "how": "lineup",
    "score": 7.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Reaper",
    "co": []
@@ -1182,7 +1077,6 @@
    "how": "lineup",
    "score": 83.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mad Professor",
    "co": []
@@ -1196,7 +1090,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Laurence Guy",
    "co": []
@@ -1210,7 +1103,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Sticky Dub",
    "co": []
@@ -1224,7 +1116,6 @@
    "how": "lineup",
    "score": 81.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Scarlett O'Malley",
    "co": [
@@ -1247,7 +1138,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Pangaea",
    "co": []
@@ -1261,7 +1151,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "NEIL FRANCES",
    "co": []
@@ -1275,7 +1164,6 @@
    "how": "lineup",
    "score": 132.7,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Children of Zeus",
    "co": [
@@ -1296,23 +1184,8 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Theo Kottis",
-   "co": []
-  },
-  {
-   "date": "2026-08-14",
-   "title": "Twinspinsz \u21a0 Ishtar's Birthday Bash",
-   "venue": "Starlane Pizza Bar",
-   "url": "https://ra.co/events/2469820",
-   "source": "RA",
-   "how": "title",
-   "score": 13.2,
-   "etype": "dj",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Ishtar",
    "co": []
   },
   {
@@ -1324,7 +1197,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Shivum Sharma",
    "co": []
@@ -1338,7 +1210,6 @@
    "how": "title",
    "score": 8.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Groove Collective",
    "co": []
@@ -1352,7 +1223,6 @@
    "how": "lineup",
    "score": 17.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "John Talabot",
    "co": []
@@ -1366,7 +1236,6 @@
    "how": "lineup",
    "score": 9.0,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Moby",
    "co": []
@@ -1380,7 +1249,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Detroit In Effect",
    "co": []
@@ -1394,7 +1262,6 @@
    "how": "lineup",
    "score": 8.5,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "LF SYSTEM",
    "co": []
@@ -1408,7 +1275,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Garrett David",
    "co": []
@@ -1422,7 +1288,6 @@
    "how": "lineup",
    "score": 13.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Hunee",
    "co": []
@@ -1436,7 +1301,6 @@
    "how": "lineup",
    "score": 62.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "JKriv",
    "co": []
@@ -1450,7 +1314,6 @@
    "how": "title",
    "score": 12.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Summer Camp",
    "co": []
@@ -1464,7 +1327,6 @@
    "how": "lineup",
    "score": 26.8,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Elkka",
    "co": []
@@ -1478,7 +1340,6 @@
    "how": "lineup",
    "score": 11.5,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Raw Silk",
    "co": []
@@ -1492,7 +1353,6 @@
    "how": "lineup",
    "score": 85.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Max Sin\u00e0l",
    "co": []
@@ -1506,7 +1366,6 @@
    "how": "lineup",
    "score": 23.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Ray Mang",
    "co": [
@@ -1522,7 +1381,6 @@
    "how": "title",
    "score": 10.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "LEISURE",
    "co": []
@@ -1536,7 +1394,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Juls",
    "co": []
@@ -1550,7 +1407,6 @@
    "how": "lineup",
    "score": 30.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Goldie",
    "co": [
@@ -1567,7 +1423,6 @@
    "how": "lineup",
    "score": 117.3,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Chaos In The CBD",
    "co": []
@@ -1581,7 +1436,6 @@
    "how": "lineup",
    "score": 47.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Flight Facilities",
    "co": [
@@ -1598,7 +1452,6 @@
    "how": "lineup",
    "score": 70.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Aroop Roy",
    "co": [
@@ -1615,7 +1468,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "El-B",
    "co": []
@@ -1629,7 +1481,6 @@
    "how": "lineup",
    "score": 6.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Skream",
    "co": []
@@ -1643,7 +1494,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "D-Nice",
    "co": []
@@ -1657,7 +1507,6 @@
    "how": "lineup",
    "score": 84.1,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Private Joy",
    "co": []
@@ -1671,7 +1520,6 @@
    "how": "lineup",
    "score": 8.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "ABSOLUTE.",
    "co": []
@@ -1685,7 +1533,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Kassian",
    "co": []
@@ -1699,7 +1546,6 @@
    "how": "lineup",
    "score": 11.8,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Yoofee",
    "co": []
@@ -1713,7 +1559,6 @@
    "how": "lineup",
    "score": 12.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dennis Bovell",
    "co": []
@@ -1727,7 +1572,6 @@
    "how": "lineup",
    "score": 12.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Reaper",
    "co": [
@@ -1743,7 +1587,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Juls",
    "co": []
@@ -1757,7 +1600,6 @@
    "how": "lineup",
    "score": 28.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Joe Goddard",
    "co": []
@@ -1771,7 +1613,6 @@
    "how": "lineup",
    "score": 9.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Rampage",
    "co": [
@@ -1787,7 +1628,6 @@
    "how": "lineup",
    "score": 9.1,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Wookie",
    "co": []
@@ -1801,7 +1641,6 @@
    "how": "title",
    "score": 50.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Levitation Orchestra",
    "co": []
@@ -1815,7 +1654,6 @@
    "how": "lineup",
    "score": 11.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Ty",
    "co": []
@@ -1829,7 +1667,6 @@
    "how": "lineup",
    "score": 128.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Blood Orange",
    "co": [
@@ -1849,7 +1686,6 @@
    "how": "lineup",
    "score": 155.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Max Sin\u00e0l",
    "co": [
@@ -1878,7 +1714,6 @@
    "how": "lineup",
    "score": 19.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jamz Supernova",
    "co": []
@@ -1892,7 +1727,6 @@
    "how": "lineup",
    "score": 80.1,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mood II Swing",
    "co": []
@@ -1906,7 +1740,6 @@
    "how": "lineup",
    "score": 6.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Artful Dodger",
    "co": []
@@ -1920,7 +1753,6 @@
    "how": "lineup",
    "score": 62.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cengiz",
    "co": [
@@ -1936,7 +1768,6 @@
    "how": "lineup",
    "score": 23.8,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Horse Meat Disco",
    "co": [
@@ -1953,7 +1784,6 @@
    "how": "lineup",
    "score": 22.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "WheelUP",
    "co": [
@@ -1969,7 +1799,6 @@
    "how": "lineup",
    "score": 15.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Novelist",
    "co": [
@@ -1985,7 +1814,6 @@
    "how": "lineup",
    "score": 19.1,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Lovebirds",
    "co": []
@@ -1999,7 +1827,6 @@
    "how": "lineup",
    "score": 180.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "musclecars",
    "co": [
@@ -2021,7 +1848,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mr Bongo",
    "co": []
@@ -2035,7 +1861,6 @@
    "how": "lineup",
    "score": 7.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Alexis Taylor",
    "co": []
@@ -2049,7 +1874,6 @@
    "how": "lineup",
    "score": 71.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mr. G",
    "co": []
@@ -2063,7 +1887,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Juls",
    "co": []
@@ -2077,7 +1900,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Brookes Brothers",
    "co": []
@@ -2091,7 +1913,6 @@
    "how": "lineup",
    "score": 217.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Louie Vega",
    "co": [
@@ -2109,7 +1930,6 @@
    "how": "lineup",
    "score": 17.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Todd Edwards",
    "co": []
@@ -2123,7 +1943,6 @@
    "how": "title",
    "score": 24.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Kings Of Tomorrow",
    "co": [
@@ -2139,7 +1958,6 @@
    "how": "title",
    "score": 11.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "I. JORDAN",
    "co": []
@@ -2153,7 +1971,6 @@
    "how": "lineup",
    "score": 35.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Steffi",
    "co": []
@@ -2167,7 +1984,6 @@
    "how": "lineup",
    "score": 123.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Ben Hauke",
    "co": [
@@ -2183,7 +1999,6 @@
    "how": "lineup",
    "score": 131.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Crazy P",
    "co": []
@@ -2197,7 +2012,6 @@
    "how": "lineup",
    "score": 50.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Kenny Larkin",
    "co": [
@@ -2213,7 +2027,6 @@
    "how": "lineup",
    "score": 17.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Wilfy D",
    "co": []
@@ -2227,7 +2040,6 @@
    "how": "lineup",
    "score": 17.3,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Todd Edwards",
    "co": []
@@ -2241,7 +2053,6 @@
    "how": "title",
    "score": 7.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cortex",
    "co": []
@@ -2255,7 +2066,6 @@
    "how": "lineup",
    "score": 85.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Caio Cenci",
    "co": [
@@ -2274,7 +2084,6 @@
    "how": "lineup",
    "score": 11.1,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "VHOOR",
    "co": []
@@ -2288,7 +2097,6 @@
    "how": "title",
    "score": 13.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Crayon",
    "co": []
@@ -2302,7 +2110,6 @@
    "how": "lineup",
    "score": 23.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "MJ Cole",
    "co": []
@@ -2316,7 +2123,6 @@
    "how": "title",
    "score": 56.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Somewhere Soul",
    "co": []
@@ -2330,7 +2136,6 @@
    "how": "lineup",
    "score": 23.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Bellaire",
    "co": []
@@ -2344,7 +2149,6 @@
    "how": "lineup",
    "score": 39.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mount Kimbie",
    "co": []
@@ -2358,7 +2162,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "1-800 GIRLS",
    "co": []
@@ -2372,7 +2175,6 @@
    "how": "lineup",
    "score": 8.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Never Dull",
    "co": []
@@ -2386,7 +2188,6 @@
    "how": "title",
    "score": 6.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "China Moses",
    "co": []
@@ -2400,7 +2201,6 @@
    "how": "lineup",
    "score": 186.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Shy One",
    "co": [
@@ -2429,7 +2229,6 @@
    "how": "lineup",
    "score": 9.6,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Armand Van Helden",
    "co": []
@@ -2443,7 +2242,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tristan Da Cunha",
    "co": []
@@ -2457,7 +2255,6 @@
    "how": "lineup",
    "score": 17.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Swindle",
    "co": []
@@ -2471,7 +2268,6 @@
    "how": "lineup",
    "score": 56.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "X & Ivy",
    "co": [
@@ -2489,7 +2285,6 @@
    "how": "lineup",
    "score": 17.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Todd Terry",
    "co": []
@@ -2503,7 +2298,6 @@
    "how": "lineup",
    "score": 73.1,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mak\u00e8z",
    "co": [
@@ -2524,7 +2318,6 @@
    "how": "lineup",
    "score": 142.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Nu Genea",
    "co": []
@@ -2538,7 +2331,6 @@
    "how": "lineup",
    "score": 77.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "K-Lone",
    "co": [
@@ -2554,7 +2346,6 @@
    "how": "lineup",
    "score": 55.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dennis Quin",
    "co": []
@@ -2568,7 +2359,6 @@
    "how": "lineup",
    "score": 64.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Isaac Ferry",
    "co": [
@@ -2586,7 +2376,6 @@
    "how": "lineup",
    "score": 90.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Last Nubian",
    "co": []
@@ -2600,7 +2389,6 @@
    "how": "title",
    "score": 46.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Richard Spaven",
    "co": []
@@ -2614,7 +2402,6 @@
    "how": "lineup",
    "score": 39.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Avalanches",
    "co": [
@@ -2630,7 +2417,6 @@
    "how": "title",
    "score": 118.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Ashley Henry",
    "co": []
@@ -2644,7 +2430,6 @@
    "how": "lineup",
    "score": 10.3,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Kolter",
    "co": []
@@ -2658,7 +2443,6 @@
    "how": "lineup",
    "score": 55.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Deep",
    "co": []
@@ -2672,7 +2456,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "1-800 GIRLS",
    "co": []
@@ -2686,7 +2469,6 @@
    "how": "lineup",
    "score": 18.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "O'Flynn",
    "co": []
@@ -2700,7 +2482,6 @@
    "how": "lineup",
    "score": 17.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Wallace",
    "co": []
@@ -2714,7 +2495,6 @@
    "how": "lineup",
    "score": 27.8,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Faze Action",
    "co": []
@@ -2728,7 +2508,6 @@
    "how": "lineup",
    "score": 84.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "DJ Nature",
    "co": []
@@ -2742,7 +2521,6 @@
    "how": "lineup",
    "score": 8.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Digitalism",
    "co": []
@@ -2756,7 +2534,6 @@
    "how": "lineup",
    "score": 79.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Avalanches",
    "co": [
@@ -2780,7 +2557,6 @@
    "how": "title",
    "score": 6.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Artful Dodger",
    "co": []
@@ -2794,7 +2570,6 @@
    "how": "lineup",
    "score": 14.9,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Midland",
    "co": []
@@ -2808,7 +2583,6 @@
    "how": "lineup",
    "score": 91.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jimpster",
    "co": [
@@ -2824,7 +2598,6 @@
    "how": "lineup",
    "score": 103.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Romare",
    "co": []
@@ -2838,7 +2611,6 @@
    "how": "lineup",
    "score": 36.8,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mousse T.",
    "co": [
@@ -2857,7 +2629,6 @@
    "how": "title",
    "score": 16.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Afriquoi",
    "co": []
@@ -2871,7 +2642,6 @@
    "how": "lineup",
    "score": 7.6,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Demi Riqu\u00edsimo",
    "co": []
@@ -2885,7 +2655,6 @@
    "how": "lineup",
    "score": 14.9,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Honey Dijon",
    "co": []
@@ -2899,7 +2668,6 @@
    "how": "lineup",
    "score": 12.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Disco Freaks",
    "co": [
@@ -2915,7 +2683,6 @@
    "how": "lineup",
    "score": 37.5,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cassius",
    "co": []
@@ -2929,7 +2696,6 @@
    "how": "lineup",
    "score": 12.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Lauren Flax",
    "co": [
@@ -2945,7 +2711,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dusky",
    "co": []
@@ -2959,7 +2724,6 @@
    "how": "lineup",
    "score": 21.0,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Gold Panda",
    "co": []
@@ -2973,7 +2737,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dusky",
    "co": []
@@ -2987,7 +2750,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Roni Size",
    "co": []
@@ -3001,7 +2763,6 @@
    "how": "lineup",
    "score": 38.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Gigi Masin",
    "co": []
@@ -3015,7 +2776,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dusky",
    "co": []
@@ -3029,7 +2789,6 @@
    "how": "title",
    "score": 13.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Pan Amsterdam",
    "co": []
@@ -3043,7 +2802,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dusky",
    "co": []
@@ -3057,7 +2815,6 @@
    "how": "title",
    "score": 73.7,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Nubiyan Twist",
    "co": []
@@ -3071,7 +2828,6 @@
    "how": "lineup",
    "score": 9.1,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Joseph Capriati",
    "co": []
@@ -3085,7 +2841,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "day",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tommy Rawson",
    "co": []
@@ -3099,7 +2854,6 @@
    "how": "title",
    "score": 22.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Nina Simone",
    "co": [
@@ -3115,26 +2869,9 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "DJ Jazzy Jeff",
    "co": []
-  },
-  {
-   "date": "2026-08-23",
-   "title": "KOKO Jazz Club \u2013 The Queen of Soul: Aretha Franklin, sung by Vanessa Haynes",
-   "venue": "KOKO",
-   "url": "https://www.koko.co.uk/events/koko-jazz-club-the-queen-of-soul-aretha-franklin-sung-by-vanessa-haynes",
-   "source": "KOKO",
-   "how": "title",
-   "score": 78.9,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Aretha Franklin",
-   "co": [
-    "Vanessa Haynes"
-   ]
   },
   {
    "date": "2026-11-03",
@@ -3145,7 +2882,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Radio Dept.",
    "co": []
@@ -3159,7 +2895,6 @@
    "how": "lineup",
    "score": 117.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Momoko Gill",
    "co": [
@@ -3176,7 +2911,6 @@
    "how": "lineup",
    "score": 29.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Common Saints",
    "co": []
@@ -3190,7 +2924,6 @@
    "how": "lineup",
    "score": 30.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "GoGo Penguin",
    "co": []
@@ -3204,7 +2937,6 @@
    "how": "lineup",
    "score": 30.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "GoGo Penguin",
    "co": []
@@ -3218,7 +2950,6 @@
    "how": "lineup",
    "score": 21.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "L\u00e5psley",
    "co": []
@@ -3232,23 +2963,8 @@
    "how": "title",
    "score": 13.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Nouvelle Vague",
-   "co": []
-  },
-  {
-   "date": "2026-08-18",
-   "title": "Speakers Corner Quartet Celebrates The Music Of Arthur Russell",
-   "venue": "EartH",
-   "url": "https://earthackney.co.uk/events/speakers-corner-quartet-celebrates-the-music-of-arthur-russell-18th-aug-earth-london-tickets-8eqw82/",
-   "source": "EartH",
-   "how": "title",
-   "score": 13.6,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Speakers Corner Quartet",
    "co": []
   },
   {
@@ -3260,7 +2976,6 @@
    "how": "lineup",
    "score": 13.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Laraaji",
    "co": []
@@ -3274,7 +2989,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Laura Veirs",
    "co": []
@@ -3288,7 +3002,6 @@
    "how": "lineup",
    "score": 79.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jasmine Myra",
    "co": []
@@ -3302,7 +3015,6 @@
    "how": "title",
    "score": 108.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Emma-Jean Thackray",
    "co": []
@@ -3316,23 +3028,8 @@
    "how": "lineup",
    "score": 79.3,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Joyce Moreno",
-   "co": []
-  },
-  {
-   "date": "2026-07-24",
-   "title": "Kaytranada's 99.9% Revisited (10th Anniversary)",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/kaytranadas-99-9-revisited-10th-anniversary/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 53.5,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "KAYTRANADA",
    "co": []
   },
   {
@@ -3344,7 +3041,6 @@
    "how": "title",
    "score": 20.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "MOVEMENT",
    "co": []
@@ -3358,37 +3054,8 @@
    "how": "lineup",
    "score": 55.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Lau Ro",
-   "co": []
-  },
-  {
-   "date": "2026-08-07",
-   "title": "Childish Gambino - Reimagined Live",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/childish-gambino-reimagined-live/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 7.9,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Childish Gambino",
-   "co": []
-  },
-  {
-   "date": "2026-08-08",
-   "title": "The Music of William Onyeabor (Live)",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/the-music-of-william-onyeabor-live/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 6.4,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "William Onyeabor",
    "co": []
   },
   {
@@ -3400,7 +3067,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Courtney Pine",
    "co": []
@@ -3414,7 +3080,6 @@
    "how": "lineup",
    "score": 83.3,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Ana Frango El\u00e9trico",
    "co": []
@@ -3428,23 +3093,8 @@
    "how": "lineup",
    "score": 27.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Digable Planets",
-   "co": []
-  },
-  {
-   "date": "2026-08-21",
-   "title": "The Best of George Benson",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/the-best-of-george-benson/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 46.3,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "George Benson",
    "co": []
   },
   {
@@ -3456,7 +3106,6 @@
    "how": "title",
    "score": 26.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Miles Davis",
    "co": []
@@ -3470,7 +3119,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cubafrobeat",
    "co": []
@@ -3484,7 +3132,6 @@
    "how": "title",
    "score": 70.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Misha Panfilov",
    "co": []
@@ -3498,7 +3145,6 @@
    "how": "lineup",
    "score": 58.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Bruno Pernadas",
    "co": []
@@ -3512,23 +3158,8 @@
    "how": "lineup",
    "score": 69.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Liana Flores",
-   "co": []
-  },
-  {
-   "date": "2026-09-19",
-   "title": "The Music of Otis Redding",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/the-music-of-otis-redding-6/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 49.8,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Otis Redding",
    "co": []
   },
   {
@@ -3540,7 +3171,6 @@
    "how": "title",
    "score": 60.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Tim Maia",
    "co": []
@@ -3554,7 +3184,6 @@
    "how": "lineup",
    "score": 80.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mar\u00eda Jos\u00e9 Llergo",
    "co": []
@@ -3568,7 +3197,6 @@
    "how": "title",
    "score": 52.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Balimaya Project",
    "co": []
@@ -3582,7 +3210,6 @@
    "how": "lineup",
    "score": 52.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Sons of Sevilla",
    "co": []
@@ -3596,7 +3223,6 @@
    "how": "lineup",
    "score": 13.3,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Djavan",
    "co": []
@@ -3610,7 +3236,6 @@
    "how": "lineup",
    "score": 35.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Liv East",
    "co": []
@@ -3624,23 +3249,8 @@
    "how": "lineup",
    "score": 9.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Myles Sanko",
-   "co": []
-  },
-  {
-   "date": "2026-10-15",
-   "title": "Fela Kuti's Birthday",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/fela-kutis-birthday-6/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 87.5,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Fela Kuti",
    "co": []
   },
   {
@@ -3652,7 +3262,6 @@
    "how": "lineup",
    "score": 79.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "\u00c0b\u00e1se",
    "co": []
@@ -3666,7 +3275,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Javiera Mena",
    "co": []
@@ -3680,7 +3288,6 @@
    "how": "title",
    "score": 11.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Okvsho",
    "co": []
@@ -3694,7 +3301,6 @@
    "how": "lineup",
    "score": 102.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Okonski",
    "co": []
@@ -3708,7 +3314,6 @@
    "how": "title",
    "score": 14.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Idris Ackamoor",
    "co": [
@@ -3724,7 +3329,6 @@
    "how": "title",
    "score": 82.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Orchestra Mambo International",
    "co": []
@@ -3738,7 +3342,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "dublon",
    "co": []
@@ -3752,7 +3355,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "dj",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "9th Wonder",
    "co": []
@@ -3766,7 +3368,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "LEENALCHI",
    "co": []
@@ -3780,7 +3381,6 @@
    "how": "title",
    "score": 7.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Raquel Rodriguez",
    "co": []
@@ -3794,7 +3394,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Horace Andy",
    "co": []
@@ -3808,23 +3407,8 @@
    "how": "lineup",
    "score": 52.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "daoud",
-   "co": []
-  },
-  {
-   "date": "2026-12-12",
-   "title": "The Music of Aretha Franklin",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/the-music-of-aretha-franklin/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 73.9,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Aretha Franklin",
    "co": []
   },
   {
@@ -3836,7 +3420,6 @@
    "how": "lineup",
    "score": 10.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Nena",
    "co": []
@@ -3850,23 +3433,8 @@
    "how": "title",
    "score": 71.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Mica Paris",
-   "co": []
-  },
-  {
-   "date": "2026-12-26",
-   "title": "Forever Teena: Celebrating the Music of Teena Marie",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/forever-teena-celebrating-the-music-of-teena-marie/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 40.5,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Teena Marie",
    "co": []
   },
   {
@@ -3878,7 +3446,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Real Thing",
    "co": []
@@ -3892,7 +3459,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "The Real Thing",
    "co": []
@@ -3906,7 +3472,6 @@
    "how": "title",
    "score": 33.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Frankie Knuckles",
    "co": [
@@ -3922,7 +3487,6 @@
    "how": "title",
    "score": 18.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Dennis Brown",
    "co": []
@@ -3936,23 +3500,8 @@
    "how": "title",
    "score": 109.3,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Steely Dan",
-   "co": []
-  },
-  {
-   "date": "2027-03-26",
-   "title": "Teddy Pendergrass: Birthday Party",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/teddy-pendergrass-birthday-party-2/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 24.0,
-   "etype": "day",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Teddy Pendergrass",
    "co": []
   },
   {
@@ -3964,23 +3513,8 @@
    "how": "lineup",
    "score": 3.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Orchestra Baobab",
-   "co": []
-  },
-  {
-   "date": "2027-05-13",
-   "title": "Stevie Wonder's Birthday Party (Early Show)",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/stevie-wonders-birthday-party-early-show/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 142.5,
-   "etype": "day",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Stevie Wonder",
    "co": []
   },
   {
@@ -3992,7 +3526,6 @@
    "how": "title",
    "score": 81.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Curtis Mayfield",
    "co": []
@@ -4006,7 +3539,6 @@
    "how": "title",
    "score": 53.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Thievery Corporation",
    "co": []
@@ -4020,7 +3552,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Beth Orton",
    "co": []
@@ -4034,7 +3565,6 @@
    "how": "lineup",
    "score": 17.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Overmono",
    "co": []
@@ -4048,7 +3578,6 @@
    "how": "lineup",
    "score": 21.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Bill Ryder-Jones",
    "co": []
@@ -4062,7 +3591,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Courteeners",
    "co": []
@@ -4076,7 +3604,6 @@
    "how": "lineup",
    "score": 43.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Jordan Rakei",
    "co": []
@@ -4090,7 +3617,6 @@
    "how": "title",
    "score": 8.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Groove Collective",
    "co": []
@@ -4104,7 +3630,6 @@
    "how": "title",
    "score": 85.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Asha Puthli",
    "co": []
@@ -4118,7 +3643,6 @@
    "how": "lineup",
    "score": 41.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Bedouine",
    "co": []
@@ -4132,23 +3656,8 @@
    "how": "title",
    "score": 30.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "London Symphony Orchestra",
-   "co": []
-  },
-  {
-   "date": "2026-11-20",
-   "title": "Church of Sound 10th Birthday",
-   "venue": "Barbican",
-   "url": "https://www.barbican.org.uk/whats-on/2026/event/church-of-sound-10th-birthday-british-jazz-songbook",
-   "source": "Barbican",
-   "how": "title",
-   "score": 75.5,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Church",
    "co": []
   },
   {
@@ -4160,7 +3669,6 @@
    "how": "title",
    "score": 15.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "DJ Shadow",
    "co": []
@@ -4174,7 +3682,6 @@
    "how": "lineup",
    "score": 25.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Spiritualized",
    "co": []
@@ -4188,23 +3695,8 @@
    "how": "lineup",
    "score": 10.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Yasuaki Shimizu",
-   "co": []
-  },
-  {
-   "date": "2027-03-04",
-   "title": "Bob Marley Reimagined by The London African Gospel Choir",
-   "venue": "Barbican",
-   "url": "https://www.barbican.org.uk/whats-on/2027/event/bob-marley-reimagined-by-the-london-african-gospel-choir",
-   "source": "Barbican",
-   "how": "title",
-   "score": 2.4,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2000-01-01",
-   "artist": "Bob Marley",
    "co": []
   },
   {
@@ -4216,7 +3708,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2000-01-01",
    "artist": "Cornelius",
    "co": []
@@ -4230,7 +3721,6 @@
    "how": "lineup",
    "score": 12.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "En Vogue",
    "co": []
@@ -4244,7 +3734,6 @@
    "how": "lineup",
    "score": 19.6,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Earl Sweatshirt",
    "co": []
@@ -4258,7 +3747,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "The Black Keys",
    "co": []
@@ -4272,7 +3760,6 @@
    "how": "lineup",
    "score": 33.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Syd",
    "co": []
@@ -4286,23 +3773,8 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "CA7RIEL & Paco Amoroso",
-   "co": []
-  },
-  {
-   "date": "2026-09-04",
-   "title": "The Songs of Jeff Buckley: A Celebration of 'Grace'",
-   "venue": "O2 Shepherd's Bush Empire",
-   "url": "https://www.academymusicgroup.com/o2shepherdsbushempire/events/the-songs-of-jeff-buckley-tickets-ae1650569",
-   "source": "AMG",
-   "how": "title",
-   "score": 40.4,
-   "etype": "gig",
-   "tribute": true,
-   "first_seen": "2026-07-20",
-   "artist": "Jeff Buckley",
    "co": []
   },
   {
@@ -4314,7 +3786,6 @@
    "how": "lineup",
    "score": 25.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Ed Harcourt",
    "co": [
@@ -4330,7 +3801,6 @@
    "how": "lineup",
    "score": 64.5,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Saint Etienne",
    "co": []
@@ -4344,7 +3814,6 @@
    "how": "lineup",
    "score": 58.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "The Stars",
    "co": []
@@ -4358,7 +3827,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "AZ",
    "co": []
@@ -4372,7 +3840,6 @@
    "how": "lineup",
    "score": 20.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Ed Harcourt",
    "co": []
@@ -4386,7 +3853,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Space",
    "co": []
@@ -4400,7 +3866,6 @@
    "how": "lineup",
    "score": 114.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Jill Scott",
    "co": []
@@ -4414,7 +3879,6 @@
    "how": "lineup",
    "score": 15.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "James Blake",
    "co": []
@@ -4428,7 +3892,6 @@
    "how": "lineup",
    "score": 15.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "James Blake",
    "co": []
@@ -4442,7 +3905,6 @@
    "how": "lineup",
    "score": 2.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "jj",
    "co": []
@@ -4456,7 +3918,6 @@
    "how": "lineup",
    "score": 2.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Band Of Horses",
    "co": []
@@ -4470,7 +3931,6 @@
    "how": "lineup",
    "score": 2.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Band Of Horses",
    "co": []
@@ -4484,7 +3944,6 @@
    "how": "lineup",
    "score": 4.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Antony Szmierek",
    "co": []
@@ -4498,7 +3957,6 @@
    "how": "lineup",
    "score": 5.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Milburn",
    "co": []
@@ -4512,7 +3970,6 @@
    "how": "lineup",
    "score": 13.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Courtney Barnett",
    "co": []
@@ -4526,7 +3983,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Arlo Parks",
    "co": []
@@ -4540,7 +3996,6 @@
    "how": "lineup",
    "score": 13.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Courtney Barnett",
    "co": []
@@ -4554,7 +4009,6 @@
    "how": "lineup",
    "score": 10.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Panda",
    "co": []
@@ -4568,7 +4022,6 @@
    "how": "lineup",
    "score": 92.9,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Jalen Ngonda",
    "co": [
@@ -4584,7 +4037,6 @@
    "how": "title",
    "score": 9.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Mike D",
    "co": []
@@ -4598,7 +4050,6 @@
    "how": "lineup",
    "score": 15.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Kelela",
    "co": []
@@ -4612,7 +4063,6 @@
    "how": "lineup",
    "score": 9.7,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "OK Go",
    "co": []
@@ -4626,7 +4076,6 @@
    "how": "lineup",
    "score": 19.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Mystery Jets",
    "co": []
@@ -4640,7 +4089,6 @@
    "how": "lineup",
    "score": 37.8,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Yard Act",
    "co": []
@@ -4654,7 +4102,6 @@
    "how": "lineup",
    "score": 9.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Hard-Fi",
    "co": []
@@ -4668,7 +4115,6 @@
    "how": "lineup",
    "score": 1.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "The Orb",
    "co": []
@@ -4682,7 +4128,6 @@
    "how": "lineup",
    "score": 7.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Portugal. The Man",
    "co": []
@@ -4696,7 +4141,6 @@
    "how": "lineup",
    "score": 17.2,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Stornoway",
    "co": []
@@ -4710,7 +4154,6 @@
    "how": "lineup",
    "score": 18.1,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Editors",
    "co": []
@@ -4724,7 +4167,6 @@
    "how": "lineup",
    "score": 43.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Ezra Collective",
    "co": []
@@ -4738,7 +4180,6 @@
    "how": "lineup",
    "score": 43.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Ezra Collective",
    "co": []
@@ -4752,7 +4193,6 @@
    "how": "lineup",
    "score": 43.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Ezra Collective",
    "co": []
@@ -4766,7 +4206,6 @@
    "how": "lineup",
    "score": 6.4,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Rodrigo y Gabriela",
    "co": []
@@ -4780,9 +4219,361 @@
    "how": "lineup",
    "score": 43.0,
    "etype": "gig",
-   "tribute": false,
    "first_seen": "2026-07-20",
    "artist": "Ezra Collective",
+   "co": []
+  },
+  {
+   "date": "2026-07-21",
+   "title": "Peter Somuah Group",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 15.8,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Peter Somuah",
+   "co": []
+  },
+  {
+   "date": "2026-07-21",
+   "title": "Isaiah Collier",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 97.1,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Isaiah Collier",
+   "co": []
+  },
+  {
+   "date": "2026-07-22",
+   "title": "Mica Paris",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 71.7,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Mica Paris",
+   "co": []
+  },
+  {
+   "date": "2026-07-23",
+   "title": "Heidi Vogel",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 10.3,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Heidi Vogel",
+   "co": []
+  },
+  {
+   "date": "2026-07-23",
+   "title": "Binker Golding",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 26.8,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Binker Golding",
+   "co": []
+  },
+  {
+   "date": "2026-07-24",
+   "title": "Carmen Lundy",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 15.1,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Carmen Lundy",
+   "co": []
+  },
+  {
+   "date": "2026-07-24",
+   "title": "Late Late Electronic hosted by Chiminyo",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 54.4,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Chiminyo",
+   "co": []
+  },
+  {
+   "date": "2026-07-28",
+   "title": "Snowboy and the Latin Section",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 16.4,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Snowboy",
+   "co": [
+    "Snowboy & The Latin Section"
+   ]
+  },
+  {
+   "date": "2026-07-30",
+   "title": "Vanessa Haynes",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 49.5,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Vanessa Haynes",
+   "co": []
+  },
+  {
+   "date": "2026-07-30",
+   "title": "Ivan Lins",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 1.2,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Ivan Lins",
+   "co": []
+  },
+  {
+   "date": "2026-08-27",
+   "title": "Late Late Show hosted by Myele Manzanza",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 29.5,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Myele Manzanza",
+   "co": []
+  },
+  {
+   "date": "2026-08-03",
+   "title": "The Blackbyrds",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 17.5,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "The Blackbyrds",
+   "co": []
+  },
+  {
+   "date": "2026-08-05",
+   "title": "Late Late Show hosted by Mark Kavuma's Banger Factory",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 21.2,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Mark Kavuma",
+   "co": []
+  },
+  {
+   "date": "2026-08-06",
+   "title": "Late Late Show hosted by Jackson Mathod",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 75.3,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Jackson Mathod",
+   "co": []
+  },
+  {
+   "date": "2026-08-08",
+   "title": "Late Late Electronic with Blue Earth Sound",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show/blue-earth-sound",
+   "source": "RonnieScotts",
+   "how": "title",
+   "score": 72.0,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Blue Earth Sound",
+   "co": []
+  },
+  {
+   "date": "2026-08-11",
+   "title": "TRYPL",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.ronniescotts.co.uk/find-a-show",
+   "source": "RonnieScotts",
+   "how": "lineup",
+   "score": 41.2,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "TRYPL",
+   "co": []
+  },
+  {
+   "date": "2026-08-01",
+   "title": "Summer Walker",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/summer-walker",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 7.2,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Summer Walker",
+   "co": []
+  },
+  {
+   "date": "2026-08-15",
+   "title": "Ariana Grande",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/ariana-grande-2026",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 1.2,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Ariana Grande",
+   "co": []
+  },
+  {
+   "date": "2026-10-06",
+   "title": "The Strokes",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/the-strokes",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 27.8,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "The Strokes",
+   "co": []
+  },
+  {
+   "date": "2026-10-18",
+   "title": "Masego",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/masego",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 15.1,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Masego",
+   "co": []
+  },
+  {
+   "date": "2026-10-19",
+   "title": "J. Cole",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/jcole-2026",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 11.4,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "J. Cole",
+   "co": []
+  },
+  {
+   "date": "2026-11-24",
+   "title": "Jungle",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/jungle-2026",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 17.1,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Jungle",
+   "co": []
+  },
+  {
+   "date": "2026-11-28",
+   "title": "Jessie Ware",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/jessie-ware",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 44.0,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Jessie Ware",
+   "co": []
+  },
+  {
+   "date": "2026-12-01",
+   "title": "Phoebe Bridgers",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/phoebe-bridgers",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 7.2,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Phoebe Bridgers",
+   "co": []
+  },
+  {
+   "date": "2026-12-08",
+   "title": "Kehlani",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/kehlani-2026",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 12.8,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Kehlani",
+   "co": []
+  },
+  {
+   "date": "2026-12-18",
+   "title": "Kasabian",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/kasabian-2026",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 30.1,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Kasabian",
+   "co": []
+  },
+  {
+   "date": "2027-01-28",
+   "title": "Two Door Cinema Club",
+   "venue": "The O2 Arena",
+   "url": "https://www.theo2.co.uk/events/detail/two-door-cinema-club-2027",
+   "source": "TheO2",
+   "how": "lineup",
+   "score": 11.5,
+   "etype": "gig",
+   "first_seen": "2026-07-20",
+   "artist": "Two Door Cinema Club",
    "co": []
   }
  ]
