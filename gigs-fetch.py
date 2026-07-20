@@ -671,6 +671,12 @@ def clean_name(n):
     return n.strip(' -–—:')
 
 
+# Ben's vetoes — artists that pass the rules but he doesn't want gigs for.
+# Add names here as they come up.
+EXCLUDE_ARTISTS = {normalize(n) for n in (
+    'Bruno Mars',)}
+
+
 def too_thin(r):
     """One-track artists need real engagement: 5+ plays ever, or a recent add
     that's actually been played. Kills 'who even is this' matches while keeping
@@ -1078,7 +1084,7 @@ def main():
         for norm, how in hits.items():
             # tribute / covers / "vs" nights: the artist isn't actually playing — drop
             # (same for dead artists: any listing with their name is a tribute)
-            if is_tribute(ev['title'], how) or norm in DEAD_ARTISTS:
+            if is_tribute(ev['title'], how) or norm in DEAD_ARTISTS or norm in EXCLUDE_ARTISTS:
                 n_trib += 1
                 continue
             key = (norm, ev['date'])
