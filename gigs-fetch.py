@@ -804,7 +804,8 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
         return h
 
     def attrs(m):
-        text = f"{m['artist']['name']} {m['title']} {m['venue']}".lower()
+        extras = ' '.join([r['name'] for r in m['co']] + [clean_name(a) for a in m['all_names']])
+        text = f"{m['artist']['name']} {extras} {m['title']} {m['venue']}".lower()
         return (f'data-v="{esc(m["venue"])}" data-mo="{m["date"][:7]}" '
                 f'data-c="{esc(m["artist"]["crate"])}" data-t="{m["etype"]}" '
                 f'data-n="{1 if m["first_seen"] >= fresh_cut else 0}" '
