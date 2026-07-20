@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gig Radar — DJ Archive</title>
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#181824;--border:#1e1e2e;--text:#e0e0e8;--dim:#6a6a80;--accent:#e8a040;--pink:#ff69b4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;padding:28px 18px 60px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:1.3em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;
+  background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.sub{color:var(--dim);font-size:0.8em;margin:6px 0 26px}
+.sub a{color:var(--accent);text-decoration:none}
+h2{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:30px 0 10px}
+.eyebrow{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:4px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.card{display:block;background:linear-gradient(160deg,#13131c,#101018);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text);transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card-date{font-size:0.68em;letter-spacing:0.12em;color:var(--accent);font-weight:600}
+.card-artist{font-weight:700;font-size:1.02em;margin:4px 0 2px}
+.card-venue{color:var(--dim);font-size:0.78em}
+.badges{margin-top:6px}
+.bdg{display:inline-block;border-radius:6px;padding:1px 7px;font-size:0.62em;font-weight:600;letter-spacing:0.04em;margin-right:4px}
+.why{color:var(--dim);font-size:0.7em;margin-top:6px;line-height:1.5}
+.row{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.r-date{display:flex;flex-direction:column;align-items:center;min-width:44px;color:var(--dim)}
+.r-dow{font-size:0.6em;letter-spacing:0.1em}
+.r-day{font-size:1.25em;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.r-mon{font-size:0.6em;letter-spacing:0.1em}
+.r-main{flex:1;min-width:0}
+.r-artist{font-weight:700;font-size:0.98em}
+.also{color:var(--dim);font-weight:400;font-size:0.85em}
+.r-sub{color:var(--dim);font-size:0.78em;margin-top:2px}
+.ev-title{color:#9a9ab0}
+.dot{margin:0 6px}
+.tix{padding:7px 14px;border-radius:10px;font-size:0.74em;font-weight:600;border:1px solid var(--border);background:var(--card2);color:var(--text);text-decoration:none;white-space:nowrap}
+.tix:hover{border-color:var(--accent);color:var(--accent)}
+.foot{color:var(--dim);font-size:0.7em;margin-top:40px;line-height:1.7}
+@media(max-width:560px){.row{flex-wrap:wrap}.tix{margin-left:58px}}
+</style></head><body><div class="wrap">
+<h1>Gig Radar</h1>
+<div class="sub">Upcoming London shows matched to the archive · updated 20 Jul 2026 ·
+<a href="index.html">← back to the archive</a></div>
+<div class="eyebrow">Top picks</div>
+<div class="grid">
+<a class="card" href="https://ra.co/events/2460819" target="_blank" rel="noopener">
+  <div class="card-date">FRI 4 SEP</div>
+  <div class="card-artist">Louie Vega</div>
+  <div class="card-venue">KOKO</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">58 tracks in the archive · 249 plays · 15 this year · House · added Apr 2026</div>
+</a><a class="card" href="https://ra.co/events/2345415" target="_blank" rel="noopener">
+  <div class="card-date">SAT 12 SEP</div>
+  <div class="card-artist">Shy One</div>
+  <div class="card-venue">The Cause</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+  <div class="why">16 tracks in the archive · 17 plays · 17 this year · House · added Jun 2026</div>
+</a><a class="card" href="https://ra.co/events/2368471" target="_blank" rel="noopener">
+  <div class="card-date">SUN 30 AUG</div>
+  <div class="card-artist">musclecars</div>
+  <div class="card-venue">NUMBER 90 LONDON</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+  <div class="why">26 tracks in the archive · 74 plays · 9 this year · House · added Jun 2026</div>
+</a><a class="card" href="https://ra.co/events/2311488" target="_blank" rel="noopener">
+  <div class="card-date">SAT 29 AUG</div>
+  <div class="card-artist">Max Sinàl</div>
+  <div class="card-venue">Kelvedon Hall</div>
+  <div class="badges"><span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+  <div class="why">3 tracks in the archive · 9 plays · 9 this year · Jazz · added May 2026</div>
+</a><a class="card" href="https://ra.co/events/2386936" target="_blank" rel="noopener">
+  <div class="card-date">SAT 19 SEP</div>
+  <div class="card-artist">Nu Genea</div>
+  <div class="card-venue">The Roundhouse</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">23 tracks in the archive · 133 plays · 13 this year · Disco & Boogie · added May 2026</div>
+</a><a class="card" href="https://ra.co/events/2390746" target="_blank" rel="noopener">
+  <div class="card-date">FRI 7 AUG</div>
+  <div class="card-artist">Dave Lee</div>
+  <div class="card-venue">Night Tales Loft</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">47 tracks in the archive · 150 plays · 2 this year · Disco & Boogie · added Aug 2025</div>
+</a><a class="card" href="https://ra.co/events/2384393" target="_blank" rel="noopener">
+  <div class="card-date">FRI 14 AUG</div>
+  <div class="card-artist">Children of Zeus</div>
+  <div class="card-venue">Kelvedon Hall</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">20 tracks in the archive · 105 plays · Soul & R&B · added Jul 2026</div>
+</a><a class="card" href="https://ra.co/events/2470527" target="_blank" rel="noopener">
+  <div class="card-date">SAT 5 SEP</div>
+  <div class="card-artist">Crazy P</div>
+  <div class="card-venue">LDN East</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">30 tracks in the archive · 159 plays · 2 this year · Disco & Boogie · added Mar 2026</div>
+</a><a class="card" href="https://ra.co/events/2298367" target="_blank" rel="noopener">
+  <div class="card-date">SAT 29 AUG</div>
+  <div class="card-artist">Blood Orange</div>
+  <div class="card-venue">Southwark Park</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">11 tracks in the archive · 74 plays · 5 this year · Indie & Rock · added Jan 2026</div>
+</a><a class="card" href="https://ra.co/events/2486410" target="_blank" rel="noopener">
+  <div class="card-date">FRI 4 SEP</div>
+  <div class="card-artist">Ben Hauke</div>
+  <div class="card-venue">Grow</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">19 tracks in the archive · 105 plays · 3 this year · Jazz · added Apr 2026</div>
+</a><a class="card" href="https://ra.co/events/2416611" target="_blank" rel="noopener">
+  <div class="card-date">SAT 8 AUG</div>
+  <div class="card-artist">Shy One</div>
+  <div class="card-venue">Jumbi</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+  <div class="why">16 tracks in the archive · 17 plays · 17 this year · House · added Jun 2026</div>
+</a><a class="card" href="https://ra.co/events/2491452" target="_blank" rel="noopener">
+  <div class="card-date">THU 24 SEP</div>
+  <div class="card-artist">Ashley Henry</div>
+  <div class="card-venue">Freight Brixton</div>
+  <div class="badges"><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+  <div class="why">34 tracks in the archive · 312 plays · 3 this year · Jazz · added Oct 2024</div>
+</a>
+</div>
+<h2>July 2026</h2>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">23</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">George FitzGerald <span class="also">with Daniel Avery</span> </div>
+    <div class="r-sub"><span class="ev-title">Daniel Avery / George FitzGerald / Manami | Beatport Live London - Free RSVP</span><span class="dot">·</span><span class="r-venue">TBA - Secret Location</span></div>
+    <div class="why">4 tracks in the archive · 12 plays · Jazz · added Mar 2018</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488034" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">23</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Jimpster <span class="also">with Laurent Garnier, Greg Wilson, Luke Una, Girls of the Internet</span> </div>
+    <div class="r-sub"><span class="ev-title">Campo Sancho 2026</span><span class="dot">·</span><span class="r-venue">TBA - address sent to all ticket holders </span></div>
+    <div class="why">15 tracks in the archive · 42 plays · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2417489" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">IZCO <span class="also">with The Menendez Brothers</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">The Menendez Brothers and Friends</span><span class="dot">·</span><span class="r-venue">E1</span></div>
+    <div class="why">3 tracks in the archive · 6 plays · 6 this year · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2479415" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dimitri From Paris <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="r-venue">Phonox</span></div>
+    <div class="why">14 tracks in the archive · 69 plays · 4 this year · Disco & Boogie · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2448305" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Carl Craig </div>
+    <div class="r-sub"><span class="ev-title">Carl Craig (All Night Long)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">5 tracks in the archive · 20 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2428341" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Full Crate <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">NT's Loft: Full Crate</span><span class="dot">·</span><span class="r-venue">Night Tales Loft</span></div>
+    <div class="why">1 track in the archive · 1 plays · Uncategorized · added Jun 2013</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2424630" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Asa Tate <span class="also">with Vanity Project</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">FACTOR FIFTY - Asa Tate, SUN DAMAGE, Vanity Project</span><span class="dot">·</span><span class="r-venue">The Old Blue Last</span></div>
+    <div class="why">1 track in the archive · 4 plays · 4 this year · House · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2465294" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Karma Kid <span class="also">with Braga Circuit, Fliss Mayo</span> </div>
+    <div class="r-sub"><span class="ev-title">Face 2 Face: Braga Circuit, Karma Kid, Fliss Mayo, Moe</span><span class="dot">·</span><span class="r-venue">The Glove That Fits</span></div>
+    <div class="why">2 tracks in the archive · 7 plays · House · added Sep 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2490627" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">24</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">KAYTRANADA <span class="also">with Kaytranada's 99.9% Revisited (10th Anniversary)</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Kaytranada's 99.9% Revisited (10th Anniversary)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">15 tracks in the archive · 140 plays · Soul & R&B · added Mar 2021</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/kaytranadas-99-9-revisited-10th-anniversary/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Cousin <span class="also">with Fantastic Man</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">The Cause FM: New Frequency</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">1 track in the archive · 3 plays · Afro & World · added Jan 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2331574" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Jeff Mills <span class="also">with Nina Kraviz, Marcel Dettmann, DJ Hell, GiGi FM</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Junction 2 x fabric: Nina Kraviz, Jeff Mills, Marcel Dettmann, DJ Hell, Nicolas Lutz, Peach</span><span class="dot">·</span><span class="r-venue">Boston Manor Park</span></div>
+    <div class="why">1 track in the archive · 2 plays · 2 this year · Electronic · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2361301" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Alex Kassian <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Alex Kassian - All Day Long - SOLD OUT</span><span class="dot">·</span><span class="r-venue">Crate Brewery</span></div>
+    <div class="why">10 tracks in the archive · 29 plays · 11 this year · House · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2442441" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">The Egyptian Lover <span class="also">with FREAKENSTEIN</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Phonox: CIRCULATE with Egyptian Lover, FREAKENSTEIN</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">1 track in the archive · 1 plays · Disco & Boogie · added Oct 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2416607" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Jarreau Vandal <span class="also">with p-rallel</span> </div>
+    <div class="r-sub"><span class="ev-title">p-rallel presents Nevermind - Summer Day Party</span><span class="dot">·</span><span class="r-venue">LDN East</span></div>
+    <div class="why">3 tracks in the archive · 10 plays · Soul & R&B · added Jul 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431479" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Klaxons <span class="also">with 3DMA, Dark0, Doss, Hannah Diamond</span> </div>
+    <div class="r-sub"><span class="ev-title">Glitch Garden: Hannah Diamond, Iglooghost, Doss, MssingNo, Lobsta B, Dark0, Kamixlo + more</span><span class="dot">·</span><span class="r-venue">Colour Factory</span></div>
+    <div class="why">5 tracks in the archive · 3 plays · Indie & Rock · added Apr 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430302" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Demi Riquísimo <span class="also">with Aldonna, B.Love, Jhobei, Eden Burns</span> </div>
+    <div class="r-sub"><span class="ev-title">Semi Delicious - Day into Night: Demi Riquisimo, Eden Burns, Aldonna, Lulah Francs &amp; more</span><span class="dot">·</span><span class="r-venue">Gaffe</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Disco & Boogie · added Aug 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2417173" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ian Pooley <span class="also">with SUCHI</span> </div>
+    <div class="r-sub"><span class="ev-title">Ian Pooley [Extended Set] &amp; SUCHI</span><span class="dot">·</span><span class="r-venue">Night Tales</span></div>
+    <div class="why">5 tracks in the archive · 8 plays · House · added Mar 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2424755" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Daft Punk <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">RESCHEDULED Fred Again.. vs Daft Punk</span><span class="dot">·</span><span class="r-venue">Brixton Jamm</span></div>
+    <div class="why">17 tracks in the archive · 132 plays · 3 this year · House · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2450033" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Maxwell Owin <span class="also">with dare balogun, Glade Marie, Martelo, Mia Koden</span> <span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Jumbi 4th Birthday Warehouse Bash (Jumbi and Unit 08)</span><span class="dot">·</span><span class="r-venue">Jumbi</span></div>
+    <div class="why">2 tracks in the archive · 15 plays · House · added Jan 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2480317" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Roni Size <span class="also">with Bryan Gee, Jumping Jack Frost, ALIBI, Benny L</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Planet V BBQ</span><span class="dot">·</span><span class="r-venue">Electric Ballroom</span></div>
+    <div class="why">1 track in the archive · 3 plays · Downtempo · added Apr 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2409325" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Milo <span class="also">with Douvelle19, THE FLAG TWINS, Disciples, Rhiavas</span> </div>
+    <div class="r-sub"><span class="ev-title">FLAG + FRIENDS presents ON THE PIER</span><span class="dot">·</span><span class="r-venue">Fulham Pier</span></div>
+    <div class="why">2 tracks in the archive · 5 plays · Hip Hop · added Dec 2018</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2491741" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">COOKIE. <span class="also">with William James, Ricky Kelsey, Yukari</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Hangar 002</span><span class="dot">·</span><span class="r-venue">Last Arch</span></div>
+    <div class="why">1 track in the archive · 2 plays · 1 this year · Jazz · added Jan 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2445153" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Todd Terje <span class="also">with Leftfield, Timmy Stewart, Jordan Nocturne, Marion Hawkes</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">EastSide Electronics by Day: Todd Terje &amp; Leftfield (DJ)</span><span class="dot">·</span><span class="r-venue">C.S. Lewis Square</span></div>
+    <div class="why">11 tracks in the archive · 82 plays · Disco & Boogie · added Dec 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2438340" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">25</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">MOVEMENT <span class="also">with Mádé Kuti &amp; The Movement</span> </div>
+    <div class="r-sub"><span class="ev-title">Mádé Kuti &amp; The Movement</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">4 tracks in the archive · 26 plays · Electronic · added May 2014</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/made-kuti-the-movement/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">26</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Coco Maria <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">GIANT STEPS</span><span class="dot">·</span><span class="r-venue">The Bath House</span></div>
+    <div class="why">1 track in the archive · Disco & Boogie · added Jun 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2445976" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">26</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Kay Suzuki <span class="also">with Nina Yamada</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Tokyo Riddim Sunday</span><span class="dot">·</span><span class="r-venue">The Fox and Firkin</span></div>
+    <div class="why">1 track in the archive · 2 plays · Jazz · added Jan 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2448348" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">26</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">JUPiTA <span class="also">with Moonshine, Bappy, Coco Em, Crybaby</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">SYNC - London</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">1 track in the archive · 2 plays · 2 this year · Uncategorized · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2481326" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">26</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Horse Meat Disco <span class="also">with Conor L</span> </div>
+    <div class="r-sub"><span class="ev-title">Horse Meat Disco at Eagle London</span><span class="dot">·</span><span class="r-venue">The Eagle</span></div>
+    <div class="why">4 tracks in the archive · 9 plays · Disco & Boogie · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2470255" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">26</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Nina Simone <span class="also">with Judi Jackson</span> </div>
+    <div class="r-sub"><span class="ev-title">KOKO Jazz Club – Nina Simone sung by Judi Jackson</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">6 tracks in the archive · 12 plays · Jazz · added Jul 2020</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/nina-simone-sung-by-judi-jackson" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">TUE</span><span class="r-day">28</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Turner </div>
+    <div class="r-sub"><span class="ev-title">Simon Fisher Turner + Lone Capture Library + Jack Rollo</span><span class="dot">·</span><span class="r-venue">Cafe OTO</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Disco & Boogie · added Apr 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2493273" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">29</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Satoshi Tomiie <span class="also">with Kuniyuki, Kuniyuki Takahashi</span> </div>
+    <div class="r-sub"><span class="ev-title">Satoshi Tomiie &amp; Kuniyuki Takahashi (Live)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">3 tracks in the archive · 6 plays · 3 this year · Afro & World · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2408376" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">29</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Knee Deep </div>
+    <div class="r-sub"><span class="ev-title">Knee Deep in Custard x Great Area</span><span class="dot">·</span><span class="r-venue">Ormside Projects</span></div>
+    <div class="why">2 tracks in the archive · 15 plays · Disco & Boogie · added Dec 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2477006" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">30</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">George FitzGerald <span class="also">with Lil Silva</span> </div>
+    <div class="r-sub"><span class="ev-title">Nowhere:London by Lil Silva &amp; George FitzGerald [002]</span><span class="dot">·</span><span class="r-venue">TBA</span></div>
+    <div class="why">4 tracks in the archive · 12 plays · Jazz · added Mar 2018</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2432504" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">30</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Yuna <span class="also">with Bby Eco, TUNA DISPLAY, Space Candy, DuoduoIsShine</span> </div>
+    <div class="r-sub"><span class="ev-title">Soft Trend</span><span class="dot">·</span><span class="r-venue">Vespers Club</span></div>
+    <div class="why">2 tracks in the archive · 6 plays · Soul & R&B · added Jan 2014</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488683" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">30</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Lau Ro </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 5 plays · Jazz · added Jul 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/lau-ro/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Thakzin <span class="also">with Chris Stussy, Juls, Basement Jaxx</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Boiler Room: London - Friday</span><span class="dot">·</span><span class="r-venue">Burgess Park</span></div>
+    <div class="why">1 track in the archive · 3 plays · 3 this year · Afro & World · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2317964" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mall Grab <span class="also">with Effy, Benga, Special Request, BLUMITSU</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Junction 2: Mall Grab, Effy, Ross From Friends</span><span class="dot">·</span><span class="r-venue">Boston Manor Park</span></div>
+    <div class="why">1 track in the archive · Uncategorized · added Nov 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2363317" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Reaper <span class="also">with A Guy Called Gerald</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Palais: A Guy Called Gerald (Live Jungle Set), Tim Reaper &amp; Chinese Daughter</span><span class="dot">·</span><span class="r-venue">Palais</span></div>
+    <div class="why">1 track in the archive · 5 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431549" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Deep Dish <span class="also">with Agoria</span> </div>
+    <div class="r-sub"><span class="ev-title">Deep Dish (Dubfire + Sharam), Agoria, Lilya Mandre, SARAHREY</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">2 tracks in the archive · 9 plays · House · added Oct 2013</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2459552" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Foster The People <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Foster The People presents FTP (DJ Set)</span><span class="dot">·</span><span class="r-venue">Village Underground</span></div>
+    <div class="why">1 track in the archive · Funk</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2452290" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Soul II Soul <span class="also">with Grace Jones</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Palace Bowl presents - Grace Jones</span><span class="dot">·</span><span class="r-venue">Crystal Palace Park</span></div>
+    <div class="why">6 tracks in the archive · 21 plays · 8 this year · Soul & R&B · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2381501" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Shivum Sharma <span class="also">with Human Movement, Sissy Fit, Shivani (2)</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Second Generation</span><span class="dot">·</span><span class="r-venue">Sui Generis</span></div>
+    <div class="why">1 track in the archive · 2 plays · House · added Nov 2014</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2482471" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Apiento <span class="also">with arnie, fairground</span> </div>
+    <div class="r-sub"><span class="ev-title">Equal Parts: Apiento</span><span class="dot">·</span><span class="r-venue">Grow</span></div>
+    <div class="why">2 tracks in the archive · 4 plays · 2 this year · Uncategorized · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2471173" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">31</span><span class="r-mon">JUL</span></div>
+  <div class="r-main">
+    <div class="r-artist">Raw Silk <span class="also">with Huns N' Roses</span> </div>
+    <div class="r-sub"><span class="ev-title">Huns N' Roses: Summer Party (Raising Money for Refuge)</span><span class="dot">·</span><span class="r-venue">Hackney Bridge</span></div>
+    <div class="why">3 tracks in the archive · 7 plays · Disco & Boogie · added Sep 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488706" target="_blank" rel="noopener">Tickets</a>
+</div><h2>August 2026</h2>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Aroop Roy <span class="also">with Mr. Scruff</span> </div>
+    <div class="r-sub"><span class="ev-title">berlioz presents deep in it</span><span class="dot">·</span><span class="r-venue">Finsbury Park</span></div>
+    <div class="why">6 tracks in the archive · 15 plays · 4 this year · Disco & Boogie · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2315331" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dixon <span class="also">with Âme, Howling, Ivory, JAMIIE</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Innervisions LONDON</span><span class="dot">·</span><span class="r-venue">Boston Manor Park</span></div>
+    <div class="why">1 track in the archive · 2 plays · House · added Mar 2013</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2373267" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">DJ Marky <span class="also">with High Contrast, P Money, Wookie</span> </div>
+    <div class="r-sub"><span class="ev-title">Hospital30 Block Party</span><span class="dot">·</span><span class="r-venue">Hackney Wick Multiple Venues</span></div>
+    <div class="why">4 tracks in the archive · 9 plays · Electronic · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2398901" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Katy B <span class="also">with Jumping Jack Frost, Lady Passion, Lily London</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Daytime Dance: Katy B (DJ Set)</span><span class="dot">·</span><span class="r-venue">Jumbi</span></div>
+    <div class="why">1 track in the archive · 4 plays · Funk · added Jul 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2442395" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Sam Girling <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Origins x Small Talk: Sam Girling (All Night Long)</span><span class="dot">·</span><span class="r-venue">Night Tales Loft</span></div>
+    <div class="why">1 track in the archive · 4 plays · House · added Jun 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430464" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Space Ghost <span class="also">with Manuel Darquart</span> </div>
+    <div class="r-sub"><span class="ev-title">WOLF Music x Adventures In Paradise Day Party</span><span class="dot">·</span><span class="r-venue">Colour Factory</span></div>
+    <div class="why">10 tracks in the archive · 26 plays · 2 this year · House · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2453324" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">WheelUP <span class="also">with Adam F</span> </div>
+    <div class="r-sub"><span class="ev-title">Adam F (Full Live Band)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 11 plays · Funk · added Jul 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2408309" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Heatwave <span class="also">with DJ Hype, Grooverider, Funsta, DJ Brockie</span> </div>
+    <div class="r-sub"><span class="ev-title">UCOJ: Heatwave Day Party</span><span class="dot">·</span><span class="r-venue">Brixton Jamm</span></div>
+    <div class="why">3 tracks in the archive · 10 plays · Disco & Boogie · added Mar 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2434914" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Oliver Night <span class="also">with Peter Adjaye, MA1, DJ Knowledge, Reon Vanger</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">BROADCITE Sessions '25th Anniversary' All-dayer 5pm - 2am</span><span class="dot">·</span><span class="r-venue">Secret Location</span></div>
+    <div class="why">1 track in the archive · Electronic · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2464548" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Hot Chip <span class="also">with Alexis Taylor</span> </div>
+    <div class="r-sub"><span class="ev-title">Did Someone Say... Showcase - Alexis Taylor (Hot Chip) DJ Set, Benebe, Kafn + more</span><span class="dot">·</span><span class="r-venue">Signature Brew Blackhorse Road</span></div>
+    <div class="why">13 tracks in the archive · 16 plays · Indie & Rock · added Apr 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2423027" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">David Morales <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">House is a Feeling (Summer Shakedown)</span><span class="dot">·</span><span class="r-venue">Studio 338</span></div>
+    <div class="why">11 tracks in the archive · 59 plays · 1 this year · House · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430247" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Purple Disco Machine <span class="also">with Armand Van Helden, Daniel Avery, I. JORDAN</span> </div>
+    <div class="r-sub"><span class="ev-title">State Of Us On The Park, Brighton</span><span class="dot">·</span><span class="r-venue">Preston Park, Brighton</span></div>
+    <div class="why">7 tracks in the archive · 33 plays · Disco & Boogie · added Aug 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2463071" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Reaper <span class="also">with LMajor</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">30 Years of Test Press</span><span class="dot">·</span><span class="r-venue">Planet Wax</span></div>
+    <div class="why">1 track in the archive · 5 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2485538" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">JUPiTA <span class="also">with Asphodèle, Suki Quasimodo, Blue Ringed Baby</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Vespers presents with Asphodèle, JUPiTA, Suki Quasimodo, Blue Ringed Baby &amp; Kamī</span><span class="dot">·</span><span class="r-venue">Vespers Club</span></div>
+    <div class="why">1 track in the archive · 2 plays · 2 this year · Uncategorized · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2492188" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">1</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">anaiis <span class="also">with Hush Steve Gunn Anaiis Loula Yorke Ghuraba</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Hush Steve Gunn Anaiis Loula Yorke Ghuraba</span><span class="dot">·</span><span class="r-venue">EartH</span></div>
+    <div class="why">6 tracks in the archive · 18 plays · 7 this year · Soul & R&B · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/hush-steve-gunn-anaiis-loula-yorke-ghuraba-1st-aug-earth-london-tickets-nv66a8/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Greentea Peng <span class="also">with Dan Shake, Mansur Brown, Nightmares On Wax, System Olympia</span> </div>
+    <div class="r-sub"><span class="ev-title">Jazz Cafe Festival 2026</span><span class="dot">·</span><span class="r-venue">Burgess Park</span></div>
+    <div class="why">11 tracks in the archive · 43 plays · Soul & R&B · added Mar 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2235139" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Reaper <span class="also">with 4am Kru, Salo (2), Decibella, Guido YZ</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">4am Kru present RATFEST</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">1 track in the archive · 5 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2443625" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Peggy Gou <span class="also">with Prospa, MPH (1), Kelly Lee Owens</span> </div>
+    <div class="r-sub"><span class="ev-title">Peggy Gou on the Thames</span><span class="dot">·</span><span class="r-venue">Old Royal Naval College</span></div>
+    <div class="why">5 tracks in the archive · 32 plays · House · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2361236" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Sub Focus <span class="also">with Dimension, 1991, Culture Shock, Nero</span> </div>
+    <div class="r-sub"><span class="ev-title">krankbrother presents: WORSHIP</span><span class="dot">·</span><span class="r-venue">Finsbury Park</span></div>
+    <div class="why">2 tracks in the archive · Electronic</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2315326" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Max Sinàl <span class="also">with KingCrowney</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Makin' Moves x Soul Quest with Max Sinal &amp; King Crowney</span><span class="dot">·</span><span class="r-venue">Setlist @ Somerset House</span></div>
+    <div class="why">3 tracks in the archive · 9 plays · 9 this year · Jazz · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2465076" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Richie Spice <span class="also">with Jamie Rodigan</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Richie Spice (Evening Show)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 3 plays · Afro & World · added Aug 2012</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2359625" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">DJ Spen <span class="also">with Marcia Carr, Afronaut UK, Paris Cesvette, Russell Ruckman</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">60 Years Strong: Wear WHITE | Birthday w/ Marcia Carr / DJ Spen / Afronaut / Paris Cesvette</span><span class="dot">·</span><span class="r-venue">The BBE Store</span></div>
+    <div class="why">8 tracks in the archive · 54 plays · House · added Mar 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2355150" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">2</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Special Occasion <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">DENIM WEAR DAY &amp; NIGHT PARTY</span><span class="dot">·</span><span class="r-venue">The Ravensbury</span></div>
+    <div class="why">1 track in the archive · 3 plays · Disco & Boogie · added Sep 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2474547" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">6</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tanhai Collective <span class="also">with Secret Night Gang</span> </div>
+    <div class="r-sub"><span class="ev-title">Tanhai Collective &amp; Secret Night Gang</span><span class="dot">·</span><span class="r-venue">Freight Brixton</span></div>
+    <div class="why">6 tracks in the archive · 8 plays · 1 this year · Indie & Rock · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2419499" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Erika de Casier <span class="also">with Overmono, Leod, College</span> </div>
+    <div class="r-sub"><span class="ev-title">Overmono present Pure Devotion at Old Royal Naval College</span><span class="dot">·</span><span class="r-venue">Old Royal Naval College</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Soul & R&B · added Dec 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2350409" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">CASISDEAD <span class="also">with Sexy Lady Massive, Chinese Daughter</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">DEADCORP PRESENTS: CASISDEAD, Sexy Lady Massive, Chinese Daughter</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">1 track in the archive · 2 plays · Uncategorized · added Dec 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2485585" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Juls <span class="also">with Larizzle, Kwamzy, Duo, Rhiavas</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Juls — Jazz Cafe Residency (4 Fridays in the Summer - 7 August)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 2 plays · Afro & World · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2418401" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Session Victim </div>
+    <div class="r-sub"><span class="ev-title">Palais: Session Victim (All Night Long)</span><span class="dot">·</span><span class="r-venue">Palais</span></div>
+    <div class="why">13 tracks in the archive · 39 plays · 5 this year · House · added Jul 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431588" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dave Lee <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">NT's Loft: Dave 'Love' Lee (All Night Long)</span><span class="dot">·</span><span class="r-venue">Night Tales Loft</span></div>
+    <div class="why">47 tracks in the archive · 150 plays · 2 this year · Disco & Boogie · added Aug 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2390746" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Cody Currie <span class="also">with Jeremy Underground, Minister Ballantine, Tommy Gold, Dunmore Brothers</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">DISCOWORKS: Jeremy Underground, Cody Currie, Tommy Gold, Minister Ballantine, Harry Gape</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">33 tracks in the archive · 119 plays · 1 this year · Jazz · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488609" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Reaper <span class="also">with A-Sides, Decibella, RUNDR, Stretch AKO</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Influences</span><span class="dot">·</span><span class="r-venue">Ormside Projects</span></div>
+    <div class="why">1 track in the archive · 5 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2472927" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Donsurf <span class="also">with Setwun, Jimmy Smith, D’Monk</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Club Salami - Setwun, D'Monk, Donsurf, Kusasa, Jimmy Smith</span><span class="dot">·</span><span class="r-venue">The Glove That Fits</span></div>
+    <div class="why">1 track in the archive · 3 plays · 3 this year · Electronic · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2492301" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">7</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Childish Gambino <span class="also">with Childish Gambino - Reimagined Live</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Childish Gambino - Reimagined Live</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 5 plays · Hip Hop · added Dec 2016</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/childish-gambino-reimagined-live/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Voyage <span class="also">with Confidence Man</span> </div>
+    <div class="r-sub"><span class="ev-title">Maiden Voyage Festival 2026</span><span class="dot">·</span><span class="r-venue">Burgess Park</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · Disco & Boogie · added Jan 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2236226" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Boat Club <span class="also">with G CHASE, HARTY, Mazos, Mike Younger</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Boat Club Open Air</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">1 track in the archive · 5 plays · Downtempo · added Jun 2012</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2468710" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Four Tet <span class="also">with Gilles Peterson, Sofia Kourtesis</span> </div>
+    <div class="r-sub"><span class="ev-title">krankbrother presents: Four Tet All Dayer</span><span class="dot">·</span><span class="r-venue">Finsbury Park</span></div>
+    <div class="why">11 tracks in the archive · 24 plays · Electronic · added Aug 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2323058" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">TSHA <span class="also">with Adriatique</span> </div>
+    <div class="r-sub"><span class="ev-title">Adriatique present X on the Thames</span><span class="dot">·</span><span class="r-venue">Old Royal Naval College</span></div>
+    <div class="why">2 tracks in the archive · 9 plays · House · added Sep 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2355831" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Shy One <span class="also">with Jitwam</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Jumbi Day Party: CIRCULATE with Shy One, Jitwam + Afterparty at Phonox</span><span class="dot">·</span><span class="r-venue">Jumbi</span></div>
+    <div class="why">16 tracks in the archive · 17 plays · 17 this year · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2416611" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Barbara Boeing <span class="also">with CC:DISCO!</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Night Tales: CC:DISCO! &amp; Bárbara Boeing</span><span class="dot">·</span><span class="r-venue">Night Tales</span></div>
+    <div class="why">1 track in the archive · 4 plays · Disco & Boogie · added Nov 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2440896" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Reaper <span class="also">with Dwarde, Dev/Null</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Globex Corp Takeover: Tim Reaper + Dev/Null + Dwarde</span><span class="dot">·</span><span class="r-venue">The Old Blue Last</span></div>
+    <div class="why">1 track in the archive · 5 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2484531" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mad Professor <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Melodies International presents Ariwa Sounds release party with Mad Professor &amp; special guests</span><span class="dot">·</span><span class="r-venue">Colour Factory</span></div>
+    <div class="why">3 tracks in the archive · 8 plays · 8 this year · Afro & World · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2476196" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Laurence Guy </div>
+    <div class="r-sub"><span class="ev-title">Laurence Guy Rooftop Day Party</span><span class="dot">·</span><span class="r-venue">Freight Brixton</span></div>
+    <div class="why">2 tracks in the archive · 1 plays · House · added Jun 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2417269" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Sticky Dub <span class="also">with joey manzi, LORA S, DREY, Listiq</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Loose Legs presents: Sticky Dub, joey manzi, LORA S &amp; DREY</span><span class="dot">·</span><span class="r-venue">Vittoria Wharf Studio</span></div>
+    <div class="why">1 track in the archive · 2 plays · Funk · added Jul 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2471582" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">8</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">William Onyeabor <span class="also">with The Music of William Onyeabor</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">The Music of William Onyeabor (Live)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 3 plays · Afro & World · added Jan 2019</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/the-music-of-william-onyeabor-live/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">9</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Scarlett O'Malley <span class="also">with Joseph Capriati, SOSA, The Martinez Brothers, Mella Dee</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Eastern Electrics 2026</span><span class="dot">·</span><span class="r-venue">Burgess Park</span></div>
+    <div class="why">1 track in the archive · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2352117" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">12</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Courtney Pine <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 3 plays · Downtempo · added Nov 2021</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/courtney-pine-4/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Pangaea <span class="also">with Or:la, Pariah</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Origins: Pangaea, Or:la &amp; Pariah</span><span class="dot">·</span><span class="r-venue">FOLD</span></div>
+    <div class="why">1 track in the archive · 4 plays · Electronic · added Jul 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430616" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">NEIL FRANCES <span class="also">with Lulah Francs, Masha Mar</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">KOKO Electronic: Neil Frances</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">1 track in the archive · Indie & Rock · added Jan 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2448337" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Children of Zeus <span class="also">with 2fox, Bel Cobain, Delonte Rivers, Wayward</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">[CANCELLED] Back of House Festival 2026</span><span class="dot">·</span><span class="r-venue">Kelvedon Hall</span></div>
+    <div class="why">20 tracks in the archive · 105 plays · Soul & R&B · added Jul 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2384393" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Theo Kottis <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">theoracle with Theo Kottis (brand new venue)</span><span class="dot">·</span><span class="r-venue">radial</span></div>
+    <div class="why">1 track in the archive · 2 plays · Disco & Boogie · added Apr 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488161" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ishtar <span class="also">with FITS ME FUNNY, dylan.james, Emile</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Twinspinsz ↠ Ishtar's Birthday Bash</span><span class="dot">·</span><span class="r-venue">Starlane Pizza Bar</span></div>
+    <div class="why">1 track in the archive · 4 plays · Disco & Boogie · added Sep 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2469820" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Shivum Sharma <span class="also">with FAFF, Seb Odyssey, Shannen SP, Lagoon Femshayma</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Glint 004: Leo's Revenge with FAFF, Seb Odyssey, Shannen SP + Shivum Sharma b2b Lagoon</span><span class="dot">·</span><span class="r-venue">The Carpet Shop</span></div>
+    <div class="why">1 track in the archive · 2 plays · House · added Nov 2014</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2463915" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">14</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Beirut <span class="also">with Groove Collective</span> </div>
+    <div class="r-sub"><span class="ev-title">Beirut Groove Collective Summer Club: Natalie Shooter // Ernesto Chahoud // + Guests</span><span class="dot">·</span><span class="r-venue">Grow</span></div>
+    <div class="why">3 tracks in the archive · 28 plays · Indie & Rock · added Feb 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2491298" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">John Talabot <span class="also">with Call Super, MAYURASHKA, OK Williams, Palms Trax</span> </div>
+    <div class="r-sub"><span class="ev-title">Cooking with Palms Trax: Day &amp; Night</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">5 tracks in the archive · 14 plays · House · added Apr 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2457152" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Moby </div>
+    <div class="r-sub"><span class="ev-title">Moby Live on the Thames</span><span class="dot">·</span><span class="r-venue">Old Royal Naval College</span></div>
+    <div class="why">4 tracks in the archive · 2 plays · Downtempo · added Mar 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2354022" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Detroit In Effect <span class="also">with DJ Masda, mad miran, Katya, Colin Chiddle</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Art Of Dark - Summer Heights</span><span class="dot">·</span><span class="r-venue">FOLD</span></div>
+    <div class="why">1 track in the archive · Disco & Boogie · added Feb 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430389" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">LF SYSTEM <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">A day with LF SYSTEM [Summer Open Air]</span><span class="dot">·</span><span class="r-venue">LDN East</span></div>
+    <div class="why">1 track in the archive · 6 plays · House · added Aug 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2464120" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Garrett David <span class="also">with MADVILLA, KT</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Global Swing: Garrett David, MADVILLA, KT</span><span class="dot">·</span><span class="r-venue">Night Tales</span></div>
+    <div class="why">1 track in the archive · House · added Jun 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2440054" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Hunee <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">HUNEE - DJ Set - {PAIRED} Serpentine</span><span class="dot">·</span><span class="r-venue">Serpentine Galleries</span></div>
+    <div class="why">1 track in the archive · 17 plays · House · added Dec 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2484570" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">JKriv </div>
+    <div class="r-sub"><span class="ev-title">Razor-N-Tape Party at Jazz Cafe</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">11 tracks in the archive · 25 plays · 1 this year · Disco & Boogie · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2461548" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Summer Camp <span class="also">with Becky Stroke, Proteus, Claudia Kane, Glotzer</span> </div>
+    <div class="r-sub"><span class="ev-title">Ziber London ☆ SUMMER CAMP ☆ 11 HOUR MARATHON</span><span class="dot">·</span><span class="r-venue">Distillery N17</span></div>
+    <div class="why">5 tracks in the archive · 4 plays · Indie & Rock · added Oct 2013</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488328" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Elkka <span class="also">with Meilgaarden, r:elise, Teecra</span> </div>
+    <div class="r-sub"><span class="ev-title">PRISM: Elkka, Meilgaarden, r:elise, Teecra</span><span class="dot">·</span><span class="r-venue">Vittoria Wharf Studio</span></div>
+    <div class="why">4 tracks in the archive · 22 plays · House · added Feb 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2456858" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Raw Silk <span class="also">with Justin Drake</span> </div>
+    <div class="r-sub"><span class="ev-title">A GOOD AFTERNOON - Open Air Terrace Party</span><span class="dot">·</span><span class="r-venue">Gloves Off</span></div>
+    <div class="why">3 tracks in the archive · 7 plays · Disco & Boogie · added Sep 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2470654" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">15</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Max Sinàl <span class="also">with LEV</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Vinyl Quest</span><span class="dot">·</span><span class="r-venue">Filly Brook</span></div>
+    <div class="why">3 tracks in the archive · 9 plays · 9 this year · Jazz · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2492220" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">16</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ray Mang <span class="also">with Bill Brewster</span> <span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Palais: Bill Brewster's Birthday</span><span class="dot">·</span><span class="r-venue">Palais</span></div>
+    <div class="why">2 tracks in the archive · 27 plays · Disco & Boogie · added Nov 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431613" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">TUE</span><span class="r-day">18</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Speakers Corner Quartet <span class="also">with Speakers Corner Quartet Celebrates The Music Of Arthur Russell</span> <span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Speakers Corner Quartet Celebrates The Music Of Arthur Russell</span><span class="dot">·</span><span class="r-venue">EartH</span></div>
+    <div class="why">2 tracks in the archive · 4 plays · Jazz · added Jul 2023</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/speakers-corner-quartet-celebrates-the-music-of-arthur-russell-18th-aug-earth-london-tickets-8eqw82/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">19</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ana Frango Elétrico </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">10 tracks in the archive · 45 plays · 2 this year · Brazilian · added Aug 2025</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/ana-frango-eletrico-2/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">19</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Digable Planets </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">4 tracks in the archive · 41 plays · Hip Hop · added Jun 2022</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/digable-planets/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">20</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">LEISURE <span class="also">with BJ Holy, leisure fm</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">SCOBE 6: BJ Holy / leisure fm / FLYWHEEL / SCOBE COLLECTIVE</span><span class="dot">·</span><span class="r-venue">Spanners</span></div>
+    <div class="why">1 track in the archive · 9 plays · Indie & Rock · added Oct 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2486580" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">21</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Juls <span class="also">with Hagan, HARUNA (2), Papu Raf, Dj Nico</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Juls — Jazz Cafe Residency (4 Fridays in the Summer - 21 August)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 2 plays · Afro & World · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2418453" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">21</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">George Benson <span class="also">with The Best of George Benson</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">The Best of George Benson</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">17 tracks in the archive · 52 plays · Disco & Boogie · added Oct 2021</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/the-best-of-george-benson/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Goldie <span class="also">with Photek, Zed Bias</span> </div>
+    <div class="r-sub"><span class="ev-title">SIGNAL FESTIVAL 2026</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">4 tracks in the archive · 17 plays · Electronic · added Oct 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2239194" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Chaos In The CBD <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Chaos In The CBD: All Day Long</span><span class="dot">·</span><span class="r-venue">Hackney Bridge</span></div>
+    <div class="why">17 tracks in the archive · 115 plays · 19 this year · House · added May 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2458122" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Flight Facilities <span class="also">with Purple Disco Machine, Jayda G</span> </div>
+    <div class="r-sub"><span class="ev-title">Purple Disco Machine with Flight Facilities, Jayda G, david bay</span><span class="dot">·</span><span class="r-venue">Magazine Open–Air</span></div>
+    <div class="why">15 tracks in the archive · 42 plays · Disco & Boogie · added Aug 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2373989" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Aroop Roy <span class="also">with Ella Knight, Fort Romeau</span> </div>
+    <div class="r-sub"><span class="ev-title">Broadwick Live presents: Flight Facilities, Kirollus, Jennifer Loveless, Fort Romeau + more</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">6 tracks in the archive · 15 plays · 4 this year · Disco & Boogie · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2454567" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Sylvester <span class="also">with Jeremy Sylvester, Bear Winder, Zak Miller, A Hard Day's Dance</span> </div>
+    <div class="r-sub"><span class="ev-title">Garage Paradise - The London Sessions - Jeremy Sylvester, Bear Winder, Zak Miller</span><span class="dot">·</span><span class="r-venue">Basing House</span></div>
+    <div class="why">7 tracks in the archive · 32 plays · Disco & Boogie · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2421418" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">El-B <span class="also">with Plastician, Mike Millrain, Lady Passion, LARISHKA</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">GHOST OF GARAGE W/ Plastician (UKG SET), El-B B2B J DA FLEX, Mike Millrain, Lady Passion + more</span><span class="dot">·</span><span class="r-venue">Freight Brixton</span></div>
+    <div class="why">1 track in the archive · 2 plays · Jazz · added Jan 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2478489" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Skream <span class="also">with L.P. Rhythm, Kepler, Burnski, Ozzie Guven</span> </div>
+    <div class="r-sub"><span class="ev-title">Hifields 2026</span><span class="dot">·</span><span class="r-venue">Dullingham Polo Club</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · Afro & World · added Nov 2013</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2443971" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">D-Nice <span class="also">with Manta, Qualia Trax, Calder</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">JUICI 004 | day2nite</span><span class="dot">·</span><span class="r-venue">Avalon Cafe Bermondsey</span></div>
+    <div class="why">1 track in the archive · 3 plays · Hip Hop · added Mar 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2470300" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Private Joy <span class="also">with Lil C, Seb Odyssey, Fiyahdred, Donnie Sunshine</span> </div>
+    <div class="r-sub"><span class="ev-title">Queer Frequencies</span><span class="dot">·</span><span class="r-venue">Queen Elizabeth Olympic Park</span></div>
+    <div class="why">6 tracks in the archive · 10 plays · 5 this year · Jazz · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2479371" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">ABSOLUTE. <span class="also">with Tube &amp; Berger, REYUS, Carly Wilford, Sasha GiGi</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Tube &amp; Berger &amp; REYUS at EGG</span><span class="dot">·</span><span class="r-venue">Egg London</span></div>
+    <div class="why">1 track in the archive · 6 plays · House · added May 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2483819" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Kassian <span class="also">with Joe Milli, Rose Holland, Danny Goliger, D.D. Curry</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Faux Poly: Day &amp; Night Party w Kassian, Joe Milli, Danny Goliger, Rose Holland + Special Guests</span><span class="dot">·</span><span class="r-venue">radial</span></div>
+    <div class="why">1 track in the archive · 2 plays · Electronic · added Dec 2018</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2490642" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">22</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">DJ Jazzy Jeff <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">KOKO</span></div>
+    <div class="why">1 track in the archive · 2 plays · Hip Hop</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/dj-jazzy-jeff" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">23</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Yoofee <span class="also">with Boofy, Gundam, GUNS, Mystic State</span> </div>
+    <div class="r-sub"><span class="ev-title">White Peach: Day Party</span><span class="dot">·</span><span class="r-venue">The Carpet Shop</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Afro & World · added Jul 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2458747" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">23</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dennis Bovell </div>
+    <div class="r-sub"><span class="ev-title">British Reggae legend Dennis Bovell - DJ &amp; PA Set</span><span class="dot">·</span><span class="r-venue">Soul Mama Islington</span></div>
+    <div class="why">2 tracks in the archive · 11 plays · Afro & World · added Feb 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2461687" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">23</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Aretha Franklin <span class="also">with Vanessa Haynes</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">KOKO Jazz Club – The Queen of Soul: Aretha Franklin, sung by Vanessa Haynes</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">22 tracks in the archive · 90 plays · 3 this year · Soul & R&B · added Sep 2022</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/koko-jazz-club-the-queen-of-soul-aretha-franklin-sung-by-vanessa-haynes" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Reaper <span class="also">with Coco Bryce</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Coco Bryce b2b Sully b2b Tim Reaper b2b Dwarde with Blackeye MC</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">1 track in the archive · 5 plays · Electronic · added Jul 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2466592" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Juls <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Juls — Jazz Cafe Residency (4 Fridays in the Summer - 28 August)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 2 plays · Afro & World · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2418458" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Joe Goddard </div>
+    <div class="r-sub"><span class="ev-title">Night Tales: Joe Goddard [All Night Long]</span><span class="dot">·</span><span class="r-venue">Night Tales</span></div>
+    <div class="why">6 tracks in the archive · 23 plays · Soul & R&B · added Feb 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2443593" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Rampage <span class="also">with Smoove</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Smoove: Continental GT, Supa D, Crazy Cousinz + more</span><span class="dot">·</span><span class="r-venue">Ministry Of Sound</span></div>
+    <div class="why">1 track in the archive · 1 plays · Hip Hop · added Aug 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2483885" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Wookie </div>
+    <div class="r-sub"><span class="ev-title">Wookie: UKG Special [BANK HOLIDAY SPECIAL]</span><span class="dot">·</span><span class="r-venue">The Old Queens Head</span></div>
+    <div class="why">2 tracks in the archive · 5 plays · Funk · added Oct 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2491493" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Levitation Orchestra </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 4 plays · 4 this year · Downtempo · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2462908" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ty <span class="also">with Grooverider, Ray Keith, DJ Millz, HEXA</span> </div>
+    <div class="r-sub"><span class="ev-title">Ray Keith's Dread Bank Holiday</span><span class="dot">·</span><span class="r-venue">The Fox and Firkin</span></div>
+    <div class="why">2 tracks in the archive · 10 plays · Hip Hop · added May 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2468341" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">28</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Patrice <span class="also">with Patrice Roberts</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Patrice Roberts</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">1 track in the archive · 3 plays · Afro & World · added Jan 2015</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/patrice-roberts" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">29</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Blood Orange <span class="also">with Daniel Avery, Jump Source, keiyaA, Parris</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">RALLY 2026</span><span class="dot">·</span><span class="r-venue">Southwark Park</span></div>
+    <div class="why">11 tracks in the archive · 74 plays · 5 this year · Indie & Rock · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2298367" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">29</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Max Sinàl <span class="also">with Skream, Kolter, p-rallel, Todd Edwards</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Appetite On The Farm 2026 - Bank Holiday</span><span class="dot">·</span><span class="r-venue">Kelvedon Hall</span></div>
+    <div class="why">3 tracks in the archive · 9 plays · 9 this year · Jazz · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2311488" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">29</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Jamz Supernova <span class="also">with Habibi Funk, DAR DISKU</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Habibi Funk &amp; Friends — Open Air Weekender in Hackney Wick (Bank Holiday Weekend)</span><span class="dot">·</span><span class="r-venue">Hackney Bridge</span></div>
+    <div class="why">1 track in the archive · 9 plays · Brazilian · added Nov 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430385" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">29</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mood II Swing <span class="also">with Jamesey, Matt L-S</span> </div>
+    <div class="r-sub"><span class="ev-title">Mood II Swing (Day &amp; Night Party)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">6 tracks in the archive · 17 plays · 3 this year · House · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2429492" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">29</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Artful Dodger <span class="also">with Sticky, Lisa Maffia, Romeo MC, MC DT</span> </div>
+    <div class="r-sub"><span class="ev-title">Summer Outdoor Garage Festival - Wheelers Farm Chelmsford</span><span class="dot">·</span><span class="r-venue">Summer Outdoor Garage Festival - Wheelers Farm Chelmsford</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · Funk · added Jul 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2463335" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">29</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Cengiz <span class="also">with Oliver Night</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Cengiz presents 'End Of Summer Special'</span><span class="dot">·</span><span class="r-venue">Grow</span></div>
+    <div class="why">1 track in the archive · 2 plays · 1 this year · House · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2489735" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">30</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Horse Meat Disco <span class="also">with Eris Drew, Romy</span> </div>
+    <div class="r-sub"><span class="ev-title">Body Movements Festival 2026</span><span class="dot">·</span><span class="r-venue">Southwark Park</span></div>
+    <div class="why">4 tracks in the archive · 9 plays · Disco & Boogie · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2242541" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">30</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">WheelUP <span class="also">with Roni Size</span> </div>
+    <div class="r-sub"><span class="ev-title">Roni Size at Jazz Cafe (Bank Holiday Sunday)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 11 plays · Funk · added Jul 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2408540" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">30</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Novelist <span class="also">with Cooly G</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Percy Mingle Carnival Afterparty: Novelist, Scratcha DVA, LCN, Cooly G, Marleigh</span><span class="dot">·</span><span class="r-venue">Palais</span></div>
+    <div class="why">1 track in the archive · 10 plays · Indie & Rock · added Apr 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431673" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">30</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Lovebirds </div>
+    <div class="r-sub"><span class="ev-title">Lovebirds: Disco + Soulful House Set [BANK HOLIDAY SPECIAL]</span><span class="dot">·</span><span class="r-venue">The Old Queens Head</span></div>
+    <div class="why">5 tracks in the archive · 19 plays · Disco & Boogie · added May 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2491559" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">30</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">musclecars <span class="also">with Osunlade, Toribio, Al Kent, DJ Amir</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">PART 2 BBE Music 30th Birthday Party</span><span class="dot">·</span><span class="r-venue">NUMBER 90 LONDON</span></div>
+    <div class="why">26 tracks in the archive · 74 plays · 9 this year · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2368471" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">30</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mr Bongo <span class="also">with Liminal People, Alfie Panaiotis, Paloma (DJ)</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">DeepDig Bank Holiday Special: Mr Bongo (4 Hour Set) + Liminal People</span><span class="dot">·</span><span class="r-venue">Grow</span></div>
+    <div class="why">1 track in the archive · 2 plays · Afro & World · added Nov 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2479346" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">MON</span><span class="r-day">31</span><span class="r-mon">AUG</span></div>
+  <div class="r-main">
+    <div class="r-artist">Miles Davis <span class="also">with Miles Davis' Kind of Blue</span> </div>
+    <div class="r-sub"><span class="ev-title">Miles Davis' Kind of Blue</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">7 tracks in the archive · 19 plays · Jazz · added Sep 2024</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/miles-davis-kind-of-blue-8/" target="_blank" rel="noopener">Tickets</a>
+</div><h2>September 2026</h2>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">2</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Cubafrobeat <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 2 plays · Disco & Boogie · added Jul 2022</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/cubafrobeat-8/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">2</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Misha Panfilov <span class="also">with Misha Panfilov Septet [POSTPONED]</span> </div>
+    <div class="r-sub"><span class="ev-title">Misha Panfilov Septet [POSTPONED]</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">5 tracks in the archive · 7 plays · 2 this year · Jazz · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/misha-panfilov-septet-postponed/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">3</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Alexis Taylor <span class="also">with Ela Minus, Nick León, Mike Simonetti, Guedra Guedra</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Ela Minus &amp; Nick León + Alexis Taylor &amp; Mike Simonetti + Guedra Guedra</span><span class="dot">·</span><span class="r-venue">ICA</span></div>
+    <div class="why">1 track in the archive · 5 plays · Disco & Boogie · added Dec 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2478448" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mr. G <span class="also">with Alix Perez, Breakage, Visages, Monty</span> </div>
+    <div class="r-sub"><span class="ev-title">HVYWGHT x 10 Years of 1985: Alix Perez (140 set)</span><span class="dot">·</span><span class="r-venue">HERE</span></div>
+    <div class="why">5 tracks in the archive · 12 plays · 2 this year · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2435609" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Juls <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Juls — Jazz Cafe Residency (4 Fridays in the Summer - 4 September)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 2 plays · Afro & World · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2418467" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Brookes Brothers <span class="also">with Koven, Georgie Riot, SAVANNAH, Jakes</span> </div>
+    <div class="r-sub"><span class="ev-title">FABRICLIVE x UKF: Koven, Taiki Nulight, Zero, Arcando, BCee, Brookes Brothers + more</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">2 tracks in the archive · 1 plays · Electronic · added Aug 2012</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2467159" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Louie Vega <span class="also">with Anane, Max Sinàl, KingCrowney</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Louie Vega &amp; Anané: The Ritual</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">58 tracks in the archive · 249 plays · 15 this year · House · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2460819" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Todd Edwards </div>
+    <div class="r-sub"><span class="ev-title">NT's Loft: Todd Edwards Weekender - All Night Long</span><span class="dot">·</span><span class="r-venue">Night Tales Loft</span></div>
+    <div class="why">3 tracks in the archive · 21 plays · House · added Jul 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2481697" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Kings Of Tomorrow <span class="also">with Sandy Rivera</span> </div>
+    <div class="r-sub"><span class="ev-title">Kings of Tomorrow (Live Ensemble)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">6 tracks in the archive · 17 plays · House · added May 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2490781" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">I. JORDAN </div>
+    <div class="r-sub"><span class="ev-title">I. JORDAN b2b Byron Yeates - All Night Long (FOLD Steam Room)</span><span class="dot">·</span><span class="r-venue">FOLD</span></div>
+    <div class="why">2 tracks in the archive · 10 plays · Jazz · added Apr 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2471379" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Steffi <span class="also">with SORAYA*, Oliver Scala, Wes Baggaley</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">10 YEARS OF Klub Verboten x LONDON - SOFT</span><span class="dot">·</span><span class="r-venue">The Steel Yard</span></div>
+    <div class="why">1 track in the archive · 1 plays · 1 this year · House · added Sep 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2374025" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ben Hauke <span class="also">with Donsurf</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">SWEET ONES: DONSURF // Ben hauke [LIVE] // KANE // Komanche</span><span class="dot">·</span><span class="r-venue">Grow</span></div>
+    <div class="why">19 tracks in the archive · 105 plays · 3 this year · Jazz · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2486410" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">4</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Shannon <span class="also">with Michael Shannon &amp;amp;amp; Jason Narducy and Friends play R.E.M.’s ‘Lifes Rich Pageant’</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Michael Shannon &amp;amp; Jason Narducy and Friends play R.E.M.’s ‘Lifes Rich Pageant’</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">1 track in the archive · 6 plays · Disco & Boogie · added Jan 2016</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/michael-shannon-jason-narducy-and-friends-play-r-e-m-s-lifes-rich-pageant" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Crazy P <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">A day with Crazy P (DJ Set)</span><span class="dot">·</span><span class="r-venue">LDN East</span></div>
+    <div class="why">30 tracks in the archive · 159 plays · 2 this year · Disco & Boogie · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2470527" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Kenny Larkin <span class="also">with Danilo Plessow</span> </div>
+    <div class="r-sub"><span class="ev-title">fabric: Danilo Plessow (MCDE), Kenny Larkin, Seb Odyssey</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">2 tracks in the archive · 1 plays · Electronic · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2471487" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Wilfy D </div>
+    <div class="r-sub"><span class="ev-title">Phonox: Wilfy D + Friends</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">3 tracks in the archive · 22 plays · Funk · added Nov 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2487311" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Todd Edwards </div>
+    <div class="r-sub"><span class="ev-title">NT's Loft: Todd Edwards Weekender &amp; Friends</span><span class="dot">·</span><span class="r-venue">Night Tales Loft</span></div>
+    <div class="why">3 tracks in the archive · 21 plays · House · added Jul 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2481702" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Darius <span class="also">with Darius Syrossian</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">77: Darius Syrossian</span><span class="dot">·</span><span class="r-venue">77</span></div>
+    <div class="why">1 track in the archive · 9 plays · Disco & Boogie · added Aug 2013</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2468889" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Cortex <span class="also">with Loxy, DJ Flight, Nectax, CHEZA LUCINA</span> </div>
+    <div class="r-sub"><span class="ev-title">The Cause x Cortex presents: Loxy, DJ Flight, Nectax, CHEZA LUCINA</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Funk · added Sep 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2485756" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Caio Cenci <span class="also">with Coeo, DJ Spen, The Magnolia, Barbara Tucker</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">The Disco Express: London w/ Barbara Tucker, COEO, DJ Spen &amp; more</span><span class="dot">·</span><span class="r-venue">Ministry Of Sound</span></div>
+    <div class="why">1 track in the archive · 3 plays · 3 this year · Jazz · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2461514" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">VHOOR <span class="also">with JLZ (BRA), Mu540</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Fervo Fluxo 5th Birthday: Weird Baile [JLZ, Vhoor, Mu540, Ramemes]</span><span class="dot">·</span><span class="r-venue">EartH</span></div>
+    <div class="why">1 track in the archive · 11 plays · House · added May 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2490772" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Crayon <span class="also">with Cezaire, Clara Rosa</span> </div>
+    <div class="r-sub"><span class="ev-title">Roche Musique: Cezaire + Crayon + Clara Rosa</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 14 plays · Disco & Boogie · added Aug 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2439951" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">MJ Cole <span class="also">with DJ Perception, Chunky</span> </div>
+    <div class="r-sub"><span class="ev-title">GHOST OF GARAGE W/ MJ Cole, DJ Perception, Rich Reason + Chunky</span><span class="dot">·</span><span class="r-venue">Freight Brixton</span></div>
+    <div class="why">5 tracks in the archive · 23 plays · Funk · added May 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2478497" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">5</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Twilight <span class="also">with Freetech, Kling</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Twilight Zone IV • Rafyx, Anchronorium • London</span><span class="dot">·</span><span class="r-venue">Distillery N17</span></div>
+    <div class="why">1 track in the archive · 4 plays · Disco & Boogie · added Sep 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2450789" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">9</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Laraaji </div>
+    <div class="r-sub"><span class="r-venue">EartH</span></div>
+    <div class="why">3 tracks in the archive · 11 plays · Downtempo · added Mar 2022</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/laraaji-9th-sep-earth-london-tickets-dkp666/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">10</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Bruno Pernadas </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · 1 this year · Indie & Rock · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/bruno-pernadas/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">11</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Somewhere Soul </div>
+    <div class="r-sub"><span class="ev-title">NT's Loft: Somewhere Soul (All Night Long)</span><span class="dot">·</span><span class="r-venue">Night Tales Loft</span></div>
+    <div class="why">3 tracks in the archive · 6 plays · 5 this year · Indie & Rock · added Jul 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2489539" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Bellaire </div>
+    <div class="r-sub"><span class="ev-title">One Special Night at Roundhouse: Bellaire (Extended Set) &amp; Friends</span><span class="dot">·</span><span class="r-venue">The Roundhouse</span></div>
+    <div class="why">4 tracks in the archive · 18 plays · Disco & Boogie · added Sep 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2362593" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mount Kimbie <span class="also">with Yu Su, Tijana T, Leo Gosh, Galcher Lustwerk</span> </div>
+    <div class="r-sub"><span class="ev-title">fabric presents Mount Kimbie mix launch: Yu Su, Tijana T, Leo Gosh, DJ Python, Galcher Lustwerk</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">15 tracks in the archive · 31 plays · Electronic · added Apr 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2471520" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">1-800 GIRLS <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">A day with 1-800 GIRLS &amp; Friends</span><span class="dot">·</span><span class="r-venue">Gaffe</span></div>
+    <div class="why">1 track in the archive · 1 plays · Electronic · added May 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2464302" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Never Dull </div>
+    <div class="r-sub"><span class="ev-title">Night Tales: Never Dull &amp; More TBA</span><span class="dot">·</span><span class="r-venue">Night Tales</span></div>
+    <div class="why">2 tracks in the archive · 4 plays · Disco & Boogie · added Jul 2018</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2458424" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">China Moses <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 3 plays · Uncategorized · added Mar 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2370056" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Shy One <span class="also">with p-rallel, The Trip, Sofia Kourtesis, Eris Drew</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Waterworks Extended 2026</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">16 tracks in the archive · 17 plays · 17 this year · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2345415" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">12</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Armand Van Helden <span class="also">with Danny Howard, Prunk</span> </div>
+    <div class="r-sub"><span class="ev-title">GASWRX Opening ft Armand Van Helden // Danny Howard // Prunk</span><span class="dot">·</span><span class="r-venue">Gaswrx Birmingham</span></div>
+    <div class="why">3 tracks in the archive · 4 plays · Disco & Boogie · added Oct 2012</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2488297" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">TUE</span><span class="r-day">15</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Liana Flores </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 5 plays · 3 this year · Indie & Rock · added Feb 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/liana-flores/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">16</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Laura Veirs <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">EartH</span></div>
+    <div class="why">1 track in the archive · 3 plays · Indie & Rock · added Mar 2018</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/laura-veirs-16th-sep-earth-london-tickets-v3y337/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">18</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tristan Da Cunha <span class="also">with Truly Madly</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Night Tales: Tristan da Cunha &amp; Truly Madly [All Night Long]</span><span class="dot">·</span><span class="r-venue">Night Tales</span></div>
+    <div class="why">1 track in the archive · 2 plays · Disco & Boogie · added Mar 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2468541" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">18</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Swindle <span class="also">with Roll Deep, Grandmixxer, Just Jane</span> </div>
+    <div class="r-sub"><span class="ev-title">LDN History Part 3: Roll Deep, Swindle, Grandmixxer, Just Jane</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">4 tracks in the archive · 18 plays · Soul & R&B · added Feb 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2469570" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">18</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">X &amp; Ivy <span class="also">with D Stone, TEED, SG Lewis</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">SG Lewis presents Forever Days</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">1 track in the archive · Disco & Boogie · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2459452" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">18</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Todd Terry <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">The Fox and Firkin</span></div>
+    <div class="why">1 track in the archive · 3 plays · 1 this year · Disco & Boogie · added Aug 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2483568" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Makèz <span class="also">with Armand Van Helden, Basement Jaxx, Groove Armada, Ella Knight</span> </div>
+    <div class="r-sub"><span class="ev-title">Defected London w/ Armand Van Helden, Basement Jaxx, Groove Armada</span><span class="dot">·</span><span class="r-venue">DRUMSHEDS</span></div>
+    <div class="why">3 tracks in the archive · 8 plays · 1 this year · House · added Nov 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2430319" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Nu Genea <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span><span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="r-venue">The Roundhouse</span></div>
+    <div class="why">23 tracks in the archive · 133 plays · 13 this year · Disco & Boogie · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2386936" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">K-Lone <span class="also">with Facta</span> </div>
+    <div class="r-sub"><span class="ev-title">Wisdom Teeth: Facta &amp; K-LONE (All Day Long) &amp; More TBA</span><span class="dot">·</span><span class="r-venue">Gaffe</span></div>
+    <div class="why">9 tracks in the archive · 24 plays · 5 this year · Electronic · added Nov 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2486799" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dennis Quin <span class="also">with Ellia Jaya, Wildish, BTAY, Stacie Fields</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Dennis Quin, Ellia Jaya, Wildish &amp; BTAY</span><span class="dot">·</span><span class="r-venue">XOYO</span></div>
+    <div class="why">1 track in the archive · 1 plays · 1 this year · House · added Jan 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2484901" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Isaac Ferry <span class="also">with Todd Terje, Flying Mojito Bros, Idjut Boys</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Discolypso 10 Year Anniversary [Day + Night] - London</span><span class="dot">·</span><span class="r-venue">Loft Studios</span></div>
+    <div class="why">1 track in the archive · 4 plays · 4 this year · Disco & Boogie · added Aug 2025</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2447540" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Last Nubian <span class="also">with Saige Sounds, Beringei, warmluke</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">The People, The Place: Last Nubian, Saige Sounds, Divorce From New York &amp; more</span><span class="dot">·</span><span class="r-venue">The Bath House</span></div>
+    <div class="why">6 tracks in the archive · 16 plays · 6 this year · Jazz · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2485013" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">19</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Otis Redding <span class="also">with The Music of Otis Redding</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">The Music of Otis Redding</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">20 tracks in the archive · 58 plays · Soul & R&B · added May 2023</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/the-music-of-otis-redding-6/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">20</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Tim Maia <span class="also">with Tim Maia's Universe</span> </div>
+    <div class="r-sub"><span class="ev-title">Tim Maia's Universe</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">21 tracks in the archive · 37 plays · 2 this year · Brazilian · added Jun 2025</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/tim-maias-universe-2/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">TUE</span><span class="r-day">22</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">María José Llergo <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 8 plays · 8 this year · Disco & Boogie · added May 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/maria-jose-llergo/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">23</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Richard Spaven </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · Jazz · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2406038" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">24</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">The Avalanches <span class="also">with Moby</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">AVA London 2026</span><span class="dot">·</span><span class="r-venue">Various Venues</span></div>
+    <div class="why">9 tracks in the archive · 61 plays · Electronic · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2322225" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">24</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Ashley Henry <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Ashley Henry - Freight Brixton presents: Soul of the South</span><span class="dot">·</span><span class="r-venue">Freight Brixton</span></div>
+    <div class="why">34 tracks in the archive · 312 plays · 3 this year · Jazz · added Oct 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2491452" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">26</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Kolter </div>
+    <div class="r-sub"><span class="ev-title">Kolter (All Day Long) - London</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">2 tracks in the archive · 7 plays · House · added Mar 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2464940" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">26</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">The Deep <span class="also">with YAKA, umru, DJ Love, AMANDA SZE</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">MARGINS UNITED FESTIVAL 2026</span><span class="dot">·</span><span class="r-venue">Club360</span></div>
+    <div class="why">1 track in the archive · 1 plays · 1 this year · House · added Mar 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2440955" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">26</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Balimaya Project <span class="also">with Balimaya Project (Matinee Show)</span> </div>
+    <div class="r-sub"><span class="ev-title">Balimaya Project (Matinee Show)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">3 tracks in the archive · 9 plays · 3 this year · Afro & World · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/balimaya-project-matinee-show/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">27</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">Greenwood <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">LONDON SINFONIETTA &amp; JONNY GREENWOOD: STEVE REICH</span><span class="dot">·</span><span class="r-venue">Royal Festival Hall</span></div>
+    <div class="why">1 track in the archive · 5 plays · Disco & Boogie · added Nov 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2484520" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">30</span><span class="r-mon">SEP</span></div>
+  <div class="r-main">
+    <div class="r-artist">1-800 GIRLS <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">1-800 GIRLS (Live)</span><span class="dot">·</span><span class="r-venue">Village Underground</span></div>
+    <div class="why">1 track in the archive · 1 plays · Electronic · added May 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431720" target="_blank" rel="noopener">Tickets</a>
+</div><h2>October 2026</h2>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">1</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Paradis <span class="also">with Vanessa Paradis</span> </div>
+    <div class="r-sub"><span class="ev-title">Vanessa Paradis</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">5 tracks in the archive · 31 plays · House · added Sep 2016</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/vanessa-paradis" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">1</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Sons of Sevilla </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Disco & Boogie · added Jul 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/sons-of-sevilla/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">2</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">O'Flynn <span class="also">with Yung Singh, KOLLIN</span> </div>
+    <div class="r-sub"><span class="ev-title">FABRICLIVE: Yung Singh, O'Flynn, KOLLIN + more tba</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">5 tracks in the archive · 16 plays · Disco & Boogie · added Jan 2022</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2476950" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">4</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Amy Winehouse <span class="also">with ABSOLUTE.</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Absolute Amy - Amy Winehouse Tribute</span><span class="dot">·</span><span class="r-venue">Basing House</span></div>
+    <div class="why">8 tracks in the archive · 67 plays · Jazz · added May 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2465133" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">4</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Djavan </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">4 tracks in the archive · 8 plays · Brazilian · added Jan 2023</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/djavan/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">8</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Liv East <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
+    <div class="r-sub"><span class="ev-title">Liv East (Full Live Band)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 1 plays · 1 this year · House · added Dec 2025</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/liv-east-full-live-band/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">9</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Wallace <span class="also">with Anish Kumar</span> </div>
+    <div class="r-sub"><span class="ev-title">Anish Kumar: 4 Fridays at Phonox (9th Oct)</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">3 tracks in the archive · 7 plays · Funk · added Feb 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2429305" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">9</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Faze Action </div>
+    <div class="r-sub"><span class="r-venue">The Fox and Firkin</span></div>
+    <div class="why">5 tracks in the archive · 13 plays · 1 this year · Disco & Boogie · added Mar 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2469324" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">10</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">DJ Nature <span class="also">with Radio Slave, Terry Farley, Logan Fisher, Stuart Patterson</span> <span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span><span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">Faith's Three Room Special</span><span class="dot">·</span><span class="r-venue">Omeara</span></div>
+    <div class="why">4 tracks in the archive · 8 plays · 8 this year · Disco & Boogie · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2454353" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">10</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Digitalism </div>
+    <div class="r-sub"><span class="r-venue">EartH</span></div>
+    <div class="why">2 tracks in the archive · 4 plays · House · added May 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2389477" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">10</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">The Avalanches <span class="also">with Alan Braxe, Felix Da Housecat, Friendly Fires, Joe Goddard</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Bugged Out! 2001 &amp; On</span><span class="dot">·</span><span class="r-venue">DRUMSHEDS</span></div>
+    <div class="why">9 tracks in the archive · 61 plays · Electronic · added Dec 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2484464" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">10</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Artful Dodger </div>
+    <div class="r-sub"><span class="ev-title">Artful Dodger - UK Legends DJ Night</span><span class="dot">·</span><span class="r-venue">TBA - Soul Mama</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · Funk · added Jul 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2431821" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">10</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Myles Sanko </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">2 tracks in the archive · 2 plays · Jazz · added Jun 2024</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/myles-sanko/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">15</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Fela Kuti <span class="also">with Fela Kuti's Birthday</span> <span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Fela Kuti's Birthday</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">18 tracks in the archive · 44 plays · Afro & World · added May 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/fela-kutis-birthday-6/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">17</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Midland <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Midland - All Day Long [SOLD OUT]</span><span class="dot">·</span><span class="r-venue">FOLD</span></div>
+    <div class="why">1 track in the archive · 21 plays · Disco & Boogie · added Jan 2017</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2484373" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">17</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Jimpster <span class="also">with Crackazat</span> </div>
+    <div class="r-sub"><span class="ev-title">Crackazat &amp; Jimpster (Live)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">15 tracks in the archive · 42 plays · House · added Jun 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2486816" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">22</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Romare <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Romare (Live) - Village Underground</span><span class="dot">·</span><span class="r-venue">Village Underground</span></div>
+    <div class="why">18 tracks in the archive · 108 plays · 1 this year · Afro & World · added May 2026</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2471536" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">24</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Mousse T. <span class="also">with Mark Knight, Michael Gray, Junior Jack, David Penn</span> </div>
+    <div class="r-sub"><span class="ev-title">Fool's Paradise: Mark Knight, Mousse T., Michael Gray, Junior Jack, David Penn, Groove P + more</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">4 tracks in the archive · 16 plays · House · added Nov 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2469357" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">24</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Celeste <span class="also">with Shanti Celeste</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span><span class="bdg" style="background:rgba(160,64,232,0.12);color:#b07ae0">Tribute / celebration</span></div>
+    <div class="r-sub"><span class="ev-title">Shanti Celeste's Birthday Party</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">1 track in the archive · 4 plays · Uncategorized · added Jan 2020</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2479677" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">24</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Afriquoi <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Afriquoi (Full Live Band)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 26 plays · Afro & World · added Mar 2016</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2462900" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">28</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Jasmine Myra </div>
+    <div class="r-sub"><span class="r-venue">EartH</span></div>
+    <div class="why">7 tracks in the archive · 15 plays · 2 this year · Jazz · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/jasmine-myra-28th-oct-earth-london-tickets-8e6rx7/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">29</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Àbáse </div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">6 tracks in the archive · 8 plays · 4 this year · Jazz · added Apr 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/abase/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">30</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Javiera Mena <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 1 plays · Indie & Rock · added Jan 2013</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/javiera-mena/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">31</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Demi Riquísimo <span class="also">with Rødhåd, Kamma, Masalo</span> </div>
+    <div class="r-sub"><span class="ev-title">fabric: Rødhåd, Demi Riquisimo, DESIREE, Kamma &amp; Masalo + more tba</span><span class="dot">·</span><span class="r-venue">fabric</span></div>
+    <div class="why">2 tracks in the archive · 3 plays · Disco & Boogie · added Aug 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2476967" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">31</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Honey Dijon </div>
+    <div class="r-sub"><span class="ev-title">The Hydra presents Honey Dijon extended set</span><span class="dot">·</span><span class="r-venue">Magazine London</span></div>
+    <div class="why">2 tracks in the archive · 6 plays · Electronic · added Apr 2024</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2480358" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">31</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Disco Freaks <span class="also">with Dr Meaker</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">The South London Soul Train Final Halloween Special with Dr Meaker (Live) + More</span><span class="dot">·</span><span class="r-venue">Peckham Levels</span></div>
+    <div class="why">1 track in the archive · 4 plays · Disco & Boogie · added Apr 2018</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2315652" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">31</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Cassius </div>
+    <div class="r-sub"><span class="ev-title">Cassius Club London</span><span class="dot">·</span><span class="r-venue">HERE</span></div>
+    <div class="why">6 tracks in the archive · 24 plays · 2 this year · Disco & Boogie · added Jun 2019</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2492152" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">31</span><span class="r-mon">OCT</span></div>
+  <div class="r-main">
+    <div class="r-artist">Okvsho <span class="also">with Okvsho Experience</span> </div>
+    <div class="r-sub"><span class="ev-title">Okvsho Experience</span><span class="dot">·</span><span class="r-venue">EartH</span></div>
+    <div class="why">3 tracks in the archive · 7 plays · House · added Nov 2023</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/okvsho-experience-31st-oct-earth-london-tickets-mx7r5k/" target="_blank" rel="noopener">Tickets</a>
+</div><h2>November 2026</h2>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">1</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Okonski <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">5 tracks in the archive · 16 plays · 16 this year · Jazz · added Feb 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/okonski/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">TUE</span><span class="r-day">3</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">The Radio Dept. </div>
+    <div class="r-sub"><span class="r-venue">KOKO</span></div>
+    <div class="why">2 tracks in the archive · 6 plays · Indie & Rock · added Oct 2013</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/the-radio-dept" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">WED</span><span class="r-day">4</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Momoko Gill <span class="also">with keiyaA, aja monet</span> <span class="bdg" style="background:rgba(232,64,96,0.12);color:#ff8098">On repeat</span></div>
+    <div class="r-sub"><span class="ev-title">aja monet + keiyaA + Momoko Gill</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">7 tracks in the archive · 22 plays · 15 this year · Jazz · added Feb 2026</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/aja-monet" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">6</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Lauren Flax <span class="also">with DJ Pierre</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">I Love Acid</span><span class="dot">·</span><span class="r-venue">The Cause</span></div>
+    <div class="why">1 track in the archive · 1 plays · House · added Sep 2023</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2419498" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">6</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Idris Ackamoor <span class="also">with The Pyramids</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Idris Ackamoor &amp; The Pyramids</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 8 plays · Afro & World · added Jul 2018</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/idris-ackamoor-the-pyramids/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">7</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dusky <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Dusky presents Take A Trip: Dusky (All Day Long)</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">1 track in the archive · 1 plays · House · added Jul 2015</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2452388" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">7</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Orchestra Mambo International <span class="also">with ¡Viva Salsa! ft. Orchestra Mambo International</span> </div>
+    <div class="r-sub"><span class="ev-title">¡Viva Salsa! ft. Orchestra Mambo International</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">4 tracks in the archive · 11 plays · 5 this year · Jazz · added Jul 2026</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/viva-salsa-ft-orchestra-mambo-international/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">12</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Gold Panda </div>
+    <div class="r-sub"><span class="r-venue">ICA</span></div>
+    <div class="why">10 tracks in the archive · 9 plays · Electronic · added Apr 2015</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2459730" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">THU</span><span class="r-day">12</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Common <span class="also">with Common Saints</span> </div>
+    <div class="r-sub"><span class="ev-title">Common Saints</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">10 tracks in the archive · 20 plays · Hip Hop · added Oct 2025</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/common-saints" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">13</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Emma-Jean Thackray <span class="also">with Emma Jean Thackray Dear Miles A Love Letter</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Emma Jean Thackray Dear Miles A Love Letter</span><span class="dot">·</span><span class="r-venue">EartH</span></div>
+    <div class="why">29 tracks in the archive · 106 plays · 3 this year · Jazz · added Aug 2025</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/emma-jean-thackray-dear-miles-a-love-letter-13th-nov-earth-london-tickets-eoyqwy/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">FRI</span><span class="r-day">13</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">dublon <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">dublon (Live)</span><span class="dot">·</span><span class="r-venue">The Jazz Cafe</span></div>
+    <div class="why">1 track in the archive · 2 plays · House · added Apr 2025</div>
+  </div>
+  <a class="tix" href="https://thejazzcafe.com/event/dublon-live/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">14</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Dusky <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">Dusky: Originals (2010 - 2025 Set) - [2nd Date]</span><span class="dot">·</span><span class="r-venue">Phonox</span></div>
+    <div class="why">1 track in the archive · 1 plays · House · added Jul 2015</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2445988" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SAT</span><span class="r-day">14</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Roni Size <span class="also">with Eksman, DJ Hype, Nicky Blackmarket, Grooverider</span> <span class="bdg" style="background:rgba(64,160,232,0.12);color:#40a0e8">Deep cut</span></div>
+    <div class="r-sub"><span class="ev-title">The History of Jungle</span><span class="dot">·</span><span class="r-venue">HERE</span></div>
+    <div class="why">1 track in the archive · 3 plays · Downtempo · added Apr 2021</div>
+  </div>
+  <a class="tix" href="https://ra.co/events/2435246" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">15</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Rodríguez <span class="also">with Alfredo Rodriguez &amp;amp;#038; Pedrito Martinez</span> <span class="bdg" style="background:rgba(232,160,64,0.14);color:#e8a040">Heavy rotation</span></div>
+    <div class="r-sub"><span class="ev-title">Alfredo Rodriguez &amp;#038; Pedrito Martinez</span><span class="dot">·</span><span class="r-venue">KOKO</span></div>
+    <div class="why">5 tracks in the archive · 88 plays · Indie & Rock · added Jul 2013</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/alfredo-rodrigo-pedrito-martinez" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">SUN</span><span class="r-day">15</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">Joyce Moreno </div>
+    <div class="r-sub"><span class="r-venue">EartH</span></div>
+    <div class="why">9 tracks in the archive · 16 plays · 2 this year · Jazz · added May 2026</div>
+  </div>
+  <a class="tix" href="https://earthackney.co.uk/events/joyce-moreno-15th-nov-earth-london-tickets-eomnwo/" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">MON</span><span class="r-day">16</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">GoGo Penguin </div>
+    <div class="r-sub"><span class="r-venue">KOKO</span></div>
+    <div class="why">6 tracks in the archive · 17 plays · 1 this year · Jazz · added Jun 2025</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/gogo-penguin" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="row">
+  <div class="r-date"><span class="r-dow">TUE</span><span class="r-day">17</span><span class="r-mon">NOV</span></div>
+  <div class="r-main">
+    <div class="r-artist">GoGo Penguin </div>
+    <div class="r-sub"><span class="r-venue">KOKO</span></div>
+    <div class="why">6 tracks in the archive · 17 plays · 1 this year · Jazz · added Jun 2025</div>
+  </div>
+  <a class="tix" href="https://www.koko.co.uk/events/gogo-penguin-2" target="_blank" rel="noopener">Tickets</a>
+</div>
+<div class="foot">Matched 253 shows from 1937 London listings against 12,791 archive artists.<br>
+Sources: Resident Advisor (all London venues), KOKO, EartH, The Jazz Cafe. Roundhouse has no open feed — partial coverage via RA.<br>
+One DJ&rsquo;s ears, no algorithm. Refresh: <code>python3 gigs-fetch.py</code></div>
+</div></body></html>
