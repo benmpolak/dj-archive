@@ -44,7 +44,7 @@ TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasu
               'joseph', 'simone', 'marcel', 'george', 'marie', 'james', 'thomas',
               'charlie', 'jamie', 'oscar', 'leon', 'otis', 'ruby', 'pearl',
               'outside', 'return', 'prince', 'inside', 'weekend', 'holiday', 'disney',
-              'salute'}
+              'salute', 'calendar'}
 
 # hard signals always mean covers/tribute; soft ones ("celebrating", "vs") only
 # count when the artist was matched from the free-text title — a structured
@@ -105,6 +105,34 @@ def normalize(s):
     if s.startswith('the '):
         s = s[4:]
     return s
+
+
+# artists in the archive who have died — any listing carrying their name is a
+# tribute/celebration night, never the act (names are normalize()d)
+DEAD_ARTISTS = {normalize(n) for n in (
+    'Tim Maia', 'Marvin Gaye', 'Fela Kuti', 'Aretha Franklin', 'Otis Redding',
+    'Amy Winehouse', 'Prince', 'Michael Jackson', 'David Bowie', 'James Brown',
+    'Isaac Hayes', 'Barry White', 'Luther Vandross', 'Whitney Houston',
+    'Teddy Pendergrass', 'Curtis Mayfield', 'Donny Hathaway', 'Bill Withers',
+    'Gil Scott-Heron', 'Roy Ayers', 'Quincy Jones', 'Sergio Mendes',
+    'Antonio Carlos Jobim', 'Tom Jobim', 'Joao Gilberto', 'Astrud Gilberto',
+    'Gal Costa', 'Elza Soares', 'Elis Regina', 'Erasmo Carlos', 'Wilson Simonal',
+    'Cassiano', 'Miles Davis', 'John Coltrane', 'Alice Coltrane',
+    'Pharoah Sanders', 'Thelonious Monk', 'Charles Mingus', 'Bill Evans',
+    'Grant Green', 'Lee Morgan', 'Art Blakey', 'Horace Silver',
+    'Cannonball Adderley', 'Dexter Gordon', 'McCoy Tyner', 'Freddie Hubbard',
+    'Donald Byrd', 'Roy Hargrove', 'Ahmad Jamal', 'Wayne Shorter', 'Chick Corea',
+    'Tony Allen', 'Manu Dibango', 'Cesaria Evora', 'Nina Simone', 'Etta James',
+    'Sam Cooke', 'Sarah Vaughan', 'Ella Fitzgerald', 'Billie Holiday',
+    'Louis Armstrong', 'Nat King Cole', 'Frank Sinatra', 'MF DOOM', 'J Dilla',
+    'Nujabes', 'Mac Miller', 'The Notorious B.I.G.', '2Pac',
+    'Frankie Knuckles', 'Larry Levan', 'Ron Hardy', 'David Mancuso',
+    'Andrew Weatherall', 'Avicii', 'Sophie', 'DJ Rashad', 'Paul Johnson',
+    'George Michael', 'Leonard Cohen', 'Lou Reed', 'Tom Petty', 'Fats Domino',
+    'Bobby Womack', 'Sharon Jones', 'Charles Bradley', 'Betty Davis',
+    'Pop Smoke', 'Jaco Pastorius', 'Weldon Irvine', 'Leon Ware',
+    'Minnie Riperton', 'Phyllis Hyman', 'Grover Washington Jr.')}
+
 
 
 def load_artists():
@@ -442,17 +470,17 @@ def fetch_ronnies():
     return events
 
 
-def fetch_theo2():
+def _fetch_showtime(page_url, venue, link_host):
     events = []
     for off in ('', '/24', '/48', '/72'):
         try:
-            h = http_get(f'https://www.theo2.co.uk/events/venue/the-o2-arena{off}')
+            h = http_get(f'{page_url}{off}')
         except Exception:
             break
         blocks = [b for b in h.split('eventItem entry')[1:] if ':href=' not in b[:400]]
         found = 0
         for b in blocks:
-            um = re.search(r'href="(https://www\.theo2\.co\.uk/events/detail/[^"]+)"', b)
+            um = re.search(r'href="(https://' + re.escape(link_host) + r'/events/detail/[^"]+)"', b)
             tm = re.search(r'<h3 class="title[^"]*">\s*<a[^>]*>([^<]+)</a>', b)
             dm = re.search(r'm-date__day">\s*(\d{1,2})\s*</span><span class="m-date__month">\s*'
                            r'([A-Za-z]{3})[a-z]*\s*</span>(?:<span class="m-date__year">\s*(\d{4}))?', b)
@@ -464,9 +492,9 @@ def fetch_theo2():
             except ValueError:
                 continue
             title = tm.group(1).strip()
-            events.append({'date': str(dd), 'title': title, 'venue': 'The O2 Arena',
+            events.append({'date': str(dd), 'title': title, 'venue': venue,
                            'url': um.group(1), 'names': [title], 'start': '',
-                           'source': 'TheO2', 'hint': 'gig'})
+                           'source': venue, 'hint': 'gig'})
             found += 1
         if not found:
             break
@@ -477,6 +505,71 @@ def fetch_theo2():
             seen.add(k)
             out.append(e)
     return out
+
+
+def fetch_theo2():
+    return _fetch_showtime('https://www.theo2.co.uk/events/venue/the-o2-arena',
+                           'The O2 Arena', 'www.theo2.co.uk')
+
+
+def fetch_ovo():
+    return _fetch_showtime('https://www.ovoarena.co.uk/events',
+                           'OVO Arena Wembley', 'www.ovoarena.co.uk')
+
+
+WEMBLEY_DATE_RE = re.compile(r'(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(20\d\d)')
+
+
+def fetch_wembley():
+    h = http_get('https://www.wembleystadium.com/events')
+    events, seen = [], set()
+    for b in h.split('fa-filter-content__item')[1:]:
+        b = b[:5000]
+        lm = re.search(r'href="(/events/[^"]+)"', b)
+        txt = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', b))
+        dm = WEMBLEY_DATE_RE.search(txt)
+        if not (lm and dm):
+            continue
+        try:
+            dd = date(int(dm.group(3)), MONTHS[dm.group(2).lower()[:3]], int(dm.group(1)))
+        except ValueError:
+            continue
+        title = txt[dm.end():].split('Find Out More')[0]
+        title = re.sub(r'^\s*(?:TBC|\d{2}:\d{2})\s*', '', title).strip()
+        if not title or (title, str(dd)) in seen:
+            continue
+        seen.add((title, str(dd)))
+        events.append({'date': str(dd), 'title': title, 'venue': 'Wembley Stadium',
+                       'url': 'https://www.wembleystadium.com' + lm.group(1),
+                       'names': [title], 'start': '', 'source': 'Wembley', 'hint': 'gig'})
+    return events
+
+
+
+def fetch_openair():
+    """Regent's Park Open Air Theatre — summer gig strand (Doves, Bunnymen...)."""
+    h = http_get('https://openairtheatre.com/whats-on')
+    events, seen = [], set()
+    for b in re.split(r'<article class="ProductionTeaser', h)[1:]:
+        um = re.search(r'href="(https://openairtheatre\.com/production/[^"]+)"', b)
+        dm = re.search(r'ProductionTeaser-content-dates">\s*(\d{1,2})\s+([A-Za-z]+)', b)
+        tm = re.search(r'alt="[^"]*"[^>]*>.*?<h\d[^>]*>([^<]+)</h\d>', b, re.S) or \
+             re.search(r'ProductionTeaser-content-title[^>]*>([^<]+)<', b)
+        title = (tm.group(1).strip() if tm else
+                 um.group(1).rstrip('/').rsplit('/', 1)[-1].replace('-', ' ').title() if um else '')
+        if not (um and dm and title) or um.group(1) in seen:
+            continue
+        seen.add(um.group(1))
+        mon = MONTHS.get(dm.group(2).lower()[:3], 0)
+        if not mon:
+            continue
+        d = infer_year(int(dm.group(1)), mon)
+        if not d:
+            continue
+        events.append({'date': str(d), 'title': title, 'venue': "Regent's Park Open Air Theatre",
+                       'url': um.group(1), 'names': [title], 'start': '',
+                       'source': 'OpenAir', 'hint': 'gig'})
+    return events
 
 
 def fetch_spiritland():
@@ -582,8 +675,12 @@ def match_event(ev, artists):
     hits = {}
     for raw in ev['names']:
         norm = normalize(clean_name(raw))
-        if norm and norm not in NAME_STOP and norm in artists:
-            hits[norm] = 'lineup'
+        if not norm or norm in NAME_STOP or norm not in artists:
+            continue
+        r = artists[norm]
+        if ' ' not in norm and r['tracks'] < 2 and r['plays'] < 10:
+            continue
+        hits[norm] = 'lineup'
     tnorm = ' ' + normalize(ev['title']) + ' '
     for norm, r in artists.items():
         if norm in hits or norm in NAME_STOP:
@@ -624,9 +721,10 @@ def _part_of_longer_name(name, title):
 def drop_generic_title_matches(per_event_hits):
     counts = defaultdict(set)
     for ev, hits in per_event_hits:
+        tnorm = normalize(ev['title'])
         for norm, how in hits.items():
-            if how == 'title':
-                counts[norm].add((ev['date'], ev['title']))
+            if how == 'title' and tnorm != norm and not tnorm.startswith(norm + ' '):
+                counts[norm].add(tnorm)
     generic = {n for n, evs in counts.items() if len(evs) >= 3}
     if generic:
         print(f"  dropped generic title-words: {sorted(generic)}")
@@ -671,7 +769,7 @@ BADGE_CSS = {'new': ('rgba(96,232,160,0.12)', '#60e8a0'),
 TYPE_LABEL = {'gig': 'Live gig', 'dj': 'DJ night', 'day': 'Day party'}
 
 
-def render(matches, n_events, n_artists, sources_note, out):
+def render(matches, n_events, n_artists, sources_note, out, public=False):
     matches = sorted(matches, key=lambda m: (m['date'], -m['score']))
     fresh_cut = str(TODAY - timedelta(days=10))
     picks = sorted(matches, key=lambda m: -m['score'])[:12]
@@ -683,6 +781,8 @@ def render(matches, n_events, n_artists, sources_note, out):
     n_new = sum(1 for m in matches if m['first_seen'] >= fresh_cut)
 
     def why(m):
+        if public:
+            return ''
         r = m['artist']
         bits = [f"{r['tracks']} track{'s' if r['tracks'] != 1 else ''}"]
         if r['plays']:
@@ -717,7 +817,7 @@ def render(matches, n_events, n_artists, sources_note, out):
   <div class="card-artist">{esc(m['artist']['name'])}</div>
   <div class="card-venue">{esc(m['venue'])}</div>
   <div class="badges">{badge_html(m)}</div>
-  <div class="why">{why(m)}</div>
+  {f'<div class="why">{why(m)}</div>' if why(m) else ''}
 </a>'''
 
     def row(m):
@@ -737,7 +837,7 @@ def render(matches, n_events, n_artists, sources_note, out):
   <div class="r-main">
     <div class="r-artist">{esc(m['artist']['name'])}<span class="r-type">{TYPE_LABEL[m['etype']]}</span>{co} {badge_html(m)}</div>
     <div class="r-sub">{title}{('<span class="dot">·</span>' if title else '')}<span class="r-venue">{esc(m['venue'])}</span></div>
-    <div class="why">{why(m)}</div>
+    {f'<div class="why">{why(m)}</div>' if why(m) else ''}
   </div>
   <a class="tix" href="{esc(m['url'])}" target="_blank" rel="noopener">Tickets</a>
 </div>'''
@@ -825,7 +925,7 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 </style></head><body>
 <header class="hero"><div class="wrap">
 <h1>Gig Radar</h1>
-<div class="sub">London listings matched to the archive · updated {upd} · <a href="index.html">← back to the archive</a></div>
+<div class="sub">{('Upcoming London shows, hand-filtered through <a href="index.html">the DJ Archive</a> — 17,000+ tracks curated by ear over 14 years. Only artists in the archive make this list. No algorithm.' if public else f'London listings matched to the archive · updated {upd} · <a href="index.html">← back to the archive</a> · <a href="gigs-share.html">shareable version</a>')}</div>
 <div class="hero-stats">
 <div class="hs"><b>{len(matches)}</b><span>shows</span></div>
 <div class="hs"><b>{len({m['artist']['name'] for m in matches})}</b><span>artists</span></div>
@@ -855,9 +955,9 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 </div></div>
 {sections}
 <div id="none">Nothing matches those filters.</div>
-<div class="foot">Matched from {n_events:,} London listings against {n_artists:,} archive artists.<br>
+<div class="foot">Matched from {n_events:,} London listings against {n_artists:,} archive artists · updated {upd}.<br>
 {sources_note}<br>
-One DJ&rsquo;s ears, no algorithm. Refresh: <code>python3 gigs-fetch.py</code></div>
+One DJ&rsquo;s ears, no algorithm.{('' if public else ' Refresh: <code>python3 gigs-fetch.py</code>')}</div>
 </div>
 <script>
 (function(){{
@@ -939,6 +1039,8 @@ def main():
                       ('AMG/Live Nation', fetch_amg), ('Apollo', fetch_apollo),
                       ('Spiritland', fetch_spiritland),
                       ("Ronnie Scott's", fetch_ronnies), ('The O2', fetch_theo2),
+                      ('OVO Arena', fetch_ovo), ('Wembley Stadium', fetch_wembley),
+                      ('Open Air Theatre', fetch_openair),
                       ('Ticketmaster', lambda: fetch_ticketmaster(args.days))]:
         try:
             batch = fn()
@@ -962,7 +1064,8 @@ def main():
     for ev, hits in per_event:
         for norm, how in hits.items():
             # tribute / covers / "vs" nights: the artist isn't actually playing — drop
-            if is_tribute(ev['title'], how):
+            # (same for dead artists: any listing with their name is a tribute)
+            if is_tribute(ev['title'], how) or norm in DEAD_ARTISTS:
                 n_trib += 1
                 continue
             key = (norm, ev['date'])
@@ -1004,10 +1107,12 @@ def main():
     got = [k for k, v in src_counts.items() if v]
     note = ('Sources: ' + ', '.join(got) +
             '. Tribute / covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
-            'Gaps: Union Chapel (bot-walled); Space Talk &amp; One Eighty One '
-            'programme on Instagram only (their RA-listed nights are covered).')
+            'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
+            'Space Talk &amp; One Eighty One programme on Instagram only.')
     render(matches, len(events), len(artists), note, args.out)
-    print(f'Wrote {args.out}')
+    share_out = args.out.replace('gigs.html', 'gigs-share.html')
+    render(matches, len(events), len(artists), note, share_out, public=True)
+    print(f'Wrote {args.out} + {share_out}')
 
 
 if __name__ == '__main__':
