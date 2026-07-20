@@ -87,19 +87,6 @@
   },
   {
    "date": "2026-07-24",
-   "title": "Mums Against Donk X Church of Donkology X Donkline",
-   "venue": "M.O.T",
-   "url": "https://ra.co/events/2451766",
-   "source": "RA",
-   "how": "title",
-   "score": 75.5,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Church",
-   "co": []
-  },
-  {
-   "date": "2026-07-24",
    "title": "Face 2 Face: Braga Circuit, Karma Kid, Fliss Mayo, Moe",
    "venue": "The Glove That Fits",
    "url": "https://ra.co/events/2490627",
@@ -122,19 +109,6 @@
    "etype": "day",
    "first_seen": "2000-01-01",
    "artist": "Alex Kassian",
-   "co": []
-  },
-  {
-   "date": "2026-07-25",
-   "title": "p-rallel presents Nevermind - Summer Day Party",
-   "venue": "LDN East",
-   "url": "https://ra.co/events/2431479",
-   "source": "RA",
-   "how": "lineup",
-   "score": 13.1,
-   "etype": "day",
-   "first_seen": "2000-01-01",
-   "artist": "Jarreau Vandal",
    "co": []
   },
   {
@@ -2313,19 +2287,6 @@
    "co": []
   },
   {
-   "date": "2026-07-25",
-   "title": "M\u00e1d\u00e9 Kuti & The Movement",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/made-kuti-the-movement/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 20.1,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "artist": "MOVEMENT",
-   "co": []
-  },
-  {
    "date": "2026-07-30",
    "title": "Lau Ro",
    "venue": "The Jazz Cafe",
@@ -2598,19 +2559,6 @@
    "etype": "gig",
    "first_seen": "2000-01-01",
    "artist": "The Real Thing",
-   "co": []
-  },
-  {
-   "date": "2027-01-30",
-   "title": "The Legacy of Frankie Knuckles (Matinee Show)",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/the-legacy-of-frankie-knuckles-matinee-show/",
-   "source": "JazzCafe",
-   "how": "title",
-   "score": 7.9,
-   "etype": "gig",
-   "first_seen": "2026-07-20",
-   "artist": "Legacy",
    "co": []
   },
   {

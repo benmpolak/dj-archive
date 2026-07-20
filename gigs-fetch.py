@@ -44,7 +44,10 @@ TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasu
               'joseph', 'simone', 'marcel', 'george', 'marie', 'james', 'thomas',
               'charlie', 'jamie', 'oscar', 'leon', 'otis', 'ruby', 'pearl',
               'outside', 'return', 'prince', 'inside', 'weekend', 'holiday', 'disney',
-              'salute', 'calendar'}
+              'salute', 'calendar', 'church', 'movement', 'together', 'culture',
+              'unity', 'rhythm', 'spirit', 'temple', 'freedom', 'harmony', 'family',
+              'garden', 'tonight', 'twilight', 'honey', 'sugar', 'velvet', 'cream',
+              'motion', 'vision', 'future', 'energy', 'nature', 'legacy', 'people'}
 
 # hard signals always mean covers/tribute; soft ones ("celebrating", "vs") only
 # count when the artist was matched from the free-text title — a structured
@@ -674,7 +677,7 @@ def clean_name(n):
 # Ben's vetoes — artists that pass the rules but he doesn't want gigs for.
 # Add names here as they come up.
 EXCLUDE_ARTISTS = {normalize(n) for n in (
-    'Bruno Mars',)}
+    'Bruno Mars', 'Jarreau Vandal', 'Church', 'Movement', 'MOVEMENT')}
 
 
 def too_thin(r):
@@ -1127,7 +1130,8 @@ def main():
     note = ('Sources: ' + ', '.join(got) +
             '. Tribute / covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
             'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
-            'Space Talk &amp; One Eighty One programme on Instagram only.')
+            'Space Talk, One Eighty One &amp; Brilliant Corners programme on '
+            'Instagram only (their RA-listed nights are covered). SJQ via RA.')
     render(matches, len(events), len(artists), note, args.out)
     share_out = args.out.replace('gigs.html', 'gigs-share.html')
     render(matches, len(events), len(artists), note, share_out, public=True)
