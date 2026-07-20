@@ -1,6 +1,6 @@
 {
  "generated": "2026-07-20",
- "events": 1937,
+ "events": 2214,
  "matches": [
   {
    "date": "2026-07-23",
@@ -10,6 +10,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 20.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "George FitzGerald",
    "co": [
     "Daniel Avery"
@@ -23,6 +26,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 116.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Jimpster",
    "co": [
     "Laurent Garnier",
@@ -41,6 +47,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 77.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "IZCO",
    "co": []
   },
@@ -52,6 +61,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 103.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dimitri From Paris",
    "co": []
   },
@@ -63,6 +75,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 19.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Carl Craig",
    "co": []
   },
@@ -74,7 +89,24 @@
    "source": "RA",
    "how": "lineup",
    "score": 4.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Full Crate",
+   "co": []
+  },
+  {
+   "date": "2026-07-24",
+   "title": "Mums Against Donk X Church of Donkology X Donkline",
+   "venue": "M.O.T",
+   "url": "https://ra.co/events/2451766",
+   "source": "RA",
+   "how": "title",
+   "score": 75.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Church",
    "co": []
   },
   {
@@ -85,6 +117,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 49.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Asa Tate",
    "co": []
   },
@@ -96,6 +131,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 10.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Karma Kid",
    "co": []
   },
@@ -107,6 +145,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Cousin",
    "co": [
     "Fantastic Man"
@@ -120,6 +161,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 41.0,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Jeff Mills",
    "co": []
   },
@@ -131,6 +175,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 110.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Alex Kassian",
    "co": []
   },
@@ -142,6 +189,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "The Egyptian Lover",
    "co": []
   },
@@ -153,6 +203,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 18.1,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Jarreau Vandal",
    "co": [
     "p-rallel"
@@ -166,6 +219,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 14.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Klaxons",
    "co": []
   },
@@ -177,6 +233,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Demi Riqu\u00edsimo",
    "co": []
   },
@@ -188,6 +247,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.5,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Ian Pooley",
    "co": []
   },
@@ -199,6 +261,9 @@
    "source": "RA",
    "how": "title",
    "score": 93.9,
+   "etype": "dj",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Daft Punk",
    "co": []
   },
@@ -210,6 +275,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 14.0,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Maxwell Owin",
    "co": []
   },
@@ -221,6 +289,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 6.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Roni Size",
    "co": []
   },
@@ -232,6 +303,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.1,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Milo",
    "co": []
   },
@@ -243,6 +317,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "COOKIE.",
    "co": []
   },
@@ -254,6 +331,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 40.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Todd Terje",
    "co": []
   },
@@ -265,6 +345,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 1.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Coco Maria",
    "co": []
   },
@@ -276,6 +359,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.7,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Kay Suzuki",
    "co": []
   },
@@ -287,6 +373,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 41.0,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "JUPiTA",
    "co": []
   },
@@ -298,18 +387,10 @@
    "source": "RA",
    "how": "lineup",
    "score": 13.8,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Horse Meat Disco",
-   "co": []
-  },
-  {
-   "date": "2026-07-28",
-   "title": "Simon Fisher Turner + Lone Capture Library + Jack Rollo",
-   "venue": "Cafe OTO",
-   "url": "https://ra.co/events/2493273",
-   "source": "RA",
-   "how": "title",
-   "score": 7.6,
-   "artist": "Turner",
    "co": []
   },
   {
@@ -320,6 +401,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 80.0,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Satoshi Tomiie",
    "co": [
     "Kuniyuki",
@@ -334,6 +418,9 @@
    "source": "RA",
    "how": "title",
    "score": 14.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Knee Deep",
    "co": []
   },
@@ -345,6 +432,9 @@
    "source": "RA",
    "how": "title",
    "score": 20.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "George FitzGerald",
    "co": [
     "Lil Silva"
@@ -358,6 +448,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Yuna",
    "co": []
   },
@@ -369,6 +462,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 60.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Thakzin",
    "co": [
     "Chris Stussy",
@@ -384,6 +480,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 1.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mall Grab",
    "co": []
   },
@@ -395,6 +494,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 12.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Reaper",
    "co": [
     "A Guy Called Gerald"
@@ -408,6 +510,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 16.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Deep Dish",
    "co": [
     "Agoria"
@@ -421,7 +526,24 @@
    "source": "RA",
    "how": "lineup",
    "score": 1.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Foster The People",
+   "co": []
+  },
+  {
+   "date": "2026-07-31",
+   "title": "MUSIQUE: Ronnie Loko, Scotti Dee, Tribal Brothers, Loki",
+   "venue": "Onyx (E1)",
+   "url": "https://ra.co/events/2483816",
+   "source": "RA",
+   "how": "title",
+   "score": 16.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Musique",
    "co": []
   },
   {
@@ -432,6 +554,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 78.1,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Soul II Soul",
    "co": [
     "Grace Jones"
@@ -445,6 +570,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Shivum Sharma",
    "co": []
   },
@@ -456,6 +584,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 64.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Apiento",
    "co": []
   },
@@ -467,6 +598,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.5,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Raw Silk",
    "co": []
   },
@@ -478,6 +612,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 65.8,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Aroop Roy",
    "co": [
     "Mr. Scruff"
@@ -491,6 +628,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dixon",
    "co": []
   },
@@ -502,6 +642,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 28.8,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "DJ Marky",
    "co": [
     "High Contrast",
@@ -517,6 +660,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 13.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Katy B",
    "co": []
   },
@@ -528,6 +674,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Sam Girling",
    "co": []
   },
@@ -539,6 +688,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 89.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Space Ghost",
    "co": [
     "Manuel Darquart"
@@ -552,18 +704,10 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "WheelUP",
-   "co": []
-  },
-  {
-   "date": "2026-08-01",
-   "title": "UCOJ: Heatwave Day Party",
-   "venue": "Brixton Jamm",
-   "url": "https://ra.co/events/2434914",
-   "source": "RA",
-   "how": "title",
-   "score": 13.1,
-   "artist": "Heatwave",
    "co": []
   },
   {
@@ -574,6 +718,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 21.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Oliver Night",
    "co": []
   },
@@ -585,6 +732,9 @@
    "source": "RA",
    "how": "title",
    "score": 32.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Hot Chip",
    "co": [
     "Alexis Taylor"
@@ -598,6 +748,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 88.5,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "David Morales",
    "co": []
   },
@@ -609,6 +762,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 43.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Purple Disco Machine",
    "co": [
     "Armand Van Helden",
@@ -624,6 +780,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Reaper",
    "co": []
   },
@@ -635,6 +794,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 41.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "JUPiTA",
    "co": []
   },
@@ -646,6 +808,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 58.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Greentea Peng",
    "co": [
     "Dan Shake",
@@ -662,6 +827,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Reaper",
    "co": []
   },
@@ -673,6 +841,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 23.0,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Peggy Gou",
    "co": []
   },
@@ -684,6 +855,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 2.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Sub Focus",
    "co": []
   },
@@ -695,6 +869,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 90.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Max Sin\u00e0l",
    "co": [
     "KingCrowney"
@@ -708,6 +885,9 @@
    "source": "RA",
    "how": "title",
    "score": 6.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Richie Spice",
    "co": []
   },
@@ -719,6 +899,9 @@
    "source": "RA",
    "how": "title",
    "score": 37.6,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "DJ Spen",
    "co": []
   },
@@ -730,6 +913,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Special Occasion",
    "co": []
   },
@@ -741,6 +927,9 @@
    "source": "RA",
    "how": "title",
    "score": 56.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tanhai Collective",
    "co": [
     "Secret Night Gang"
@@ -753,12 +942,14 @@
    "url": "https://ra.co/events/2350409",
    "source": "RA",
    "how": "lineup",
-   "score": 42.6,
+   "score": 37.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Erika de Casier",
    "co": [
     "Overmono",
-    "Leod",
-    "College"
+    "Leod"
    ]
   },
   {
@@ -769,6 +960,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "CASISDEAD",
    "co": []
   },
@@ -780,6 +974,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Juls",
    "co": []
   },
@@ -791,6 +988,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 102.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Session Victim",
    "co": []
   },
@@ -802,6 +1002,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 135.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dave Lee",
    "co": []
   },
@@ -813,6 +1016,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 106.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Cody Currie",
    "co": []
   },
@@ -824,7 +1030,24 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Reaper",
+   "co": []
+  },
+  {
+   "date": "2026-08-07",
+   "title": "ODYSSEY:CLUB X VO!D D!SCO",
+   "venue": "radial",
+   "url": "https://ra.co/events/2469534",
+   "source": "RA",
+   "how": "title",
+   "score": 54.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Odyssey",
    "co": []
   },
   {
@@ -835,6 +1058,9 @@
    "source": "RA",
    "how": "title",
    "score": 80.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Donsurf",
    "co": [
     "Setwun",
@@ -848,12 +1074,13 @@
    "venue": "Burgess Park",
    "url": "https://ra.co/events/2236226",
    "source": "RA",
-   "how": "title",
-   "score": 11.6,
-   "artist": "Voyage",
-   "co": [
-    "Confidence Man"
-   ]
+   "how": "lineup",
+   "score": 5.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Confidence Man",
+   "co": []
   },
   {
    "date": "2026-08-08",
@@ -863,6 +1090,9 @@
    "source": "RA",
    "how": "title",
    "score": 7.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Boat Club",
    "co": []
   },
@@ -874,6 +1104,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 48.3,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Four Tet",
    "co": [
     "Gilles Peterson",
@@ -888,6 +1121,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 16.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "TSHA",
    "co": [
     "Adriatique"
@@ -901,6 +1137,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 121.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Shy One",
    "co": [
     "Jitwam"
@@ -914,6 +1153,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 13.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Barbara Boeing",
    "co": []
   },
@@ -925,6 +1167,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Reaper",
    "co": []
   },
@@ -936,6 +1181,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 83.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mad Professor",
    "co": []
   },
@@ -947,6 +1195,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Laurence Guy",
    "co": []
   },
@@ -958,6 +1209,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.7,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Sticky Dub",
    "co": []
   },
@@ -969,6 +1223,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 81.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Scarlett O'Malley",
    "co": [
     "Joseph Capriati",
@@ -989,6 +1246,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Pangaea",
    "co": []
   },
@@ -1000,6 +1260,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 1.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "NEIL FRANCES",
    "co": []
   },
@@ -1011,6 +1274,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 132.7,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Children of Zeus",
    "co": [
     "2fox",
@@ -1029,6 +1295,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Theo Kottis",
    "co": []
   },
@@ -1040,6 +1309,9 @@
    "source": "RA",
    "how": "title",
    "score": 13.2,
+   "etype": "dj",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Ishtar",
    "co": []
   },
@@ -1051,6 +1323,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Shivum Sharma",
    "co": []
   },
@@ -1061,11 +1336,12 @@
    "url": "https://ra.co/events/2491298",
    "source": "RA",
    "how": "title",
-   "score": 24.5,
-   "artist": "Beirut",
-   "co": [
-    "Groove Collective"
-   ]
+   "score": 8.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Groove Collective",
+   "co": []
   },
   {
    "date": "2026-08-15",
@@ -1075,6 +1351,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "John Talabot",
    "co": []
   },
@@ -1086,6 +1365,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.0,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Moby",
    "co": []
   },
@@ -1097,6 +1379,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 1.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Detroit In Effect",
    "co": []
   },
@@ -1108,6 +1393,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 8.5,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "LF SYSTEM",
    "co": []
   },
@@ -1119,6 +1407,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 1.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Garrett David",
    "co": []
   },
@@ -1130,6 +1421,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 13.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Hunee",
    "co": []
   },
@@ -1141,6 +1435,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 62.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "JKriv",
    "co": []
   },
@@ -1152,6 +1449,9 @@
    "source": "RA",
    "how": "title",
    "score": 12.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Summer Camp",
    "co": []
   },
@@ -1163,6 +1463,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 26.8,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Elkka",
    "co": []
   },
@@ -1174,6 +1477,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.5,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Raw Silk",
    "co": []
   },
@@ -1185,6 +1491,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 85.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Max Sin\u00e0l",
    "co": []
   },
@@ -1196,6 +1505,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 23.0,
+   "etype": "dj",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Ray Mang",
    "co": [
     "Bill Brewster"
@@ -1209,6 +1521,9 @@
    "source": "RA",
    "how": "title",
    "score": 10.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "LEISURE",
    "co": []
   },
@@ -1220,6 +1535,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Juls",
    "co": []
   },
@@ -1231,6 +1549,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 30.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Goldie",
    "co": [
     "Photek",
@@ -1245,6 +1566,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 117.3,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Chaos In The CBD",
    "co": []
   },
@@ -1256,6 +1580,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 47.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Flight Facilities",
    "co": [
     "Purple Disco Machine",
@@ -1270,22 +1597,14 @@
    "source": "RA",
    "how": "lineup",
    "score": 70.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Aroop Roy",
    "co": [
     "Ella Knight",
     "Fort Romeau"
    ]
-  },
-  {
-   "date": "2026-08-22",
-   "title": "Garage Paradise - The London Sessions - Jeremy Sylvester, Bear Winder, Zak Miller",
-   "venue": "Basing House",
-   "url": "https://ra.co/events/2421418",
-   "source": "RA",
-   "how": "title",
-   "score": 25.4,
-   "artist": "Sylvester",
-   "co": []
   },
   {
    "date": "2026-08-22",
@@ -1295,6 +1614,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "El-B",
    "co": []
   },
@@ -1306,6 +1628,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 6.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Skream",
    "co": []
   },
@@ -1317,6 +1642,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 6.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "D-Nice",
    "co": []
   },
@@ -1328,6 +1656,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 84.1,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Private Joy",
    "co": []
   },
@@ -1339,6 +1670,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 8.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "ABSOLUTE.",
    "co": []
   },
@@ -1350,6 +1684,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Kassian",
    "co": []
   },
@@ -1361,6 +1698,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.8,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Yoofee",
    "co": []
   },
@@ -1372,6 +1712,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 12.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dennis Bovell",
    "co": []
   },
@@ -1383,6 +1726,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 12.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Reaper",
    "co": [
     "Coco Bryce"
@@ -1396,6 +1742,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Juls",
    "co": []
   },
@@ -1407,6 +1756,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 28.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Joe Goddard",
    "co": []
   },
@@ -1418,6 +1770,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Rampage",
    "co": [
     "Smoove"
@@ -1431,6 +1786,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.1,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Wookie",
    "co": []
   },
@@ -1442,6 +1800,9 @@
    "source": "RA",
    "how": "title",
    "score": 50.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Levitation Orchestra",
    "co": []
   },
@@ -1453,6 +1814,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Ty",
    "co": []
   },
@@ -1464,6 +1828,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 128.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Blood Orange",
    "co": [
     "Daniel Avery",
@@ -1481,6 +1848,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 155.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Max Sin\u00e0l",
    "co": [
     "Skream",
@@ -1507,6 +1877,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 19.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Jamz Supernova",
    "co": []
   },
@@ -1518,6 +1891,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 80.1,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mood II Swing",
    "co": []
   },
@@ -1529,6 +1905,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 6.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Artful Dodger",
    "co": []
   },
@@ -1540,6 +1919,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 62.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Cengiz",
    "co": [
     "Oliver Night"
@@ -1553,6 +1935,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 23.8,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Horse Meat Disco",
    "co": [
     "Eris Drew",
@@ -1567,6 +1952,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 22.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "WheelUP",
    "co": [
     "Roni Size"
@@ -1580,6 +1968,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 15.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Novelist",
    "co": [
     "Cooly G"
@@ -1593,6 +1984,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 19.1,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Lovebirds",
    "co": []
   },
@@ -1604,6 +1998,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 180.9,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "musclecars",
    "co": [
     "Osunlade",
@@ -1623,6 +2020,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mr Bongo",
    "co": []
   },
@@ -1634,6 +2034,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Alexis Taylor",
    "co": []
   },
@@ -1645,6 +2048,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 71.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mr. G",
    "co": []
   },
@@ -1656,6 +2062,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Juls",
    "co": []
   },
@@ -1667,6 +2076,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Brookes Brothers",
    "co": []
   },
@@ -1678,6 +2090,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 217.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Louie Vega",
    "co": [
     "Anane",
@@ -1693,6 +2108,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Todd Edwards",
    "co": []
   },
@@ -1704,6 +2122,9 @@
    "source": "RA",
    "how": "title",
    "score": 24.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Kings Of Tomorrow",
    "co": [
     "Sandy Rivera"
@@ -1717,6 +2138,9 @@
    "source": "RA",
    "how": "title",
    "score": 11.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "I. JORDAN",
    "co": []
   },
@@ -1728,6 +2152,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 35.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Steffi",
    "co": []
   },
@@ -1739,6 +2166,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 123.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Ben Hauke",
    "co": [
     "Donsurf"
@@ -1752,6 +2182,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 131.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Crazy P",
    "co": []
   },
@@ -1763,6 +2196,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 50.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Kenny Larkin",
    "co": [
     "Danilo Plessow"
@@ -1776,6 +2212,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Wilfy D",
    "co": []
   },
@@ -1787,18 +2226,10 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.3,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Todd Edwards",
-   "co": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "77: Darius Syrossian",
-   "venue": "77",
-   "url": "https://ra.co/events/2468889",
-   "source": "RA",
-   "how": "title",
-   "score": 10.2,
-   "artist": "Darius",
    "co": []
   },
   {
@@ -1809,6 +2240,9 @@
    "source": "RA",
    "how": "title",
    "score": 7.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Cortex",
    "co": []
   },
@@ -1820,6 +2254,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 85.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Caio Cenci",
    "co": [
     "Coeo",
@@ -1836,6 +2273,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 11.1,
+   "etype": "dj",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "VHOOR",
    "co": []
   },
@@ -1847,6 +2287,9 @@
    "source": "RA",
    "how": "title",
    "score": 13.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Crayon",
    "co": []
   },
@@ -1858,18 +2301,10 @@
    "source": "RA",
    "how": "lineup",
    "score": 23.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "MJ Cole",
-   "co": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "Twilight Zone IV \u2022 Rafyx, Anchronorium \u2022 London",
-   "venue": "Distillery N17",
-   "url": "https://ra.co/events/2450789",
-   "source": "RA",
-   "how": "title",
-   "score": 7.2,
-   "artist": "Twilight",
    "co": []
   },
   {
@@ -1880,6 +2315,9 @@
    "source": "RA",
    "how": "title",
    "score": 56.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Somewhere Soul",
    "co": []
   },
@@ -1891,6 +2329,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 23.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Bellaire",
    "co": []
   },
@@ -1902,6 +2343,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 39.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mount Kimbie",
    "co": []
   },
@@ -1913,6 +2357,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "1-800 GIRLS",
    "co": []
   },
@@ -1924,6 +2371,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 8.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Never Dull",
    "co": []
   },
@@ -1935,6 +2385,9 @@
    "source": "RA",
    "how": "title",
    "score": 6.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "China Moses",
    "co": []
   },
@@ -1946,6 +2399,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 186.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Shy One",
    "co": [
     "p-rallel",
@@ -1972,6 +2428,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 9.6,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Armand Van Helden",
    "co": []
   },
@@ -1983,6 +2442,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 5.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tristan Da Cunha",
    "co": []
   },
@@ -1994,6 +2456,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Swindle",
    "co": []
   },
@@ -2005,6 +2470,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 56.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "X & Ivy",
    "co": [
     "D Stone",
@@ -2020,6 +2488,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Todd Terry",
    "co": []
   },
@@ -2031,6 +2502,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 73.1,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mak\u00e8z",
    "co": [
     "Armand Van Helden",
@@ -2049,6 +2523,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 142.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Nu Genea",
    "co": []
   },
@@ -2060,6 +2537,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 77.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "K-Lone",
    "co": [
     "Facta"
@@ -2073,6 +2553,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 55.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dennis Quin",
    "co": []
   },
@@ -2084,6 +2567,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 64.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Isaac Ferry",
    "co": [
     "Todd Terje",
@@ -2099,6 +2585,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 90.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Last Nubian",
    "co": []
   },
@@ -2110,6 +2599,9 @@
    "source": "RA",
    "how": "title",
    "score": 46.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Richard Spaven",
    "co": []
   },
@@ -2121,6 +2613,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 39.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "The Avalanches",
    "co": [
     "Moby"
@@ -2134,6 +2629,9 @@
    "source": "RA",
    "how": "title",
    "score": 118.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Ashley Henry",
    "co": []
   },
@@ -2145,6 +2643,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 10.3,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Kolter",
    "co": []
   },
@@ -2156,18 +2657,10 @@
    "source": "RA",
    "how": "lineup",
    "score": 55.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "The Deep",
-   "co": []
-  },
-  {
-   "date": "2026-09-27",
-   "title": "LONDON SINFONIETTA & JONNY GREENWOOD: STEVE REICH",
-   "venue": "Royal Festival Hall",
-   "url": "https://ra.co/events/2484520",
-   "source": "RA",
-   "how": "title",
-   "score": 7.9,
-   "artist": "Greenwood",
    "co": []
   },
   {
@@ -2178,6 +2671,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "1-800 GIRLS",
    "co": []
   },
@@ -2189,6 +2685,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 18.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "O'Flynn",
    "co": []
   },
@@ -2200,6 +2699,9 @@
    "source": "RA",
    "how": "title",
    "score": 42.2,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Amy Winehouse",
    "co": [
     "ABSOLUTE."
@@ -2213,6 +2715,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 17.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Wallace",
    "co": []
   },
@@ -2224,6 +2729,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 27.8,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Faze Action",
    "co": []
   },
@@ -2235,6 +2743,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 84.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "DJ Nature",
    "co": []
   },
@@ -2246,6 +2757,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 8.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Digitalism",
    "co": []
   },
@@ -2257,6 +2771,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 79.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "The Avalanches",
    "co": [
     "Alan Braxe",
@@ -2278,6 +2795,9 @@
    "source": "RA",
    "how": "title",
    "score": 6.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Artful Dodger",
    "co": []
   },
@@ -2289,6 +2809,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 14.9,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Midland",
    "co": []
   },
@@ -2300,6 +2823,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 91.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Jimpster",
    "co": [
     "Crackazat"
@@ -2313,6 +2839,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 103.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Romare",
    "co": []
   },
@@ -2324,6 +2853,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 36.8,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mousse T.",
    "co": [
     "Mark Knight",
@@ -2334,23 +2866,15 @@
   },
   {
    "date": "2026-10-24",
-   "title": "Shanti Celeste's Birthday Party",
-   "venue": "KOKO",
-   "url": "https://ra.co/events/2479677",
-   "source": "RA",
-   "how": "title",
-   "score": 7.2,
-   "artist": "Celeste",
-   "co": []
-  },
-  {
-   "date": "2026-10-24",
    "title": "Afriquoi (Full Live Band)",
    "venue": "The Jazz Cafe",
    "url": "https://ra.co/events/2462900",
    "source": "RA",
    "how": "title",
    "score": 16.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Afriquoi",
    "co": []
   },
@@ -2362,6 +2886,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 7.6,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Demi Riqu\u00edsimo",
    "co": []
   },
@@ -2373,6 +2900,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 14.9,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Honey Dijon",
    "co": []
   },
@@ -2384,6 +2914,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 12.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Disco Freaks",
    "co": [
     "Dr Meaker"
@@ -2397,6 +2930,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 37.5,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Cassius",
    "co": []
   },
@@ -2408,6 +2944,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 12.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Lauren Flax",
    "co": [
     "DJ Pierre"
@@ -2421,6 +2960,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 4.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dusky",
    "co": []
   },
@@ -2432,6 +2974,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 21.0,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Gold Panda",
    "co": []
   },
@@ -2443,6 +2988,9 @@
    "source": "RA",
    "how": "lineup",
    "score": 4.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Dusky",
    "co": []
   },
@@ -2454,7 +3002,124 @@
    "source": "RA",
    "how": "lineup",
    "score": 6.4,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Roni Size",
+   "co": []
+  },
+  {
+   "date": "2026-11-18",
+   "title": "EartH presents Gigi Masin",
+   "venue": "EartH",
+   "url": "https://ra.co/events/2466196",
+   "source": "RA",
+   "how": "lineup",
+   "score": 38.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Gigi Masin",
+   "co": []
+  },
+  {
+   "date": "2026-11-21",
+   "title": "Dusky: Originals (2010 - 2025 Set)",
+   "venue": "Phonox",
+   "url": "https://ra.co/events/2440113",
+   "source": "RA",
+   "how": "lineup",
+   "score": 4.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Dusky",
+   "co": []
+  },
+  {
+   "date": "2026-11-21",
+   "title": "Pan Amsterdam",
+   "venue": "The Jazz Cafe",
+   "url": "https://ra.co/events/2468208",
+   "source": "RA",
+   "how": "title",
+   "score": 13.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Pan Amsterdam",
+   "co": []
+  },
+  {
+   "date": "2026-11-28",
+   "title": "Dusky presents Signals",
+   "venue": "Phonox",
+   "url": "https://ra.co/events/2475756",
+   "source": "RA",
+   "how": "lineup",
+   "score": 4.2,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Dusky",
+   "co": []
+  },
+  {
+   "date": "2026-12-04",
+   "title": "Nubiyan Twist presents NT Soundsystem",
+   "venue": "The Jazz Cafe",
+   "url": "https://ra.co/events/2458548",
+   "source": "RA",
+   "how": "title",
+   "score": 73.7,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Nubiyan Twist",
+   "co": []
+  },
+  {
+   "date": "2026-12-20",
+   "title": "Absolute Amy - Amy Winehouse Tribute",
+   "venue": "Basing House",
+   "url": "https://ra.co/events/2467049",
+   "source": "RA",
+   "how": "title",
+   "score": 42.2,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Amy Winehouse",
+   "co": [
+    "ABSOLUTE."
+   ]
+  },
+  {
+   "date": "2026-12-28",
+   "title": "fabric: Joseph Capriati + more tba",
+   "venue": "fabric",
+   "url": "https://ra.co/events/2476990",
+   "source": "RA",
+   "how": "lineup",
+   "score": 9.1,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Joseph Capriati",
+   "co": []
+  },
+  {
+   "date": "2027-04-24",
+   "title": "LIT Ibiza Takeover Bank Holiday Sunday Terrace Party",
+   "venue": "Crowdedhouse",
+   "url": "https://ra.co/events/2425965",
+   "source": "RA",
+   "how": "lineup",
+   "score": 7.2,
+   "etype": "day",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Tommy Rawson",
    "co": []
   },
   {
@@ -2465,6 +3130,9 @@
    "source": "KOKO",
    "how": "title",
    "score": 22.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Nina Simone",
    "co": [
     "Judi Jackson"
@@ -2478,6 +3146,9 @@
    "source": "KOKO",
    "how": "lineup",
    "score": 5.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "DJ Jazzy Jeff",
    "co": []
   },
@@ -2489,43 +3160,13 @@
    "source": "KOKO",
    "how": "title",
    "score": 78.9,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Aretha Franklin",
    "co": [
     "Vanessa Haynes"
    ]
-  },
-  {
-   "date": "2026-08-28",
-   "title": "Patrice Roberts",
-   "venue": "KOKO",
-   "url": "https://www.koko.co.uk/events/patrice-roberts",
-   "source": "KOKO",
-   "how": "title",
-   "score": 6.4,
-   "artist": "Patrice",
-   "co": []
-  },
-  {
-   "date": "2026-09-04",
-   "title": "Michael Shannon &amp; Jason Narducy and Friends play R.E.M.\u2019s \u2018Lifes Rich Pageant\u2019",
-   "venue": "KOKO",
-   "url": "https://www.koko.co.uk/events/michael-shannon-jason-narducy-and-friends-play-r-e-m-s-lifes-rich-pageant",
-   "source": "KOKO",
-   "how": "title",
-   "score": 8.5,
-   "artist": "Shannon",
-   "co": []
-  },
-  {
-   "date": "2026-10-01",
-   "title": "Vanessa Paradis",
-   "venue": "KOKO",
-   "url": "https://www.koko.co.uk/events/vanessa-paradis",
-   "source": "KOKO",
-   "how": "title",
-   "score": 22.7,
-   "artist": "Paradis",
-   "co": []
   },
   {
    "date": "2026-11-03",
@@ -2535,6 +3176,9 @@
    "source": "KOKO",
    "how": "lineup",
    "score": 9.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "The Radio Dept.",
    "co": []
   },
@@ -2546,6 +3190,9 @@
    "source": "KOKO",
    "how": "lineup",
    "score": 117.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Momoko Gill",
    "co": [
     "keiyaA",
@@ -2558,22 +3205,12 @@
    "venue": "KOKO",
    "url": "https://www.koko.co.uk/events/common-saints",
    "source": "KOKO",
-   "how": "title",
-   "score": 53.4,
-   "artist": "Common",
-   "co": [
-    "Common Saints"
-   ]
-  },
-  {
-   "date": "2026-11-15",
-   "title": "Alfredo Rodriguez &#038; Pedrito Martinez",
-   "venue": "KOKO",
-   "url": "https://www.koko.co.uk/events/alfredo-rodrigo-pedrito-martinez",
-   "source": "KOKO",
-   "how": "title",
-   "score": 34.1,
-   "artist": "Rodr\u00edguez",
+   "how": "lineup",
+   "score": 29.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Common Saints",
    "co": []
   },
   {
@@ -2584,6 +3221,9 @@
    "source": "KOKO",
    "how": "lineup",
    "score": 30.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "GoGo Penguin",
    "co": []
   },
@@ -2595,18 +3235,38 @@
    "source": "KOKO",
    "how": "lineup",
    "score": 30.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "GoGo Penguin",
    "co": []
   },
   {
-   "date": "2026-08-01",
-   "title": "Hush Steve Gunn Anaiis Loula Yorke Ghuraba",
-   "venue": "EartH",
-   "url": "https://earthackney.co.uk/events/hush-steve-gunn-anaiis-loula-yorke-ghuraba-1st-aug-earth-london-tickets-nv66a8/",
-   "source": "EartH",
+   "date": "2026-12-11",
+   "title": "Lapsley",
+   "venue": "KOKO",
+   "url": "https://www.koko.co.uk/events/lapsley",
+   "source": "KOKO",
+   "how": "lineup",
+   "score": 21.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "L\u00e5psley",
+   "co": []
+  },
+  {
+   "date": "2027-03-05",
+   "title": "Nouvelle Vague\u00a0&#8216;A Date with Depeche Mode&#8217; Tour",
+   "venue": "KOKO",
+   "url": "https://www.koko.co.uk/events/nouvelle-vague-a-date-with-depeche-mode-tour",
+   "source": "KOKO",
    "how": "title",
-   "score": 73.8,
-   "artist": "anaiis",
+   "score": 13.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Nouvelle Vague",
    "co": []
   },
   {
@@ -2617,6 +3277,9 @@
    "source": "EartH",
    "how": "title",
    "score": 13.6,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Speakers Corner Quartet",
    "co": []
   },
@@ -2628,6 +3291,9 @@
    "source": "EartH",
    "how": "lineup",
    "score": 13.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Laraaji",
    "co": []
   },
@@ -2639,6 +3305,9 @@
    "source": "EartH",
    "how": "lineup",
    "score": 6.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Laura Veirs",
    "co": []
   },
@@ -2650,18 +3319,10 @@
    "source": "EartH",
    "how": "lineup",
    "score": 79.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Jasmine Myra",
-   "co": []
-  },
-  {
-   "date": "2026-10-31",
-   "title": "Okvsho Experience",
-   "venue": "EartH",
-   "url": "https://earthackney.co.uk/events/okvsho-experience-31st-oct-earth-london-tickets-mx7r5k/",
-   "source": "EartH",
-   "how": "title",
-   "score": 11.5,
-   "artist": "Okvsho",
    "co": []
   },
   {
@@ -2672,6 +3333,9 @@
    "source": "EartH",
    "how": "title",
    "score": 108.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Emma-Jean Thackray",
    "co": []
   },
@@ -2683,6 +3347,9 @@
    "source": "EartH",
    "how": "lineup",
    "score": 79.3,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Joyce Moreno",
    "co": []
   },
@@ -2694,6 +3361,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 53.5,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "KAYTRANADA",
    "co": []
   },
@@ -2705,6 +3375,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 20.1,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "MOVEMENT",
    "co": []
   },
@@ -2716,6 +3389,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 55.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Lau Ro",
    "co": []
   },
@@ -2727,6 +3403,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 7.9,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Childish Gambino",
    "co": []
   },
@@ -2738,6 +3417,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 6.4,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "William Onyeabor",
    "co": []
   },
@@ -2749,6 +3431,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 6.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Courtney Pine",
    "co": []
   },
@@ -2760,6 +3445,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 83.3,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Ana Frango El\u00e9trico",
    "co": []
   },
@@ -2771,6 +3459,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 27.0,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Digable Planets",
    "co": []
   },
@@ -2782,6 +3473,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 46.3,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "George Benson",
    "co": []
   },
@@ -2793,6 +3487,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 26.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Miles Davis",
    "co": []
   },
@@ -2804,6 +3501,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 5.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Cubafrobeat",
    "co": []
   },
@@ -2815,6 +3515,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 70.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Misha Panfilov",
    "co": []
   },
@@ -2826,6 +3529,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 58.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Bruno Pernadas",
    "co": []
   },
@@ -2837,6 +3543,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 69.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Liana Flores",
    "co": []
   },
@@ -2848,6 +3557,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 49.8,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Otis Redding",
    "co": []
   },
@@ -2859,6 +3571,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 60.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Tim Maia",
    "co": []
   },
@@ -2870,6 +3585,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 80.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Mar\u00eda Jos\u00e9 Llergo",
    "co": []
   },
@@ -2881,6 +3599,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 52.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Balimaya Project",
    "co": []
   },
@@ -2892,6 +3613,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 52.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Sons of Sevilla",
    "co": []
   },
@@ -2903,6 +3627,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 13.3,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Djavan",
    "co": []
   },
@@ -2914,6 +3641,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 35.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Liv East",
    "co": []
   },
@@ -2925,6 +3655,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 9.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Myles Sanko",
    "co": []
   },
@@ -2936,6 +3669,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 87.5,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
    "artist": "Fela Kuti",
    "co": []
   },
@@ -2947,6 +3683,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 79.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "\u00c0b\u00e1se",
    "co": []
   },
@@ -2958,7 +3697,24 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 4.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Javiera Mena",
+   "co": []
+  },
+  {
+   "date": "2026-10-31",
+   "title": "Okvsho +experience",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/okvsho-experience-2/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 11.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Okvsho",
    "co": []
   },
   {
@@ -2969,6 +3725,9 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 102.0,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Okonski",
    "co": []
   },
@@ -2980,6 +3739,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 14.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Idris Ackamoor",
    "co": [
     "The Pyramids"
@@ -2993,6 +3755,9 @@
    "source": "JazzCafe",
    "how": "title",
    "score": 82.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "Orchestra Mambo International",
    "co": []
   },
@@ -3004,7 +3769,488 @@
    "source": "JazzCafe",
    "how": "lineup",
    "score": 9.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
    "artist": "dublon",
+   "co": []
+  },
+  {
+   "date": "2026-11-19",
+   "title": "9th Wonder (DJ Set)",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/9th-wonder-dj-set/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 6.4,
+   "etype": "dj",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "9th Wonder",
+   "co": []
+  },
+  {
+   "date": "2026-11-26",
+   "title": "Leenalchi",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/leenalchi/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 9.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "LEENALCHI",
+   "co": []
+  },
+  {
+   "date": "2026-11-29",
+   "title": "Raquel Rodriguez (Matinee Show)",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/raquel-rodriguez-matinee-show/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 7.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Raquel Rodriguez",
+   "co": []
+  },
+  {
+   "date": "2026-12-01",
+   "title": "Horace Andy",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/horace-andy-3/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 1.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Horace Andy",
+   "co": []
+  },
+  {
+   "date": "2026-12-02",
+   "title": "daoud",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/daoud/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 52.5,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "daoud",
+   "co": []
+  },
+  {
+   "date": "2026-12-12",
+   "title": "The Music of Aretha Franklin",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/the-music-of-aretha-franklin/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 73.9,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Aretha Franklin",
+   "co": []
+  },
+  {
+   "date": "2026-12-13",
+   "title": "Nena",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/nena/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 10.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Nena",
+   "co": []
+  },
+  {
+   "date": "2026-12-18",
+   "title": "Mica Paris (Early Show)",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/mica-paris-early-show/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 71.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Mica Paris",
+   "co": []
+  },
+  {
+   "date": "2026-12-26",
+   "title": "Forever Teena: Celebrating the Music of Teena Marie",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/forever-teena-celebrating-the-music-of-teena-marie/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 40.5,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Teena Marie",
+   "co": []
+  },
+  {
+   "date": "2027-01-01",
+   "title": "The Real Thing",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/the-real-thing-8/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 9.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "The Real Thing",
+   "co": []
+  },
+  {
+   "date": "2027-01-02",
+   "title": "The Real Thing",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/the-real-thing-9/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 9.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "The Real Thing",
+   "co": []
+  },
+  {
+   "date": "2027-01-30",
+   "title": "The Legacy of Frankie Knuckles (Matinee Show)",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/the-legacy-of-frankie-knuckles-matinee-show/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 33.1,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Frankie Knuckles",
+   "co": [
+    "Legacy"
+   ]
+  },
+  {
+   "date": "2027-02-01",
+   "title": "Remembering Dennis Brown",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/remembering-dennis-brown/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 18.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Dennis Brown",
+   "co": []
+  },
+  {
+   "date": "2027-03-07",
+   "title": "Nearly Dan perform Steely Dan",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/nearly-dan-perform-steely-dan-3/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 109.3,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Steely Dan",
+   "co": []
+  },
+  {
+   "date": "2027-03-26",
+   "title": "Teddy Pendergrass: Birthday Party",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/teddy-pendergrass-birthday-party-2/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 24.0,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Teddy Pendergrass",
+   "co": []
+  },
+  {
+   "date": "2027-03-27",
+   "title": "Orchestra Baobab",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/orchestra-baobab-5/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 3.6,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Orchestra Baobab",
+   "co": []
+  },
+  {
+   "date": "2027-05-13",
+   "title": "Stevie Wonder's Birthday Party (Early Show)",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/stevie-wonders-birthday-party-early-show/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 142.5,
+   "etype": "day",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Stevie Wonder",
+   "co": []
+  },
+  {
+   "date": "2027-06-01",
+   "title": "The Curtom Orchestra presents Curtis Mayfield",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/the-curtom-orchestra-presents-curtis-mayfield-2/",
+   "source": "JazzCafe",
+   "how": "title",
+   "score": 81.7,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Curtis Mayfield",
+   "co": []
+  },
+  {
+   "date": "2026-07-30",
+   "title": "Thievery Corporation Tickets",
+   "venue": "The Roundhouse",
+   "url": "https://www.roundhouse.org.uk/whats-on/thievery-corporation/",
+   "source": "The Roundhouse",
+   "how": "title",
+   "score": 53.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Thievery Corporation",
+   "co": []
+  },
+  {
+   "date": "2026-10-22",
+   "title": "Beth Orton",
+   "venue": "Alexandra Palace",
+   "url": "https://www.alexandrapalace.com/whats-on/beth-orton/",
+   "source": "AllyPally",
+   "how": "lineup",
+   "score": 4.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Beth Orton",
+   "co": []
+  },
+  {
+   "date": "2026-10-28",
+   "title": "Overmono",
+   "venue": "Alexandra Palace",
+   "url": "https://www.alexandrapalace.com/whats-on/overmono/",
+   "source": "AllyPally",
+   "how": "lineup",
+   "score": 17.0,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Overmono",
+   "co": []
+  },
+  {
+   "date": "2026-11-14",
+   "title": "Bill Ryder-Jones",
+   "venue": "Alexandra Palace",
+   "url": "https://www.alexandrapalace.com/whats-on/bill-ryder-jones/",
+   "source": "AllyPally",
+   "how": "lineup",
+   "score": 21.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Bill Ryder-Jones",
+   "co": []
+  },
+  {
+   "date": "2026-11-14",
+   "title": "Courteeners",
+   "venue": "Alexandra Palace",
+   "url": "https://www.alexandrapalace.com/whats-on/courteeners/",
+   "source": "AllyPally",
+   "how": "lineup",
+   "score": 4.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Courteeners",
+   "co": []
+  },
+  {
+   "date": "2027-04-24",
+   "title": "Jordan Rakei",
+   "venue": "Alexandra Palace",
+   "url": "https://www.alexandrapalace.com/whats-on/jordan-rakei/",
+   "source": "AllyPally",
+   "how": "lineup",
+   "score": 43.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Jordan Rakei",
+   "co": []
+  },
+  {
+   "date": "2026-11-07",
+   "title": "anyone can dance w/Beirut Groove Collective",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/anyone-can-dance-wbeirut-groove-collective",
+   "source": "Barbican",
+   "how": "title",
+   "score": 8.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Groove Collective",
+   "co": []
+  },
+  {
+   "date": "2026-11-14",
+   "title": "Asha Puthli: The Cosmic Voyager",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/asha-puthli",
+   "source": "Barbican",
+   "how": "title",
+   "score": 85.1,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Asha Puthli",
+   "co": []
+  },
+  {
+   "date": "2026-09-05",
+   "title": "Bedouine",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/bedouine",
+   "source": "Barbican",
+   "how": "lineup",
+   "score": 41.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Bedouine",
+   "co": []
+  },
+  {
+   "date": "2026-12-14",
+   "title": "Trees with London Symphony Orchestra",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/caroline-shaw-trees-with-london-symphony-orchestra",
+   "source": "Barbican",
+   "how": "title",
+   "score": 30.8,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "London Symphony Orchestra",
+   "co": []
+  },
+  {
+   "date": "2026-11-20",
+   "title": "Church of Sound 10th Birthday",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/church-of-sound-10th-birthday-british-jazz-songbook",
+   "source": "Barbican",
+   "how": "title",
+   "score": 75.5,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Church",
+   "co": []
+  },
+  {
+   "date": "2026-12-18",
+   "title": "Endtroducing at 30\u2026.. DJ Shadow &amp; The BBC Symphony Orchestra",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/dj-shadow-with-bbc-symphony-orchestra",
+   "source": "Barbican",
+   "how": "title",
+   "score": 15.1,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "DJ Shadow",
+   "co": []
+  },
+  {
+   "date": "2026-12-12",
+   "title": "Spiritualized",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/spiritualized-acoustic-mainlines",
+   "source": "Barbican",
+   "how": "lineup",
+   "score": 25.4,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Spiritualized",
+   "co": []
+  },
+  {
+   "date": "2026-11-15",
+   "title": "Yasuaki Shimizu",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2026/event/yasuaki-shimizu",
+   "source": "Barbican",
+   "how": "lineup",
+   "score": 10.9,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Yasuaki Shimizu",
+   "co": []
+  },
+  {
+   "date": "2027-03-04",
+   "title": "Bob Marley Reimagined by The London African Gospel Choir",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2027/event/bob-marley-reimagined-by-the-london-african-gospel-choir",
+   "source": "Barbican",
+   "how": "title",
+   "score": 2.4,
+   "etype": "gig",
+   "tribute": true,
+   "first_seen": "2026-07-20",
+   "artist": "Bob Marley",
+   "co": []
+  },
+  {
+   "date": "2027-06-19",
+   "title": "Cornelius",
+   "venue": "Barbican",
+   "url": "https://www.barbican.org.uk/whats-on/2027/event/cornelius",
+   "source": "Barbican",
+   "how": "lineup",
+   "score": 4.2,
+   "etype": "gig",
+   "tribute": false,
+   "first_seen": "2026-07-20",
+   "artist": "Cornelius",
    "co": []
   }
  ]

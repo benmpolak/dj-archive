@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-"""Gig Radar — upcoming London gigs matched to the archive.
+"""Gig Radar v2 — upcoming London gigs matched to the archive.
 
 Sources:
-  - Resident Advisor GraphQL (all-London backbone: clubs + live, incl. Jazz Cafe, EartH,
-    Village Underground, Corsica, XOYO...)
-  - Koko whats-on (Next.js event tiles, full lineup in img alt)
-  - EartH events page (slug parse)
-  - Jazz Cafe whats-on (event cards with line-up lists)
-Roundhouse has no scrapeable feed (JS-rendered, no JSON API) — partial coverage via RA only.
+  - Resident Advisor GraphQL (all-London backbone: clubs + live)
+  - KOKO whats-on, EartH events, Jazz Cafe whats-on (London shows only)
+  - Roundhouse whats-on (listing links -> detail-page schema, threaded)
+  - Alexandra Palace whats-on, Barbican contemporary music
+  - Ticketmaster Discovery API IF env TM_API_KEY is set (unlocks O2 Academy
+    Brixton, Shepherd's Bush Empire + other Live Nation rooms — free key from
+    developer.ticketmaster.com)
+Gaps (all bot-walled, checked 2026-07-20): Ronnie Scott's (Cloudflare),
+Southbank Centre, Union Chapel (JS-only), AMG/Live Nation venue sites.
 
-Matching: event's structured artist names (exact, normalised) + event title
-(word-boundary phrase scan, artists with >=2 words or >=6 chars only).
+Matching: structured lineup names exact + title phrase-scan (strict — see
+match_event). Weighted on plays + recency + newly-added artists.
+Tribute/covers/"vs" nights are flagged, kept out of Top Picks, and labelled.
+first_seen per show persists across runs via gigs-data.json -> "Just announced".
 
-Scoring (Ben's brief: weight on plays and new music):
-  3*sqrt(total plays) + 8*sqrt(plays last 1y) + 3*sqrt(plays last 3y) + 1.2*tracks
-  + 40 if any track added last 6 months, else +20 if last 12 months.
-
-Usage: python3 gigs-fetch.py [--days 120] [--out gigs.html]
-Re-run any time; output is fully regenerated. Writes gigs-data.json alongside for debugging.
+Usage: python3 gigs-fetch.py [--days 365] [--out gigs.html]
 """
-import argparse, json, re, sys, time, unicodedata, urllib.request
+import argparse, json, os, re, sys, time, unicodedata, urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 from collections import defaultdict
 
@@ -31,12 +32,9 @@ TODAY = date.today()
 MONTHS = {m.lower(): i + 1 for i, m in enumerate(
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])}
 
-# names that appear as "artists" on listings but are noise
 NAME_STOP = {'tba', 'tbc', 'guests', 'special guests', 'friends', 'more', 'live',
              'dj set', 'djs', 'residents', 'support', 'and friends', 'special guest'}
 
-# single-word archive artists that are also everyday scene/genre words or first names —
-# too ambiguous to match inside free-text event titles (lineup matches still allowed)
 TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasure',
               'sundown', 'garage', 'house', 'techno', 'disco', 'funk', 'soul', 'jazz',
               'gospel', 'orchestra', 'ensemble', 'collective', 'social', 'summer',
@@ -45,6 +43,20 @@ TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasu
               'joseph', 'simone', 'marcel', 'george', 'marie', 'james', 'thomas',
               'charlie', 'jamie', 'oscar', 'leon', 'otis', 'ruby', 'pearl',
               'outside', 'return', 'prince', 'inside', 'weekend', 'holiday'}
+
+TRIBUTE_RE = re.compile(
+    r'tribute|the music of|the best of|celebrat|birthday|songbook|plays the|'
+    r're[: ]?imagined|revisited|orchestral|symphonic|candlelight|sounds of|'
+    r'\bvs\.?\s|queen of soul|an evening of', re.I)
+
+DAY_RE = re.compile(r'day party|all day|day &amp; night|day and night|rooftop|'
+                    r'day fest|in the park|garden party|block party', re.I)
+
+CLUB_VENUES = ('fabric', 'xoyo', 'phonox', 'corsica', 'ministry of sound',
+               'the cause', 'colour factory', 'oval space', 'drumsheds', 'egg ',
+               'night tales', 'fold', 'venue mot', 'm.o.t', 'peckham audio',
+               'jumbi', 'spanners', 'basing house', 'dalston den', 'the pickle',
+               'werkhaus', 'lion & lamb', 'ormside', 'rye wax', 'club makossa')
 
 
 def http_get(url, referer=None, data=None, timeout=30):
@@ -76,9 +88,10 @@ def load_artists():
     data, _ = json.JSONDecoder().raw_decode(html[i + len('const DATA='):])
     acc = {}
     for t in data:
-        # collab rows join artists with ';' — credit every artist on the track
-        for name in [(t.get('a') or '').strip()] + \
-                    ([p.strip() for p in t['a'].split(';')] if ';' in (t.get('a') or '') else []):
+        names = [(t.get('a') or '').strip()]
+        if ';' in names[0]:
+            names += [p.strip() for p in names[0].split(';')]
+        for name in names:
             _add_artist(acc, name, t)
     for r in acc.values():
         r['crate'] = max(r['crates'], key=r['crates'].get) if r['crates'] else ''
@@ -87,23 +100,23 @@ def load_artists():
 
 
 def _add_artist(acc, name, t):
-        norm = normalize(name)
-        if not norm or norm in NAME_STOP:
-            return
-        r = acc.setdefault(norm, {'name': name, 'tracks': 0, 'plays': 0, 'p1': 0,
-                                  'p3': 0, 'min_da': 999999, 'max_da': 0,
-                                  'the': name.lower().startswith('the '),
-                                  'crates': defaultdict(int)})
-        r['tracks'] += 1
-        r['plays'] += t.get('pc') or 0
-        r['p1'] += t.get('p1') or 0
-        r['p3'] += t.get('p3') or 0
-        da = t.get('da') or 0
-        if da:
-            r['min_da'] = min(r['min_da'], da)
-            r['max_da'] = max(r['max_da'], da)
-        for c in t.get('c') or []:
-            r['crates'][c] += 1
+    norm = normalize(name)
+    if not norm or norm in NAME_STOP:
+        return
+    r = acc.setdefault(norm, {'name': name, 'tracks': 0, 'plays': 0, 'p1': 0,
+                              'p3': 0, 'min_da': 999999, 'max_da': 0,
+                              'the': name.lower().startswith('the '),
+                              'crates': defaultdict(int)})
+    r['tracks'] += 1
+    r['plays'] += t.get('pc') or 0
+    r['p1'] += t.get('p1') or 0
+    r['p3'] += t.get('p3') or 0
+    da = t.get('da') or 0
+    if da:
+        r['min_da'] = min(r['min_da'], da)
+        r['max_da'] = max(r['max_da'], da)
+    for c in t.get('c') or []:
+        r['crates'][c] += 1
 
 
 def yyyymm_ago(months):
@@ -136,10 +149,7 @@ def badges(r):
     return b
 
 
-# ---------- date helpers ----------
-
 def infer_year(day, month):
-    """Listings give day+month, no year: assume the next occurrence."""
     try:
         d = date(TODAY.year, month, day)
     except ValueError:
@@ -155,13 +165,13 @@ def fetch_ra(days):
     query = """
     query GET_EVENT_LISTINGS($filters: FilterInputDtoInput, $pageSize: Int, $page: Int) {
       eventListings(filters: $filters, pageSize: $pageSize, page: $page) {
-        data { event { id title date contentUrl
+        data { event { id title date startTime contentUrl
                        artists { name } venue { name } } }
         totalResults
       }
     }"""
     events, seen, page = [], set(), 1
-    while page <= 60:
+    while page <= 120:
         variables = {'filters': {'areas': {'eq': 13},
                                  'listingDate': {'gte': str(TODAY),
                                                  'lte': str(TODAY + timedelta(days=days))}},
@@ -181,14 +191,12 @@ def fetch_ra(days):
             if e['id'] in seen:
                 continue
             seen.add(e['id'])
-            events.append({
-                'date': e['date'][:10],
-                'title': e['title'].strip(),
-                'venue': (e.get('venue') or {}).get('name') or '',
-                'url': 'https://ra.co' + e['contentUrl'],
-                'names': [a['name'] for a in e.get('artists') or []],
-                'source': 'RA',
-            })
+            start = (e.get('startTime') or '')[11:16]
+            events.append({'date': e['date'][:10], 'title': e['title'].strip(),
+                           'venue': (e.get('venue') or {}).get('name') or '',
+                           'url': 'https://ra.co' + e['contentUrl'],
+                           'names': [a['name'] for a in e.get('artists') or []],
+                           'start': start, 'source': 'RA', 'hint': ''})
         total = rows.get('totalResults') or 0
         if page * 100 >= total:
             break
@@ -212,7 +220,8 @@ def fetch_koko():
             continue
         names = [n.strip() for n in re.split(r'\s*[+,]\s*|\s+x\s+', alt) if n.strip()]
         events.append({'date': str(d), 'title': title.strip(), 'venue': 'KOKO',
-                       'url': 'https://www.koko.co.uk' + href, 'names': names, 'source': 'KOKO'})
+                       'url': 'https://www.koko.co.uk' + href, 'names': names,
+                       'start': '', 'source': 'KOKO', 'hint': 'gig'})
     return events
 
 
@@ -230,7 +239,8 @@ def fetch_earth():
             continue
         title = slug.replace('-', ' ').title()
         events.append({'date': str(d), 'title': title, 'venue': 'EartH',
-                       'url': url, 'names': [title], 'source': 'EartH'})
+                       'url': url, 'names': [title], 'start': '',
+                       'source': 'EartH', 'hint': 'gig'})
     return events
 
 
@@ -238,6 +248,10 @@ def fetch_jazzcafe():
     html = http_get('https://thejazzcafe.com/whats-on')
     events = []
     for block in re.split(r'<li\s+data-genre', html)[1:]:
+        if re.search(r'data-outsidelondon="yes"', block):
+            continue
+        etype = re.search(r'data-event-type="([^"]*)"', block)
+        hint = 'dj' if (etype and 'club' in etype.group(1).lower()) else 'gig'
         dm = re.search(r'event-date[^>]*>\s*\w+<span>(\d{1,2})</span>([A-Za-z]{3})', block)
         tm = re.search(r'<h2 class="event-title">(.*?)</h2>', block, re.S)
         um = re.search(r'href="(https://thejazzcafe\.com/event/[^"]+)"', block)
@@ -246,15 +260,132 @@ def fetch_jazzcafe():
         d = infer_year(int(dm.group(1)), MONTHS.get(dm.group(2).lower(), 0) or 1)
         if not d:
             continue
-        title_html = tm.group(1)
-        title = re.sub(r'<span class="host">.*?</span>', '', title_html, flags=re.S)
-        title = re.sub(r'<[^>]+>', ' ', title)
-        title = re.sub(r'\s+', ' ', title).strip()
+        title = re.sub(r'<span class="host">.*?</span>', '', tm.group(1), flags=re.S)
+        title = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', title)).strip()
         names = [re.sub(r'<[^>]+>', '', n).strip()
                  for n in re.findall(r'<li>(.*?)</li>', block, re.S)]
-        events.append({'date': str(d), 'title': title or names[0] if names else title,
+        events.append({'date': str(d), 'title': title or (names[0] if names else ''),
                        'venue': 'The Jazz Cafe', 'url': um.group(1),
-                       'names': [n for n in names if n], 'source': 'JazzCafe'})
+                       'names': [n for n in names if n], 'start': '',
+                       'source': 'JazzCafe', 'hint': hint})
+    return events
+
+
+def _detail_event(url, venue, hint):
+    """Fetch one event detail page, extract title + date from schema/meta."""
+    try:
+        h = http_get(url)
+    except Exception:
+        return None
+    # JSON-LD Event first
+    for m in re.findall(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', h, re.S):
+        try:
+            d = json.loads(m)
+        except Exception:
+            continue
+        items = d if isinstance(d, list) else d.get('@graph', [d])
+        for it in items:
+            t = str(it.get('@type', ''))
+            if 'Event' in t:
+                sd = (it.get('startDate') or '')[:10]
+                nm = it.get('name') or ''
+                if sd and nm and 'Comedy' not in t:
+                    return {'date': sd, 'title': nm.strip(), 'venue': venue, 'url': url,
+                            'names': [nm.strip()], 'start': (it.get('startDate') or '')[11:16],
+                            'source': venue, 'hint': hint}
+                return None
+    # fallback: visible date like "Fri 19 Sep 2026" or "19 Sep 2026"
+    tm = re.search(r'<title>([^<|]+)', h)
+    dm = re.search(r'(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(20\d\d)', h)
+    if tm and dm:
+        d = date(int(dm.group(3)), MONTHS[dm.group(2).lower()], int(dm.group(1)))
+        title = tm.group(1).strip()
+        return {'date': str(d), 'title': title, 'venue': venue, 'url': url,
+                'names': [title], 'start': '', 'source': venue, 'hint': hint}
+    return None
+
+
+def fetch_roundhouse():
+    html = http_get('https://www.roundhouse.org.uk/whats-on/')
+    urls = sorted(set(re.findall(r'href="(https://www\.roundhouse\.org\.uk/whats-on/[a-z0-9-]+/)"', html)))
+    urls = [u for u in urls if not re.search(r'podcast|comedy', u)][:80]
+    events = []
+    with ThreadPoolExecutor(8) as ex:
+        for ev in ex.map(lambda u: _detail_event(u, 'The Roundhouse', 'gig'), urls):
+            if ev:
+                events.append(ev)
+    return events
+
+
+def fetch_allypally():
+    html = http_get('https://www.alexandrapalace.com/whats-on/')
+    events, seen = [], set()
+    for m in re.finditer(
+            r'<p class="dates uc"><strong>([^<]+)</strong></p>\s*'
+            r'<a href="(https://www\.alexandrapalace\.com/whats-on/[^"]+)"[^>]*>'
+            r'<h3>([^<]+)</h3>', html):
+        dstr, url, title = m.groups()
+        if url in seen:
+            continue
+        seen.add(url)
+        dm = re.search(r'(\d{1,2})\s*(?:-|–|&ndash;)?\s*(?:\d{1,2}\s+)?([A-Za-z]{3})[a-z]*\s+(20\d\d)', dstr)
+        if not dm:
+            continue
+        d = date(int(dm.group(3)), MONTHS.get(dm.group(2).lower(), 1), int(dm.group(1)))
+        events.append({'date': str(d), 'title': title.strip(), 'venue': 'Alexandra Palace',
+                       'url': url, 'names': [title.strip()], 'start': '',
+                       'source': 'AllyPally', 'hint': 'gig'})
+    return events
+
+
+def fetch_barbican():
+    urls = set()
+    for page in range(0, 4):
+        try:
+            h = http_get(f'https://www.barbican.org.uk/whats-on/contemporary-music?page={page}')
+        except Exception:
+            break
+        found = set(re.findall(r'href="(/whats-on/\d{4}/event/[a-z0-9-]+)"', h))
+        if not found - urls:
+            break
+        urls |= found
+    events = []
+    with ThreadPoolExecutor(8) as ex:
+        for ev in ex.map(lambda u: _detail_event('https://www.barbican.org.uk' + u,
+                                                 'Barbican', 'gig'), sorted(urls)[:80]):
+            if ev:
+                events.append(ev)
+    return events
+
+
+def fetch_ticketmaster(days):
+    key = os.environ.get('TM_API_KEY')
+    if not key:
+        return []
+    events, page = [], 0
+    while page < 5:
+        u = ('https://app.ticketmaster.com/discovery/v2/events.json?'
+             f'apikey={key}&city=London&countryCode=GB&classificationName=music'
+             f'&size=200&page={page}&sort=date,asc'
+             f'&startDateTime={TODAY}T00:00:00Z'
+             f'&endDateTime={TODAY + timedelta(days=min(days, 365))}T00:00:00Z')
+        try:
+            d = json.loads(http_get(u))
+        except Exception as e:
+            print(f'  TM page {page} failed: {e}', file=sys.stderr)
+            break
+        for e in (d.get('_embedded') or {}).get('events', []):
+            venues = (e.get('_embedded') or {}).get('venues') or [{}]
+            atts = (e.get('_embedded') or {}).get('attractions') or []
+            events.append({'date': ((e.get('dates') or {}).get('start') or {}).get('localDate', ''),
+                           'title': e.get('name', ''), 'venue': venues[0].get('name', ''),
+                           'url': e.get('url', ''), 'names': [a.get('name', '') for a in atts],
+                           'start': ((e.get('dates') or {}).get('start') or {}).get('localTime', '')[:5],
+                           'source': 'Ticketmaster', 'hint': 'gig'})
+        if page >= (d.get('page') or {}).get('totalPages', 1) - 1:
+            break
+        page += 1
+        time.sleep(0.3)
     return events
 
 
@@ -279,19 +410,37 @@ def match_event(ev, artists):
         single = ' ' not in norm
         if single and (len(norm) < 6 or norm in TITLE_STOP):
             continue
-        # free-text title matches need real archive presence; deep cuts
-        # (1 track, barely played) only surface via structured lineups
         if r['tracks'] < 2 and r['plays'] < 3:
             continue
-        # "The Futures" must appear as "the futures", not bare "futures"
         needle = f' the {norm} ' if (r['the'] and single) else f' {norm} '
         if needle in tnorm:
+            if single and _part_of_longer_name(r['name'], ev['title']):
+                continue
             hits[norm] = 'title'
     return hits
 
 
+_NEXT_OK = {'Live', 'Presents', 'DJ', 'Set', 'Band', 'All', 'At', 'In', 'On', 'And',
+            'Takeover', 'Tour', 'London', 'Tickets', 'Plus', 'B2B', 'X'}
+_PREV_OK = {'The', 'DJ', 'MC', 'With', 'Ft', 'Feat', 'And', 'Featuring', 'By'}
+
+
+def _part_of_longer_name(name, title):
+    """'Beirut' inside 'Beirut Groove Collective' is a different act: a single-word
+    artist flanked by another capitalised word is part of a longer name."""
+    m = re.search(r'(?:^|[^A-Za-z])(' + re.escape(name) + r')(?=$|[^A-Za-z])', title, re.I)
+    if not m:
+        return False
+    after = re.match(r'\s+([A-Z][a-zA-Z&\']+)', title[m.end(1):])
+    if after and after.group(1) not in _NEXT_OK:
+        return True
+    before = re.search(r'([A-Z][a-zA-Z&\']+)\s+$', title[:m.start(1)])
+    if before and before.group(1) not in _PREV_OK:
+        return True
+    return False
+
+
 def drop_generic_title_matches(per_event_hits):
-    """A name that title-matches 3+ different events is a scene word, not a booking."""
     counts = defaultdict(set)
     for ev, hits in per_event_hits:
         for norm, how in hits.items():
@@ -306,10 +455,25 @@ def drop_generic_title_matches(per_event_hits):
                 del hits[n]
 
 
+def classify(ev, title):
+    """gig | dj | day"""
+    hour = int(ev['start'][:2]) if re.match(r'\d\d:\d\d', ev.get('start') or '') else None
+    if DAY_RE.search(title) or (hour is not None and 11 <= hour <= 16):
+        return 'day'
+    if ev.get('hint') in ('gig', 'dj'):
+        return ev['hint']
+    if re.search(r'\(live\)|\blive\b', title, re.I):
+        return 'gig'
+    v = ev['venue'].lower()
+    if any(c in v for c in CLUB_VENUES):
+        return 'dj'
+    return 'dj' if ev['source'] == 'RA' else 'gig'
+
+
 # ---------- render ----------
 
 def esc(s):
-    return (s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'))
+    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
 
 
 def fmt_da(da):
@@ -323,15 +487,24 @@ BADGE_CSS = {'new': ('rgba(96,232,160,0.12)', '#60e8a0'),
              'heavy': ('rgba(232,160,64,0.14)', '#e8a040'),
              'deep': ('rgba(64,160,232,0.12)', '#40a0e8')}
 
+TYPE_LABEL = {'gig': 'Live gig', 'dj': 'DJ night', 'day': 'Day party'}
 
-def render(matches, n_events, n_artists, out):
-    matches = sorted(matches, key=lambda m: m['date'])
-    picks = sorted(matches, key=lambda m: -m['score'])[:12]
+
+def render(matches, n_events, n_artists, sources_note, out):
+    matches = sorted(matches, key=lambda m: (m['date'], -m['score']))
+    fresh_cut = str(TODAY - timedelta(days=10))
+    picks = sorted([m for m in matches if not m['tribute']], key=lambda m: -m['score'])[:12]
     upd = TODAY.strftime('%-d %b %Y')
+    venues = sorted({m['venue'] for m in matches if m['venue']},
+                    key=lambda v: -sum(1 for m in matches if m['venue'] == v))
+    crates = sorted({m['artist']['crate'] for m in matches if m['artist']['crate']},
+                    key=lambda c: -sum(1 for m in matches if m['artist']['crate'] == c))
+    months = sorted({m['date'][:7] for m in matches})
+    n_new = sum(1 for m in matches if m['first_seen'] >= fresh_cut)
 
     def why(m):
         r = m['artist']
-        bits = [f"{r['tracks']} track{'s' if r['tracks'] != 1 else ''} in the archive"]
+        bits = [f"{r['tracks']} track{'s' if r['tracks'] != 1 else ''}"]
         if r['plays']:
             bits.append(f"{r['plays']} plays")
         if r['p1']:
@@ -346,23 +519,23 @@ def render(matches, n_events, n_artists, out):
         h = ''.join(
             f'<span class="bdg" style="background:{bg};color:{fg}">{lbl}</span>'
             for (k, lbl), (bg, fg) in ((b, BADGE_CSS[b[0]]) for b in badges(m['artist'])))
-        if re.search(r'tribute|the music of|the best of|birthday|celebrat|songbook|plays the',
-                     m['title'], re.I):
-            h += ('<span class="bdg" style="background:rgba(160,64,232,0.12);'
-                  'color:#b07ae0">Tribute / celebration</span>')
+        if m['first_seen'] >= fresh_cut:
+            h = '<span class="bdg bdg-just">Just announced</span>' + h
+        if m['tribute']:
+            h += '<span class="bdg bdg-trib">Their music, not them</span>'
         return h
 
-    def others(m):
-        rest = [r['name'] for r in m['co']]
-        if not rest:
-            rest = [clean_name(a) for a in m['all_names']
-                    if normalize(clean_name(a)) != normalize(m['artist']['name'])]
-        return (' <span class="also">with ' + esc(', '.join(rest[:4])) + '</span>') if rest else ''
+    def attrs(m):
+        text = f"{m['artist']['name']} {m['title']} {m['venue']}".lower()
+        return (f'data-v="{esc(m["venue"])}" data-mo="{m["date"][:7]}" '
+                f'data-c="{esc(m["artist"]["crate"])}" data-t="{m["etype"]}" '
+                f'data-n="{1 if m["first_seen"] >= fresh_cut else 0}" '
+                f'data-s="{esc(text)}"')
 
     def card(m):
         d = date.fromisoformat(m['date'])
-        return f'''<a class="card" href="{esc(m['url'])}" target="_blank" rel="noopener">
-  <div class="card-date">{d.strftime('%a %-d %b').upper()}</div>
+        return f'''<a class="card" {attrs(m)} href="{esc(m['url'])}" target="_blank" rel="noopener">
+  <div class="card-top"><span class="card-date">{d.strftime('%a %-d %b').upper()}</span><span class="card-type">{TYPE_LABEL[m['etype']]}</span></div>
   <div class="card-artist">{esc(m['artist']['name'])}</div>
   <div class="card-venue">{esc(m['venue'])}</div>
   <div class="badges">{badge_html(m)}</div>
@@ -373,10 +546,18 @@ def render(matches, n_events, n_artists, out):
         d = date.fromisoformat(m['date'])
         title = '' if normalize(m['title']) == normalize(m['artist']['name']) else \
             f'<span class="ev-title">{esc(m["title"])}</span>'
-        return f'''<div class="row">
+        co = ''
+        if m['co']:
+            co = ' <span class="also">with ' + esc(', '.join(r['name'] for r in m['co'][:4])) + '</span>'
+        elif len(m['all_names']) > 1:
+            rest = [clean_name(a) for a in m['all_names']
+                    if normalize(clean_name(a)) != normalize(m['artist']['name'])]
+            if rest:
+                co = ' <span class="also">with ' + esc(', '.join(rest[:4])) + '</span>'
+        return f'''<div class="row" {attrs(m)}>
   <div class="r-date"><span class="r-dow">{d.strftime('%a').upper()}</span><span class="r-day">{d.day}</span><span class="r-mon">{d.strftime('%b').upper()}</span></div>
   <div class="r-main">
-    <div class="r-artist">{esc(m['artist']['name'])}{others(m)} {badge_html(m)}</div>
+    <div class="r-artist">{esc(m['artist']['name'])}<span class="r-type">{TYPE_LABEL[m['etype']]}</span>{co} {badge_html(m)}</div>
     <div class="r-sub">{title}{('<span class="dot">·</span>' if title else '')}<span class="r-venue">{esc(m['venue'])}</span></div>
     <div class="why">{why(m)}</div>
   </div>
@@ -389,60 +570,161 @@ def render(matches, n_events, n_artists, out):
     sections = ''
     for ym in sorted(by_month):
         label = date.fromisoformat(ym + '-01').strftime('%B %Y')
-        sections += f'<h2>{label}</h2>\n' + '\n'.join(row(m) for m in by_month[ym])
+        sections += (f'<h2 class="mh" data-mo="{ym}">{label} '
+                     f'<span class="mh-n">{len(by_month[ym])}</span></h2>\n'
+                     + '\n'.join(row(m) for m in by_month[ym]))
+
+    month_chips = ''.join(
+        f'<button class="fc fc-mo" data-mo="{ym}">{date.fromisoformat(ym + "-01").strftime("%b")}'
+        f'{" ’" + ym[2:4] if ym[:4] != str(TODAY.year) else ""}</button>'
+        for ym in months)
+    crate_chips = ''.join(f'<button class="fc fc-c" data-c="{esc(c)}">{esc(c)}</button>' for c in crates)
+    venue_opts = '<option value="">All venues</option>' + ''.join(
+        f'<option value="{esc(v)}">{esc(v)}</option>' for v in venues[:40])
 
     html = f'''<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gig Radar — DJ Archive</title>
 <style>
-:root{{--bg:#0a0a0f;--card:#12121a;--card2:#181824;--border:#1e1e2e;--text:#e0e0e8;--dim:#6a6a80;--accent:#e8a040;--pink:#ff69b4}}
+:root{{--bg:#0a0a0f;--card:#12121a;--card2:#181824;--border:#1e1e2e;--text:#e0e0e8;--dim:#6a6a80;--accent:#e8a040;--pink:#ff69b4;--green:#60e8a0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;padding:28px 18px 60px}}
-.wrap{{max-width:860px;margin:0 auto}}
-h1{{font-size:1.3em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;
+body{{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;padding-bottom:80px}}
+.wrap{{max-width:880px;margin:0 auto;padding:0 18px}}
+header.hero{{background:linear-gradient(160deg,#13131c 0%,#101018 55%,#11111a 100%);border-bottom:1px solid var(--border);padding:34px 0 22px;margin-bottom:14px}}
+h1{{font-size:1.5em;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;
   background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}}
-.sub{{color:var(--dim);font-size:0.8em;margin:6px 0 26px}}
+.sub{{color:var(--dim);font-size:0.8em;margin-top:6px}}
 .sub a{{color:var(--accent);text-decoration:none}}
-h2{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:30px 0 10px}}
-.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:4px 0 10px}}
-.grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}}
-.card{{display:block;background:linear-gradient(160deg,#13131c,#101018);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text);transition:border-color .15s}}
-.card:hover{{border-color:var(--accent)}}
-.card-date{{font-size:0.68em;letter-spacing:0.12em;color:var(--accent);font-weight:600}}
-.card-artist{{font-weight:700;font-size:1.02em;margin:4px 0 2px}}
+.hero-stats{{display:flex;gap:26px;margin-top:18px;flex-wrap:wrap}}
+.hs b{{display:block;font-size:1.25em;font-variant-numeric:tabular-nums}}
+.hs span{{font-size:0.64em;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim)}}
+.filters{{position:sticky;top:0;z-index:20;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}}
+.f-inner{{max-width:880px;margin:0 auto;padding:0 18px;display:flex;flex-direction:column;gap:8px}}
+.f-line{{display:flex;gap:6px;align-items:center;flex-wrap:wrap}}
+#q{{flex:1;min-width:160px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px 13px;font-size:0.85em;outline:none}}
+#q:focus{{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,160,64,0.12)}}
+#venue{{background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px 10px;font-size:0.8em;max-width:220px}}
+.fc{{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--dim);padding:5px 11px;font-size:0.72em;font-weight:600;cursor:pointer;line-height:1.5}}
+.fc:hover{{border-color:var(--accent);color:var(--text)}}
+.fc.on{{background:rgba(232,160,64,0.14);border-color:var(--accent);color:var(--accent)}}
+.f-label{{font-size:0.6em;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim);margin-right:2px;min-width:44px}}
+#clear{{display:none;margin-left:auto}}
+#clear.vis{{display:inline-block}}
+h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:30px 0 10px}}
+.mh-n{{opacity:0.55;font-variant-numeric:tabular-nums}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}}
+.card{{display:block;background:linear-gradient(160deg,#14141e,#101018);border:1px solid var(--border);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s,box-shadow .15s}}
+.card:hover{{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 22px rgba(232,160,64,0.10)}}
+.card-top{{display:flex;justify-content:space-between;align-items:baseline}}
+.card-date{{font-size:0.68em;letter-spacing:0.12em;color:var(--accent);font-weight:700}}
+.card-type{{font-size:0.6em;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim)}}
+.card-artist{{font-weight:700;font-size:1.05em;margin:5px 0 2px}}
 .card-venue{{color:var(--dim);font-size:0.78em}}
 .badges{{margin-top:6px}}
-.bdg{{display:inline-block;border-radius:6px;padding:1px 7px;font-size:0.62em;font-weight:600;letter-spacing:0.04em;margin-right:4px}}
+.bdg{{display:inline-block;border-radius:6px;padding:1px 7px;font-size:0.62em;font-weight:600;letter-spacing:0.04em;margin:1px 4px 1px 0}}
+.bdg-just{{background:rgba(96,232,160,0.16);color:var(--green);border:1px solid rgba(96,232,160,0.3)}}
+.bdg-trib{{background:rgba(160,64,232,0.12);color:#b07ae0}}
 .why{{color:var(--dim);font-size:0.7em;margin-top:6px;line-height:1.5}}
-.row{{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px}}
-.r-date{{display:flex;flex-direction:column;align-items:center;min-width:44px;color:var(--dim)}}
+.row{{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:border-color .12s}}
+.row:hover{{border-color:#2c2c40}}
+.r-date{{display:flex;flex-direction:column;align-items:center;min-width:46px;color:var(--dim)}}
 .r-dow{{font-size:0.6em;letter-spacing:0.1em}}
-.r-day{{font-size:1.25em;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}}
+.r-day{{font-size:1.3em;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}}
 .r-mon{{font-size:0.6em;letter-spacing:0.1em}}
 .r-main{{flex:1;min-width:0}}
 .r-artist{{font-weight:700;font-size:0.98em}}
+.r-type{{font-size:0.58em;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);border:1px solid var(--border);border-radius:5px;padding:1px 6px;margin-left:8px;vertical-align:2px}}
 .also{{color:var(--dim);font-weight:400;font-size:0.85em}}
 .r-sub{{color:var(--dim);font-size:0.78em;margin-top:2px}}
 .ev-title{{color:#9a9ab0}}
 .dot{{margin:0 6px}}
 .tix{{padding:7px 14px;border-radius:10px;font-size:0.74em;font-weight:600;border:1px solid var(--border);background:var(--card2);color:var(--text);text-decoration:none;white-space:nowrap}}
 .tix:hover{{border-color:var(--accent);color:var(--accent)}}
+#none{{display:none;color:var(--dim);font-size:0.85em;padding:30px 0;text-align:center}}
 .foot{{color:var(--dim);font-size:0.7em;margin-top:40px;line-height:1.7}}
-@media(max-width:560px){{.row{{flex-wrap:wrap}}.tix{{margin-left:58px}}}}
-</style></head><body><div class="wrap">
+@media(max-width:560px){{.row{{flex-wrap:wrap}}.tix{{margin-left:60px}}.hero-stats{{gap:18px}}}}
+</style></head><body>
+<header class="hero"><div class="wrap">
 <h1>Gig Radar</h1>
-<div class="sub">Upcoming London shows matched to the archive · updated {upd} ·
-<a href="index.html">← back to the archive</a></div>
-<div class="eyebrow">Top picks</div>
+<div class="sub">London listings matched to the archive · updated {upd} · <a href="index.html">← back to the archive</a></div>
+<div class="hero-stats">
+<div class="hs"><b>{len(matches)}</b><span>shows</span></div>
+<div class="hs"><b>{len({m['artist']['name'] for m in matches})}</b><span>artists</span></div>
+<div class="hs"><b>{len(venues)}</b><span>venues</span></div>
+<div class="hs"><b>{n_new}</b><span>just announced</span></div>
+</div>
+</div></header>
+<div class="filters"><div class="f-inner">
+<div class="f-line">
+<input id="q" type="search" placeholder="Search artist, event, venue…" autocomplete="off">
+<select id="venue">{venue_opts}</select>
+<button class="fc" id="clear">✕ Clear</button>
+</div>
+<div class="f-line"><span class="f-label">Type</span>
+<button class="fc fc-t" data-t="gig">Live gigs</button>
+<button class="fc fc-t" data-t="dj">DJ nights</button>
+<button class="fc fc-t" data-t="day">Day parties</button>
+<button class="fc" id="fnew">Just announced</button>
+</div>
+<div class="f-line"><span class="f-label">Month</span>{month_chips}</div>
+<div class="f-line"><span class="f-label">Crate</span>{crate_chips}</div>
+</div></div>
+<div class="wrap">
+<div id="picks-w"><div class="eyebrow">Top picks</div>
 <div class="grid">
 {''.join(card(m) for m in picks)}
-</div>
+</div></div>
 {sections}
-<div class="foot">Matched {len(matches)} shows from {n_events} London listings against {n_artists:,} archive artists.<br>
-Sources: Resident Advisor (all London venues), KOKO, EartH, The Jazz Cafe. Roundhouse has no open feed — partial coverage via RA.<br>
+<div id="none">Nothing matches those filters.</div>
+<div class="foot">Matched from {n_events:,} London listings against {n_artists:,} archive artists.<br>
+{sources_note}<br>
 One DJ&rsquo;s ears, no algorithm. Refresh: <code>python3 gigs-fetch.py</code></div>
-</div></body></html>'''
+</div>
+<script>
+(function(){{
+var F={{q:'',v:'',t:null,mo:null,c:null,n:false}};
+function on(sel,ev,fn){{document.querySelectorAll(sel).forEach(function(el){{el.addEventListener(ev,fn)}})}}
+function toggle(btn,group,key,val){{
+  var was=btn.classList.contains('on');
+  document.querySelectorAll(group).forEach(function(b){{b.classList.remove('on')}});
+  if(!was){{btn.classList.add('on');F[key]=val}}else{{F[key]=null}}
+  apply();
+}}
+on('.fc-t','click',function(){{toggle(this,'.fc-t','t',this.dataset.t)}});
+on('.fc-mo','click',function(){{toggle(this,'.fc-mo','mo',this.dataset.mo)}});
+on('.fc-c','click',function(){{toggle(this,'.fc-c','c',this.dataset.c)}});
+document.getElementById('fnew').addEventListener('click',function(){{
+  this.classList.toggle('on');F.n=this.classList.contains('on');apply()}});
+document.getElementById('q').addEventListener('input',function(){{F.q=this.value.toLowerCase().trim();apply()}});
+document.getElementById('venue').addEventListener('change',function(){{F.v=this.value;apply()}});
+document.getElementById('clear').addEventListener('click',function(){{
+  F={{q:'',v:'',t:null,mo:null,c:null,n:false}};
+  document.getElementById('q').value='';document.getElementById('venue').value='';
+  document.querySelectorAll('.fc.on').forEach(function(b){{b.classList.remove('on')}});
+  apply()}});
+function active(){{return F.q||F.v||F.t||F.mo||F.c||F.n}}
+function show(el,yes){{el.style.display=yes?'':'none'}}
+function apply(){{
+  var any=false;
+  document.querySelectorAll('.row').forEach(function(r){{
+    var ok=(!F.q||r.dataset.s.indexOf(F.q)>-1)&&(!F.v||r.dataset.v===F.v)&&
+           (!F.t||r.dataset.t===F.t)&&(!F.mo||r.dataset.mo===F.mo)&&
+           (!F.c||r.dataset.c===F.c)&&(!F.n||r.dataset.n==='1');
+    show(r,ok);if(ok)any=true;
+  }});
+  document.querySelectorAll('.mh').forEach(function(h){{
+    var vis=false,el=h.nextElementSibling;
+    while(el&&el.classList.contains('row')){{if(el.style.display!=='none')vis=true;el=el.nextElementSibling}}
+    show(h,vis);
+  }});
+  show(document.getElementById('picks-w'),!active());
+  show(document.getElementById('none'),!any);
+  document.getElementById('clear').classList.toggle('vis',!!active());
+}}
+}})();
+</script>
+</body></html>'''
     open(out, 'w', encoding='utf-8').write(html)
 
 
@@ -450,7 +732,7 @@ One DJ&rsquo;s ears, no algorithm. Refresh: <code>python3 gigs-fetch.py</code></
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--days', type=int, default=120)
+    ap.add_argument('--days', type=int, default=365)
     ap.add_argument('--out', default=f'{HERE}/gigs.html')
     args = ap.parse_args()
 
@@ -458,18 +740,36 @@ def main():
     artists = load_artists()
     print(f'  {len(artists)} unique artists')
 
-    events = []
+    # previous run's first_seen map
+    prev_seen, bootstrap = {}, True
+    try:
+        prev = json.load(open(f'{HERE}/gigs-data.json'))
+        pm = prev.get('matches', [])
+        # older data files have no first_seen — everything is "old", nothing is
+        # "just announced" until the next run establishes a baseline
+        bootstrap = not any('first_seen' in m for m in pm)
+        for m in pm:
+            prev_seen[(m['artist'], m['date'])] = m.get('first_seen', '2000-01-01')
+    except Exception:
+        pass
+
+    events, src_counts = [], {}
     for label, fn in [('RA', lambda: fetch_ra(args.days)), ('KOKO', fetch_koko),
-                      ('EartH', fetch_earth), ('Jazz Cafe', fetch_jazzcafe)]:
+                      ('EartH', fetch_earth), ('Jazz Cafe', fetch_jazzcafe),
+                      ('Roundhouse', fetch_roundhouse), ('Ally Pally', fetch_allypally),
+                      ('Barbican', fetch_barbican),
+                      ('Ticketmaster', lambda: fetch_ticketmaster(args.days))]:
         try:
             batch = fn()
             print(f'  {label}: {len(batch)} events')
+            src_counts[label] = len(batch)
             events.extend(batch)
         except Exception as e:
             print(f'  {label} FAILED: {e}', file=sys.stderr)
+            src_counts[label] = 0
 
     horizon = str(TODAY + timedelta(days=args.days))
-    events = [e for e in events if str(TODAY) <= e['date'] <= horizon]
+    events = [e for e in events if e['date'] and str(TODAY) <= e['date'] <= horizon]
     if len(events) < 100:
         sys.exit(f'Only {len(events)} events fetched — sources look down; '
                  'keeping the existing gigs.html.')
@@ -477,9 +777,6 @@ def main():
     per_event = [(ev, match_event(ev, artists)) for ev in events]
     drop_generic_title_matches(per_event)
 
-    # one entry per (event, matched artist), deduped across sources by artist+date.
-    # RA is processed first so its (true) venue wins — the Jazz Cafe site also
-    # lists off-site shows under its own banner.
     matches, seen = [], set()
     for ev, hits in per_event:
         for norm, how in hits.items():
@@ -487,12 +784,16 @@ def main():
             if key in seen:
                 continue
             seen.add(key)
+            r = artists[norm]
             matches.append({'date': ev['date'], 'title': ev['title'], 'venue': ev['venue'],
                             'url': ev['url'], 'source': ev['source'], 'how': how,
-                            'artist': artists[norm], 'all_names': ev['names'],
-                            'score': artist_score(artists[norm])})
+                            'artist': r, 'all_names': ev['names'],
+                            'etype': classify(ev, ev['title']),
+                            'tribute': bool(TRIBUTE_RE.search(ev['title'])),
+                            'first_seen': ('2000-01-01' if bootstrap else
+                                           prev_seen.get((r['name'], ev['date']), str(TODAY))),
+                            'score': artist_score(r)})
 
-    # merge multiple matched artists on the same listing into one entry
     grouped = {}
     for m in matches:
         gk = (m['date'], normalize(m['venue']), normalize(m['title']))
@@ -500,7 +801,7 @@ def main():
         if m is not g and m['artist'] is not g['artist']:
             if m['score'] > g['score']:
                 g['co'].append(g['artist'])
-                g.update({k: m[k] for k in ('artist', 'score', 'how')})
+                g.update({k: m[k] for k in ('artist', 'score', 'how', 'first_seen')})
             else:
                 g['co'].append(m['artist'])
     matches = list(grouped.values())
@@ -509,12 +810,19 @@ def main():
     print(f'{len(events)} events in window -> {len(matches)} matched shows')
 
     json.dump({'generated': str(TODAY), 'events': len(events),
-               'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url',
-                                                 'source', 'how', 'score')},
+               'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url', 'source',
+                                                 'how', 'score', 'etype', 'tribute', 'first_seen')},
                             'artist': m['artist']['name'],
                             'co': [r['name'] for r in m['co']]} for m in matches]},
               open(f'{HERE}/gigs-data.json', 'w'), indent=1)
-    render(matches, len(events), len(artists), args.out)
+
+    got = [k for k, v in src_counts.items() if v]
+    note = ('Sources: ' + ', '.join(got) +
+            '. Gaps: Ronnie Scott&rsquo;s, Southbank, Union Chapel, O2 Academy Brixton '
+            '&amp; Shepherd&rsquo;s Bush (bot-walled'
+            + ('' if os.environ.get('TM_API_KEY') else
+               '; a free Ticketmaster API key would unlock the last two') + ').')
+    render(matches, len(events), len(artists), note, args.out)
     print(f'Wrote {args.out}')
 
 
