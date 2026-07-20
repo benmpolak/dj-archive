@@ -44,10 +44,20 @@ TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasu
               'charlie', 'jamie', 'oscar', 'leon', 'otis', 'ruby', 'pearl',
               'outside', 'return', 'prince', 'inside', 'weekend', 'holiday'}
 
-TRIBUTE_RE = re.compile(
-    r'tribute|the music of|the best of|celebrat|birthday|songbook|plays the|'
-    r're[: ]?imagined|revisited|orchestral|symphonic|candlelight|sounds of|'
-    r'\bvs\.?\s|queen of soul|an evening of', re.I)
+# hard signals always mean covers/tribute; soft ones ("celebrating", "vs") only
+# count when the artist was matched from the free-text title — a structured
+# lineup entry means the act is genuinely on the bill (Band of Horses
+# "Celebrating 20 Years" is really them; "Fred Again vs Daft Punk" is not Daft Punk)
+TRIBUTE_HARD_RE = re.compile(
+    r'tribute|the music of|the songs of|the best of|songbook|plays the|'
+    r're[: ]?imagined|orchestral|symphonic|candlelight|sounds of|queen of soul|'
+    r'an evening of', re.I)
+TRIBUTE_SOFT_RE = re.compile(r'celebrat|birthday|revisited|\bvs\.?\s', re.I)
+
+
+def is_tribute(title, how):
+    return bool(TRIBUTE_HARD_RE.search(title)
+                or (how == 'title' and TRIBUTE_SOFT_RE.search(title)))
 
 DAY_RE = re.compile(r'day party|all day|day &amp; night|day and night|rooftop|'
                     r'day fest|in the park|garden party|block party', re.I)
@@ -59,6 +69,15 @@ CLUB_VENUES = ('fabric', 'xoyo', 'phonox', 'corsica', 'ministry of sound',
                'werkhaus', 'lion & lamb', 'ormside', 'rye wax', 'club makossa')
 
 
+class _Redirect308(urllib.request.HTTPRedirectHandler):
+    """urllib follows 301/302/303/307 but not 308 — treat 308 like 307."""
+    def http_error_308(self, req, fp, code, msg, hdrs):
+        return self.http_error_307(req, fp, 307, msg, hdrs)
+
+
+_OPENER = urllib.request.build_opener(_Redirect308)
+
+
 def http_get(url, referer=None, data=None, timeout=30):
     headers = {'User-Agent': UA}
     if referer:
@@ -67,7 +86,7 @@ def http_get(url, referer=None, data=None, timeout=30):
         headers['Content-Type'] = 'application/json'
         data = json.dumps(data).encode()
     req = urllib.request.Request(url, data=data, headers=headers)
-    return urllib.request.urlopen(req, timeout=timeout).read().decode('utf-8', 'replace')
+    return _OPENER.open(req, timeout=timeout).read().decode('utf-8', 'replace')
 
 
 # ---------- archive artists ----------
@@ -353,6 +372,52 @@ def fetch_barbican():
     with ThreadPoolExecutor(8) as ex:
         for ev in ex.map(lambda u: _detail_event('https://www.barbican.org.uk' + u,
                                                  'Barbican', 'gig'), sorted(urls)[:80]):
+            if ev:
+                events.append(ev)
+    return events
+
+
+AMG_SLUGS = {'O2 Academy Brixton': 'o2academybrixton',
+             "O2 Shepherd's Bush Empire": 'o2shepherdsbushempire',
+             'O2 Forum Kentish Town': 'o2forumkentishtown',
+             'O2 Academy Islington': 'o2academyislington',
+             'O2 Academy2 Islington': 'o2academyislington'}
+
+
+def fetch_amg():
+    """Live Nation / Academy Music Group London rooms via their site's own
+    search API (found in their JS bundle; CityIds 102908 = London)."""
+    events, page = [], 1
+    while page <= 25:
+        d = json.loads(http_get('https://www.academymusicgroup.com/__api/search/events'
+                                f'?culture=en-GB&CityIds=102908&Page={page}'))
+        docs = d.get('documents') or []
+        if not docs:
+            break
+        for x in docs:
+            vname = (x.get('venue') or {}).get('name') or ''
+            slug = AMG_SLUGS.get(vname, '')
+            url = ('https://www.academymusicgroup.com/' + slug + x['url']) if slug and x.get('url') \
+                else 'https://www.academymusicgroup.com'
+            names = [a.get('name', '') for a in x.get('lineup') or []] or [x.get('name', '')]
+            events.append({'date': (x.get('eventDate') or '')[:10], 'title': x.get('name', ''),
+                           'venue': vname, 'url': url,
+                           'names': [n for n in names if n],
+                           'start': x.get('doorTime') or '', 'source': 'AMG', 'hint': 'gig'})
+        if page * 20 >= (d.get('total') or 0):
+            break
+        page += 1
+        time.sleep(0.3)
+    return events
+
+
+def fetch_apollo():
+    html = http_get('https://www.eventimapollo.com/events')
+    urls = sorted(set(re.findall(r'href="(/events/[a-z0-9-]+)"', html)))[:100]
+    events = []
+    with ThreadPoolExecutor(8) as ex:
+        for ev in ex.map(lambda u: _detail_event('https://www.eventimapollo.com' + u,
+                                                 'Eventim Apollo', 'gig'), urls):
             if ev:
                 events.append(ev)
     return events
@@ -758,6 +823,7 @@ def main():
                       ('EartH', fetch_earth), ('Jazz Cafe', fetch_jazzcafe),
                       ('Roundhouse', fetch_roundhouse), ('Ally Pally', fetch_allypally),
                       ('Barbican', fetch_barbican),
+                      ('AMG/Live Nation', fetch_amg), ('Apollo', fetch_apollo),
                       ('Ticketmaster', lambda: fetch_ticketmaster(args.days))]:
         try:
             batch = fn()
@@ -789,7 +855,7 @@ def main():
                             'url': ev['url'], 'source': ev['source'], 'how': how,
                             'artist': r, 'all_names': ev['names'],
                             'etype': classify(ev, ev['title']),
-                            'tribute': bool(TRIBUTE_RE.search(ev['title'])),
+                            'tribute': is_tribute(ev['title'], how),
                             'first_seen': ('2000-01-01' if bootstrap else
                                            prev_seen.get((r['name'], ev['date']), str(TODAY))),
                             'score': artist_score(r)})
@@ -818,10 +884,7 @@ def main():
 
     got = [k for k, v in src_counts.items() if v]
     note = ('Sources: ' + ', '.join(got) +
-            '. Gaps: Ronnie Scott&rsquo;s, Southbank, Union Chapel, O2 Academy Brixton '
-            '&amp; Shepherd&rsquo;s Bush (bot-walled'
-            + ('' if os.environ.get('TM_API_KEY') else
-               '; a free Ticketmaster API key would unlock the last two') + ').')
+            '. Gaps: Ronnie Scott&rsquo;s, Southbank, Union Chapel (bot-walled).')
     render(matches, len(events), len(artists), note, args.out)
     print(f'Wrote {args.out}')
 
