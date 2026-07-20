@@ -671,6 +671,14 @@ def clean_name(n):
     return n.strip(' -–—:')
 
 
+def too_thin(r):
+    """One-track artists need real engagement: 5+ plays ever, or a recent add
+    that's actually been played. Kills 'who even is this' matches while keeping
+    genuine one-edit artists (Hunee, Tim Reaper) and fresh finds."""
+    return (r['tracks'] == 1 and r['plays'] < 5
+            and not (r['max_da'] >= yyyymm_ago(6) and r['plays'] >= 1))
+
+
 def match_event(ev, artists):
     hits = {}
     for raw in ev['names']:
@@ -678,6 +686,8 @@ def match_event(ev, artists):
         if not norm or norm in NAME_STOP or norm not in artists:
             continue
         r = artists[norm]
+        if too_thin(r):
+            continue
         if ' ' not in norm and r['tracks'] < 2 and r['plays'] < 10:
             continue
         hits[norm] = 'lineup'
@@ -689,6 +699,8 @@ def match_event(ev, artists):
         if single and (len(norm) < 6 or norm in TITLE_STOP):
             continue
         if r['tracks'] < 2 and r['plays'] < 3:
+            continue
+        if too_thin(r):
             continue
         needle = f' the {norm} ' if (r['the'] and single) else f' {norm} '
         if needle in tnorm:
