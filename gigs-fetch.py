@@ -56,7 +56,7 @@ TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasu
 TRIBUTE_HARD_RE = re.compile(
     r'tribute|the music of|the songs of|the best of|songbook|plays the|'
     r're[: ]?imagined|orchestral|symphonic|candlelight|sounds of|queen of soul|'
-    r'an evening of', re.I)
+    r'an evening of|remembering|absolute bowie|nearly dan', re.I)
 TRIBUTE_SOFT_RE = re.compile(r'celebrat|birthday|revisited|\bvs\.?\s', re.I)
 
 
@@ -134,7 +134,14 @@ DEAD_ARTISTS = {normalize(n) for n in (
     'George Michael', 'Leonard Cohen', 'Lou Reed', 'Tom Petty', 'Fats Domino',
     'Bobby Womack', 'Sharon Jones', 'Charles Bradley', 'Betty Davis',
     'Pop Smoke', 'Jaco Pastorius', 'Weldon Irvine', 'Leon Ware',
-    'Minnie Riperton', 'Phyllis Hyman', 'Grover Washington Jr.')}
+    'Minnie Riperton', 'Phyllis Hyman', 'Grover Washington Jr.', 'Dennis Brown')}
+
+# Listings occasionally leak into the London feeds with a non-London venue.
+# Keep the public promise clean rather than quietly stretching "London".
+OUTSIDE_LONDON_VENUES = {normalize(n) for n in (
+    'C.S. Lewis Square', 'Dullingham Polo Club', 'Gaswrx Birmingham',
+    'Kelvedon Hall', 'Preston Park, Brighton',
+    'Summer Outdoor Garage Festival - Wheelers Farm Chelmsford')}
 
 
 
@@ -790,7 +797,16 @@ TYPE_LABEL = {'gig': 'Live gig', 'dj': 'DJ night', 'day': 'Day party'}
 def render(matches, n_events, n_artists, sources_note, out, public=False):
     matches = sorted(matches, key=lambda m: (m['date'], -m['score']))
     fresh_cut = str(TODAY - timedelta(days=7))
-    picks = sorted(matches, key=lambda m: -m['score'])[:12]
+    picks, picked_artists = [], set()
+    for m in sorted(matches, key=lambda m: -m['score']):
+        artist_name = m['artist']['name']
+        if artist_name in picked_artists:
+            continue
+        picked_artists.add(artist_name)
+        picks.append(m)
+        if len(picks) == 6:
+            break
+    picks.sort(key=lambda m: (m['date'], -m['score']))
     upd = TODAY.strftime('%-d %b %Y')
     venues = sorted({m['venue'] for m in matches if m['venue']}, key=str.lower)
     crates = sorted({m['artist']['crate'] for m in matches if m['artist']['crate']},
@@ -799,10 +815,12 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
     n_new = sum(1 for m in matches if m['first_seen'] >= fresh_cut)
 
     def why(m):
-        if public:
-            return ''
         r = m['artist']
-        bits = [f"{r['tracks']} track{'s' if r['tracks'] != 1 else ''}"]
+        bits = [f"{r['tracks']} archive track{'s' if r['tracks'] != 1 else ''}"]
+        if public:
+            if r['crate']:
+                bits.append(r['crate'])
+            return ' · '.join(bits)
         if r['plays']:
             bits.append(f"{r['plays']} plays")
         if r['p1']:
@@ -818,16 +836,27 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
             f'<span class="bdg" style="background:{bg};color:{fg}">{lbl}</span>'
             for (k, lbl), (bg, fg) in ((b, BADGE_CSS[b[0]]) for b in badges(m['artist'])))
         if m['first_seen'] >= fresh_cut:
-            h = '<span class="bdg bdg-just">Just announced</span>' + h
+            h = '<span class="bdg bdg-just">New this week</span>' + h
         return h
 
     def attrs(m):
         extras = ' '.join([r['name'] for r in m['co']] + [clean_name(a) for a in m['all_names']])
         text = f"{m['artist']['name']} {extras} {m['title']} {m['venue']}".lower()
+        event_key = f"{m['date']}|{m['artist']['name']}|{m['venue']}"
         return (f'data-v="{esc(m["venue"])}" data-mo="{m["date"][:7]}" '
                 f'data-c="{esc(m["artist"]["crate"])}" data-t="{m["etype"]}" '
                 f'data-n="{1 if m["first_seen"] >= fresh_cut else 0}" '
+                f'data-d="{m["date"]}" data-key="{esc(event_key)}" '
+                f'data-title="{esc(m["title"])}" data-artist="{esc(m["artist"]["name"])}" '
+                f'data-url="{esc(m["url"])}" '
                 f'data-s="{esc(text)}"')
+
+    def event_actions(m):
+        nm = esc(m['artist']['name'])
+        return (f'<button class="mini-action save-btn" type="button" '
+                f'aria-label="Save {nm}" aria-pressed="false" title="Save">☆</button>'
+                f'<button class="mini-action cal-btn" type="button" '
+                f'aria-label="Add {nm} to calendar" title="Add to calendar">+ Cal</button>')
 
     def card(m):
         d = date.fromisoformat(m['date'])
@@ -839,6 +868,7 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
   <div class="card-venue">{esc(m['venue'])}</div>
   <div class="badges">{badge_html(m)}</div>
   {f'<div class="why">{why(m)}</div>' if why(m) else ''}
+  <div class="card-actions">{event_actions(m)}</div>
 </div>'''
 
     def row(m):
@@ -858,9 +888,9 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
   <div class="r-main">
     <div class="r-artist"><a class="a-link" href="index.html#find={esc(m['artist']['name'])}" onclick="try{{localStorage.setItem('gr_find',this.dataset.a)}}catch(e){{}}" data-a="{esc(m['artist']['name'])}" title="See them in the archive">{esc(m['artist']['name'])}</a><a class="sp-link" href="https://open.spotify.com/search/{esc(m['artist']['name'])}" target="_blank" rel="noopener" title="Open in Spotify">&#9654;</a><span class="r-type">{TYPE_LABEL[m['etype']]}</span>{co} {badge_html(m)}</div>
     <div class="r-sub">{title}{('<span class="dot">·</span>' if title else '')}<span class="r-venue">{esc(m['venue'])}</span></div>
-    {f'<div class="why">{why(m)}</div>' if why(m) else ''}
+    {f'<div class="why">{why(m)}</div>' if why(m) and not public else ''}
   </div>
-  <a class="tix" href="{esc(m['url'])}" target="_blank" rel="noopener">Tickets</a>
+  <div class="row-actions">{event_actions(m)}<a class="tix" href="{esc(m['url'])}" target="_blank" rel="noopener">Tickets</a></div>
 </div>'''
 
     by_month = defaultdict(list)
@@ -874,10 +904,10 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
                      + '\n'.join(row(m) for m in by_month[ym]))
 
     month_chips = ''.join(
-        f'<button class="fc fc-mo" data-mo="{ym}">{date.fromisoformat(ym + "-01").strftime("%b")}'
+        f'<button class="fc fc-mo" data-mo="{ym}" type="button">{date.fromisoformat(ym + "-01").strftime("%b")}'
         f'{" ’" + ym[2:4] if ym[:4] != str(TODAY.year) else ""}</button>'
         for ym in months)
-    crate_chips = ''.join(f'<button class="fc fc-c" data-c="{esc(c)}">{esc(c)}</button>' for c in crates)
+    crate_chips = ''.join(f'<button class="fc fc-c" data-c="{esc(c)}" type="button">{esc(c)}</button>' for c in crates)
     venue_opts = '<option value="">All venues</option>' + ''.join(
         f'<option value="{esc(v)}">{esc(v)}</option>' for v in venues)
 
@@ -885,9 +915,19 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gig Radar — DJ Archive</title>
+<meta name="description" content="Upcoming London gigs and DJ nights, hand-filtered through one DJ's 17,000-track archive.">
+<link rel="canonical" href="https://benmpolak.github.io/dj-archive/{'gigs-share.html' if public else 'gigs.html'}">
+<link rel="icon" href="assets/dj-archive-logo.svg" type="image/svg+xml">
+<meta property="og:title" content="Gig Radar — DJ Archive">
+<meta property="og:description" content="Upcoming London gigs and DJ nights, selected from 14 years of music collected by ear. No algorithm.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://benmpolak.github.io/dj-archive/{'gigs-share.html' if public else 'gigs.html'}">
+<meta property="og:image" content="https://benmpolak.github.io/dj-archive/assets/gig-radar-social.png">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 :root{{--bg:#0a0a0f;--card:#12121a;--card2:#181824;--border:#1e1e2e;--text:#e0e0e8;--dim:#6a6a80;--accent:#e8a040;--pink:#ff69b4;--green:#60e8a0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
+.visually-hidden{{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}}
 body{{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',Roboto,sans-serif;padding-bottom:80px}}
 .wrap{{max-width:880px;margin:0 auto;padding:0 18px}}
 header.hero{{background:linear-gradient(160deg,#13131c 0%,#101018 55%,#11111a 100%);border-bottom:1px solid var(--border);padding:34px 0 22px;margin-bottom:14px}}
@@ -900,13 +940,20 @@ h1{{font-size:1.5em;font-weight:700;text-transform:uppercase;letter-spacing:0.2e
 .hs span{{font-size:0.64em;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim)}}
 .filters{{position:sticky;top:0;z-index:20;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}}
 .f-inner{{max-width:880px;margin:0 auto;padding:0 18px;display:flex;flex-direction:column;gap:8px}}
+.filter-more{{display:flex;flex-direction:column;gap:8px}}
 .f-line{{display:flex;gap:6px;align-items:center;flex-wrap:wrap}}
+.f-primary{{flex-wrap:nowrap}}
+.filter-summary{{min-height:20px;display:flex;align-items:center;justify-content:space-between;gap:10px}}
+#result-count{{color:var(--dim);font-size:0.68em;font-variant-numeric:tabular-nums}}
+#filters-toggle{{display:none}}
+#copy-link.copied{{border-color:var(--green);color:var(--green)}}
 #q{{flex:1;min-width:160px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px 13px;font-size:0.85em;outline:none}}
 #q:focus{{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,160,64,0.12)}}
 #venue{{background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:8px 10px;font-size:0.8em;max-width:220px}}
 .fc{{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--dim);padding:5px 11px;font-size:0.72em;font-weight:600;cursor:pointer;line-height:1.5}}
 .fc:hover{{border-color:var(--accent);color:var(--text)}}
 .fc.on{{background:rgba(232,160,64,0.14);border-color:var(--accent);color:var(--accent)}}
+.fc:focus-visible,.mini-action:focus-visible,.tix:focus-visible,.a-link:focus-visible,.sp-link:focus-visible{{outline:2px solid var(--accent);outline-offset:2px}}
 .f-label{{font-size:0.6em;text-transform:uppercase;letter-spacing:0.14em;color:var(--dim);margin-right:2px;min-width:44px}}
 #clear{{display:none;margin-left:auto}}
 #clear.vis{{display:inline-block}}
@@ -916,7 +963,7 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 .card{{position:relative;display:block;background:linear-gradient(160deg,#14141e,#101018);border:1px solid var(--border);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s,box-shadow .15s}}
 .card:hover{{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 22px rgba(232,160,64,0.10)}}
 .card-cover{{position:absolute;inset:0;border-radius:14px}}
-.card .a-link,.card .sp-link{{position:relative;z-index:1}}
+.card .a-link,.card .sp-link,.card-actions{{position:relative;z-index:1}}
 .card-top{{display:flex;justify-content:space-between;align-items:baseline}}
 .card-date{{font-size:0.68em;letter-spacing:0.12em;color:var(--accent);font-weight:700}}
 .card-type{{font-size:0.6em;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim)}}
@@ -927,6 +974,7 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 .bdg-just{{background:rgba(96,232,160,0.16);color:var(--green);border:1px solid rgba(96,232,160,0.3)}}
 .bdg-trib{{background:rgba(160,64,232,0.12);color:#b07ae0}}
 .why{{color:var(--dim);font-size:0.7em;margin-top:6px;line-height:1.5}}
+.card-actions{{display:flex;gap:6px;margin-top:10px}}
 .row{{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:border-color .12s}}
 .row:hover{{border-color:#2c2c40}}
 .r-date{{display:flex;flex-direction:column;align-items:center;min-width:46px;color:var(--dim)}}
@@ -946,9 +994,23 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 .dot{{margin:0 6px}}
 .tix{{padding:7px 14px;border-radius:10px;font-size:0.74em;font-weight:600;border:1px solid var(--border);background:var(--card2);color:var(--text);text-decoration:none;white-space:nowrap}}
 .tix:hover{{border-color:var(--accent);color:var(--accent)}}
+.row-actions{{display:flex;gap:6px;align-items:center}}
+.mini-action{{border:1px solid var(--border);background:var(--card2);color:var(--dim);border-radius:9px;padding:6px 9px;font-size:0.7em;font-weight:600;cursor:pointer;white-space:nowrap}}
+.mini-action:hover{{border-color:var(--accent);color:var(--text)}}
+.save-btn.saved{{border-color:var(--green);color:var(--green);background:rgba(96,232,160,0.08)}}
 #none{{display:none;color:var(--dim);font-size:0.85em;padding:30px 0;text-align:center}}
 .foot{{color:var(--dim);font-size:0.7em;margin-top:40px;line-height:1.7}}
-@media(max-width:560px){{.row{{flex-wrap:wrap}}.tix{{margin-left:60px}}.hero-stats{{gap:18px}}}}
+@media(max-width:560px){{
+  .filters{{padding:9px 0}}
+  #filters-toggle{{display:inline-block}}
+  .filter-more{{display:none}}
+  .filters.open .filter-more{{display:flex}}
+  #venue{{max-width:none;flex:1}}
+  .row{{flex-wrap:wrap}}
+  .row-actions{{margin-left:60px;width:calc(100% - 60px)}}
+  .hero-stats{{gap:18px}}
+  .card-actions{{margin-top:8px}}
+}}
 </style></head><body>
 <header class="hero"><div class="wrap">
 <h1>Gig Radar</h1>
@@ -957,23 +1019,32 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 <div class="hs"><b>{len(matches)}</b><span>shows</span></div>
 <div class="hs"><b>{len({m['artist']['name'] for m in matches})}</b><span>artists</span></div>
 <div class="hs"><b>{len(venues)}</b><span>venues</span></div>
-<div class="hs"><b>{n_new}</b><span>just announced</span></div>
+<div class="hs"><b>{n_new}</b><span>new this week</span></div>
 </div>
 </div></header>
 <div class="filters"><div class="f-inner">
-<div class="f-line">
+<div class="f-line f-primary">
+<label class="visually-hidden" for="q">Search gigs</label>
 <input id="q" type="search" placeholder="Search artist, event, venue…" autocomplete="off">
-<select id="venue">{venue_opts}</select>
-<button class="fc" id="clear">✕ Clear</button>
+<button class="fc" id="filters-toggle" type="button" aria-expanded="false" aria-controls="filter-more">Filters</button>
+</div>
+<div class="filter-summary"><span id="result-count" role="status" aria-live="polite">Showing {len(matches)} shows</span><span><button class="fc" id="copy-link" type="button">Copy link</button><button class="fc" id="clear" type="button">Clear</button></span></div>
+<div class="filter-more" id="filter-more">
+<div class="f-line"><span class="f-label">Venue</span><label class="visually-hidden" for="venue">Venue</label><select id="venue">{venue_opts}</select></div>
+<div class="f-line"><span class="f-label">When</span>
+<button class="fc fc-range" data-range="weekend" type="button">This weekend</button>
+<button class="fc fc-range" data-range="30" type="button">Next 30 days</button>
+<button class="fc" id="fsaved" type="button">Saved</button>
 </div>
 <div class="f-line"><span class="f-label">Type</span>
-<button class="fc fc-t" data-t="gig">Live gigs</button>
-<button class="fc fc-t" data-t="dj">DJ nights</button>
-<button class="fc fc-t" data-t="day">Day parties</button>
-<button class="fc" id="fnew">Just announced</button>
+<button class="fc fc-t" data-t="gig" type="button">Live gigs</button>
+<button class="fc fc-t" data-t="dj" type="button">DJ nights</button>
+<button class="fc fc-t" data-t="day" type="button">Day parties</button>
+<button class="fc" id="fnew" type="button">New this week</button>
 </div>
 <div class="f-line"><span class="f-label">Month</span>{month_chips}</div>
 <div class="f-line"><span class="f-label">Crate</span>{crate_chips}</div>
+</div>
 </div></div>
 <div class="wrap">
 <div id="picks-w"><div class="eyebrow">Top picks</div>
@@ -988,7 +1059,11 @@ One DJ&rsquo;s ears, no algorithm.{('' if public else ' Refresh: <code>python3 g
 </div>
 <script>
 (function(){{
-var F={{q:'',v:'',t:null,mo:null,c:null,n:false}};
+var F={{q:'',v:'',t:null,mo:null,c:null,n:false,range:null,saved:false}};
+var TODAY=new Date('{TODAY}T00:00:00');
+var SAVED_KEY='gr_saved_gigs_v1';
+var saved={{}};
+try{{saved=JSON.parse(localStorage.getItem(SAVED_KEY)||'{{}}')}}catch(e){{saved={{}}}}
 function on(sel,ev,fn){{document.querySelectorAll(sel).forEach(function(el){{el.addEventListener(ev,fn)}})}}
 function toggle(btn,group,key,val){{
   var was=btn.classList.contains('on');
@@ -999,34 +1074,112 @@ function toggle(btn,group,key,val){{
 on('.fc-t','click',function(){{toggle(this,'.fc-t','t',this.dataset.t)}});
 on('.fc-mo','click',function(){{toggle(this,'.fc-mo','mo',this.dataset.mo)}});
 on('.fc-c','click',function(){{toggle(this,'.fc-c','c',this.dataset.c)}});
+on('.fc-range','click',function(){{toggle(this,'.fc-range','range',this.dataset.range)}});
 document.getElementById('fnew').addEventListener('click',function(){{
   this.classList.toggle('on');F.n=this.classList.contains('on');apply()}});
+document.getElementById('fsaved').addEventListener('click',function(){{
+  this.classList.toggle('on');F.saved=this.classList.contains('on');apply()}});
 document.getElementById('q').addEventListener('input',function(){{F.q=this.value.toLowerCase().trim();apply()}});
 document.getElementById('venue').addEventListener('change',function(){{F.v=this.value;apply()}});
 document.getElementById('clear').addEventListener('click',function(){{
-  F={{q:'',v:'',t:null,mo:null,c:null,n:false}};
+  F={{q:'',v:'',t:null,mo:null,c:null,n:false,range:null,saved:false}};
   document.getElementById('q').value='';document.getElementById('venue').value='';
   document.querySelectorAll('.fc.on').forEach(function(b){{b.classList.remove('on')}});
   apply()}});
-function active(){{return F.q||F.v||F.t||F.mo||F.c||F.n}}
+document.getElementById('filters-toggle').addEventListener('click',function(){{
+  var filters=document.querySelector('.filters');
+  var open=filters.classList.toggle('open');
+  this.setAttribute('aria-expanded',String(open));
+}});
+document.getElementById('copy-link').addEventListener('click',function(){{
+  var btn=this,url=location.href;
+  function done(){{btn.textContent='Copied';btn.classList.add('copied');setTimeout(function(){{btn.textContent='Copy link';btn.classList.remove('copied')}},1400)}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){{navigator.clipboard.writeText(url).then(done)}}
+  else{{var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();done()}}
+}});
+function active(){{return F.q||F.v||F.t||F.mo||F.c||F.n||F.range||F.saved}}
 function show(el,yes){{el.style.display=yes?'':'none'}}
-function apply(){{
-  var any=false;
+function iso(d){{return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}}
+function dateInRange(value,range){{
+  if(!range)return true;
+  var end=new Date(TODAY),start=new Date(TODAY),day=TODAY.getDay();
+  if(range==='30'){{end.setDate(end.getDate()+30);return value>=iso(start)&&value<=iso(end)}}
+  if(day>=1&&day<=5){{start.setDate(start.getDate()+((5-day+7)%7));end=new Date(start);end.setDate(end.getDate()+2)}}
+  else if(day===6){{end.setDate(end.getDate()+1)}}
+  return value>=iso(start)&&value<=iso(end);
+}}
+function syncUrl(){{
+  var p=new URLSearchParams();
+  ['q','v','t','mo','c','range'].forEach(function(k){{if(F[k])p.set(k,F[k])}});
+  if(F.n)p.set('new','1');if(F.saved)p.set('saved','1');
+  history.replaceState(null,'',location.pathname+(p.toString()?'?'+p.toString():'')+location.hash);
+}}
+function setPressed(){{
+  document.querySelectorAll('.fc-t').forEach(function(b){{b.setAttribute('aria-pressed',String(F.t===b.dataset.t))}});
+  document.querySelectorAll('.fc-mo').forEach(function(b){{b.setAttribute('aria-pressed',String(F.mo===b.dataset.mo))}});
+  document.querySelectorAll('.fc-c').forEach(function(b){{b.setAttribute('aria-pressed',String(F.c===b.dataset.c))}});
+  document.querySelectorAll('.fc-range').forEach(function(b){{b.setAttribute('aria-pressed',String(F.range===b.dataset.range))}});
+  document.getElementById('fnew').setAttribute('aria-pressed',String(F.n));
+  document.getElementById('fsaved').setAttribute('aria-pressed',String(F.saved));
+}}
+function apply(skipUrl){{
+  var total=0,monthCounts={{}};
   document.querySelectorAll('.row').forEach(function(r){{
     var ok=(!F.q||r.dataset.s.indexOf(F.q)>-1)&&(!F.v||r.dataset.v===F.v)&&
            (!F.t||r.dataset.t===F.t)&&(!F.mo||r.dataset.mo===F.mo)&&
-           (!F.c||r.dataset.c===F.c)&&(!F.n||r.dataset.n==='1');
-    show(r,ok);if(ok)any=true;
+           (!F.c||r.dataset.c===F.c)&&(!F.n||r.dataset.n==='1')&&
+           dateInRange(r.dataset.d,F.range)&&(!F.saved||saved[r.dataset.key]);
+    show(r,ok);if(ok){{total++;monthCounts[r.dataset.mo]=(monthCounts[r.dataset.mo]||0)+1}}
   }});
   document.querySelectorAll('.mh').forEach(function(h){{
-    var vis=false,el=h.nextElementSibling;
-    while(el&&el.classList.contains('row')){{if(el.style.display!=='none')vis=true;el=el.nextElementSibling}}
-    show(h,vis);
+    var count=monthCounts[h.dataset.mo]||0;
+    h.querySelector('.mh-n').textContent=count;
+    show(h,count>0);
   }});
   show(document.getElementById('picks-w'),!active());
-  show(document.getElementById('none'),!any);
+  show(document.getElementById('none'),total===0);
+  document.getElementById('result-count').textContent='Showing '+total+' show'+(total===1?'':'s');
   document.getElementById('clear').classList.toggle('vis',!!active());
+  var filterCount=[F.v,F.t,F.mo,F.c,F.n,F.range,F.saved].filter(Boolean).length;
+  document.getElementById('filters-toggle').textContent='Filters'+(filterCount?' · '+filterCount:'');
+  setPressed();refreshSaves();if(!skipUrl)syncUrl();
 }}
+function refreshSaves(){{
+  document.querySelectorAll('.save-btn').forEach(function(btn){{
+    var box=btn.closest('.row,.card'),on=!!saved[box.dataset.key];
+    btn.classList.toggle('saved',on);btn.textContent=on?'★':'☆';
+    btn.setAttribute('aria-pressed',String(on));btn.title=on?'Remove saved gig':'Save gig';
+  }});
+}}
+on('.save-btn','click',function(e){{
+  e.preventDefault();e.stopPropagation();var box=this.closest('.row,.card'),key=box.dataset.key;
+  if(saved[key])delete saved[key];else saved[key]=1;
+  try{{localStorage.setItem(SAVED_KEY,JSON.stringify(saved))}}catch(err){{}}
+  if(F.saved)apply();else refreshSaves();
+}});
+function icsEscape(s){{return (s||'').replace(/\\\\/g,'\\\\\\\\').replace(/;/g,'\\\\;').replace(/,/g,'\\\\,').replace(/\\n/g,'\\\\n')}}
+on('.cal-btn','click',function(e){{
+  e.preventDefault();e.stopPropagation();var box=this.closest('.row,.card');
+  var start=box.dataset.d.replace(/-/g,''),endDate=new Date(box.dataset.d+'T00:00:00');endDate.setDate(endDate.getDate()+1);
+  var title=box.dataset.title===box.dataset.artist?box.dataset.artist:box.dataset.artist+' — '+box.dataset.title;
+  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//DJ Archive//Gig Radar//EN','BEGIN:VEVENT',
+    'UID:'+start+'-'+encodeURIComponent(box.dataset.key)+'@dj-archive','DTSTART;VALUE=DATE:'+start,
+    'DTEND;VALUE=DATE:'+iso(endDate).replace(/-/g,''),'SUMMARY:'+icsEscape(title),
+    'LOCATION:'+icsEscape(box.dataset.v),'DESCRIPTION:'+icsEscape('Tickets: '+box.dataset.url),
+    'URL:'+box.dataset.url,'END:VEVENT','END:VCALENDAR'];
+  var blob=new Blob([lines.join('\\r\\n')],{{type:'text/calendar;charset=utf-8'}}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=(box.dataset.artist+' '+box.dataset.d+'.ics').replace(/[^a-z0-9 ._-]/gi,'');document.body.appendChild(a);a.click();a.remove();setTimeout(function(){{URL.revokeObjectURL(url)}},500);
+}});
+var params=new URLSearchParams(location.search);
+F.q=(params.get('q')||'').toLowerCase().trim();F.v=params.get('v')||'';F.t=params.get('t');
+F.mo=params.get('mo');F.c=params.get('c');F.range=params.get('range');F.n=params.get('new')==='1';F.saved=params.get('saved')==='1';
+document.getElementById('q').value=F.q;document.getElementById('venue').value=F.v;
+document.querySelectorAll('.fc-t').forEach(function(b){{b.classList.toggle('on',F.t===b.dataset.t)}});
+document.querySelectorAll('.fc-mo').forEach(function(b){{b.classList.toggle('on',F.mo===b.dataset.mo)}});
+document.querySelectorAll('.fc-c').forEach(function(b){{b.classList.toggle('on',F.c===b.dataset.c)}});
+document.querySelectorAll('.fc-range').forEach(function(b){{b.classList.toggle('on',F.range===b.dataset.range)}});
+document.getElementById('fnew').classList.toggle('on',F.n);document.getElementById('fsaved').classList.toggle('on',F.saved);
+apply(true);
 }})();
 </script>
 </body></html>'''
@@ -1035,15 +1188,52 @@ function apply(){{
 
 # ---------- main ----------
 
+def hydrate_saved_matches(payload, artists):
+    """Rebuild render-ready matches from gigs-data.json without refetching."""
+    rebuilt = []
+    for saved in payload.get('matches', []):
+        norm = normalize(saved.get('artist', ''))
+        if (norm not in artists or norm in DEAD_ARTISTS or norm in EXCLUDE_ARTISTS
+                or normalize(saved.get('venue', '')) in OUTSIDE_LONDON_VENUES
+                or is_tribute(saved.get('title', ''), saved.get('how', 'title'))):
+            continue
+        co = [artists[normalize(name)] for name in saved.get('co', [])
+              if normalize(name) in artists]
+        rebuilt.append({**saved, 'artist': artists[norm], 'co': co,
+                        'all_names': [saved['artist']] + saved.get('co', [])})
+    return rebuilt
+
+
+def existing_sources_note():
+    return ('Sources: RA, KOKO, EartH, Jazz Cafe, Roundhouse, Ally Pally, '
+            'Barbican, AMG/Live Nation, Apollo, Spiritland, Ronnie Scott\'s, '
+            'The O2, OVO Arena, Wembley Stadium, Open Air Theatre. Tribute / '
+            'covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
+            'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
+            'Space Talk, One Eighty One &amp; Brilliant Corners programme on '
+            'Instagram only (their RA-listed nights are covered). SJQ via RA.')
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--days', type=int, default=365)
     ap.add_argument('--out', default=f'{HERE}/gigs.html')
+    ap.add_argument('--render-existing', action='store_true',
+                    help='rebuild HTML from gigs-data.json without fetching listings')
     args = ap.parse_args()
 
     print('Loading archive artists...')
     artists = load_artists()
     print(f'  {len(artists)} unique artists')
+
+    if args.render_existing:
+        payload = json.load(open(f'{HERE}/gigs-data.json'))
+        matches = hydrate_saved_matches(payload, artists)
+        note = existing_sources_note()
+        render(matches, payload.get('events', 0), len(artists), note, args.out)
+        share_out = args.out.replace('gigs.html', 'gigs-share.html')
+        render(matches, payload.get('events', 0), len(artists), note, share_out, public=True)
+        print(f'Wrote {args.out} + {share_out} from existing data')
+        return
 
     # previous run's first_seen map
     prev_seen, prev_sources, bootstrap = {}, set(), True
@@ -1097,6 +1287,10 @@ def main():
 
     horizon = str(TODAY + timedelta(days=args.days))
     events = [e for e in events if e['date'] and str(TODAY) <= e['date'] <= horizon]
+    outside = [e for e in events if normalize(e.get('venue', '')) in OUTSIDE_LONDON_VENUES]
+    events = [e for e in events if normalize(e.get('venue', '')) not in OUTSIDE_LONDON_VENUES]
+    if outside:
+        print(f'  dropped {len(outside)} non-London listings')
     if len(events) < 100:
         sys.exit(f'Only {len(events)} events fetched — sources look down; '
                  'keeping the existing gigs.html.')
