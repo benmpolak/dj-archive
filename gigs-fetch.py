@@ -1073,6 +1073,22 @@ def main():
             print(f'  {label} FAILED: {e}', file=sys.stderr)
             src_counts[label] = 0
 
+    # hand-added shows (e.g. Instagram-only listening bars, swept manually):
+    # gigs-extra.json = [{"date","title","venue","url","names":[...]}]
+    try:
+        extra = json.load(open(f'{HERE}/gigs-extra.json'))
+        for e in extra:
+            e.setdefault('names', [e['title']])
+            e.setdefault('start', '')
+            e.setdefault('source', 'Manual')
+            e.setdefault('hint', 'dj')
+        events.extend(extra)
+        print(f'  Manual (gigs-extra.json): {len(extra)} events')
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        print(f'  gigs-extra.json skipped: {e}', file=sys.stderr)
+
     horizon = str(TODAY + timedelta(days=args.days))
     events = [e for e in events if e['date'] and str(TODAY) <= e['date'] <= horizon]
     if len(events) < 100:
