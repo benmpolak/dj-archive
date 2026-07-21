@@ -4264,5 +4264,14 @@ tbody tr:hover{background:#15151f}
 }
 
 </style>
+<script id="find-route">
+(function(){var CAP=location.hash||'';function go(){var q='';
+try{q=localStorage.getItem('gr_find')||'';if(q)localStorage.removeItem('gr_find');}catch(e){}
+if(!q){var m=CAP.match(/[#&]find=([^&]+)/);if(m)q=decodeURIComponent(m[1]);}
+if(!q)return;var el=document.getElementById('search');
+if(el){el.value=q;el.dispatchEvent(new Event('input',{bubbles:true}));}}
+window.addEventListener('load',function(){setTimeout(go,150)});
+window.addEventListener('hashchange',go);})();
+</script>
 </body>
 </html>

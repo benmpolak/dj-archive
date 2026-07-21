@@ -196,10 +196,6 @@ def badges(r):
     b = []
     if r['min_da'] >= yyyymm_ago(12) and r['min_da'] < 999999:
         b.append(('new', 'New find'))
-    if r['p1'] >= 6:
-        b.append(('hot', 'On repeat'))
-    if r['plays'] >= 50:
-        b.append(('heavy', 'Heavy rotation'))
     if not b and r['tracks'] == 1:
         b.append(('deep', 'Deep cut'))
     return b
@@ -857,7 +853,7 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
         return f'''<div class="row" {attrs(m)}>
   <div class="r-date"><span class="r-dow">{d.strftime('%a').upper()}</span><span class="r-day">{d.day}</span><span class="r-mon">{d.strftime('%b').upper()}</span></div>
   <div class="r-main">
-    <div class="r-artist">{esc(m['artist']['name'])}<span class="r-type">{TYPE_LABEL[m['etype']]}</span>{co} {badge_html(m)}</div>
+    <div class="r-artist"><a class="a-link" href="index.html#find={esc(m['artist']['name'])}" onclick="try{{localStorage.setItem('gr_find',this.dataset.a)}}catch(e){{}}" data-a="{esc(m['artist']['name'])}" title="See them in the archive">{esc(m['artist']['name'])}</a><a class="sp-link" href="https://open.spotify.com/search/{esc(m['artist']['name'])}" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a><span class="r-type">{TYPE_LABEL[m['etype']]}</span>{co} {badge_html(m)}</div>
     <div class="r-sub">{title}{('<span class="dot">·</span>' if title else '')}<span class="r-venue">{esc(m['venue'])}</span></div>
     {f'<div class="why">{why(m)}</div>' if why(m) else ''}
   </div>
@@ -934,6 +930,10 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 .r-mon{{font-size:0.6em;letter-spacing:0.1em}}
 .r-main{{flex:1;min-width:0}}
 .r-artist{{font-weight:700;font-size:0.98em}}
+.a-link{{color:var(--text);text-decoration:none}}
+.a-link:hover{{color:var(--accent)}}
+.sp-link{{color:#1DB954;text-decoration:none;margin-left:6px;font-size:0.85em;opacity:0.75}}
+.sp-link:hover{{opacity:1}}
 .r-type{{font-size:0.58em;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);border:1px solid var(--border);border-radius:5px;padding:1px 6px;margin-left:8px;vertical-align:2px}}
 .also{{color:var(--dim);font-weight:400;font-size:0.85em}}
 .r-sub{{color:var(--dim);font-size:0.78em;margin-top:2px}}
