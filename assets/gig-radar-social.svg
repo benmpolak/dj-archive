@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#171722"/>
+      <stop offset="0.58" stop-color="#0a0a0f"/>
+      <stop offset="1" stop-color="#11111a"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8a040"/>
+      <stop offset="1" stop-color="#ff69b4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1035" cy="130" r="205" fill="none" stroke="#1e1e2e" stroke-width="2"/>
+  <circle cx="1035" cy="130" r="92" fill="none" stroke="#29293a" stroke-width="2"/>
+  <circle cx="1035" cy="130" r="13" fill="#e8a040"/>
+  <path d="M90 500H1110" stroke="#1e1e2e" stroke-width="2"/>
+  <text x="90" y="170" fill="url(#title)" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="700" letter-spacing="18">GIG RADAR</text>
+  <text x="94" y="245" fill="#e0e0e8" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="600">Upcoming London shows, filtered through the DJ Archive.</text>
+  <text x="94" y="300" fill="#77778e" font-family="Arial, Helvetica, sans-serif" font-size="25">17,000+ tracks curated by ear over 14 years.</text>
+  <text x="94" y="340" fill="#77778e" font-family="Arial, Helvetica, sans-serif" font-size="25">Only artists in the archive make the list.</text>
+  <text x="94" y="558" fill="#e8a040" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="3">ONE DJ'S EARS. NO ALGORITHM.</text>
+</svg>
