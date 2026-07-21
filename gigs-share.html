@@ -30,8 +30,10 @@ h1{font-size:1.5em;font-weight:700;text-transform:uppercase;letter-spacing:0.2em
 h2,.eyebrow{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:30px 0 10px}
 .mh-n{opacity:0.55;font-variant-numeric:tabular-nums}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.card{display:block;background:linear-gradient(160deg,#14141e,#101018);border:1px solid var(--border);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s,box-shadow .15s}
+.card{position:relative;display:block;background:linear-gradient(160deg,#14141e,#101018);border:1px solid var(--border);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s,box-shadow .15s}
 .card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 22px rgba(232,160,64,0.10)}
+.card-cover{position:absolute;inset:0;border-radius:14px}
+.card .a-link,.card .sp-link{position:relative;z-index:1}
 .card-top{display:flex;justify-content:space-between;align-items:baseline}
 .card-date{font-size:0.68em;letter-spacing:0.12em;color:var(--accent);font-weight:700}
 .card-type{font-size:0.6em;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim)}
@@ -88,84 +90,96 @@ h2,.eyebrow{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;colo
 <button class="fc" id="fnew">Just announced</button>
 </div>
 <div class="f-line"><span class="f-label">Month</span><button class="fc fc-mo" data-mo="2026-07">Jul</button><button class="fc fc-mo" data-mo="2026-08">Aug</button><button class="fc fc-mo" data-mo="2026-09">Sep</button><button class="fc fc-mo" data-mo="2026-10">Oct</button><button class="fc fc-mo" data-mo="2026-11">Nov</button><button class="fc fc-mo" data-mo="2026-12">Dec</button><button class="fc fc-mo" data-mo="2027-01">Jan ’27</button><button class="fc fc-mo" data-mo="2027-02">Feb ’27</button><button class="fc fc-mo" data-mo="2027-03">Mar ’27</button><button class="fc fc-mo" data-mo="2027-04">Apr ’27</button></div>
-<div class="f-line"><span class="f-label">Crate</span><button class="fc fc-c" data-c="Jazz">Jazz</button><button class="fc fc-c" data-c="House">House</button><button class="fc fc-c" data-c="Disco &amp; Boogie">Disco &amp; Boogie</button><button class="fc fc-c" data-c="Indie &amp; Rock">Indie &amp; Rock</button><button class="fc fc-c" data-c="Electronic">Electronic</button><button class="fc fc-c" data-c="Soul &amp; R&amp;B">Soul &amp; R&amp;B</button><button class="fc fc-c" data-c="Funk">Funk</button><button class="fc fc-c" data-c="Afro &amp; World">Afro &amp; World</button><button class="fc fc-c" data-c="Hip Hop">Hip Hop</button><button class="fc fc-c" data-c="Downtempo">Downtempo</button><button class="fc fc-c" data-c="Uncategorized">Uncategorized</button><button class="fc fc-c" data-c="Brazilian">Brazilian</button></div>
+<div class="f-line"><span class="f-label">Crate</span><button class="fc fc-c" data-c="Jazz">Jazz</button><button class="fc fc-c" data-c="House">House</button><button class="fc fc-c" data-c="Disco &amp; Boogie">Disco &amp; Boogie</button><button class="fc fc-c" data-c="Indie &amp; Rock">Indie &amp; Rock</button><button class="fc fc-c" data-c="Electronic">Electronic</button><button class="fc fc-c" data-c="Soul &amp; R&amp;B">Soul &amp; R&amp;B</button><button class="fc fc-c" data-c="Funk">Funk</button><button class="fc fc-c" data-c="Afro &amp; World">Afro &amp; World</button><button class="fc fc-c" data-c="Hip Hop">Hip Hop</button><button class="fc fc-c" data-c="Downtempo">Downtempo</button><button class="fc fc-c" data-c="Brazilian">Brazilian</button><button class="fc fc-c" data-c="Uncategorized">Uncategorized</button></div>
 </div></div>
 <div class="wrap">
 <div id="picks-w"><div class="eyebrow">Top picks</div>
 <div class="grid">
-<a class="card" data-v="Ronnie Scott's" data-mo="2026-10" data-c="Jazz" data-t="gig" data-n="1" data-s="greg foat greg foat greg foat ronnie scott's" href="https://www.ronniescotts.co.uk/find-a-show" target="_blank" rel="noopener">
+<div class="card" data-v="Ronnie Scott's" data-mo="2026-10" data-c="Jazz" data-t="gig" data-n="1" data-s="greg foat greg foat greg foat ronnie scott's">
+  <a class="card-cover" href="https://www.ronniescotts.co.uk/find-a-show" target="_blank" rel="noopener" aria-label="Tickets: Greg Foat"></a>
   <div class="card-top"><span class="card-date">FRI 9 OCT</span><span class="card-type">Live gig</span></div>
-  <div class="card-artist">Greg Foat</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Greg Foat" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Greg Foat" title="See them in the archive">Greg Foat</a><a class="sp-link" href="https://open.spotify.com/search/Greg Foat" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Ronnie Scott's</div>
   <div class="badges"><span class="bdg bdg-just">Just announced</span></div>
   
-</a><a class="card" data-v="KOKO" data-mo="2026-09" data-c="House" data-t="dj" data-n="0" data-s="louie vega anane max sinàl kingcrowney louie vega anane max sinàl kingcrowney louie vega &amp; anané: the ritual koko" href="https://ra.co/events/2460819" target="_blank" rel="noopener">
+</div><div class="card" data-v="KOKO" data-mo="2026-09" data-c="House" data-t="dj" data-n="0" data-s="louie vega anane max sinàl kingcrowney louie vega anane max sinàl kingcrowney louie vega &amp; anané: the ritual koko">
+  <a class="card-cover" href="https://ra.co/events/2460819" target="_blank" rel="noopener" aria-label="Tickets: Louie Vega"></a>
   <div class="card-top"><span class="card-date">FRI 4 SEP</span><span class="card-type">DJ night</span></div>
-  <div class="card-artist">Louie Vega</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Louie Vega" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Louie Vega" title="See them in the archive">Louie Vega</a><a class="sp-link" href="https://open.spotify.com/search/Louie Vega" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">KOKO</div>
   <div class="badges"></div>
   
-</a><a class="card" data-v="Regent's Park Open Air Theatre" data-mo="2026-09" data-c="Indie &amp; Rock" data-t="gig" data-n="1" data-s="doves doves doves regent's park open air theatre" href="https://openairtheatre.com/production/doves" target="_blank" rel="noopener">
+</div><div class="card" data-v="Regent's Park Open Air Theatre" data-mo="2026-09" data-c="Indie &amp; Rock" data-t="gig" data-n="1" data-s="doves doves doves regent's park open air theatre">
+  <a class="card-cover" href="https://openairtheatre.com/production/doves" target="_blank" rel="noopener" aria-label="Tickets: Doves"></a>
   <div class="card-top"><span class="card-date">FRI 25 SEP</span><span class="card-type">Live gig</span></div>
-  <div class="card-artist">Doves</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Doves" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Doves" title="See them in the archive">Doves</a><a class="sp-link" href="https://open.spotify.com/search/Doves" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Regent's Park Open Air Theatre</div>
   <div class="badges"><span class="bdg bdg-just">Just announced</span></div>
   
-</a><a class="card" data-v="NUMBER 90 LONDON" data-mo="2026-08" data-c="House" data-t="day" data-n="0" data-s="musclecars osunlade toribio al kent dj amir dj kon john morales osunlade musclecars toribio volcov martin lodge kyri r2 sy sez neil pierce handson family al kent dj amir dj kon john morales kev beadle mr thing patrick steele perry louis rich medina part 2 bbe music 30th birthday party number 90 london" href="https://ra.co/events/2368471" target="_blank" rel="noopener">
+</div><div class="card" data-v="NUMBER 90 LONDON" data-mo="2026-08" data-c="House" data-t="day" data-n="0" data-s="musclecars osunlade toribio al kent dj amir dj kon john morales osunlade musclecars toribio volcov martin lodge kyri r2 sy sez neil pierce handson family al kent dj amir dj kon john morales kev beadle mr thing patrick steele perry louis rich medina part 2 bbe music 30th birthday party number 90 london">
+  <a class="card-cover" href="https://ra.co/events/2368471" target="_blank" rel="noopener" aria-label="Tickets: musclecars"></a>
   <div class="card-top"><span class="card-date">SUN 30 AUG</span><span class="card-type">Day party</span></div>
-  <div class="card-artist">musclecars</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=musclecars" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="musclecars" title="See them in the archive">musclecars</a><a class="sp-link" href="https://open.spotify.com/search/musclecars" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">NUMBER 90 LONDON</div>
   <div class="badges"></div>
   
-</a><a class="card" data-v="Ronnie Scott's" data-mo="2026-08" data-c="Jazz" data-t="gig" data-n="1" data-s="mark de clive-lowe mark de clive-lowe mark de clive-lowe ronnie scott's" href="https://www.ronniescotts.co.uk/find-a-show" target="_blank" rel="noopener">
+</div><div class="card" data-v="Ronnie Scott's" data-mo="2026-08" data-c="Jazz" data-t="gig" data-n="1" data-s="mark de clive-lowe mark de clive-lowe mark de clive-lowe ronnie scott's">
+  <a class="card-cover" href="https://www.ronniescotts.co.uk/find-a-show" target="_blank" rel="noopener" aria-label="Tickets: Mark de Clive-Lowe"></a>
   <div class="card-top"><span class="card-date">THU 20 AUG</span><span class="card-type">Live gig</span></div>
-  <div class="card-artist">Mark de Clive-Lowe</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Mark de Clive-Lowe" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Mark de Clive-Lowe" title="See them in the archive">Mark de Clive-Lowe</a><a class="sp-link" href="https://open.spotify.com/search/Mark de Clive-Lowe" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Ronnie Scott's</div>
   <div class="badges"><span class="bdg bdg-just">Just announced</span></div>
   
-</a><a class="card" data-v="The Cause" data-mo="2026-09" data-c="House" data-t="day" data-n="0" data-s="shy one sofia kourtesis novelist midland leon vynehall tim reaper alex kassian bunney the trip moxie dyed soundorom dj sweet6teen gene on earth dr banana jay carder teki latex neffa-t p-rallel ema (1) oppidan main phase ysanne alex kassian sofia kourtesis octo octa niks eris drew reptant ok williams skee mask raji rags carré mjk manami ruff sqwad darwin novelist anz call super objekt babyschön tia cousins raresh sonja moonear midland decius daniel avery aba shanti-i beatrice m. simon scott tash lc djrum scarlett o'malley priori kt dj koolt leon vynehall chez de milo decibella double o fez the kid blackeye mc tim reaper moose dj storm sully special request free zing bradley zero erol alkan dj subaru dave harvey ellie stokes christian ab craig richards dresden tañ fliss mayo skala dr dubplate bakey mia koden dj fuckoff errol shy one waterworks extended 2026 the cause" href="https://ra.co/events/2345415" target="_blank" rel="noopener">
+</div><div class="card" data-v="The Cause" data-mo="2026-09" data-c="House" data-t="day" data-n="0" data-s="shy one sofia kourtesis novelist midland leon vynehall tim reaper alex kassian bunney the trip moxie dyed soundorom dj sweet6teen gene on earth dr banana jay carder teki latex neffa-t p-rallel ema (1) oppidan main phase ysanne alex kassian sofia kourtesis octo octa niks eris drew reptant ok williams skee mask raji rags carré mjk manami ruff sqwad darwin novelist anz call super objekt babyschön tia cousins raresh sonja moonear midland decius daniel avery aba shanti-i beatrice m. simon scott tash lc djrum scarlett o'malley priori kt dj koolt leon vynehall chez de milo decibella double o fez the kid blackeye mc tim reaper moose dj storm sully special request free zing bradley zero erol alkan dj subaru dave harvey ellie stokes christian ab craig richards dresden tañ fliss mayo skala dr dubplate bakey mia koden dj fuckoff errol shy one waterworks extended 2026 the cause">
+  <a class="card-cover" href="https://ra.co/events/2345415" target="_blank" rel="noopener" aria-label="Tickets: Shy One"></a>
   <div class="card-top"><span class="card-date">SAT 12 SEP</span><span class="card-type">Day party</span></div>
-  <div class="card-artist">Shy One</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Shy One" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Shy One" title="See them in the archive">Shy One</a><a class="sp-link" href="https://open.spotify.com/search/Shy One" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">The Cause</div>
   <div class="badges"></div>
   
-</a><a class="card" data-v="The Roundhouse" data-mo="2026-09" data-c="Disco &amp; Boogie" data-t="dj" data-n="0" data-s="nu genea nu genea nu genea the roundhouse" href="https://ra.co/events/2386936" target="_blank" rel="noopener">
+</div><div class="card" data-v="The Roundhouse" data-mo="2026-09" data-c="Disco &amp; Boogie" data-t="dj" data-n="0" data-s="nu genea nu genea nu genea the roundhouse">
+  <a class="card-cover" href="https://ra.co/events/2386936" target="_blank" rel="noopener" aria-label="Tickets: Nu Genea"></a>
   <div class="card-top"><span class="card-date">SAT 19 SEP</span><span class="card-type">DJ night</span></div>
-  <div class="card-artist">Nu Genea</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Nu Genea" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Nu Genea" title="See them in the archive">Nu Genea</a><a class="sp-link" href="https://open.spotify.com/search/Nu Genea" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">The Roundhouse</div>
   <div class="badges"></div>
   
-</a><a class="card" data-v="Night Tales Loft" data-mo="2026-08" data-c="Disco &amp; Boogie" data-t="dj" data-n="0" data-s="dave lee dave lee nt's loft: dave 'love' lee (all night long) night tales loft" href="https://ra.co/events/2390746" target="_blank" rel="noopener">
+</div><div class="card" data-v="Night Tales Loft" data-mo="2026-08" data-c="Disco &amp; Boogie" data-t="dj" data-n="0" data-s="dave lee dave lee nt's loft: dave 'love' lee (all night long) night tales loft">
+  <a class="card-cover" href="https://ra.co/events/2390746" target="_blank" rel="noopener" aria-label="Tickets: Dave Lee"></a>
   <div class="card-top"><span class="card-date">FRI 7 AUG</span><span class="card-type">DJ night</span></div>
-  <div class="card-artist">Dave Lee</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Dave Lee" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Dave Lee" title="See them in the archive">Dave Lee</a><a class="sp-link" href="https://open.spotify.com/search/Dave Lee" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Night Tales Loft</div>
   <div class="badges"></div>
   
-</a><a class="card" data-v="Ronnie Scott's" data-mo="2026-08" data-c="Jazz" data-t="gig" data-n="1" data-s="sholto sholto sholto ronnie scott's" href="https://www.ronniescotts.co.uk/find-a-show" target="_blank" rel="noopener">
+</div><div class="card" data-v="Ronnie Scott's" data-mo="2026-08" data-c="Jazz" data-t="gig" data-n="1" data-s="sholto sholto sholto ronnie scott's">
+  <a class="card-cover" href="https://www.ronniescotts.co.uk/find-a-show" target="_blank" rel="noopener" aria-label="Tickets: SHOLTO"></a>
   <div class="card-top"><span class="card-date">FRI 14 AUG</span><span class="card-type">Live gig</span></div>
-  <div class="card-artist">SHOLTO</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=SHOLTO" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="SHOLTO" title="See them in the archive">SHOLTO</a><a class="sp-link" href="https://open.spotify.com/search/SHOLTO" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Ronnie Scott's</div>
   <div class="badges"><span class="bdg bdg-just">Just announced</span></div>
   
-</a><a class="card" data-v="LDN East" data-mo="2026-09" data-c="Disco &amp; Boogie" data-t="day" data-n="0" data-s="crazy p crazy p a day with crazy p (dj set) ldn east" href="https://ra.co/events/2470527" target="_blank" rel="noopener">
+</div><div class="card" data-v="LDN East" data-mo="2026-09" data-c="Disco &amp; Boogie" data-t="day" data-n="0" data-s="crazy p crazy p a day with crazy p (dj set) ldn east">
+  <a class="card-cover" href="https://ra.co/events/2470527" target="_blank" rel="noopener" aria-label="Tickets: Crazy P"></a>
   <div class="card-top"><span class="card-date">SAT 5 SEP</span><span class="card-type">Day party</span></div>
-  <div class="card-artist">Crazy P</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Crazy P" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Crazy P" title="See them in the archive">Crazy P</a><a class="sp-link" href="https://open.spotify.com/search/Crazy P" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">LDN East</div>
   <div class="badges"></div>
   
-</a><a class="card" data-v="Kelvedon Hall" data-mo="2026-08" data-c="Jazz" data-t="day" data-n="0" data-s="max sinàl skream kolter todd edwards isaac carter wilfy d sg lewis eliza rose mj cole jamie jones kolter dr banana saoirse shanti celeste skream dyed soundorom silva bumpa todd edwards jamback p-rallel tommy gold jaden thompson isaac carter kellie allen fletch max sinàl wilfy d lewis carroll phill de janeiro rio tashan storm mollison frenchhh halfpint tom da silva james lavelle (2) liam palmer elliot schooling max dean sg lewis d stone luke dean_ traumer kirollus eliza rose laidlaw alisha l.p. rhythm mj cole locky marsolo obskur omar+ sidney charles minna the trip ella knight mad.again (2) laura de greef northsouth harry mccanna sam bangura dale mussington joss dean tommy phillips admnti just jam alexandria scarlett o'malley lili appetite on the farm 2026 - bank holiday kelvedon hall" href="https://ra.co/events/2311488" target="_blank" rel="noopener">
+</div><div class="card" data-v="Kelvedon Hall" data-mo="2026-08" data-c="Jazz" data-t="day" data-n="0" data-s="max sinàl skream kolter todd edwards isaac carter wilfy d sg lewis eliza rose mj cole jamie jones kolter dr banana saoirse shanti celeste skream dyed soundorom silva bumpa todd edwards jamback p-rallel tommy gold jaden thompson isaac carter kellie allen fletch max sinàl wilfy d lewis carroll phill de janeiro rio tashan storm mollison frenchhh halfpint tom da silva james lavelle (2) liam palmer elliot schooling max dean sg lewis d stone luke dean_ traumer kirollus eliza rose laidlaw alisha l.p. rhythm mj cole locky marsolo obskur omar+ sidney charles minna the trip ella knight mad.again (2) laura de greef northsouth harry mccanna sam bangura dale mussington joss dean tommy phillips admnti just jam alexandria scarlett o'malley lili appetite on the farm 2026 - bank holiday kelvedon hall">
+  <a class="card-cover" href="https://ra.co/events/2311488" target="_blank" rel="noopener" aria-label="Tickets: Max Sinàl"></a>
   <div class="card-top"><span class="card-date">SAT 29 AUG</span><span class="card-type">Day party</span></div>
-  <div class="card-artist">Max Sinàl</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Max Sinàl" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Max Sinàl" title="See them in the archive">Max Sinàl</a><a class="sp-link" href="https://open.spotify.com/search/Max Sinàl" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Kelvedon Hall</div>
   <div class="badges"><span class="bdg" style="background:rgba(96,232,160,0.12);color:#60e8a0">New find</span></div>
   
-</a><a class="card" data-v="Grow" data-mo="2026-09" data-c="Jazz" data-t="gig" data-n="0" data-s="ben hauke donsurf ben hauke kane. komanche sweet ones: donsurf // ben hauke [live] // kane // komanche grow" href="https://ra.co/events/2486410" target="_blank" rel="noopener">
+</div><div class="card" data-v="Grow" data-mo="2026-09" data-c="Jazz" data-t="gig" data-n="0" data-s="ben hauke donsurf ben hauke kane. komanche sweet ones: donsurf // ben hauke [live] // kane // komanche grow">
+  <a class="card-cover" href="https://ra.co/events/2486410" target="_blank" rel="noopener" aria-label="Tickets: Ben Hauke"></a>
   <div class="card-top"><span class="card-date">FRI 4 SEP</span><span class="card-type">Live gig</span></div>
-  <div class="card-artist">Ben Hauke</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find=Ben Hauke" onclick="try{localStorage.setItem('gr_find',this.dataset.a)}catch(e){}" data-a="Ben Hauke" title="See them in the archive">Ben Hauke</a><a class="sp-link" href="https://open.spotify.com/search/Ben Hauke" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">Grow</div>
   <div class="badges"></div>
   
-</a>
+</div>
 </div></div>
 <h2 class="mh" data-mo="2026-07">July 2026 <span class="mh-n">40</span></h2>
 <div class="row" data-v="Ronnie Scott's" data-mo="2026-07" data-c="Jazz" data-t="gig" data-n="1" data-s="isaiah collier isaiah collier isaiah collier ronnie scott's">
@@ -2671,7 +2685,7 @@ h2,.eyebrow{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;colo
   <a class="tix" href="https://www.alexandrapalace.com/whats-on/jordan-rakei/" target="_blank" rel="noopener">Tickets</a>
 </div>
 <div id="none">Nothing matches those filters.</div>
-<div class="foot">Matched from 2,860 London listings against 12,791 archive artists · updated 21 Jul 2026.<br>
+<div class="foot">Matched from 2,867 London listings against 12,791 archive artists · updated 21 Jul 2026.<br>
 Sources: RA, KOKO, EartH, Jazz Cafe, Roundhouse, Ally Pally, Barbican, AMG/Live Nation, Apollo, Spiritland, Ronnie Scott's, The O2, OVO Arena, Wembley Stadium, Open Air Theatre. Tribute / covers / &ldquo;plays the music of&rdquo; nights are filtered out. Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); Space Talk, One Eighty One &amp; Brilliant Corners programme on Instagram only (their RA-listed nights are covered). SJQ via RA.<br>
 One DJ&rsquo;s ears, no algorithm.</div>
 </div>

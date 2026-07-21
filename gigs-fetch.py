@@ -830,13 +830,15 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
 
     def card(m):
         d = date.fromisoformat(m['date'])
-        return f'''<a class="card" {attrs(m)} href="{esc(m['url'])}" target="_blank" rel="noopener">
+        nm = esc(m['artist']['name'])
+        return f'''<div class="card" {attrs(m)}>
+  <a class="card-cover" href="{esc(m['url'])}" target="_blank" rel="noopener" aria-label="Tickets: {nm}"></a>
   <div class="card-top"><span class="card-date">{d.strftime('%a %-d %b').upper()}</span><span class="card-type">{TYPE_LABEL[m['etype']]}</span></div>
-  <div class="card-artist">{esc(m['artist']['name'])}</div>
+  <div class="card-artist"><a class="a-link" href="index.html#find={nm}" onclick="try{{localStorage.setItem('gr_find',this.dataset.a)}}catch(e){{}}" data-a="{nm}" title="See them in the archive">{nm}</a><a class="sp-link" href="https://open.spotify.com/search/{nm}" target="_blank" rel="noopener" title="Open in Spotify">&#9835;</a></div>
   <div class="card-venue">{esc(m['venue'])}</div>
   <div class="badges">{badge_html(m)}</div>
   {f'<div class="why">{why(m)}</div>' if why(m) else ''}
-</a>'''
+</div>'''
 
     def row(m):
         d = date.fromisoformat(m['date'])
@@ -910,8 +912,10 @@ h1{{font-size:1.5em;font-weight:700;text-transform:uppercase;letter-spacing:0.2e
 h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);opacity:0.9;margin:30px 0 10px}}
 .mh-n{{opacity:0.55;font-variant-numeric:tabular-nums}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}}
-.card{{display:block;background:linear-gradient(160deg,#14141e,#101018);border:1px solid var(--border);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s,box-shadow .15s}}
+.card{{position:relative;display:block;background:linear-gradient(160deg,#14141e,#101018);border:1px solid var(--border);border-radius:14px;padding:15px 17px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s,box-shadow .15s}}
 .card:hover{{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 22px rgba(232,160,64,0.10)}}
+.card-cover{{position:absolute;inset:0;border-radius:14px}}
+.card .a-link,.card .sp-link{{position:relative;z-index:1}}
 .card-top{{display:flex;justify-content:space-between;align-items:baseline}}
 .card-date{{font-size:0.68em;letter-spacing:0.12em;color:var(--accent);font-weight:700}}
 .card-type{{font-size:0.6em;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim)}}
