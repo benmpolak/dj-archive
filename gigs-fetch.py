@@ -451,11 +451,12 @@ def fetch_ronnies():
                 continue
             if line.startswith('## ') and pend_date:
                 title = line[3:].strip()
+                slug = re.sub(r'[^a-z0-9]+', '-', title.lower().replace("'", '').replace('\u2019', '')).strip('-')
                 if (title, str(pend_date)) not in seen:
                     seen.add((title, str(pend_date)))
                     events.append({'date': str(pend_date), 'title': title,
                                    'venue': "Ronnie Scott's",
-                                   'url': 'https://www.ronniescotts.co.uk/find-a-show',
+                                   'url': f'https://www.ronniescotts.co.uk/find-a-show/{slug}',
                                    'names': [title], 'start': '',
                                    'source': 'RonnieScotts', 'hint': 'gig'})
                     added += 1
@@ -788,7 +789,7 @@ TYPE_LABEL = {'gig': 'Live gig', 'dj': 'DJ night', 'day': 'Day party'}
 
 def render(matches, n_events, n_artists, sources_note, out, public=False):
     matches = sorted(matches, key=lambda m: (m['date'], -m['score']))
-    fresh_cut = str(TODAY - timedelta(days=10))
+    fresh_cut = str(TODAY - timedelta(days=7))
     picks = sorted(matches, key=lambda m: -m['score'])[:12]
     upd = TODAY.strftime('%-d %b %Y')
     venues = sorted({m['venue'] for m in matches if m['venue']}, key=str.lower)
@@ -1045,10 +1046,11 @@ def main():
     print(f'  {len(artists)} unique artists')
 
     # previous run's first_seen map
-    prev_seen, bootstrap = {}, True
+    prev_seen, prev_sources, bootstrap = {}, set(), True
     try:
         prev = json.load(open(f'{HERE}/gigs-data.json'))
         pm = prev.get('matches', [])
+        prev_sources = {m.get('source') for m in pm}
         # older data files have no first_seen — everything is "old", nothing is
         # "just announced" until the next run establishes a baseline
         bootstrap = not any('first_seen' in m for m in pm)
@@ -1119,8 +1121,8 @@ def main():
                             'url': ev['url'], 'source': ev['source'], 'how': how,
                             'artist': r, 'all_names': ev['names'],
                             'etype': classify(ev, ev['title']),
-                            'first_seen': ('2000-01-01' if bootstrap else
-                                           prev_seen.get((r['name'], ev['date']), str(TODAY))),
+                            'first_seen': ('2000-01-01' if bootstrap or ev['source'] not in prev_sources
+                                           else prev_seen.get((r['name'], ev['date']), str(TODAY))),
                             'score': artist_score(r)})
     print(f'  dropped {n_trib} tribute/covers-night matches')
 
@@ -1137,6 +1139,19 @@ def main():
     matches = list(grouped.values())
     for m in matches:
         m['score'] += 5 * len(m['co'])
+
+    # Ronnie's URLs are slug-guesses — validate the few matched ones via the
+    # proxy and fall back to the listings page when the guess 404s
+    for m in matches:
+        if m['source'] != 'RonnieScotts' or m['url'].endswith('/find-a-show'):
+            continue
+        try:
+            head = http_get('https://r.jina.ai/' + m['url'], timeout=60)[:400]
+            if 'Page not found' in head:
+                m['url'] = 'https://www.ronniescotts.co.uk/find-a-show'
+        except Exception:
+            pass
+        time.sleep(1.5)
     print(f'{len(events)} events in window -> {len(matches)} matched shows')
 
     json.dump({'generated': str(TODAY), 'events': len(events),
