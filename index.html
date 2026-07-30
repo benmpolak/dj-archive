@@ -4379,6 +4379,15 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
 .gh-card-meta{font-size:0.64em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* month lead card: the door into the full recent-adds list */
+.gh-card-lead{cursor:pointer;flex-direction:column;gap:4px;display:flex;align-items:flex-start;justify-content:flex-end;
+  padding:12px;background:linear-gradient(150deg,rgba(232,160,64,0.28),rgba(232,64,96,0.16) 75%) !important;
+  border-color:rgba(232,160,64,0.5) !important;transition:box-shadow 0.15s}
+.gh-card-lead:hover{box-shadow:0 3px 18px rgba(232,160,64,0.25)}
+.gh-lead-month{font-size:0.66em;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent)}
+.gh-lead-n{font-size:1.05em;font-weight:800;line-height:1.1}
+.gh-lead-cta{font-size:0.64em;color:#c9c9da}
+
 .gh-explore-top{border-color:rgba(232,160,64,0.5);color:var(--accent)}
 .gh-explore-top:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
 .gh-explore{display:block;margin:34px auto 10px;padding:12px 28px;font-size:0.82em;font-weight:700;
@@ -4558,25 +4567,73 @@ window.addEventListener('hashchange',go);})();
     s.onerror=function(){delete window[cb]};
     document.head.appendChild(s);
   }
+  function fetchArt(el){
+    if(el.dataset.artDone)return;el.dataset.artDone='1';
+    if(el.dataset.artSid){
+      fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
+        .then(function(r){return r.json()})
+        .then(function(j){if(j&&j.thumbnail_url)setArt(el,j.thumbnail_url);else itunesArt(el)})
+        .catch(function(){itunesArt(el)});
+    }else itunesArt(el);
+  }
+  /* lazy-load: with 25-card racks an eager load is ~100 fetches at once —
+     fetch each sleeve only as its card scrolls into view */
+  var _artObs=('IntersectionObserver' in window)?new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){fetchArt(e.target);_artObs.unobserve(e.target)}});
+  },{rootMargin:'200px'}):null;
   function loadSleeves(root){
     root.querySelectorAll('.gh-card-art').forEach(function(el){
-      if(el.dataset.artSid){
-        fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
-          .then(function(r){return r.json()})
-          .then(function(j){if(j&&j.thumbnail_url)setArt(el,j.thumbnail_url);else itunesArt(el)})
-          .catch(function(){itunesArt(el)});
-      }else itunesArt(el);
+      if(el.classList.contains('gh-card-lead'))return;
+      if(_artObs)_artObs.observe(el);else fetchArt(el);
     });
   }
   /* shelves only show records with a real Spotify link — unmatched comps and
      white labels get corrupt links and wrong fallback art, so they stay off */
   function hasSpotify(g){return (rep(g,function(t){return t.p1||0}).sid||'').length===22}
-  function newInShelf(){
-    /* digital finds only — vinyl pickups get their own shelf below */
-    var gs=groupRecords().filter(function(g){return g.da&&!g.vy&&hasSpotify(g)});
+  window._ghNewIn=function(){
+    /* the month card drops guests into the real thing: the recent-adds view */
+    _ghExplore();
+    var chip=document.querySelector('.time-chip[data-days="30"]');if(chip)chip.click();
+  };
+  function monthLeadCard(){
+    var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
+    if(!maxDa)return'';
+    var n=DATA.filter(function(t){return t.da===maxDa}).length;
+    var mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var month=mn[(maxDa%100)-1]+' '+Math.floor(maxDa/100);
+    return '<div class="gh-card"><div class="gh-card-art gh-card-lead" onclick="_ghNewIn()">'
+      +'<span class="gh-lead-month">'+month+'</span>'
+      +'<span class="gh-lead-n">'+n+' new tracks</span>'
+      +'<span class="gh-lead-cta">flick through them &rarr;</span>'
+      +'</div>'
+      +'<div class="gh-card-a">The '+mn[(maxDa%100)-1]+' intake</div>'
+      +'<div class="gh-card-al">every track added this month</div>'
+      +'<div class="gh-card-meta">tap to open the full list</div>'
+      +'</div>';
+  }
+  function newReleasesShelf(){
+    /* brand-new MUSIC: this year's releases, freshest into the archive first.
+       (Archive stores release year only, so "past 90 days" = this year's releases.) */
+    var yr=new Date().getFullYear();
+    var gs=groupRecords().filter(function(g){
+      return g.da&&!g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
+    });
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
-    return gs.slice(0,10).map(function(g){
+    return gs.slice(0,25).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
+    }).join('');
+  }
+  function unearthedShelf(){
+    /* the second-hand bin: OLDER records dug up this month — release year before
+       this year, added in the current intake */
+    var yr=new Date().getFullYear();
+    var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
+    var gs=groupRecords().filter(function(g){
+      return g.da===maxDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
+    });
+    gs.sort(function(a,b){return b.idx-a.idx});
+    return monthLeadCard()+gs.slice(0,24).map(function(g){
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
     }).join('');
   }
   /* hand-curated shelf entries for records that live off-Spotify (Bandcamp etc.)
@@ -4602,14 +4659,14 @@ window.addEventListener('hashchange',go);})();
     var gs=groupRecords().filter(function(g){return g.da&&g.vy&&hasSpotify(g)&&g.tracks.length>=4});
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     var ov=VINYL_OVERRIDES.map(overrideCard).join('');
-    return ov+gs.slice(0,10-VINYL_OVERRIDES.length).map(function(g){
+    return ov+gs.slice(0,25-VINYL_OVERRIDES.length).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
     }).join('');
   }
   function onRepeatShelf(){
     var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.p1-a.p1});
-    return gs.slice(0,10).map(function(g){
+    return gs.slice(0,25).map(function(g){
       return card(g,function(g,t){return g.p1+' plays this year'});
     }).join('');
   }
@@ -4619,7 +4676,7 @@ window.addEventListener('hashchange',go);})();
     gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
     gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.pPrev-a.pPrev});
-    return gs.slice(0,10).map(function(g){
+    return gs.slice(0,25).map(function(g){
       return card(g,function(g,t){return g.pPrev+' plays that year'});
     }).join('');
   }
@@ -4668,10 +4725,10 @@ window.addEventListener('hashchange',go);})();
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Dig</button></div>'
       +'<div id="gh-panels"></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">New in<span class="gh-shelf-note">the latest additions to Ben&rsquo;s archive</span></div><div class="gh-bin">'+newInShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed this month<span class="gh-shelf-note">older records Ben just dug up</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months'
-      +(cutoff?' &mdash; data through '+cutoff:'')+'</span>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
