@@ -4636,7 +4636,9 @@ window.addEventListener('hashchange',go);})();
        (Archive stores release year only, so "past 90 days" = this year's releases.) */
     var yr=new Date().getFullYear();
     var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
-    var prevDa=(maxDa%100)===1?(Math.floor(maxDa/100)-1)*100+12:maxDa-1;
+    /* rack window: this month + two before (~90 days) */
+    var m=Math.floor(maxDa/100)*12+(maxDa%100)-1-2;
+    var prevDa=Math.floor(m/12)*100+(m%12)+1;
     /* rank on the artist's plays across ALL their releases this year, not just the
        rack window — Curió Curió's played April singles should lift their July ones */
     var yearGs=groupRecords().filter(function(g){
