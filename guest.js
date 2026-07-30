@@ -368,6 +368,13 @@
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.pPrev+' plays'});
     }).join('');
   }
+  function shuffleShelf(records){
+    for(var i=records.length-1;i>0;i--){
+      var j=Math.floor(Math.random()*(i+1)),tmp=records[i];
+      records[i]=records[j];records[j]=tmp;
+    }
+    return records;
+  }
   function decadeShelf(){
     var yr=new Date().getFullYear(),start=Math.floor(yr/10)*10;
     var gs=groupRecords().filter(function(g){
@@ -376,7 +383,9 @@
     });
     gs.sort(function(a,b){return b.pc-a.pc});
     gs=onePerArtist(gs);
-    return takeUnseen(gs,50).map(function(g){
+    /* Membership remains the factual top 50; only their display order changes
+       once per visit so the same famous sleeves do not permanently own the front. */
+    return shuffleShelf(takeUnseen(gs,50)).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.pc+' plays'});
     }).join('');
   }
@@ -384,7 +393,7 @@
     var gs=groupRecords().filter(function(g){return g.pc>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.pc-a.pc});
     gs=onePerArtist(gs);
-    return takeUnseen(gs,50).map(function(g){
+    return shuffleShelf(takeUnseen(gs,50)).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.pc+' plays'});
     }).join('');
   }
