@@ -425,10 +425,10 @@ function buildUI(){
   var decs=[['60s','60s'],['70s','70s'],['80s','80s'],['90s','90s'],['00s','00s'],['10s','10s'],['20s','20s']];
   var decChips=decs.map(function(d){return '<span class="dlr-chip" data-term="'+d[0]+'" data-kind="dec" data-val="'+d[1]+'">'+d[1]+'</span>'}).join('');
   var presetChips=PRESETS.map(function(p){return '<span class="dlr-preset" data-preset="'+p+'">'+p+'</span>'}).join('')
-    +'<span class="dlr-preset dlr-lucky" data-preset="*">🎲 Surprise me</span>';
+    +'<span class="dlr-preset dlr-lucky" data-preset="*">Surprise me</span>';
   ov.innerHTML='<div class="dlr-modal">'
     +'<span class="dlr-close" onclick="closeDealer()">✕</span>'
-    +'<h2>📻 The Selector</h2>'
+    +'<h2>The Selector</h2>'
     +'<div class="dlr-sub">Tell the Selector what you’re after — crate, vibe, era, mood, any combo — and get a 25-track selection from your own shelves: a spine of bankers, a few forgotten loves, a couple of wild cards. Sequenced, not shuffled.</div>'
     +'<div class="dlr-inputrow"><input class="dlr-input" id="dlr-input" placeholder="Try “Brazilian sunshine”, “dinner party jazz”, “late night 120 bpm”, “like Marcos Valle”…" autocomplete="off"><button class="dlr-dealbtn" id="dlr-deal-btn" onclick="dealNow()">SELECT</button></div>'
     +'<div class="dlr-poolct" id="dlr-poolct"></div>'
@@ -580,10 +580,10 @@ function renderDeal(){
     +'<div class="dlr-rsub">'+dealStatsLine()+(_dealNotes.length?' · <span style="color:var(--accent2)">'+_dealNotes.join(', ')+'</span>':'')+'</div>'
     +'<div class="dlr-cratebar">'+bar+'</div>'
     +'<div class="dlr-actions">'
-    +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" onclick="saveDealToSpotify(this)">💚 Save to Spotify</button>':'')
-    +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">📋 Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
-    +'<button class="dlr-abtn" onclick="showEraCard()">🖼️ Era Card</button>'
-    +'<button class="dlr-abtn" onclick="dealNow()">↻ Reselect</button>'
+    +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" data-reset-label="Save to Spotify" onclick="saveDealToSpotify(this)">Save to Spotify</button>':'')
+    +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
+    +'<button class="dlr-abtn" onclick="showEraCard()">Era Card</button>'
+    +'<button class="dlr-abtn" onclick="dealNow()">Reselect</button>'
     +'</div>'
     +'<div class="dlr-rows">'+rowsH+'</div>'
     +'</div>';
@@ -737,7 +737,7 @@ function showCardPreview(cv){
   var wrap=document.createElement('div');wrap.className='dlr-cardwrap';
   var img=document.createElement('img');img.src=cv.toDataURL('image/png');
   var btns=document.createElement('div');btns.className='dlr-cardbtns';
-  var dl=document.createElement('button');dl.className='dlr-abtn dlr-spotify';dl.textContent='⬇ Download PNG';
+  var dl=document.createElement('button');dl.className='dlr-abtn dlr-spotify';dl.textContent='Download PNG';
   dl.onclick=function(){
     var a=document.createElement('a');
     a.download='selector-'+dlrTitle().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';

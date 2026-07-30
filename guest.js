@@ -157,6 +157,23 @@
   function artistKey(g){
     return primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
   }
+  /* A record can live in several factual shelves, but the guest homepage should
+     only show it once. Shelves claim records in display order while retaining
+     the full depth of choice inside each rack. */
+  var _shelfSeen={};
+  function recordKey(g){
+    var t=rep(g,function(t){return t.p1||0});
+    return primary(t.a).toLowerCase()+'|'+String(t.al||t.t).trim().toLowerCase();
+  }
+  function takeUnseen(gs,limit){
+    var out=[];
+    for(var i=0;i<gs.length&&out.length<limit;i++){
+      var k=recordKey(gs[i]);
+      if(_shelfSeen[k])continue;
+      _shelfSeen[k]=1;out.push(gs[i]);
+    }
+    return out;
+  }
   /* never on the racks, whatever the play counts say */
   var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
   function onePerArtist(gs){
@@ -198,7 +215,7 @@
       return (yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
     });
     gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
+    return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
   }
@@ -212,7 +229,7 @@
     });
     sortByArtistPlays(gs,function(g){return g.pc});
     gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
+    return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
     }).join('');
   }
@@ -241,7 +258,7 @@
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     var ov=VINYL_OVERRIDES.map(overrideCard).join('');
-    return ov+gs.slice(0,25-VINYL_OVERRIDES.length).map(function(g){
+    return ov+takeUnseen(gs,25-VINYL_OVERRIDES.length).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
     }).join('');
   }
@@ -249,18 +266,7 @@
     var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.p1-a.p1});
     gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
-      return card(g,function(g,t){return t.r||''});
-    }).join('');
-  }
-  function prevYearShelf(){
-    /* p2-p1 = plays in the year before the current 12-month window */
-    var gs=groupRecords();
-    gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
-    gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
-    gs.sort(function(a,b){return b.pPrev-a.pPrev});
-    gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
+    return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return t.r||''});
     }).join('');
   }
@@ -289,6 +295,30 @@
     window.scrollTo(0,0);
   };
 
+  function installShelfControls(root){
+    root.querySelectorAll('.gh-shelf').forEach(function(shelf){
+      var bin=shelf.querySelector('.gh-bin');if(!bin)return;
+      var prev=document.createElement('button'),next=document.createElement('button');
+      prev.className='gh-shelf-arrow prev';next.className='gh-shelf-arrow next';
+      prev.type=next.type='button';prev.textContent='‹';next.textContent='›';
+      prev.setAttribute('aria-label','Previous records');next.setAttribute('aria-label','More records');
+      shelf.appendChild(prev);shelf.appendChild(next);
+      function update(){
+        var scrollable=bin.scrollWidth>bin.clientWidth+4;
+        prev.hidden=next.hidden=!scrollable;
+        prev.disabled=!scrollable||bin.scrollLeft<=4;
+        next.disabled=!scrollable||bin.scrollLeft+bin.clientWidth>=bin.scrollWidth-4;
+      }
+      function move(dir){
+        bin.scrollBy({left:dir*Math.max(320,Math.floor(bin.clientWidth*0.82)),behavior:'smooth'});
+      }
+      prev.onclick=function(){move(-1)};next.onclick=function(){move(1)};
+      bin.addEventListener('scroll',update,{passive:true});
+      window.addEventListener('resize',update);
+      requestAnimationFrame(update);
+    });
+  }
+
   /* ---------- build ---------- */
   var CHIPS=['Brazilian sunshine','Late-night jazz','90s deep house','70s funk','Dub session','Like Marcos Valle','Jazz on vinyl'];
   function buildHero(){
@@ -303,9 +333,9 @@
       +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
       +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ tracks dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
       +'<div class="gh-secondary">'
-      +'<button class="gh-2nd" id="gh-artist-btn">🔭 Start with an artist</button>'
-      +'<button class="gh-2nd" id="gh-surprise-btn">🔮 Surprise me</button>'
-      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">📚 Explore the full archive — 17,000 tracks</button>'
+      +'<button class="gh-2nd" id="gh-artist-btn">Start with an artist</button>'
+      +'<button class="gh-2nd" id="gh-surprise-btn">Surprise me</button>'
+      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">Explore the full archive — 17,000 tracks</button>'
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
@@ -314,7 +344,6 @@
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
     document.body.classList.add('guest-focus');
@@ -323,6 +352,7 @@
     var ghp=document.getElementById('gh-panels');
     ['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)ghp.appendChild(p)});
     loadSleeves(el);
+    installShelfControls(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};

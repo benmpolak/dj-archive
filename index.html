@@ -1790,7 +1790,7 @@ async function _doSpotifySave(trackList, plName, btn){
   var confirmed=await _confirmSpotifySave(plName,sp.length);
   if(!confirmed){showToast('Save cancelled');return}
   if(btn){btn.textContent='Saving...';btn.disabled=true}
-  const resetBtn=()=>{if(btn){btn.textContent='\ud83d\udc9a Save to Spotify';btn.disabled=false}};
+  const resetBtn=()=>{if(btn){btn.textContent=btn.dataset.resetLabel||'\ud83d\udc9a Save to Spotify';btn.disabled=false}};
   try{
     // Step 1: Create playlist via /me/playlists (new API — no user ID needed)
     console.log('[DJ] Creating playlist:',plName,'('+sp.length+' tracks)');
@@ -3929,10 +3929,10 @@ function buildUI(){
   var decs=[['60s','60s'],['70s','70s'],['80s','80s'],['90s','90s'],['00s','00s'],['10s','10s'],['20s','20s']];
   var decChips=decs.map(function(d){return '<span class="dlr-chip" data-term="'+d[0]+'" data-kind="dec" data-val="'+d[1]+'">'+d[1]+'</span>'}).join('');
   var presetChips=PRESETS.map(function(p){return '<span class="dlr-preset" data-preset="'+p+'">'+p+'</span>'}).join('')
-    +'<span class="dlr-preset dlr-lucky" data-preset="*">🎲 Surprise me</span>';
+    +'<span class="dlr-preset dlr-lucky" data-preset="*">Surprise me</span>';
   ov.innerHTML='<div class="dlr-modal">'
     +'<span class="dlr-close" onclick="closeDealer()">✕</span>'
-    +'<h2>📻 The Selector</h2>'
+    +'<h2>The Selector</h2>'
     +'<div class="dlr-sub">Tell the Selector what you’re after — crate, vibe, era, mood, any combo — and get a 25-track selection from your own shelves: a spine of bankers, a few forgotten loves, a couple of wild cards. Sequenced, not shuffled.</div>'
     +'<div class="dlr-inputrow"><input class="dlr-input" id="dlr-input" placeholder="Try “Brazilian sunshine”, “dinner party jazz”, “late night 120 bpm”, “like Marcos Valle”…" autocomplete="off"><button class="dlr-dealbtn" id="dlr-deal-btn" onclick="dealNow()">SELECT</button></div>'
     +'<div class="dlr-poolct" id="dlr-poolct"></div>'
@@ -4084,10 +4084,10 @@ function renderDeal(){
     +'<div class="dlr-rsub">'+dealStatsLine()+(_dealNotes.length?' · <span style="color:var(--accent2)">'+_dealNotes.join(', ')+'</span>':'')+'</div>'
     +'<div class="dlr-cratebar">'+bar+'</div>'
     +'<div class="dlr-actions">'
-    +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" onclick="saveDealToSpotify(this)">💚 Save to Spotify</button>':'')
-    +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">📋 Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
-    +'<button class="dlr-abtn" onclick="showEraCard()">🖼️ Era Card</button>'
-    +'<button class="dlr-abtn" onclick="dealNow()">↻ Reselect</button>'
+    +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" data-reset-label="Save to Spotify" onclick="saveDealToSpotify(this)">Save to Spotify</button>':'')
+    +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
+    +'<button class="dlr-abtn" onclick="showEraCard()">Era Card</button>'
+    +'<button class="dlr-abtn" onclick="dealNow()">Reselect</button>'
     +'</div>'
     +'<div class="dlr-rows">'+rowsH+'</div>'
     +'</div>';
@@ -4241,7 +4241,7 @@ function showCardPreview(cv){
   var wrap=document.createElement('div');wrap.className='dlr-cardwrap';
   var img=document.createElement('img');img.src=cv.toDataURL('image/png');
   var btns=document.createElement('div');btns.className='dlr-cardbtns';
-  var dl=document.createElement('button');dl.className='dlr-abtn dlr-spotify';dl.textContent='⬇ Download PNG';
+  var dl=document.createElement('button');dl.className='dlr-abtn dlr-spotify';dl.textContent='Download PNG';
   dl.onclick=function(){
     var a=document.createElement('a');
     a.download='selector-'+dlrTitle().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';
@@ -4413,8 +4413,9 @@ body.guest-focus .main-area{overflow-y:auto}
   background:linear-gradient(to right,transparent,var(--bg) 85%);pointer-events:none}
 .gh-shelf-title{font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px}
 .gh-shelf-note{font-weight:400;text-transform:none;letter-spacing:0.02em;color:var(--dim);margin-left:10px;font-size:0.92em}
-.gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
-.gh-card{flex:0 0 150px;width:150px}
+.gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;scroll-behavior:smooth;
+  scroll-snap-type:x proximity;overscroll-behavior-inline:contain}
+.gh-card{flex:0 0 150px;width:150px;scroll-snap-align:start}
 .gh-card-art{position:relative;width:150px;height:150px;border-radius:10px;border:1px solid var(--border);
   background:var(--card);margin-bottom:8px;background-size:cover;background-position:center;overflow:hidden}
 .gh-card-albtxt{position:absolute;top:10px;left:11px;right:11px;font-size:0.72em;font-weight:700;line-height:1.3;
@@ -4427,9 +4428,18 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-card-play:hover{transform:scale(1.12);background:#1DB954;color:#000}
 .gh-card-vinyl{position:absolute;bottom:11px;left:9px;font-size:0.56em;font-weight:700;letter-spacing:0.1em;
   padding:2px 7px;border-radius:5px;background:rgba(0,0,0,0.55);color:var(--accent);border:1px solid rgba(232,160,64,0.4)}
-.gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
-.gh-card-meta{font-size:0.64em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-card-a,.gh-card-al{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;white-space:normal;line-height:1.25}
+.gh-card-a{font-size:0.78em;font-weight:700;-webkit-line-clamp:2;min-height:2.5em}
+.gh-card-al{font-size:0.72em;color:#aaaabd;-webkit-line-clamp:2;min-height:2.5em;margin:2px 0 3px}
+.gh-card-meta{font-size:0.67em;color:#85859a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-shelf-arrow{position:absolute;top:105px;z-index:4;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.16);background:rgba(12,12,18,0.84);backdrop-filter:blur(8px);
+  color:var(--text);font:600 1.35em/1 Inter,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(0,0,0,0.45);opacity:0;transition:opacity 0.15s,border-color 0.15s,transform 0.15s}
+.gh-shelf-arrow.prev{left:-19px}.gh-shelf-arrow.next{right:-19px}
+.gh-shelf:hover .gh-shelf-arrow:not(:disabled),.gh-shelf:focus-within .gh-shelf-arrow:not(:disabled){opacity:1}
+.gh-shelf-arrow:hover{border-color:var(--accent);transform:scale(1.05)}
+.gh-shelf-arrow:disabled{opacity:0;pointer-events:none}
 .gh-explore-top{border-color:rgba(232,160,64,0.5);color:var(--accent)}
 .gh-explore-top:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
 .gh-explore{display:block;margin:34px auto 10px;padding:12px 28px;font-size:0.82em;font-weight:700;
@@ -4443,12 +4453,20 @@ body.guest-focus .main-area{overflow-y:auto}
   .gh-prop{font-size:1.35em}
   /* first rack tells you the trick; the edge fade carries it from there */
   .gh-shelf-first .gh-shelf-note::after{content:' · swipe \2192'}
+  .gh-shelf-note{display:block;margin:4px 0 0;line-height:1.35}
+  .gh-shelf::after{width:28px}
+  .gh-shelf-arrow{display:none}
+  .gh-bin{scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-right:28px}
+  .gh-bin::-webkit-scrollbar{display:none}
   .gh-card-play{width:38px;height:38px;font-size:0.78em}
   .gh-inputrow{flex-direction:column}
   #gh-select{width:100%}
   .gh-secondary{flex-wrap:wrap}
   .gh-card,.gh-card-art{flex-basis:128px;width:128px}
   .gh-card-art{height:128px}
+  .gh-card-a{font-size:0.8em}
+  .gh-card-al{font-size:0.74em}
+  .gh-card-meta{font-size:0.69em}
 }
 
 /* -- mini player must float above the Selector overlay (z 1200), not under it -- */
@@ -4675,6 +4693,23 @@ window.addEventListener('hashchange',go);})();
   function artistKey(g){
     return primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
   }
+  /* A record can live in several factual shelves, but the guest homepage should
+     only show it once. Shelves claim records in display order while retaining
+     the full depth of choice inside each rack. */
+  var _shelfSeen={};
+  function recordKey(g){
+    var t=rep(g,function(t){return t.p1||0});
+    return primary(t.a).toLowerCase()+'|'+String(t.al||t.t).trim().toLowerCase();
+  }
+  function takeUnseen(gs,limit){
+    var out=[];
+    for(var i=0;i<gs.length&&out.length<limit;i++){
+      var k=recordKey(gs[i]);
+      if(_shelfSeen[k])continue;
+      _shelfSeen[k]=1;out.push(gs[i]);
+    }
+    return out;
+  }
   /* never on the racks, whatever the play counts say */
   var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
   function onePerArtist(gs){
@@ -4716,7 +4751,7 @@ window.addEventListener('hashchange',go);})();
       return (yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
     });
     gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
+    return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
   }
@@ -4730,7 +4765,7 @@ window.addEventListener('hashchange',go);})();
     });
     sortByArtistPlays(gs,function(g){return g.pc});
     gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
+    return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
     }).join('');
   }
@@ -4759,7 +4794,7 @@ window.addEventListener('hashchange',go);})();
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     var ov=VINYL_OVERRIDES.map(overrideCard).join('');
-    return ov+gs.slice(0,25-VINYL_OVERRIDES.length).map(function(g){
+    return ov+takeUnseen(gs,25-VINYL_OVERRIDES.length).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
     }).join('');
   }
@@ -4767,18 +4802,7 @@ window.addEventListener('hashchange',go);})();
     var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.p1-a.p1});
     gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
-      return card(g,function(g,t){return t.r||''});
-    }).join('');
-  }
-  function prevYearShelf(){
-    /* p2-p1 = plays in the year before the current 12-month window */
-    var gs=groupRecords();
-    gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
-    gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
-    gs.sort(function(a,b){return b.pPrev-a.pPrev});
-    gs=onePerArtist(gs);
-    return gs.slice(0,50).map(function(g){
+    return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return t.r||''});
     }).join('');
   }
@@ -4807,6 +4831,30 @@ window.addEventListener('hashchange',go);})();
     window.scrollTo(0,0);
   };
 
+  function installShelfControls(root){
+    root.querySelectorAll('.gh-shelf').forEach(function(shelf){
+      var bin=shelf.querySelector('.gh-bin');if(!bin)return;
+      var prev=document.createElement('button'),next=document.createElement('button');
+      prev.className='gh-shelf-arrow prev';next.className='gh-shelf-arrow next';
+      prev.type=next.type='button';prev.textContent='‹';next.textContent='›';
+      prev.setAttribute('aria-label','Previous records');next.setAttribute('aria-label','More records');
+      shelf.appendChild(prev);shelf.appendChild(next);
+      function update(){
+        var scrollable=bin.scrollWidth>bin.clientWidth+4;
+        prev.hidden=next.hidden=!scrollable;
+        prev.disabled=!scrollable||bin.scrollLeft<=4;
+        next.disabled=!scrollable||bin.scrollLeft+bin.clientWidth>=bin.scrollWidth-4;
+      }
+      function move(dir){
+        bin.scrollBy({left:dir*Math.max(320,Math.floor(bin.clientWidth*0.82)),behavior:'smooth'});
+      }
+      prev.onclick=function(){move(-1)};next.onclick=function(){move(1)};
+      bin.addEventListener('scroll',update,{passive:true});
+      window.addEventListener('resize',update);
+      requestAnimationFrame(update);
+    });
+  }
+
   /* ---------- build ---------- */
   var CHIPS=['Brazilian sunshine','Late-night jazz','90s deep house','70s funk','Dub session','Like Marcos Valle','Jazz on vinyl'];
   function buildHero(){
@@ -4821,9 +4869,9 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
       +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ tracks dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
       +'<div class="gh-secondary">'
-      +'<button class="gh-2nd" id="gh-artist-btn">🔭 Start with an artist</button>'
-      +'<button class="gh-2nd" id="gh-surprise-btn">🔮 Surprise me</button>'
-      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">📚 Explore the full archive — 17,000 tracks</button>'
+      +'<button class="gh-2nd" id="gh-artist-btn">Start with an artist</button>'
+      +'<button class="gh-2nd" id="gh-surprise-btn">Surprise me</button>'
+      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">Explore the full archive — 17,000 tracks</button>'
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
@@ -4832,7 +4880,6 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
     document.body.classList.add('guest-focus');
@@ -4841,6 +4888,7 @@ window.addEventListener('hashchange',go);})();
     var ghp=document.getElementById('gh-panels');
     ['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)ghp.appendChild(p)});
     loadSleeves(el);
+    installShelfControls(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};

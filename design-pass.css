@@ -134,8 +134,9 @@ body.guest-focus .main-area{overflow-y:auto}
   background:linear-gradient(to right,transparent,var(--bg) 85%);pointer-events:none}
 .gh-shelf-title{font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px}
 .gh-shelf-note{font-weight:400;text-transform:none;letter-spacing:0.02em;color:var(--dim);margin-left:10px;font-size:0.92em}
-.gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
-.gh-card{flex:0 0 150px;width:150px}
+.gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;scroll-behavior:smooth;
+  scroll-snap-type:x proximity;overscroll-behavior-inline:contain}
+.gh-card{flex:0 0 150px;width:150px;scroll-snap-align:start}
 .gh-card-art{position:relative;width:150px;height:150px;border-radius:10px;border:1px solid var(--border);
   background:var(--card);margin-bottom:8px;background-size:cover;background-position:center;overflow:hidden}
 .gh-card-albtxt{position:absolute;top:10px;left:11px;right:11px;font-size:0.72em;font-weight:700;line-height:1.3;
@@ -148,9 +149,18 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-card-play:hover{transform:scale(1.12);background:#1DB954;color:#000}
 .gh-card-vinyl{position:absolute;bottom:11px;left:9px;font-size:0.56em;font-weight:700;letter-spacing:0.1em;
   padding:2px 7px;border-radius:5px;background:rgba(0,0,0,0.55);color:var(--accent);border:1px solid rgba(232,160,64,0.4)}
-.gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
-.gh-card-meta{font-size:0.64em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-card-a,.gh-card-al{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;white-space:normal;line-height:1.25}
+.gh-card-a{font-size:0.78em;font-weight:700;-webkit-line-clamp:2;min-height:2.5em}
+.gh-card-al{font-size:0.72em;color:#aaaabd;-webkit-line-clamp:2;min-height:2.5em;margin:2px 0 3px}
+.gh-card-meta{font-size:0.67em;color:#85859a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-shelf-arrow{position:absolute;top:105px;z-index:4;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.16);background:rgba(12,12,18,0.84);backdrop-filter:blur(8px);
+  color:var(--text);font:600 1.35em/1 Inter,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(0,0,0,0.45);opacity:0;transition:opacity 0.15s,border-color 0.15s,transform 0.15s}
+.gh-shelf-arrow.prev{left:-19px}.gh-shelf-arrow.next{right:-19px}
+.gh-shelf:hover .gh-shelf-arrow:not(:disabled),.gh-shelf:focus-within .gh-shelf-arrow:not(:disabled){opacity:1}
+.gh-shelf-arrow:hover{border-color:var(--accent);transform:scale(1.05)}
+.gh-shelf-arrow:disabled{opacity:0;pointer-events:none}
 .gh-explore-top{border-color:rgba(232,160,64,0.5);color:var(--accent)}
 .gh-explore-top:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
 .gh-explore{display:block;margin:34px auto 10px;padding:12px 28px;font-size:0.82em;font-weight:700;
@@ -164,12 +174,20 @@ body.guest-focus .main-area{overflow-y:auto}
   .gh-prop{font-size:1.35em}
   /* first rack tells you the trick; the edge fade carries it from there */
   .gh-shelf-first .gh-shelf-note::after{content:' · swipe \2192'}
+  .gh-shelf-note{display:block;margin:4px 0 0;line-height:1.35}
+  .gh-shelf::after{width:28px}
+  .gh-shelf-arrow{display:none}
+  .gh-bin{scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-right:28px}
+  .gh-bin::-webkit-scrollbar{display:none}
   .gh-card-play{width:38px;height:38px;font-size:0.78em}
   .gh-inputrow{flex-direction:column}
   #gh-select{width:100%}
   .gh-secondary{flex-wrap:wrap}
   .gh-card,.gh-card-art{flex-basis:128px;width:128px}
   .gh-card-art{height:128px}
+  .gh-card-a{font-size:0.8em}
+  .gh-card-al{font-size:0.74em}
+  .gh-card-meta{font-size:0.69em}
 }
 
 /* -- mini player must float above the Selector overlay (z 1200), not under it -- */
