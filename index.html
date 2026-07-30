@@ -4540,7 +4540,9 @@ window.addEventListener('hashchange',go);})();
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
     var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
     return '<div class="gh-card">'
-      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
+      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(g.tracks.length>=4?' data-art-album="1"':'')
+      +' data-art-key="'+E(((g.tracks.length>=4?'alb:':'')+(sid||primary(t.a)+' '+(t.al||t.t))))+'"'
+      +' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
       +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
@@ -4567,29 +4569,36 @@ window.addEventListener('hashchange',go);})();
   }
   function setArt(el,url){el.style.backgroundImage='url("'+url+'")';el.classList.add('has-art')}
   function itunesArt(el){
-    var q=el.dataset.artQ;if(!q)return;
-    var cb='_itArt'+Math.floor(Math.random()*1e9);
-    window[cb]=function(d){
-      try{var r=d&&d.results&&d.results[0];
-        if(r&&r.artworkUrl100){var u=r.artworkUrl100.replace('100x100bb','400x400bb');setArt(el,u);cacheArt(el.dataset.artSid||q,u)}
-      }finally{delete window[cb]}
-    };
-    var s=document.createElement('script');
-    s.src='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=album&limit=1&callback='+cb;
-    s.onerror=function(){delete window[cb]};
-    document.head.appendChild(s);
+    var q=el.dataset.artQ;if(!q)return Promise.resolve(false);
+    return new Promise(function(res){
+      var cb='_itArt'+Math.floor(Math.random()*1e9);
+      window[cb]=function(d){
+        var found=false;
+        try{var r=d&&d.results&&d.results[0];
+          if(r&&r.artworkUrl100){var u=r.artworkUrl100.replace('100x100bb','400x400bb');setArt(el,u);cacheArt(el.dataset.artKey||q,u);found=true}
+        }finally{delete window[cb];res(found)}
+      };
+      var s=document.createElement('script');
+      s.src='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=album&limit=1&callback='+cb;
+      s.onerror=function(){delete window[cb];res(false)};
+      document.head.appendChild(s);
+    });
+  }
+  function spotifyArt(el){
+    if(!el.dataset.artSid)return Promise.resolve(false);
+    return fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
+      .then(function(r){return r.json()})
+      .then(function(j){if(j&&j.thumbnail_url){setArt(el,j.thumbnail_url);cacheArt(el.dataset.artKey,j.thumbnail_url);return true}return false})
+      .catch(function(){return false});
   }
   function fetchArt(el){
     if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
-    var key=el.dataset.artSid||el.dataset.artQ;
+    var key=el.dataset.artKey;
     if(key&&_artCache[key]){setArt(el,_artCache[key]);return Promise.resolve()}
-    if(el.dataset.artSid){
-      return fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
-        .then(function(r){return r.json()})
-        .then(function(j){if(j&&j.thumbnail_url){setArt(el,j.thumbnail_url);cacheArt(key,j.thumbnail_url)}else itunesArt(el)})
-        .catch(function(){itunesArt(el)});
-    }
-    itunesArt(el);return Promise.resolve();
+    /* albums: look the ALBUM up by name first — the most-played track's Spotify id
+       often points at a pre-album SINGLE release wearing the wrong sleeve */
+    if(el.dataset.artAlbum)return itunesArt(el).then(function(f){if(!f)return spotifyArt(el)});
+    return spotifyArt(el).then(function(f){if(!f)return itunesArt(el)});
   }
   /* ~200 cards across the racks: fetch sleeves in a polite queue, twelve at a time,
      until every card is done — an IntersectionObserver proved unreliable for cards
@@ -4612,11 +4621,13 @@ window.addEventListener('hashchange',go);})();
   function artistKey(g){
     return primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
   }
+  /* never on the racks, whatever the play counts say */
+  var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
   function onePerArtist(gs){
     var seen={};
     return gs.filter(function(g){
       var a=artistKey(g);
-      if(seen[a])return false;seen[a]=1;return true;
+      if(SHELF_EXCLUDE[a]||seen[a])return false;seen[a]=1;return true;
     });
   }
   /* rank by the ARTIST's pooled plays across everything of theirs in the rack —
