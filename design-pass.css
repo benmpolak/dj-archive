@@ -90,33 +90,74 @@ tbody tr:hover{background:#15151f}
   .stats-dash .sd-close{top:10px;right:12px}
 }
 
-/* -- guest layer: welcome card + owner-gated edit tools -- */
+/* -- guest layer: focused landing (Selector hero + shelves) + owner-gated edit tools -- */
 body:not(.owner) .qt-edit[title="Edit genre & vibe"]{display:none !important}
-#guest-welcome{position:fixed;inset:0;z-index:2000;background:rgba(8,8,13,0.88);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;padding:18px;animation:gwFade 0.25s ease}
-@keyframes gwFade{from{opacity:0}to{opacity:1}}
-.gw-card{position:relative;max-width:480px;width:100%;background:linear-gradient(160deg,#15151f 0%,#101018 60%,#12121b 100%);
-  border:1px solid var(--border);border-radius:18px;padding:30px 28px 22px;box-shadow:0 20px 60px rgba(0,0,0,0.55)}
-.gw-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--dim);font-size:1.3em;cursor:pointer;line-height:1}
-.gw-close:hover{color:var(--text)}
-.gw-title{font-size:1.25em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;
-  background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.gw-sub{font-size:0.8em;color:#9a9ab0;line-height:1.55;margin:8px 0 20px}
-.gw-doors{display:flex;flex-direction:column;gap:10px}
-.gw-door{display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;
-  background:var(--card2);border:1px solid var(--border);border-radius:13px;padding:13px 15px;color:var(--text);
-  transition:border-color 0.15s,box-shadow 0.15s}
-.gw-door:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.12)}
-.gw-door-icon{font-size:1.35em;line-height:1.2}
-.gw-door-name{display:block;font-weight:700;font-size:0.88em;margin-bottom:2px}
-.gw-door-desc{display:block;font-size:0.72em;color:#9a9ab0;line-height:1.45}
-.gw-foot{margin-top:16px;text-align:center}
-.gw-owner-link{font-size:0.64em;color:var(--dim);cursor:pointer;letter-spacing:0.04em}
-.gw-owner-link:hover{color:var(--accent)}
+/* focus mode: hide the workbench, keep the hero + dig/rediscover panels + toasts */
+body.guest-focus .sidebar,body.guest-focus .mobile-toggle,body.guest-focus #mobile-bar{display:none !important}
+body.guest-focus .app{grid-template-columns:1fr}
+body.guest-focus .main-area>*:not(#guest-hero):not(#dig-panel):not(#rd-panel):not(.set-toast){display:none !important}
+body.guest-focus .main-area{overflow-y:auto}
+#guest-hero{padding:44px max(24px,calc((100% - 860px)/2)) 28px;
+  background:radial-gradient(900px 380px at 30% -10%,rgba(232,160,64,0.07),transparent 60%)}
+.gh-brand{font-size:0.72em;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;
+  background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:inline-block;margin-bottom:18px}
+.gh-prop{font-size:1.75em;font-weight:700;letter-spacing:-0.01em;line-height:1.2;margin-bottom:16px}
+.gh-inputrow{display:flex;gap:10px;margin-bottom:12px}
+#gh-input{flex:1;padding:14px 18px;font-size:1em;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);font-family:inherit;outline:none;transition:border-color 0.15s,box-shadow 0.15s}
+#gh-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,160,64,0.12)}
+#gh-select{padding:14px 30px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent),#e86040);
+  color:#000;font-weight:700;font-size:0.95em;cursor:pointer;font-family:inherit;letter-spacing:0.04em;
+  box-shadow:0 2px 14px rgba(232,160,64,0.25);transition:transform 0.1s,box-shadow 0.15s}
+#gh-select:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(232,160,64,0.4)}
+.gh-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.gh-chip{padding:6px 13px;font-size:0.74em;background:var(--card2);border:1px solid var(--border);
+  border-radius:9px;cursor:pointer;color:var(--text);transition:border-color 0.15s}
+.gh-chip:hover{border-color:var(--accent);color:var(--accent)}
+.gh-sub{font-size:0.76em;color:#9a9ab0;line-height:1.55;max-width:620px;margin-bottom:20px}
+.gh-secondary{display:flex;gap:10px;margin-bottom:10px}
+.gh-2nd{padding:9px 18px;font-size:0.78em;font-weight:600;background:var(--card2);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);cursor:pointer;font-family:inherit;transition:border-color 0.15s}
+.gh-2nd:hover{border-color:var(--accent)}
+.gh-artistrow{display:flex;gap:8px;margin-bottom:10px;max-width:480px}
+#gh-artist-input{flex:1;padding:10px 14px;font-size:0.85em;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-family:inherit;outline:none}
+#gh-artist-input:focus{border-color:var(--accent)}
+#gh-artist-go{padding:10px 18px;border:1px solid var(--border);border-radius:10px;background:var(--card2);
+  color:var(--text);font-weight:600;cursor:pointer;font-family:inherit}
+#gh-artist-go:hover{border-color:var(--accent)}
+/* record-shop bins */
+.gh-shelf{margin-top:26px}
+.gh-shelf-title{font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px}
+.gh-shelf-note{font-weight:400;text-transform:none;letter-spacing:0.02em;color:var(--dim);margin-left:10px;font-size:0.92em}
+.gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.gh-card{flex:0 0 150px;width:150px}
+.gh-card-art{position:relative;width:150px;height:150px;border-radius:10px;border:1px solid var(--border);
+  background:var(--card);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.gh-card-play{width:44px;height:44px;border-radius:50%;background:var(--green);color:#000;display:flex;
+  align-items:center;justify-content:center;font-size:0.9em;cursor:pointer;padding-left:3px;
+  transition:transform 0.1s;box-shadow:0 2px 10px rgba(0,0,0,0.4)}
+.gh-card-play:hover{transform:scale(1.1)}
+.gh-card-vinyl{position:absolute;top:8px;right:8px;font-size:0.56em;font-weight:700;letter-spacing:0.1em;
+  padding:2px 7px;border-radius:5px;background:rgba(0,0,0,0.55);color:var(--accent);border:1px solid rgba(232,160,64,0.4)}
+.gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
+.gh-card-meta{font-size:0.64em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-explore{display:block;margin:34px auto 10px;padding:10px 24px;font-size:0.78em;font-weight:600;
+  background:none;border:1px solid var(--border);border-radius:10px;color:var(--dim);cursor:pointer;font-family:inherit;
+  transition:border-color 0.15s,color 0.15s}
+.gh-explore:hover{border-color:var(--accent);color:var(--text)}
+/* guest focus: dig + rediscover panels live inside the hero (moved by guest.js) */
+#gh-panels{margin-top:6px}
 @media(max-width:768px){
-  .gw-card{padding:24px 18px 16px;border-radius:15px}
-  #guest-welcome{align-items:flex-end;padding:0}
-  .gw-card{max-width:none;border-radius:18px 18px 0 0;border-bottom:none}
+  #guest-hero{padding:26px 16px 20px}
+  .gh-prop{font-size:1.35em}
+  .gh-inputrow{flex-direction:column}
+  #gh-select{width:100%}
+  .gh-secondary{flex-wrap:wrap}
+  .gh-card,.gh-card-art{flex-basis:128px;width:128px}
+  .gh-card-art{height:128px}
 }
 
 /* -- scrollbars -- */

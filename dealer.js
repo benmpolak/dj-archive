@@ -159,18 +159,38 @@ function moodOk(t,mood){
   if(mood.pop&&t.p<mood.pop)return false;
   return true;
 }
+/* artist anchor v2: reuse Dig Deeper's frequency-weighted artist-profile scoring
+   (_digCompute) so "like X" pools from genuinely adjacent artists, not everything
+   sharing a loose crate+genre pair. Cached per artist — _digCompute scans DATA. */
+var _anchorCache=null;
+function anchorInfo(name){
+  if(_anchorCache&&_anchorCache.name===name)return _anchorCache;
+  if(typeof _digCompute!=='function'||typeof baseArtist!=='function')return null;
+  var keep=window._digPicks;                 /* _digCompute clobbers the dig panel's picks */
+  var R;try{R=_digCompute(name)}catch(e){R=null}
+  window._digPicks=keep;
+  if(!R)return null;
+  var seed=new Set(R.at);
+  var adj=new Set(R.picks.map(function(t){return baseArtist(t.a)}));
+  _anchorCache={name:name,seed:seed,adj:adj,n:R.at.length,exact:R.exactName,traits:R.topGenres};
+  return _anchorCache;
+}
+
 function dlrPool(S){
   S=S||DLR;
   var mood=S.mood?MOODS[S.mood]:null;
-  /* artist anchor: the artist's own tracks + kindred tracks (shared crate AND genre term) */
-  var anchor=null;
+  var anchor=null,anchorLoose=null;
   if(S.artist){
-    anchor={name:S.artist,crates:{},g:{}};
-    DATA.forEach(function(t){
-      if((t.a||'').split(';')[0].trim().toLowerCase()!==S.artist)return;
-      (t.c||[]).forEach(function(c){if(c.indexOf('Uncategor')<0)anchor.crates[c]=1});
-      (t.g||'').toLowerCase().split(',').forEach(function(g){g=g.trim();if(g.length>=4)anchor.g[g]=1});
-    });
+    anchor=anchorInfo(S.artist);
+    if(!anchor){
+      /* fallback if dig scoring is unavailable: old loose crate+genre overlap */
+      anchorLoose={name:S.artist,crates:{},g:{}};
+      DATA.forEach(function(t){
+        if((t.a||'').split(';')[0].trim().toLowerCase()!==S.artist)return;
+        (t.c||[]).forEach(function(c){if(c.indexOf('Uncategor')<0)anchorLoose.crates[c]=1});
+        (t.g||'').toLowerCase().split(',').forEach(function(g){g=g.trim();if(g.length>=4)anchorLoose.g[g]=1});
+      });
+    }
   }
   return DATA.filter(function(t){
     if(!t.sid||t.sid.length!==22)return false;
@@ -182,10 +202,12 @@ function dlrPool(S){
     if(S.gf.length){var gl=(t.g||'').toLowerCase();if(!S.gf.some(function(g){return gl.indexOf(g)>=0}))return false}
     if(mood&&!moodOk(t,mood))return false;
     if(anchor){
+      if(!anchor.seed.has(t)&&!anchor.adj.has(baseArtist(t.a)))return false;
+    }else if(anchorLoose){
       var fa=(t.a||'').split(';')[0].trim().toLowerCase();
-      if(fa!==anchor.name){
-        var shareC=(t.c||[]).some(function(c){return anchor.crates[c]});
-        var shareG=(t.g||'').toLowerCase().split(',').some(function(g){return anchor.g[g.trim()]});
+      if(fa!==anchorLoose.name){
+        var shareC=(t.c||[]).some(function(c){return anchorLoose.crates[c]});
+        var shareG=(t.g||'').toLowerCase().split(',').some(function(g){return anchorLoose.g[g.trim()]});
         if(!shareC||!shareG)return false;
       }
     }
@@ -337,6 +359,7 @@ var CSS='\
 .dlr-result{margin-top:16px;border-top:1px solid var(--border);padding-top:16px}\
 .dlr-rtitle{font-size:1.15em;font-weight:700;margin-bottom:2px}\
 .dlr-rsub{font-size:0.74em;color:var(--dim);margin-bottom:8px}\
+.dlr-evidence{font-size:0.74em;color:var(--accent);margin-bottom:4px}\
 .dlr-cratebar{display:flex;height:4px;border-radius:2px;overflow:hidden;margin-bottom:14px;max-width:420px}\
 .dlr-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}\
 .dlr-abtn{padding:7px 16px;border-radius:10px;font-size:0.78em;cursor:pointer;border:1px solid var(--border);background:var(--card2);color:var(--text);font-weight:600;font-family:inherit;transition:all 0.15s}\
@@ -517,8 +540,15 @@ function renderDeal(){
       +'<span class="dlr-swap" onclick="dlrSwap('+i+')" title="Swap this card for another from the same pile">↻</span>'
       +'</div>';
   }).join('');
+  /* factual evidence line when an artist anchors the pool — counts and traits, no prose */
+  var evid='';
+  if(DLR.artist&&_anchorCache&&_anchorCache.name===DLR.artist){
+    evid='<div class="dlr-evidence">Based on '+_anchorCache.n+' '+esc(_anchorCache.exact)+' track'+(_anchorCache.n>1?'s':'')
+      +' in the archive · strongest shared traits: '+esc(_anchorCache.traits)+'</div>';
+  }
   el.innerHTML='<div class="dlr-result">'
     +'<div class="dlr-rtitle">'+esc(title)+'</div>'
+    +evid
     +'<div class="dlr-rsub">'+dealStatsLine()+(_dealNotes.length?' · <span style="color:var(--accent2)">'+_dealNotes.join(', ')+'</span>':'')+'</div>'
     +'<div class="dlr-cratebar">'+bar+'</div>'
     +'<div class="dlr-actions">'
