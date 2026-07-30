@@ -104,23 +104,26 @@
       }else itunesArt(el);
     });
   }
+  /* shelves only show records with a real Spotify link — unmatched comps and
+     white labels get corrupt links and wrong fallback art, so they stay off */
+  function hasSpotify(g){return (rep(g,function(t){return t.p1||0}).sid||'').length===22}
   function newInShelf(){
     /* digital finds only — vinyl pickups get their own shelf below */
-    var gs=groupRecords().filter(function(g){return g.da&&!g.vy});
+    var gs=groupRecords().filter(function(g){return g.da&&!g.vy&&hasSpotify(g)});
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     return gs.slice(0,10).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
   }
   function freshVinylShelf(){
-    var gs=groupRecords().filter(function(g){return g.da&&g.vy});
+    var gs=groupRecords().filter(function(g){return g.da&&g.vy&&hasSpotify(g)});
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     return gs.slice(0,10).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
     }).join('');
   }
   function onRepeatShelf(){
-    var gs=groupRecords().filter(function(g){return g.p1>=3});
+    var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.p1-a.p1});
     return gs.slice(0,10).map(function(g){
       return card(g,function(g,t){return g.p1+' plays · last 12 months'});
@@ -167,6 +170,7 @@
       +'<div class="gh-secondary">'
       +'<button class="gh-2nd" id="gh-artist-btn">🔭 Start with an artist</button>'
       +'<button class="gh-2nd" id="gh-surprise-btn">🔮 Surprise me</button>'
+      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">📚 Explore the full archive — 17,000 tracks</button>'
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Dig</button></div>'
       +'<div id="gh-panels"></div>'

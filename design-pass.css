@@ -147,10 +147,12 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
 .gh-card-meta{font-size:0.64em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gh-explore{display:block;margin:34px auto 10px;padding:10px 24px;font-size:0.78em;font-weight:600;
-  background:none;border:1px solid var(--border);border-radius:10px;color:var(--dim);cursor:pointer;font-family:inherit;
-  transition:border-color 0.15s,color 0.15s}
-.gh-explore:hover{border-color:var(--accent);color:var(--text)}
+.gh-explore-top{border-color:rgba(232,160,64,0.5);color:var(--accent)}
+.gh-explore-top:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
+.gh-explore{display:block;margin:34px auto 10px;padding:12px 28px;font-size:0.82em;font-weight:700;
+  background:none;border:1px solid rgba(232,160,64,0.5);border-radius:10px;color:var(--accent);cursor:pointer;font-family:inherit;
+  transition:border-color 0.15s,color 0.15s,box-shadow 0.15s}
+.gh-explore:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
 /* guest focus: dig + rediscover panels live inside the hero (moved by guest.js) */
 #gh-panels{margin-top:6px}
 @media(max-width:768px){
