@@ -81,13 +81,24 @@
      fallback for records not on Spotify (JSONP — iTunes sends no CORS headers).
      The text-led card underneath stays when both miss. Discogs is a dead end:
      anonymous API responses carry no images. */
+  var _artCache={};try{_artCache=JSON.parse(localStorage.getItem('gh_art_cache')||'{}')}catch(e){}
+  var _artCacheT=null;
+  function cacheArt(key,url){
+    _artCache[key]=url;
+    clearTimeout(_artCacheT);
+    _artCacheT=setTimeout(function(){try{
+      var keys=Object.keys(_artCache);
+      if(keys.length>600)keys.slice(0,keys.length-600).forEach(function(k){delete _artCache[k]});
+      localStorage.setItem('gh_art_cache',JSON.stringify(_artCache));
+    }catch(e){}},400);
+  }
   function setArt(el,url){el.style.backgroundImage='url("'+url+'")';el.classList.add('has-art')}
   function itunesArt(el){
     var q=el.dataset.artQ;if(!q)return;
     var cb='_itArt'+Math.floor(Math.random()*1e9);
     window[cb]=function(d){
       try{var r=d&&d.results&&d.results[0];
-        if(r&&r.artworkUrl100)setArt(el,r.artworkUrl100.replace('100x100bb','400x400bb'));
+        if(r&&r.artworkUrl100){var u=r.artworkUrl100.replace('100x100bb','400x400bb');setArt(el,u);cacheArt(el.dataset.artSid||q,u)}
       }finally{delete window[cb]}
     };
     var s=document.createElement('script');
@@ -97,22 +108,25 @@
   }
   function fetchArt(el){
     if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
+    var key=el.dataset.artSid||el.dataset.artQ;
+    if(key&&_artCache[key]){setArt(el,_artCache[key]);return Promise.resolve()}
     if(el.dataset.artSid){
       return fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
         .then(function(r){return r.json()})
-        .then(function(j){if(j&&j.thumbnail_url)setArt(el,j.thumbnail_url);else itunesArt(el)})
+        .then(function(j){if(j&&j.thumbnail_url){setArt(el,j.thumbnail_url);cacheArt(key,j.thumbnail_url)}else itunesArt(el)})
         .catch(function(){itunesArt(el)});
     }
     itunesArt(el);return Promise.resolve();
   }
-  /* ~200 cards across the racks: fetch sleeves in a polite queue, six at a time,
+  /* ~200 cards across the racks: fetch sleeves in a polite queue, twelve at a time,
      until every card is done — an IntersectionObserver proved unreliable for cards
-     deep inside the horizontal bins (cards silently never loaded) */
+     deep inside the horizontal bins (cards silently never loaded). URLs cache in
+     localStorage so repeat visits paint instantly. */
   function loadSleeves(root){
     var els=[].slice.call(root.querySelectorAll('.gh-card-art'));
     (function next(){
       if(!els.length)return;
-      Promise.all(els.splice(0,6).map(fetchArt)).then(next,next);
+      Promise.all(els.splice(0,12).map(fetchArt)).then(next,next);
     })();
   }
   /* shelves only show records with a real Spotify link — unmatched comps and
