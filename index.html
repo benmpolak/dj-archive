@@ -4799,7 +4799,11 @@ window.addEventListener('hashchange',go);})();
     }).join('');
   }
   function onRepeatShelf(){
-    var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
+    var yr=new Date().getFullYear();
+    var gs=groupRecords().filter(function(g){
+      var r=parseInt(rep(g,function(t){return t.p1||0}).r)||0;
+      return g.p1>=3&&hasSpotify(g)&&(r===yr||r===yr-1);
+    });
     gs.sort(function(a,b){return b.p1-a.p1});
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
@@ -4808,8 +4812,13 @@ window.addEventListener('hashchange',go);})();
   }
   function prevYearShelf(){
     /* p2-p1 = plays in the year before the current 12-month window.
-       Records already used by a fresher shelf remain excluded. */
-    var gs=groupRecords();
+       Keep this to releases from that year and the year before; records already
+       used by a fresher shelf remain excluded. */
+    var yr=new Date().getFullYear();
+    var gs=groupRecords().filter(function(g){
+      var r=parseInt(rep(g,function(t){return t.p1||0}).r)||0;
+      return r===yr-1||r===yr-2;
+    });
     gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
     gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.pPrev-a.pPrev});
@@ -4872,6 +4881,7 @@ window.addEventListener('hashchange',go);})();
   function buildHero(){
     var main=document.querySelector('.main-area');if(!main)return;
     var cutoff=playCutoff();
+    var yr=new Date().getFullYear();
     var el=document.createElement('div');
     el.id='guest-hero';
     el.innerHTML=
@@ -4890,9 +4900,9 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed this month<span class="gh-shelf-note">older records Ben just dug up</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Caned this year<span class="gh-shelf-note">what Ben has played relentlessly in the last 12 months</span>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Caned the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered last year<span class="gh-shelf-note">'+(yr-2)+'–'+(yr-1)+' releases Ben played relentlessly</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
     document.body.classList.add('guest-focus');
