@@ -37,7 +37,7 @@
   function groupRecords(){
     var groups={};
     DATA.forEach(function(t,i){
-      var k=(primary(t.a)+'|'+(t.al||'')).toLowerCase();
+      var k=(primary(t.a)+'|'+(t.al||'').trim()).toLowerCase();
       var g=groups[k]||(groups[k]={tracks:[],da:0,idx:0,p1:0,vy:0});
       g.tracks.push(t);
       if((t.da||0)>g.da)g.da=t.da;
@@ -115,10 +115,30 @@
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
   }
+  /* hand-curated shelf entries for records that live off-Spotify (Bandcamp etc.)
+     — art + link maintained by hand, Ben's call per record */
+  var VINYL_OVERRIDES=[
+    {a:'The Illusions & Nathan Haines',al:'Find Your Way',r:2026,da:202607,
+     art:'https://f4.bcbits.com/img/a3484678180_5.jpg',
+     url:'https://theillusionsband.bandcamp.com/album/find-your-way',tag:'BANDCAMP'}
+  ];
+  function overrideCard(o){
+    return '<div class="gh-card">'
+      +'<div class="gh-card-art has-art" style="background-image:url(\''+o.art+'\')">'
+      +'<span class="gh-card-play" onclick="window.open(\''+o.url+'\',\'_blank\')" title="Open on '+(o.tag||'Bandcamp')+'">▶</span>'
+      +'<span class="gh-card-vinyl">'+(o.tag||'VINYL')+'</span>'
+      +'</div>'
+      +'<div class="gh-card-a">'+E(o.a)+'</div>'
+      +'<div class="gh-card-al">'+E(o.al)+'</div>'
+      +'<div class="gh-card-meta">'+o.r+' · added '+fmtDa(o.da)+'</div>'
+      +'</div>';
+  }
   function freshVinylShelf(){
-    var gs=groupRecords().filter(function(g){return g.da&&g.vy&&hasSpotify(g)});
+    /* albums and EPs only (4+ tracks) — 45s make loose, one-song cards */
+    var gs=groupRecords().filter(function(g){return g.da&&g.vy&&hasSpotify(g)&&g.tracks.length>=4});
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
-    return gs.slice(0,10).map(function(g){
+    var ov=VINYL_OVERRIDES.map(overrideCard).join('');
+    return ov+gs.slice(0,10-VINYL_OVERRIDES.length).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
     }).join('');
   }
@@ -126,7 +146,17 @@
     var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.p1-a.p1});
     return gs.slice(0,10).map(function(g){
-      return card(g,function(g,t){return g.p1+' plays · last 12 months'});
+      return card(g,function(g,t){return g.p1+' plays this year'});
+    }).join('');
+  }
+  function prevYearShelf(){
+    /* p2-p1 = plays in the year before the current 12-month window */
+    var gs=groupRecords();
+    gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
+    gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
+    gs.sort(function(a,b){return b.pPrev-a.pPrev});
+    return gs.slice(0,10).map(function(g){
+      return card(g,function(g,t){return g.pPrev+' plays that year'});
     }).join('');
   }
   function playCutoff(){
@@ -174,11 +204,12 @@
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Dig</button></div>'
       +'<div id="gh-panels"></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">New in</div><div class="gh-bin">'+newInShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Fresh vinyl<span class="gh-shelf-note">records that just hit the physical crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">On repeat'
-      +(cutoff?'<span class="gh-shelf-note">listening data through '+cutoff+'</span>':'')
+      +'<div class="gh-shelf"><div class="gh-shelf-title">New in<span class="gh-shelf-note">the latest additions to Ben&rsquo;s archive</span></div><div class="gh-bin">'+newInShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months'
+      +(cutoff?' &mdash; data through '+cutoff:'')+'</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
     document.body.classList.add('guest-focus');
