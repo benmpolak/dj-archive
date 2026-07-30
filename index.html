@@ -4380,7 +4380,8 @@ body.guest-focus .main-area{overflow-y:auto}
   background:radial-gradient(900px 380px at 30% -10%,rgba(232,160,64,0.07),transparent 60%)}
 .gh-brand{font-size:0.72em;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;
   background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  display:inline-block;margin-bottom:18px}
+  display:inline-block;margin-bottom:7px}
+.gh-proofline{font-size:0.64em;color:#747488;text-transform:uppercase;letter-spacing:0.13em;margin-bottom:17px}
 .gh-prop{font-size:1.75em;font-weight:700;letter-spacing:-0.01em;line-height:1.2;margin-bottom:16px}
 .gh-inputrow{display:flex;gap:10px;margin-bottom:12px}
 #gh-input{flex:1;padding:14px 18px;font-size:1em;background:var(--card);border:1px solid var(--border);
@@ -4406,6 +4407,14 @@ body.guest-focus .main-area{overflow-y:auto}
 #gh-artist-go{padding:10px 18px;border:1px solid var(--border);border-radius:10px;background:var(--card2);
   color:var(--text);font-weight:600;cursor:pointer;font-family:inherit}
 #gh-artist-go:hover{border-color:var(--accent)}
+.gh-back-strip{display:none;position:sticky;top:0;z-index:40;align-items:center;justify-content:space-between;gap:16px;
+  min-height:46px;padding:7px 16px;background:rgba(10,10,15,0.94);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border)}
+body.guest-archive-open .gh-back-strip{display:flex}
+.gh-back-strip button{padding:7px 12px;border:1px solid rgba(232,160,64,0.45);border-radius:8px;
+  background:rgba(232,160,64,0.08);color:var(--accent);font:700 0.72em Inter,sans-serif;cursor:pointer}
+.gh-back-strip button:hover{border-color:var(--accent);background:rgba(232,160,64,0.13)}
+.gh-back-strip span{font-size:0.64em;color:#747488;text-transform:uppercase;letter-spacing:0.12em}
 /* record-shop bins */
 .gh-shelf{margin-top:26px;position:relative}
 /* right-edge fade: says "there's more" without a word */
@@ -4451,6 +4460,43 @@ body.guest-focus .main-area{overflow-y:auto}
   background:none;border:1px solid rgba(232,160,64,0.5);border-radius:10px;color:var(--accent);cursor:pointer;font-family:inherit;
   transition:border-color 0.15s,color 0.15s,box-shadow 0.15s}
 .gh-explore:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
+.gh-route-divider{display:flex;align-items:center;gap:12px;margin:28px 0 -10px;color:#686879;
+  font-size:0.58em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em}
+.gh-route-divider::before,.gh-route-divider::after{content:"";height:1px;background:rgba(255,255,255,0.07);flex:1}
+.gh-route-divider span{flex:0 0 auto}
+/* small, optional dig controls — both fold away to preserve the sleeve wall */
+.gh-rifle,.gh-longview{margin-top:24px;border:1px solid var(--border);border-radius:12px;background:rgba(17,17,25,0.64)}
+.gh-rifle summary,.gh-longview summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+.gh-rifle summary::-webkit-details-marker,.gh-longview summary::-webkit-details-marker{display:none}
+.gh-rifle-summary-title,.gh-longview summary b{font-size:0.69em;text-transform:uppercase;letter-spacing:0.15em;color:var(--accent)}
+.gh-rifle-summary-note,.gh-longview summary small{font-size:0.67em;color:#77778b;font-weight:400}
+.gh-longview summary>span:first-child{display:flex;align-items:baseline;gap:11px}
+.gh-fold-mark{margin-left:auto;color:#868696;font-size:1.1em;transition:transform 0.18s,color 0.18s}
+.gh-rifle[open] .gh-fold-mark,.gh-longview[open] .gh-fold-mark{transform:rotate(45deg);color:var(--accent)}
+.gh-rifle-body{padding:2px 16px 15px;border-top:1px solid rgba(255,255,255,0.05)}
+.gh-rifle-row{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:start;margin-top:12px}
+.gh-rifle-row>span{padding-top:7px;font-size:0.61em;text-transform:uppercase;letter-spacing:0.13em;color:#6f6f82}
+.gh-rifle-chips{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.gh-rifle-chips::-webkit-scrollbar{display:none}
+.gh-rifle-chip,.gh-long-tab,.gh-rifle-pick,.gh-rifle-clear{border:1px solid var(--border);border-radius:7px;background:var(--card2);
+  color:#aaaabb;font:600 0.68em Inter,sans-serif;cursor:pointer;padding:7px 10px;transition:border-color 0.15s,color 0.15s,background 0.15s}
+.gh-rifle-chip{flex-shrink:0}
+.gh-rifle-genre{min-width:92px;padding:11px 13px 9px;border-top:3px solid var(--divider);border-radius:4px 4px 8px 8px;
+  text-transform:uppercase;letter-spacing:0.08em;font-size:0.63em;text-align:left}
+.gh-rifle-vibe{padding:8px 11px}
+.gh-rifle-chip:hover,.gh-rifle-chip.active,.gh-long-tab:hover,.gh-long-tab.active{border-color:rgba(232,160,64,0.55);color:var(--accent)}
+.gh-rifle-chip.active,.gh-long-tab.active{background:rgba(232,160,64,0.09)}
+.gh-rifle-result-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:10px}
+.gh-rifle-result-head .gh-shelf-title{margin-bottom:3px}
+.gh-rifle-result-note{font-size:0.67em;color:#77778b}
+.gh-rifle-result-actions{display:flex;gap:7px;flex-shrink:0}
+.gh-rifle-pick{color:var(--accent);border-color:rgba(232,160,64,0.45)}
+.gh-rifle-pick:disabled{opacity:0.35;cursor:default}
+.gh-longview{margin-top:28px}
+.gh-longview-body{padding:0 16px 16px;border-top:1px solid rgba(255,255,255,0.05)}
+.gh-long-tabs{display:flex;gap:7px;padding-top:13px}
+.gh-long-shelf{margin-top:14px}
+.gh-long-shelf[hidden]{display:none}
 /* chosen record: editorial lightbox, factual rather than shop-like */
 .gh-detail{position:fixed;inset:0;z-index:1450;display:grid;place-items:center;padding:24px;
   visibility:hidden;opacity:0;transition:opacity 0.2s,visibility 0.2s}
@@ -4494,7 +4540,11 @@ body.gh-detail-open .main-area{overflow:hidden}
 #gh-panels{margin-top:6px}
 @media(max-width:768px){
   #guest-hero{padding:calc(22px + env(safe-area-inset-top)) 16px 20px}
+  .gh-proofline{font-size:0.59em;line-height:1.4;letter-spacing:0.1em}
   .gh-prop{font-size:1.35em}
+  .gh-back-strip{padding:7px 10px;min-height:44px}
+  .gh-back-strip span{display:none}
+  .gh-back-strip button{font-size:0.7em}
   /* first rack tells you the trick; the edge fade carries it from there */
   .gh-shelf-first .gh-shelf-note::after{content:' · swipe \2192'}
   .gh-shelf-note{display:block;margin:4px 0 0;line-height:1.35}
@@ -4511,6 +4561,24 @@ body.gh-detail-open .main-area{overflow:hidden}
   .gh-card-a{font-size:0.8em}
   .gh-card-al{font-size:0.74em}
   .gh-card-meta{font-size:0.69em}
+  .gh-route-divider{margin:25px 0 -8px}
+  .gh-rifle,.gh-longview{margin-top:22px}
+  .gh-rifle summary,.gh-longview summary{align-items:flex-start;padding:13px 14px}
+  .gh-rifle-summary-note,.gh-longview summary small{display:block;margin-top:4px;line-height:1.35}
+  .gh-rifle summary{display:grid;grid-template-columns:1fr auto}
+  .gh-rifle-summary-title{display:block}
+  .gh-rifle-summary-note{grid-column:1}
+  .gh-rifle summary .gh-fold-mark{grid-column:2;grid-row:1/3}
+  .gh-longview summary>span:first-child{display:block}
+  .gh-rifle-body{padding:2px 13px 14px}
+  .gh-rifle-row{display:block}
+  .gh-rifle-row>span{display:block;margin-bottom:7px}
+  .gh-rifle-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .gh-rifle-chips::-webkit-scrollbar{display:none}
+  .gh-rifle-chip{flex-shrink:0;padding:8px 11px}
+  .gh-rifle-result-head{align-items:flex-start;display:block}
+  .gh-rifle-result-actions{margin-top:9px}
+  .gh-longview-body{padding:0 13px 13px}
   .gh-detail{align-items:end;padding:0}
   .gh-detail-panel{width:100%;max-height:92dvh;overflow-y:auto;display:block;padding:14px 14px calc(22px + env(safe-area-inset-bottom));
     border-radius:18px 18px 0 0;border-left:0;border-right:0;border-bottom:0;transform:translateY(24px)}
@@ -4681,7 +4749,7 @@ window.addEventListener('hashchange',go);})();
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(artist)+' — '+E(title)+'"'
       +' data-sid="'+E(sid)+'" data-did="'+E(t.did||'')+'"'
       +' data-artist="'+E(artist)+'" data-album="'+E(title)+'"'
-      +' data-crate="'+E((t.c||[])[0]||'')+'" data-vibe="'+E(t.vb||'')+'"'
+      +' data-crate="'+E((t.c||[])[0]||'')+'" data-crates="'+E((t.c||[]).join('|'))+'" data-vibe="'+E(t.vb||'')+'"'
       +' data-meta="'+E(metaText)+'">'
       +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(useAlbumArt?' data-art-album="1"':'')
       +' data-art-key="'+E(artKey)+'"'
@@ -5208,7 +5276,7 @@ window.addEventListener('hashchange',go);})();
   function overrideCard(o){
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(o.a)+' — '+E(o.al)+'"'
       +' data-artist="'+E(o.a)+'" data-album="'+E(o.al)+'" data-meta="'+o.r+' · added '+fmtDa(o.da)+'"'
-      +' data-url="'+E(o.url)+'" data-service="'+E(o.tag||'Bandcamp')+'" data-crate="Vinyl">'
+      +' data-url="'+E(o.url)+'" data-service="'+E(o.tag||'Bandcamp')+'" data-crate="Vinyl" data-crates="Vinyl">'
       +'<div class="gh-card-art has-art" style="background-image:url(\''+o.art+'\')">'
       +'<span class="gh-card-play" onclick="window.open(\''+o.url+'\',\'_blank\')" title="Open on '+(o.tag||'Bandcamp')+'">▶︎</span>'
       +'<span class="gh-card-vinyl">'+(o.tag||'VINYL')+'</span>'
@@ -5318,7 +5386,19 @@ window.addEventListener('hashchange',go);})();
     var main=document.querySelector('.main-area'),tw=document.getElementById('table-wrap');
     if(main&&tw)['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)main.insertBefore(p,tw)});
     document.body.classList.remove('guest-focus');
+    document.body.classList.add('guest-archive-open');
     var h=document.getElementById('guest-hero');if(h)h.style.display='none';
+    if(main)main.scrollTop=0;
+    window.scrollTo(0,0);
+  };
+  window._ghBackHome=function(){
+    var main=document.querySelector('.main-area'),h=document.getElementById('guest-hero'),panels=document.getElementById('gh-panels');
+    if(panels)['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)panels.appendChild(p)});
+    var sidebar=document.querySelector('.sidebar');if(sidebar)sidebar.classList.remove('open');
+    document.body.classList.remove('guest-archive-open');
+    document.body.classList.add('guest-focus');
+    if(h)h.style.display='';
+    if(main)main.scrollTop=0;
     window.scrollTo(0,0);
   };
 
@@ -5344,6 +5424,98 @@ window.addEventListener('hashchange',go);})();
       window.addEventListener('resize',update);
       requestAnimationFrame(update);
     });
+  }
+
+  function installLongView(root){
+    var box=root.querySelector('.gh-longview');if(!box)return;
+    var tabs=[].slice.call(box.querySelectorAll('.gh-long-tab'));
+    var shelves=[].slice.call(box.querySelectorAll('.gh-long-shelf'));
+    tabs.forEach(function(tab){
+      tab.onclick=function(){
+        tabs.forEach(function(t){t.classList.toggle('active',t===tab)});
+        shelves.forEach(function(s){s.hidden=s.dataset.long!==tab.dataset.long});
+        requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
+      };
+    });
+    box.addEventListener('toggle',function(){
+      if(box.open)requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
+    });
+  }
+
+  /* A small, explicit filter over the four new/recent-release racks — never a
+     disguised query of the full archive. Unearthed and the long view remain the
+     editorial context that shows the taste behind those recommendations. */
+  function installRifle(root){
+    var rifle=root.querySelector('.gh-rifle'),results=root.querySelector('#gh-rifle-results');
+    if(!rifle||!results)return;
+    var sourceShelves=[].slice.call(root.querySelectorAll('.gh-new-source'));
+    var sourceCards=[];
+    sourceShelves.forEach(function(shelf){
+      shelf.querySelectorAll('.gh-card').forEach(function(card){
+        sourceCards.push(card);
+      });
+    });
+    var state={genre:'',vibe:''};
+    function counts(attr,split){
+      var out={};
+      sourceCards.forEach(function(card){
+        var vals=split?(card.dataset[attr]||'').split('|'):[card.dataset[attr]||''];
+        vals.forEach(function(v){if(v&&v!=='Uncategorized'&&v!=='Vinyl')out[v]=(out[v]||0)+1});
+      });
+      return Object.keys(out).sort(function(a,b){return out[b]-out[a]||a.localeCompare(b)}).map(function(k){return[k,out[k]]});
+    }
+    function buildChips(id,kind,items){
+      var wrap=root.querySelector(id);
+      items.forEach(function(item){
+        var b=document.createElement('button');
+        b.type='button';b.className='gh-rifle-chip '+(kind==='genre'?'gh-rifle-genre':'gh-rifle-vibe');b.dataset.value=item[0];
+        b.textContent=item[0];b.title=item[1]+' matching records';
+        if(kind==='genre')b.style.setProperty('--divider',(window.CC&&CC[item[0]])||'#e8a040');
+        b.onclick=function(){
+          state[kind]=state[kind]===b.dataset.value?'':b.dataset.value;
+          wrap.querySelectorAll('.gh-rifle-chip').forEach(function(x){x.classList.toggle('active',x.dataset.value===state[kind])});
+          render();
+        };
+        wrap.appendChild(b);
+      });
+    }
+    buildChips('#gh-rifle-genres','genre',counts('crates',true));
+    buildChips('#gh-rifle-vibes','vibe',counts('vibe',false));
+    var bin=results.querySelector('.gh-bin'),title=results.querySelector('.gh-rifle-result-title');
+    var note=results.querySelector('.gh-rifle-result-note'),matches=[];
+    function render(){
+      bin.innerHTML='';
+      matches=sourceCards.filter(function(card){
+        var crates=(card.dataset.crates||'').split('|');
+        return (!state.genre||crates.indexOf(state.genre)>=0)&&(!state.vibe||card.dataset.vibe===state.vibe);
+      });
+      var active=state.genre||state.vibe;
+      results.hidden=!active;
+      if(!active){
+        rifle.querySelector('.gh-rifle-summary-note').textContent='choose a section · add a feel if you fancy';
+        return;
+      }
+      title.textContent=[state.genre,state.vibe].filter(Boolean).join(' · ');
+      note.textContent=matches.length+' recent release'+(matches.length===1?'':'s')+' from Ben’s current racks';
+      matches.forEach(function(card){bin.appendChild(card.cloneNode(true))});
+      results.querySelector('.gh-rifle-pick').disabled=!matches.length;
+      rifle.querySelector('.gh-rifle-summary-note').textContent=[state.genre||'Any genre',state.vibe||'Any mood'].join(' · ');
+      requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
+    }
+    results.querySelector('.gh-rifle-clear').onclick=function(){
+      state.genre=state.vibe='';
+      rifle.querySelectorAll('.gh-rifle-chip').forEach(function(x){x.classList.remove('active')});
+      rifle.querySelector('.gh-rifle-summary-note').textContent='choose a section · add a feel if you fancy';
+      results.hidden=true;bin.innerHTML='';
+    };
+    results.querySelector('.gh-rifle-pick').onclick=function(){
+      if(!matches.length)return;
+      var target=matches[Math.floor(Math.random()*matches.length)];
+      var clone=[].slice.call(bin.querySelectorAll('.gh-card')).find(function(card){
+        return card.dataset.artist===target.dataset.artist&&card.dataset.album===target.dataset.album;
+      });
+      if(clone)clone.dispatchEvent(new MouseEvent('click',{bubbles:true}));
+    };
   }
 
   /* Sleeves stay fast to scan; the facts arrive only when a record is chosen.
@@ -5463,27 +5635,40 @@ window.addEventListener('hashchange',go);})();
     el.id='guest-hero';
     el.innerHTML=
       '<div class="gh-brand">The DJ Archive</div>'
+      +'<div class="gh-proofline">17,000+ tracks &middot; 14 years &middot; chosen by ear</div>'
       +'<div class="gh-prop">Tell Ben’s shelves what you fancy.</div>'
       +'<div class="gh-inputrow"><input id="gh-input" placeholder="Brazilian sunshine, late-night jazz, like Marcos Valle…" autocomplete="off"><button id="gh-select">SELECT</button></div>'
       +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
-      +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ tracks dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
+      +'<div class="gh-sub">The Selector deals 25 tracks from Ben&rsquo;s shelves: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
       +'<div class="gh-secondary">'
       +'<button class="gh-2nd" id="gh-artist-btn">Start with an artist</button>'
       +'<button class="gh-2nd" id="gh-surprise-btn">Surprise me</button>'
-      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">Explore the full archive — 17,000 tracks</button>'
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
-      +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed recently<span class="gh-shelf-note">older records Ben dug up in the last three months</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
+      +'<div class="gh-route-divider"><span>Or browse</span></div>'
+      +'<details class="gh-rifle"><summary><span class="gh-rifle-summary-title">Flick through the new arrivals</span><span class="gh-rifle-summary-note">choose a section &middot; add a feel if you fancy</span><span class="gh-fold-mark">+</span></summary>'
+      +'<div class="gh-rifle-body"><div class="gh-rifle-row"><span>Section</span><div class="gh-rifle-chips" id="gh-rifle-genres"></div></div>'
+      +'<div class="gh-rifle-row"><span>Feel</span><div class="gh-rifle-chips" id="gh-rifle-vibes"></div></div></div></details>'
+      +'<div class="gh-shelf" id="gh-rifle-results" hidden><div class="gh-rifle-result-head"><div><div class="gh-shelf-title gh-rifle-result-title"></div><div class="gh-rifle-result-note"></div></div>'
+      +'<div class="gh-rifle-result-actions"><button class="gh-rifle-pick" type="button">Pull one for me</button><button class="gh-rifle-clear" type="button">Clear</button></div></div><div class="gh-bin"></div></div>'
+      +'<div class="gh-shelf gh-new-source gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-new-source"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-new-source"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; last year<span class="gh-shelf-note">'+(yr-2)+'–'+(yr-1)+' releases Ben played relentlessly</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this decade<span class="gh-shelf-note">'+(Math.floor(yr/10)*10)+'–'+yr+' releases Ben has returned to most</span></div><div class="gh-bin">'+decadeShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; all time<span class="gh-shelf-note">the records Ben has returned to most across the full listening history</span></div><div class="gh-bin">'+allTimeShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-new-source"><div class="gh-shelf-title">Heavy rotation &mdash; last year<span class="gh-shelf-note">'+(yr-2)+'–'+(yr-1)+' releases Ben played relentlessly</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed recently<span class="gh-shelf-note">older records Ben dug up in the last three months</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
+      +'<details class="gh-longview"><summary><span><b>Heavy rotation &mdash; the long view</b><small>This decade and ever &middot; shuffled each visit</small></span><span class="gh-fold-mark">+</span></summary>'
+      +'<div class="gh-longview-body"><div class="gh-long-tabs"><button class="gh-long-tab active" data-long="decade" type="button">This decade</button><button class="gh-long-tab" data-long="ever" type="button">Ever</button></div>'
+      +'<div class="gh-shelf gh-long-shelf" data-long="decade"><div class="gh-shelf-title">This decade<span class="gh-shelf-note">'+(Math.floor(yr/10)*10)+'–'+yr+' releases Ben has returned to most</span></div><div class="gh-bin">'+decadeShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-long-shelf" data-long="ever" hidden><div class="gh-shelf-title">Ever<span class="gh-shelf-note">the records Ben has returned to most across the full listening history</span></div><div class="gh-bin">'+allTimeShelf()+'</div></div>'
+      +'</div></details>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
+    var back=document.createElement('div');
+    back.className='gh-back-strip';
+    back.innerHTML='<button type="button" onclick="_ghBackHome()">&larr; Back to recommendations</button><span>Full archive &middot; 17,000+ tracks</span>';
+    main.insertBefore(back,el.nextSibling);
     document.body.classList.add('guest-focus');
     /* pull the dig + rediscover panels up into the hero so they open in view;
        _ghExplore puts them back in front of the table */
@@ -5492,6 +5677,8 @@ window.addEventListener('hashchange',go);})();
     loadSleeves(el);
     installShelfControls(el);
     installRecordViewer(el);
+    installRifle(el);
+    installLongView(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};

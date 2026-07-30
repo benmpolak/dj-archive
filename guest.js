@@ -88,7 +88,7 @@
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(artist)+' — '+E(title)+'"'
       +' data-sid="'+E(sid)+'" data-did="'+E(t.did||'')+'"'
       +' data-artist="'+E(artist)+'" data-album="'+E(title)+'"'
-      +' data-crate="'+E((t.c||[])[0]||'')+'" data-vibe="'+E(t.vb||'')+'"'
+      +' data-crate="'+E((t.c||[])[0]||'')+'" data-crates="'+E((t.c||[]).join('|'))+'" data-vibe="'+E(t.vb||'')+'"'
       +' data-meta="'+E(metaText)+'">'
       +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(useAlbumArt?' data-art-album="1"':'')
       +' data-art-key="'+E(artKey)+'"'
@@ -308,7 +308,7 @@
   function overrideCard(o){
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(o.a)+' — '+E(o.al)+'"'
       +' data-artist="'+E(o.a)+'" data-album="'+E(o.al)+'" data-meta="'+o.r+' · added '+fmtDa(o.da)+'"'
-      +' data-url="'+E(o.url)+'" data-service="'+E(o.tag||'Bandcamp')+'" data-crate="Vinyl">'
+      +' data-url="'+E(o.url)+'" data-service="'+E(o.tag||'Bandcamp')+'" data-crate="Vinyl" data-crates="Vinyl">'
       +'<div class="gh-card-art has-art" style="background-image:url(\''+o.art+'\')">'
       +'<span class="gh-card-play" onclick="window.open(\''+o.url+'\',\'_blank\')" title="Open on '+(o.tag||'Bandcamp')+'">▶︎</span>'
       +'<span class="gh-card-vinyl">'+(o.tag||'VINYL')+'</span>'
@@ -418,7 +418,19 @@
     var main=document.querySelector('.main-area'),tw=document.getElementById('table-wrap');
     if(main&&tw)['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)main.insertBefore(p,tw)});
     document.body.classList.remove('guest-focus');
+    document.body.classList.add('guest-archive-open');
     var h=document.getElementById('guest-hero');if(h)h.style.display='none';
+    if(main)main.scrollTop=0;
+    window.scrollTo(0,0);
+  };
+  window._ghBackHome=function(){
+    var main=document.querySelector('.main-area'),h=document.getElementById('guest-hero'),panels=document.getElementById('gh-panels');
+    if(panels)['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)panels.appendChild(p)});
+    var sidebar=document.querySelector('.sidebar');if(sidebar)sidebar.classList.remove('open');
+    document.body.classList.remove('guest-archive-open');
+    document.body.classList.add('guest-focus');
+    if(h)h.style.display='';
+    if(main)main.scrollTop=0;
     window.scrollTo(0,0);
   };
 
@@ -444,6 +456,98 @@
       window.addEventListener('resize',update);
       requestAnimationFrame(update);
     });
+  }
+
+  function installLongView(root){
+    var box=root.querySelector('.gh-longview');if(!box)return;
+    var tabs=[].slice.call(box.querySelectorAll('.gh-long-tab'));
+    var shelves=[].slice.call(box.querySelectorAll('.gh-long-shelf'));
+    tabs.forEach(function(tab){
+      tab.onclick=function(){
+        tabs.forEach(function(t){t.classList.toggle('active',t===tab)});
+        shelves.forEach(function(s){s.hidden=s.dataset.long!==tab.dataset.long});
+        requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
+      };
+    });
+    box.addEventListener('toggle',function(){
+      if(box.open)requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
+    });
+  }
+
+  /* A small, explicit filter over the four new/recent-release racks — never a
+     disguised query of the full archive. Unearthed and the long view remain the
+     editorial context that shows the taste behind those recommendations. */
+  function installRifle(root){
+    var rifle=root.querySelector('.gh-rifle'),results=root.querySelector('#gh-rifle-results');
+    if(!rifle||!results)return;
+    var sourceShelves=[].slice.call(root.querySelectorAll('.gh-new-source'));
+    var sourceCards=[];
+    sourceShelves.forEach(function(shelf){
+      shelf.querySelectorAll('.gh-card').forEach(function(card){
+        sourceCards.push(card);
+      });
+    });
+    var state={genre:'',vibe:''};
+    function counts(attr,split){
+      var out={};
+      sourceCards.forEach(function(card){
+        var vals=split?(card.dataset[attr]||'').split('|'):[card.dataset[attr]||''];
+        vals.forEach(function(v){if(v&&v!=='Uncategorized'&&v!=='Vinyl')out[v]=(out[v]||0)+1});
+      });
+      return Object.keys(out).sort(function(a,b){return out[b]-out[a]||a.localeCompare(b)}).map(function(k){return[k,out[k]]});
+    }
+    function buildChips(id,kind,items){
+      var wrap=root.querySelector(id);
+      items.forEach(function(item){
+        var b=document.createElement('button');
+        b.type='button';b.className='gh-rifle-chip '+(kind==='genre'?'gh-rifle-genre':'gh-rifle-vibe');b.dataset.value=item[0];
+        b.textContent=item[0];b.title=item[1]+' matching records';
+        if(kind==='genre')b.style.setProperty('--divider',(window.CC&&CC[item[0]])||'#e8a040');
+        b.onclick=function(){
+          state[kind]=state[kind]===b.dataset.value?'':b.dataset.value;
+          wrap.querySelectorAll('.gh-rifle-chip').forEach(function(x){x.classList.toggle('active',x.dataset.value===state[kind])});
+          render();
+        };
+        wrap.appendChild(b);
+      });
+    }
+    buildChips('#gh-rifle-genres','genre',counts('crates',true));
+    buildChips('#gh-rifle-vibes','vibe',counts('vibe',false));
+    var bin=results.querySelector('.gh-bin'),title=results.querySelector('.gh-rifle-result-title');
+    var note=results.querySelector('.gh-rifle-result-note'),matches=[];
+    function render(){
+      bin.innerHTML='';
+      matches=sourceCards.filter(function(card){
+        var crates=(card.dataset.crates||'').split('|');
+        return (!state.genre||crates.indexOf(state.genre)>=0)&&(!state.vibe||card.dataset.vibe===state.vibe);
+      });
+      var active=state.genre||state.vibe;
+      results.hidden=!active;
+      if(!active){
+        rifle.querySelector('.gh-rifle-summary-note').textContent='choose a section · add a feel if you fancy';
+        return;
+      }
+      title.textContent=[state.genre,state.vibe].filter(Boolean).join(' · ');
+      note.textContent=matches.length+' recent release'+(matches.length===1?'':'s')+' from Ben’s current racks';
+      matches.forEach(function(card){bin.appendChild(card.cloneNode(true))});
+      results.querySelector('.gh-rifle-pick').disabled=!matches.length;
+      rifle.querySelector('.gh-rifle-summary-note').textContent=[state.genre||'Any genre',state.vibe||'Any mood'].join(' · ');
+      requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
+    }
+    results.querySelector('.gh-rifle-clear').onclick=function(){
+      state.genre=state.vibe='';
+      rifle.querySelectorAll('.gh-rifle-chip').forEach(function(x){x.classList.remove('active')});
+      rifle.querySelector('.gh-rifle-summary-note').textContent='choose a section · add a feel if you fancy';
+      results.hidden=true;bin.innerHTML='';
+    };
+    results.querySelector('.gh-rifle-pick').onclick=function(){
+      if(!matches.length)return;
+      var target=matches[Math.floor(Math.random()*matches.length)];
+      var clone=[].slice.call(bin.querySelectorAll('.gh-card')).find(function(card){
+        return card.dataset.artist===target.dataset.artist&&card.dataset.album===target.dataset.album;
+      });
+      if(clone)clone.dispatchEvent(new MouseEvent('click',{bubbles:true}));
+    };
   }
 
   /* Sleeves stay fast to scan; the facts arrive only when a record is chosen.
@@ -563,27 +667,40 @@
     el.id='guest-hero';
     el.innerHTML=
       '<div class="gh-brand">The DJ Archive</div>'
+      +'<div class="gh-proofline">17,000+ tracks &middot; 14 years &middot; chosen by ear</div>'
       +'<div class="gh-prop">Tell Ben’s shelves what you fancy.</div>'
       +'<div class="gh-inputrow"><input id="gh-input" placeholder="Brazilian sunshine, late-night jazz, like Marcos Valle…" autocomplete="off"><button id="gh-select">SELECT</button></div>'
       +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
-      +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ tracks dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
+      +'<div class="gh-sub">The Selector deals 25 tracks from Ben&rsquo;s shelves: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
       +'<div class="gh-secondary">'
       +'<button class="gh-2nd" id="gh-artist-btn">Start with an artist</button>'
       +'<button class="gh-2nd" id="gh-surprise-btn">Surprise me</button>'
-      +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">Explore the full archive — 17,000 tracks</button>'
       +'</div>'
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
-      +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed recently<span class="gh-shelf-note">older records Ben dug up in the last three months</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
+      +'<div class="gh-route-divider"><span>Or browse</span></div>'
+      +'<details class="gh-rifle"><summary><span class="gh-rifle-summary-title">Flick through the new arrivals</span><span class="gh-rifle-summary-note">choose a section &middot; add a feel if you fancy</span><span class="gh-fold-mark">+</span></summary>'
+      +'<div class="gh-rifle-body"><div class="gh-rifle-row"><span>Section</span><div class="gh-rifle-chips" id="gh-rifle-genres"></div></div>'
+      +'<div class="gh-rifle-row"><span>Feel</span><div class="gh-rifle-chips" id="gh-rifle-vibes"></div></div></div></details>'
+      +'<div class="gh-shelf" id="gh-rifle-results" hidden><div class="gh-rifle-result-head"><div><div class="gh-shelf-title gh-rifle-result-title"></div><div class="gh-rifle-result-note"></div></div>'
+      +'<div class="gh-rifle-result-actions"><button class="gh-rifle-pick" type="button">Pull one for me</button><button class="gh-rifle-clear" type="button">Clear</button></div></div><div class="gh-bin"></div></div>'
+      +'<div class="gh-shelf gh-new-source gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-new-source"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-new-source"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; last year<span class="gh-shelf-note">'+(yr-2)+'–'+(yr-1)+' releases Ben played relentlessly</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this decade<span class="gh-shelf-note">'+(Math.floor(yr/10)*10)+'–'+yr+' releases Ben has returned to most</span></div><div class="gh-bin">'+decadeShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; all time<span class="gh-shelf-note">the records Ben has returned to most across the full listening history</span></div><div class="gh-bin">'+allTimeShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-new-source"><div class="gh-shelf-title">Heavy rotation &mdash; last year<span class="gh-shelf-note">'+(yr-2)+'–'+(yr-1)+' releases Ben played relentlessly</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed recently<span class="gh-shelf-note">older records Ben dug up in the last three months</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
+      +'<details class="gh-longview"><summary><span><b>Heavy rotation &mdash; the long view</b><small>This decade and ever &middot; shuffled each visit</small></span><span class="gh-fold-mark">+</span></summary>'
+      +'<div class="gh-longview-body"><div class="gh-long-tabs"><button class="gh-long-tab active" data-long="decade" type="button">This decade</button><button class="gh-long-tab" data-long="ever" type="button">Ever</button></div>'
+      +'<div class="gh-shelf gh-long-shelf" data-long="decade"><div class="gh-shelf-title">This decade<span class="gh-shelf-note">'+(Math.floor(yr/10)*10)+'–'+yr+' releases Ben has returned to most</span></div><div class="gh-bin">'+decadeShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-long-shelf" data-long="ever" hidden><div class="gh-shelf-title">Ever<span class="gh-shelf-note">the records Ben has returned to most across the full listening history</span></div><div class="gh-bin">'+allTimeShelf()+'</div></div>'
+      +'</div></details>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
+    var back=document.createElement('div');
+    back.className='gh-back-strip';
+    back.innerHTML='<button type="button" onclick="_ghBackHome()">&larr; Back to recommendations</button><span>Full archive &middot; 17,000+ tracks</span>';
+    main.insertBefore(back,el.nextSibling);
     document.body.classList.add('guest-focus');
     /* pull the dig + rediscover panels up into the hero so they open in view;
        _ghExplore puts them back in front of the table */
@@ -592,6 +709,8 @@
     loadSleeves(el);
     installShelfControls(el);
     installRecordViewer(el);
+    installRifle(el);
+    installLongView(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};
