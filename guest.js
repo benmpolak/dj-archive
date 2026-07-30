@@ -173,10 +173,17 @@
     var yr=new Date().getFullYear();
     var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
     var prevDa=(maxDa%100)===1?(Math.floor(maxDa/100)-1)*100+12:maxDa-1;
-    var gs=groupRecords().filter(function(g){
-      return g.da>=prevDa&&!g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
+    /* rank on the artist's plays across ALL their releases this year, not just the
+       rack window — Curió Curió's played April singles should lift their July ones */
+    var yearGs=groupRecords().filter(function(g){
+      return !g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
     });
-    sortByArtistPlays(gs,function(g){return g.pc});
+    var yearTotals={};
+    yearGs.forEach(function(g){var k=artistKey(g);yearTotals[k]=(yearTotals[k]||0)+g.pc});
+    var gs=yearGs.filter(function(g){return g.da>=prevDa});
+    gs.sort(function(a,b){
+      return (yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
+    });
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
