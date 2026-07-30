@@ -96,24 +96,24 @@
     document.head.appendChild(s);
   }
   function fetchArt(el){
-    if(el.dataset.artDone)return;el.dataset.artDone='1';
+    if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
     if(el.dataset.artSid){
-      fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
+      return fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
         .then(function(r){return r.json()})
         .then(function(j){if(j&&j.thumbnail_url)setArt(el,j.thumbnail_url);else itunesArt(el)})
         .catch(function(){itunesArt(el)});
-    }else itunesArt(el);
+    }
+    itunesArt(el);return Promise.resolve();
   }
-  /* lazy-load: with 25-card racks an eager load is ~100 fetches at once —
-     fetch each sleeve only as its card scrolls into view */
-  var _artObs=('IntersectionObserver' in window)?new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){fetchArt(e.target);_artObs.unobserve(e.target)}});
-  },{rootMargin:'200px'}):null;
+  /* ~200 cards across the racks: fetch sleeves in a polite queue, six at a time,
+     until every card is done — an IntersectionObserver proved unreliable for cards
+     deep inside the horizontal bins (cards silently never loaded) */
   function loadSleeves(root){
-    root.querySelectorAll('.gh-card-art').forEach(function(el){
-      if(el.classList.contains('gh-card-lead'))return;
-      if(_artObs)_artObs.observe(el);else fetchArt(el);
-    });
+    var els=[].slice.call(root.querySelectorAll('.gh-card-art'));
+    (function next(){
+      if(!els.length)return;
+      Promise.all(els.splice(0,6).map(fetchArt)).then(next,next);
+    })();
   }
   /* shelves only show records with a real Spotify link — unmatched comps and
      white labels get corrupt links and wrong fallback art, so they stay off */
