@@ -2130,6 +2130,10 @@ function _spawnPlayer(sid){
   });
 }
 function playPreview(sid,btn){
+  /* phones: the embed can't autoplay and the bar is easy to miss — open the track
+     in the listener's own Spotify app instead (deep link, no auth, their account) */
+  if(window.matchMedia&&matchMedia('(pointer:coarse)').matches){
+    openSpotifyApp(sid,{preventDefault:function(){}});return}
   var mp=q('#mini-player');
   /* If same track, toggle off */
   if(_nowPlayingSid===sid){closeMiniPlayer();return}
@@ -2140,8 +2144,6 @@ function playPreview(sid,btn){
   _nowPlayingBtn=btn;
   if(btn)btn.classList.add('now-playing');
   mp.classList.add('visible');
-  /* phones block the embed's autoplay — tell people where the play button lives */
-  if(window.matchMedia&&matchMedia('(pointer:coarse)').matches)showToast('Tap ▶ in the player bar below if it doesn\'t start');
   /* Track history for auto-play-similar */
   if(_radioHistory.indexOf(sid)<0)_radioHistory.push(sid);
   /* Always spawn fresh player — most reliable for track switching */
@@ -4373,6 +4375,9 @@ body.guest-focus .main-area{overflow-y:auto}
   .gh-card,.gh-card-art{flex-basis:128px;width:128px}
   .gh-card-art{height:128px}
 }
+
+/* -- mini player must float above the Selector overlay (z 1200), not under it -- */
+.mini-player{z-index:1300}
 
 /* -- scrollbars -- */
 ::-webkit-scrollbar{width:9px;height:9px}

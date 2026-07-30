@@ -163,6 +163,9 @@ body.guest-focus .main-area{overflow-y:auto}
   .gh-card-art{height:128px}
 }
 
+/* -- mini player must float above the Selector overlay (z 1200), not under it -- */
+.mini-player{z-index:1300}
+
 /* -- scrollbars -- */
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-track{background:transparent}
