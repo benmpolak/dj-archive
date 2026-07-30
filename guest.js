@@ -57,15 +57,16 @@
   }
   function playAttr(t){
     if((t.sid||'').length===22)return 'onclick="playPreview(\''+t.sid+'\',this)"';
+    /* not on Spotify (matcher-confirmed) — YouTube search, same as the table's red buttons */
     var q=encodeURIComponent(primary(t.a)+' '+t.t);
-    return 'onclick="window.open(\'https://open.spotify.com/search/'+q+'\',\'_blank\')"';
+    return 'onclick="window.open(\'https://www.youtube.com/results?search_query='+q+'\',\'_blank\')"';
   }
   function card(g,meta){
     var t=rep(g,function(t){return t.p1||0});
     var sid=(t.sid||'').length===22?t.sid:'';
     var cc=crateColor(t);
     return '<div class="gh-card">'
-      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)">'
+      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)">'
       +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
@@ -75,17 +76,32 @@
       +'<div class="gh-card-meta">'+meta(g,t)+'</div>'
       +'</div>';
   }
-  /* real sleeves via Spotify's public oEmbed (CORS-open, no auth); the text-led
-     card underneath is the fallback when a fetch fails or there's no Spotify id */
+  /* real sleeves: Spotify oEmbed first (CORS-open, no auth), iTunes Search as the
+     fallback for records not on Spotify (JSONP — iTunes sends no CORS headers).
+     The text-led card underneath stays when both miss. Discogs is a dead end:
+     anonymous API responses carry no images. */
+  function setArt(el,url){el.style.backgroundImage='url("'+url+'")';el.classList.add('has-art')}
+  function itunesArt(el){
+    var q=el.dataset.artQ;if(!q)return;
+    var cb='_itArt'+Math.floor(Math.random()*1e9);
+    window[cb]=function(d){
+      try{var r=d&&d.results&&d.results[0];
+        if(r&&r.artworkUrl100)setArt(el,r.artworkUrl100.replace('100x100bb','400x400bb'));
+      }finally{delete window[cb]}
+    };
+    var s=document.createElement('script');
+    s.src='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=album&limit=1&callback='+cb;
+    s.onerror=function(){delete window[cb]};
+    document.head.appendChild(s);
+  }
   function loadSleeves(root){
-    root.querySelectorAll('[data-art-sid]').forEach(function(el){
-      fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
-        .then(function(r){return r.json()})
-        .then(function(j){if(j&&j.thumbnail_url){
-          el.style.backgroundImage='url("'+j.thumbnail_url+'")';
-          el.classList.add('has-art');
-        }})
-        .catch(function(){});
+    root.querySelectorAll('.gh-card-art').forEach(function(el){
+      if(el.dataset.artSid){
+        fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
+          .then(function(r){return r.json()})
+          .then(function(j){if(j&&j.thumbnail_url)setArt(el,j.thumbnail_url);else itunesArt(el)})
+          .catch(function(){itunesArt(el)});
+      }else itunesArt(el);
     });
   }
   function newInShelf(){
