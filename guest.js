@@ -140,7 +140,7 @@
     gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+(g.pc?g.pc+' plays':'archived '+fmtDa(g.da))});
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
   }
   function unearthedShelf(){
@@ -154,7 +154,7 @@
     gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+(g.pc?g.pc+' plays':'dug up '+fmtDa(g.da))});
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
     }).join('');
   }
   /* hand-curated shelf entries for records that live off-Spotify (Bandcamp etc.)
@@ -191,7 +191,7 @@
     gs.sort(function(a,b){return b.p1-a.p1});
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
-      return card(g,function(g,t){return g.p1+' plays this year'});
+      return card(g,function(g,t){return t.r||''});
     }).join('');
   }
   function prevYearShelf(){
@@ -202,7 +202,7 @@
     gs.sort(function(a,b){return b.pPrev-a.pPrev});
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
-      return card(g,function(g,t){return g.pPrev+' plays that year'});
+      return card(g,function(g,t){return t.r||''});
     }).join('');
   }
   function playCutoff(){
