@@ -90,6 +90,35 @@ tbody tr:hover{background:#15151f}
   .stats-dash .sd-close{top:10px;right:12px}
 }
 
+/* -- guest layer: welcome card + owner-gated edit tools -- */
+body:not(.owner) .qt-edit[title="Edit genre & vibe"]{display:none !important}
+#guest-welcome{position:fixed;inset:0;z-index:2000;background:rgba(8,8,13,0.88);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:18px;animation:gwFade 0.25s ease}
+@keyframes gwFade{from{opacity:0}to{opacity:1}}
+.gw-card{position:relative;max-width:480px;width:100%;background:linear-gradient(160deg,#15151f 0%,#101018 60%,#12121b 100%);
+  border:1px solid var(--border);border-radius:18px;padding:30px 28px 22px;box-shadow:0 20px 60px rgba(0,0,0,0.55)}
+.gw-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--dim);font-size:1.3em;cursor:pointer;line-height:1}
+.gw-close:hover{color:var(--text)}
+.gw-title{font-size:1.25em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;
+  background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gw-sub{font-size:0.8em;color:#9a9ab0;line-height:1.55;margin:8px 0 20px}
+.gw-doors{display:flex;flex-direction:column;gap:10px}
+.gw-door{display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;
+  background:var(--card2);border:1px solid var(--border);border-radius:13px;padding:13px 15px;color:var(--text);
+  transition:border-color 0.15s,box-shadow 0.15s}
+.gw-door:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.12)}
+.gw-door-icon{font-size:1.35em;line-height:1.2}
+.gw-door-name{display:block;font-weight:700;font-size:0.88em;margin-bottom:2px}
+.gw-door-desc{display:block;font-size:0.72em;color:#9a9ab0;line-height:1.45}
+.gw-foot{margin-top:16px;text-align:center}
+.gw-owner-link{font-size:0.64em;color:var(--dim);cursor:pointer;letter-spacing:0.04em}
+.gw-owner-link:hover{color:var(--accent)}
+@media(max-width:768px){
+  .gw-card{padding:24px 18px 16px;border-radius:15px}
+  #guest-welcome{align-items:flex-end;padding:0}
+  .gw-card{max-width:none;border-radius:18px 18px 0 0;border-bottom:none}
+}
+
 /* -- scrollbars -- */
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-track{background:transparent}
