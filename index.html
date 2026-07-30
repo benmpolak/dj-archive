@@ -4597,11 +4597,13 @@ window.addEventListener('hashchange',go);})();
      white labels get corrupt links and wrong fallback art, so they stay off */
   function hasSpotify(g){return (rep(g,function(t){return t.p1||0}).sid||'').length===22}
   /* one card per artist per shelf — an artist's run of singles shouldn't take
-     multiple slots (the Okonski rule); list must already be sorted best-first */
+     multiple slots (the Okonski rule); list must already be sorted best-first.
+     Key on the first artist before ';' AND ',' — playlist imports join
+     collaborators with commas ("Okonski, Cochemea" vs "Okonski, Rachel Kitchlew"). */
   function onePerArtist(gs){
     var seen={};
     return gs.filter(function(g){
-      var a=primary(rep(g,function(t){return t.p1||0}).a).toLowerCase();
+      var a=primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
       if(seen[a])return false;seen[a]=1;return true;
     });
   }
