@@ -82,6 +82,9 @@
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
     var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
     var artist=primary(t.a),title=t.al||t.t,metaText=meta(g,t);
+    /* Listening evidence belongs in the opened record view, not under every
+       sleeve. Keep the rack visual and fast to scan. */
+    var rackMeta=metaText.replace(/\s*·\s*\d+\s+plays?\s*$/i,'');
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(artist)+' — '+E(title)+'"'
       +' data-sid="'+E(sid)+'" data-did="'+E(t.did||'')+'"'
       +' data-artist="'+E(artist)+'" data-album="'+E(title)+'"'
@@ -96,7 +99,7 @@
       +'</div>'
       +'<div class="gh-card-a">'+E(artist)+'</div>'
       +'<div class="gh-card-al">'+E(title)+'</div>'
-      +'<div class="gh-card-meta">'+metaText+'</div>'
+      +'<div class="gh-card-meta">'+rackMeta+'</div>'
       +'</div>';
   }
   /* real sleeves: Spotify oEmbed first (CORS-open, no auth), iTunes Search as the
