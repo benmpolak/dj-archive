@@ -7,8 +7,8 @@ Sources:
     Eventim Apollo, Spiritland King's Cross, The O2 Arena (site scrapes)
   - AMG/Live Nation internal API (O2 Academy Brixton, Shepherd's Bush Empire,
     Forum Kentish Town, Islington Academies)
-  - Ronnie Scott's via r.jina.ai reader proxy (their site is Cloudflare-walled
-    for plain fetches; the proxy renders it)
+  - Ronnie Scott's via the r.jina.ai reader service (their site doesn't serve
+    plain fetches; the reader renders it)
   - Ticketmaster Discovery API IF env TM_API_KEY is set (optional extra)
 Gaps (checked 2026-07-20): Union Chapel (JS-only); Space Talk & One Eighty One
 programme on Instagram only.
@@ -424,8 +424,8 @@ RONNIE_DATE_RE = re.compile(
 
 
 def fetch_ronnies():
-    """Ronnie Scott's find-a-show, rendered through the r.jina.ai reader proxy
-    (their site Cloudflare-blocks plain fetches). Markdown pattern per show:
+    """Ronnie Scott's find-a-show, rendered through the r.jina.ai reader service
+    (their site doesn't serve plain fetches). Markdown pattern per show:
     a date line ("Tue 21 Jul 2026" / "Wed 22 - Wed 29 Jul 2026"), then
     "## Title", then a "[Find out more](url)" link."""
     events, seen = [], set()
