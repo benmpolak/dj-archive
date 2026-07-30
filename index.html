@@ -4610,10 +4610,9 @@ window.addEventListener('hashchange',go);})();
     var sid=(t.sid||'').length===22?t.sid:'';
     var cc=crateColor(t);
     var albumName=(t.al||'').trim();
-    /* Prefer the named album sleeve whenever the archived track belongs to an
-       album, even if only one or two album tracks are in the archive. This avoids
-       retaining a launch-single sleeve after the full album has arrived. */
-    var useAlbumArt=!!albumName&&(g.tracks.length>=3||albumName.toLowerCase()!==String(t.t||'').trim().toLowerCase());
+    /* Three or more archived tracks means Ben is treating this as an album, so
+       prefer its album sleeve over whichever launch single supplied the track id. */
+    var useAlbumArt=!!albumName&&g.tracks.length>=3;
     var artKey=useAlbumArt?'alb:'+primary(t.a).toLowerCase()+'|'+albumName.toLowerCase():(sid||primary(t.a)+' '+(t.al||t.t));
     var artQuery=primary(t.a)+' '+(useAlbumArt?albumName:(t.al||t.t));
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
@@ -4635,6 +4634,314 @@ window.addEventListener('hashchange',go);})();
      fallback for records not on Spotify (JSONP — iTunes sends no CORS headers).
      The text-led card underneath stays when both miss. Discogs is a dead end:
      anonymous API responses carry no images. */
+  var _bakedArt={
+  "7ifAhzyUKYItSebiSt6pmv": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ef8970f856f679d371cdbdc4",
+  "alb:ron basejam|is it daylight?": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021b9a12351bff120429ac1401",
+  "075hYqnX7FLHxDX15rkVqq": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0291181e8d36c3a9a6279b824c",
+  "1mcbaznRgBUaUNgnhKDQJj": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026ddda585c6c469f9eed1e263",
+  "alb:curió curió|curió curió": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0295fe9d284c3dc245d4ee1482",
+  "6quddo1KlWbsqAGGvDfV6F": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0212a41fb6211956fe6e07d614",
+  "0jgyEwlf80StthpsiCZwJP": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0257d2bffb12b68e26126b68f3",
+  "alb:izco|powerscroft": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02de0a4c4f788ecd944d110717",
+  "243nAji1iUHiGkcKWjyFyD": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023c42c6fbbc370c3f7fe71697",
+  "0UlC3u4AysiMgEDqpoigXB": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e021249080a1b364f0a54d11d5b",
+  "5uZ7sIe129iw7KdgjPFaon": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e027ffe6e99f677cbac638d6443",
+  "1OvqOj56I0i0ImwYJQJT2P": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02634f85b65c4a373cd79872fa",
+  "1KURH4HoF0niBuMfpD1QHY": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024974043bfac3f0c898f501ae",
+  "4AKMCbXYw5zXpHMAUeQ8uy": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ab927147695db82ee1191dec",
+  "5VeTGJ0UQ4Fa9YgaN6evBb": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0237bf84c44d90a8d27f5dd443",
+  "09Hcyt1ej9jnaWUSMvuHZ1": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02d74ad43b2071bc6263429597",
+  "4x3ycJCIZiVMMsNlzsj2Cr": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0257d3fb9944caf050c9239480",
+  "5YLh9TrVY7cfES01XCgsYT": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f6a8235773e79f05dddad091",
+  "7ugSt88ZTMLYF5GsJIeQ1M": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e021755d4b26fb2bd74c9296b75",
+  "4nSgm3k73DtrqdatI1vILC": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0279e7b4a65bc13d5127067a7f",
+  "6YZVp2FbNUpr7iDVhbMwmO": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b064175cbf5af0cf98a02798",
+  "4Bh2G7uXuQfbRgPx5UKnUV": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e021d434e27e828450dbb59cd35",
+  "7q46LyczLG0SeYKammzbU7": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d9d246e0fed2186faa4d20d8",
+  "21tmsyOELNT4ZAjR4vAr3K": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026d27b697f3ceb266deaeb07c",
+  "26cbmyCNrPCDq1yICOXa4q": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02dc3889b51e666bd239bbfac9",
+  "3OhPxSKeQotvgquG6dTWCP": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d7181c8d7f4adbf3b3b959c6",
+  "75ogW535bShRgXeykOSA4p": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02cc3f5512e5db8a581e9d0ac7",
+  "0UyGgJdVrIlktu6ybISlft": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027183a1b6bb1e935c91993341",
+  "1xZMCCGW2Og8Ii2rE6dJJX": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02edefe30ea632e4a27fc421ea",
+  "3P2BAv3iJNV1J3VSKpbKLX": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d4ef53307c76e6a35c7b35a4",
+  "1UCpXiOkHksrcWbLd2TXXi": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02dad641ce388992efe325dac5",
+  "7A4wZhXJMEwnH6WRPUT2es": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f006faebe0c33f752cc59895",
+  "6dSffQCAJ4ZAZp3p9ZRcDA": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b3c10b10b311146154466558",
+  "2fIxB7iwauzDnStj2Dffxn": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ce89cdd9facefe5cb1a70a3e",
+  "433O6gvLWDDxVu976YVdIJ": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02f81c608c7deb73eae20dd371",
+  "1V4DHkMFbVcGmWSG4qaLfi": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024a927cc0de27fac199fef435",
+  "5o66sbn1D7RVv96Q58qcXp": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02fde0cf92cb13de1684915d9d",
+  "4dutzcXXYlPUEiEwELNes3": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0262f359ad686270e85c92c689",
+  "1bvuJTinhvq4VzudaDVL0d": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e028382c276a0e0fbcbe27e933b",
+  "7HkhDoAt1PmiEof6CdBhg8": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e022ebdf52ad85dd1c99cc78f88",
+  "6M2dVpHzS36j5GcX2XJNHb": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0236b6de26a16693f5de0e36f7",
+  "30OqchmbBTzZJ24usM7GrN": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c261613544a64df7ad1eadcd",
+  "61HwloDTTfO6JkdZogaDjD": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0200871b495e521124b6d3d587",
+  "1Y5Iq070TALg3wFy5igJw4": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e029a28f9338b693ae8e224ad8f",
+  "0ajcBeNXFmjucpy4Kt6Nnw": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02bfa016f8b0d76e4f30451119",
+  "71tZq2cxfuMaE1KkS9mjj7": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e029949c78138ec29013fa32745",
+  "177No3z2IF2FVeUA5IvJe6": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f08fe129e56896093b0c450b",
+  "2ck5LysJdg1BbMqaLzr0XT": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e023947d3da3b900b4377353209",
+  "1XLCwiOZqIBLOObrWxBJaE": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023e7b48514cc9cb7fc38c3892",
+  "0adIBPfUdFtCT2cEuHt0px": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026b6d63ad4d754d0dcd1413f5",
+  "5cL9apuZP2KhE9C5fZwFbo": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022c73bc91fd54267375fc0edd",
+  "5L9hrHD4T4WAByXi4lq4JJ": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c21d2e1ff88211807ce10578",
+  "3ydklsO5ykXCVFb8iSEKEC": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0235f5d16101319ac7cb315458",
+  "1DHjX6Rmd0SE3KM6rLQmkl": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0297771360bf8a3198fb7e738f",
+  "3V0nyCGhO9VGPCmYXhAKRy": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0297a2c9dcfc9399a5d450fa41",
+  "6Z24De94MTQLyBotzIV5OG": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021033af6057e2f441882466ef",
+  "2LYLcU576c4Sf3mnk4VNye": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02b8a09e2240919094d745f205",
+  "3t8AMGQGEKOw39mjPDp8kL": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e028c8813941ce30e5cc8588844",
+  "2UnJ6Q7PRf9oWEfhkQXtLe": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02985f3a73b053b54702973581",
+  "10XQ6FaiBqZc5LkNP5sMoh": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02007a08862f63a0b7324472f5",
+  "6nqskBd7SES3ualEJC867r": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02db4ada33827fad637023bc8d",
+  "058OiVLm60gjpsTSgavUBz": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0221d0878b18f2464c283319ac",
+  "6awfvw5ybmxUT8tv7EaJjr": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0279bc67e1d182eedc35f29f53",
+  "0Pq0mOdgFXTezl6mMt8a39": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02678126a9eb431cc436468517",
+  "6n3zhTrnekUwQzTHEOmQrq": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02752178a49b2ee2a52a7be249",
+  "7aRIYgVbrwcEchpN7wQIQf": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022edcec444aaf3ba2a6153cc1",
+  "6TUuFqjLr75UKlKiR1HimR": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a890838e3baffb023ff62250",
+  "3MnDs1gRXCMCUgBXBITKj5": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02a72c07548684a17a043faca5",
+  "7zNOdNez1qWclP10sfQe32": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f8385b3f16365c15e4d08507",
+  "2o4svwVXFlIcBcru09fczy": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02a4753d7ae7951d7dfdb3ace5",
+  "3DlF7QoSZEUHPRbHoLezxo": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e026e13ad839e1a57fbc2aa30e4",
+  "1pCQPO5VHoVs0UB0sCi6Ho": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0229568e6c9dad287cde4a2053",
+  "1SyfOeYjpeE5TW76vy0moy": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a587706d3758e3769eba84b8",
+  "2YCohqQ0nrzHtQlFwEBLZn": "https://i.scdn.co/image/8dd36bab75c9a864068fbe059b396fdbbd093a6c",
+  "3mSRd2ISaVrdRMqklXyFK4": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0276d915075ed7a2cab45fa9d8",
+  "4V22H4V9iickrQkGWpQ74r": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a17b30dd8e71d0f4b9c77d80",
+  "alb:d.j. rogers|love brought me back (expanded edition)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02da4c677fdd837bbcf95cb2d8",
+  "1AxpVOD3PAlrB3bK3vmI1b": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02f314cff595578b33893b3e3d",
+  "2llFlNkPX4hW1M3HLdEMBm": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0287af363f9702e794f50682de",
+  "3x7VOtVlyQG7Ym44FvYtks": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021d0e1857783f8e6f369feeb0",
+  "547iG5F16pTdim4XlMlGEU": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023b9335503d780cb716ab7aba",
+  "5QIdvte0OAw9UVmICaLyDs": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02723af9b9858d7b54d929b281",
+  "0oP6ImHSHgMWW39iGTZZ8A": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02a84ecefd9a7d91940e06dcb7",
+  "1QYraxM91pqAtsCu5uNnX4": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ce75791b3c580c2c6c184df9",
+  "0Ag1AfvBbjsOqO3w7Cxboc": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a9099024ddc995227758eede",
+  "7pKClfMUrahIxwYuAgqJ2x": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e029ebfa863621581efe089e740",
+  "1yegOuJrLOG85tNnjR6UD3": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0289ae9e657ac0d14ed818b5f5",
+  "70BtEK4Bn79aW5yh1J6UPa": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02eaa5663f8c2aba50179d0c0d",
+  "1GhMO1nAWEF0KOd3ky74LF": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02136431d20582d4efd21d2863",
+  "3fn8dAnLBADuNABrnxRAVs": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02af5d37cb617ea78ef622467a",
+  "6er1TktAsMxFLH1EEukxi9": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02bf57726a5562ecb5435c708d",
+  "08HeyMd9OhxS1FBmYYOJNZ": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a678be066dbc8ef3b437cbd2",
+  "4w4VTLACEFBlvv5f1M94Gm": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02dca4b3626451362da15d8002",
+  "5dG91cWFeoxWs1T1tThJSa": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02cbbf0ee70cebc7ef9646c23d",
+  "7e4zDInS6tA2jwzphvs2Ay": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02450a730dd72f3bf49882ae9d",
+  "7n8mrMNDk5jLfTiiR79Znx": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0269744e8f67e67f270286540f",
+  "3nYbDXMGIjKonGt3Lfpcbz": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d173b9edd7ecdf1385aabc23",
+  "2W1wZG52PIlXihmHnNXE1G": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02a0346b4f74fada4b0afb6dc2",
+  "42SoWrrncUjW7BXZutONZA": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022bd0883e347f32491926c734",
+  "5hNsW0rhB86uj234uq3O0I": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02689095aa9d41d34f0ffef379",
+  "alb:seu jorge|the other side": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f678daf18986437e08094ca1",
+  "alb:tara clerkin trio|somewhere good": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02eca1b78d8aa6be72c94ba0a8",
+  "alb:shy one|mali": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02fbc121aab177f07d2de57a94",
+  "alb:jorge ben|jorge ben": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0228e2228486bd75ea9f330149",
+  "alb:another taste|another taste ii": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021af129db43814a4fe4c26f29",
+  "alb:fabiano nascimento & orquestra de vittor santos|vila": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0223faaf48f3cdc81b7c2d8930",
+  "alb:maston|moving images": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0209855b7c247da00621116b69",
+  "alb:nonna fab|deeper dance archives": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b80be0199d7191bbea43e0b5",
+  "alb:fabiano do nascimento|vila": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0223faaf48f3cdc81b7c2d8930",
+  "alb:gena|the pleasure is yours": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02179298893d95ccb23535b27b",
+  "4IdB6ipGd0Cwrf2sXuWY2W": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0259373f4e5095205e10d52c09",
+  "alb:jill scott|to whom this may concern": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027096302e941475f3e2649fc2",
+  "5XnF9VnDnHfun1UumYc4Xn": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e027839922e620494fee4f7fd62",
+  "5SiYjXfEvr9zb997LxVIXJ": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02324f8e2cda40612244a60d9a",
+  "alb:jeff sova|belvedere point": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a77f05e0491769cb1b29da57",
+  "37rzX7Z1b1zJ5emW2pqMv0": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e021b7edfe749fa898051deb544",
+  "68725MxxBON5D9EprWFGoS": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e028e09388cafd3b20f3e4abdaf",
+  "267DD2UrLDJu4BFF78piVb": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02093bb2c8f3797d6ec90df8e6",
+  "3FScX9LOiQBqcEEje1bGQO": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e9e8734fa6e4f86d230a0cf6",
+  "4JevV3smpPLhFRmn2JeCIP": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023a63442b69b8deeed4a7db99",
+  "7k9CrB8iotk8llDjcBisiu": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0252f13402ecf748032c71aa73",
+  "6ZDjGJehOPyt9UUTN1Yqde": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e026871cf86d8ebab95a8678fe1",
+  "1JeJ5XwrM2qPa7tDS2CRQx": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b738c69f0628cea1f34dadf9",
+  "0D9ntqFHsS12fi4tAayo9K": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d3307ea854d84ddc01d98a20",
+  "12fmgHPWF4ljzjxdqjusuY": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02fac76a5312842701ddd29ca1",
+  "1Nd7Im9T6a7zvQH26ZSi4E": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02520250b14377e0842037ae37",
+  "2epaXRLut0tREWhjvLC1Zn": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c1cc1b77ca8a970c37a8615c",
+  "3l9b3ETlHnIB9qYqsc8SJI": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c1e84da5fb1493aa91966a95",
+  "3gyqKJBMp1deXl3zX6UE2O": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e029f7364cfbfb873919f9facd8",
+  "74fwIXxSnup963OfU9V4Ge": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021d26eca9318a3014160832e0",
+  "25znWXYxQntyWRhyqDziAj": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02113b60ec6c5df60902f0d4b6",
+  "722MOMGNOFAKi8pod0kPoD": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c5996ae9bc6fec0e30cc47bf",
+  "6SaBRWlHeO9ZX1yZqxsMjQ": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e022773b0c3e0bc61435dce637b",
+  "16QwCCQCKbZuA6cGktNiik": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0269d3df0fda7bb72d0c814816",
+  "3RTFej70M4t30JL9Ha2mfI": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026d21a59a1cf727fc41814ee0",
+  "17eVulPbackuToHjINmFkt": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ab8e772007251d4062a21233",
+  "3pGtKTD7zkayzJmuU90rLb": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e026d21a59a1cf727fc41814ee0",
+  "055T1TvSjL24CTUfTHSZs7": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027fc269d38c41256bf827ace9",
+  "2TidiXg42kktDIl8WhNPWk": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b11d0c19f4395426044c8da0",
+  "1sHgRiF5CWjEIKeypXE0LO": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0292fcb5343d0643c41d96b089",
+  "5JF3jaiN4x6PK15HYnOSc9": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e5c33955121f8f689a541d64",
+  "5OKtvYYQH7Ej7C7BD3uWBH": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0234765c167ac5f4c50da9bdc6",
+  "3XEhOUNJtTi9PTrJbGaehg": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0216a9699f9aa928505918f499",
+  "7GbDXecbKNcbBBnYH9wANJ": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c517871bd55769ac76b4a2ff",
+  "6gthXQDyhf3OaWw3QvuYtA": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02096ed5f481408e695ce7a14f",
+  "7mQa5PaLvtw2oRWMD7qR9U": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e2f93a457b193ab099467566",
+  "3eGd424LLeNs6wvc9oHI1d": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021e9637369629fc2bbc0a23df",
+  "4iSi6VQl5LfU4m1PgW2cF4": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021fc5b226d9a89558dca7bc7c",
+  "22aSlyDp8Z67ERuVCwgPKh": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c1dd557b1b8da13121b4d2af",
+  "24kTFm6n3tsoiGsDeG0PhY": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b8e886569c94b838a87e2574",
+  "63CI4kn03dsDTJlfXAFwvC": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e029aa3a13ec68c70df19f194d4",
+  "1YpmYzpfeo5S2RyXmrV2Xl": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020dc9e4d5158cb7402534470f",
+  "76KQIzUDMfjEeMSzTYci1T": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021d4b8373ad3f36bc29906fd5",
+  "39NEJSioxP5yFf79OIL01J": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e024a4376989236accaf6f17f2a",
+  "08ttFLIlosY8Cd1penS87S": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0227cbc14ebcf9e8320aa9c71a",
+  "0SSPVL0JuC3qjBHL27lp8j": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0271a288efc70ffb997de75364",
+  "alb:chaos in the cbd|a deeper life": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a95e709a2e8478408ec7d0d3",
+  "alb:don glori|paper can't wrap fire": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023f21948c8b2522b8f6bfc18c",
+  "5gPxFw34J12CmsOE8OWrBP": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02dc332282c063311a1e1773c7",
+  "7lP5iw6byOIGPCEWwuJa7U": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b78c7c99e5eeea9fbe10a776",
+  "alb:nyron higor|nyron higor": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02289051d90ac45ee8902bc794",
+  "10wJaNQ6aoGsWIRhr51jhI": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0223923b8959c86e624213aa20",
+  "59VW5GP5bVj0CQe9wjDR3V": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027973f69cdc080b8938e6bd29",
+  "alb:phi-psonics|expanding to one": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0287f538b16d79121c18d86a66",
+  "7ME1spM3HTTbFRGxNm6F3I": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0219c06cc2411499986435671b",
+  "alb:butcher brown|letters from the atlantic": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f1ec30e8ada6671d2359d8c7",
+  "7AacPEW7dyYIae5yEDRCSH": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02cae9d0fe99c5d2fe0e8f6dd7",
+  "32jYb2YkMBb61zV87oOofT": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a9a0cff6a83bcaecfa44cd2f",
+  "6hHm8U9ED0Y4C57tebg860": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020d6fb10f63ae1bffd75d42d5",
+  "18yBPA6gT9qpTJ5NxAusjs": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027079710cf226df785dd343ca",
+  "4KoXpA59hGJ4W7rpZzdsXm": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02425bf3e9bedd0a2c38f2a26b",
+  "alb:alexander flood|artifactual rhythm": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024915d7c6c604dbdaefac5ed3",
+  "alb:sault|10": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0256c80e47df1973b3e3cb6414",
+  "3B5d7Edu9B6XsEcu5RVJsW": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f622ccc2b6d01c3624af3222",
+  "4MB3jR6oUn6123fiOar0ed": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0228a6f6f2eb83f40d93abb65d",
+  "5GfuxjkgreyoCVmb0FYxcH": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0214c2b617e2789ac325698467",
+  "2aUMqfThk9qtmk1VRTrj5r": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0271a4af7543cef6f3eb9596a2",
+  "3qJJUywF37xFC4457NKFJZ": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027d3413d93de62e82616e18f8",
+  "4FH2rkxkgTFZbGTdcUJhdF": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02251b97b2b33229612604461d",
+  "4sFQJGNWxYhfr5cVwnT1oR": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0213a0f67e8b4a34905904b6fb",
+  "1OWepP1RjA1iFz6hRJVzHu": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e022b61720b4f487049250961c6",
+  "7AaHNhB05A2yPXRSpeABJS": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d539dd9724d81bc10e2058f3",
+  "7qKtaaEEGsMQUkDNIaZIcE": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02e357199e567025a15cb51a03",
+  "2Uv2uO98bEWgM8cdBtkFZA": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c47e53073bda63df83319e3c",
+  "34FPGfm9CvCj8UAfpuaQiB": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e0b9cbd8374fbc36c9bca872",
+  "470gEf45gAhLewLVc5IkKJ": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02d5575995f2c55f100ed5d510",
+  "732qlNp1VduWU5pI9Ih37U": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02963d10dbcb6ab84993ade123",
+  "5xA6zmXRPkx7r9ZFTvqZsw": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026f0acbda5bf5c12cdeb4f5e2",
+  "6INOLtgsMZ6EjVYxhRczyL": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023e62bac721b4bd9232431367",
+  "alb:seu jorge|baile à la baiana": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02b93748504c32f0f7821ffce9",
+  "29ZRHJ7cFg04dv2sXP0XBG": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f5db241d5dac5c2bf5d987ad",
+  "3IHphQsfjg4FNHWb9P1qvm": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02fce55c1b6bcfcdf419d0f892",
+  "13BIMqQJKmldahrXEpe0cs": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b67183907b2ad7219ae46167",
+  "3yEe8SYHziLsb2RE0Vn414": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0253299affceccc7c83a8f9801",
+  "0fcBmbvNvJluEYR0xQYBxN": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02441bb078e4888a5269942eda",
+  "0ODz72aWsdWhKqgEmJYZ7Q": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0227603d892be56b805b7759de",
+  "1WZvOuYJ1thpl4LdLDHreV": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c53ddab64890ac0d12c53622",
+  "2dNyT3herl8UsnxHOfTovA": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027d483ae01dff6133f54c937b",
+  "66qE5neFputkNajYp4D7IU": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020021e0c5e8654632f7d168a4",
+  "1EvKBtW2AE4vh6gkL0cw11": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021fdb36b1bf05e227863bb6f1",
+  "3NASQs1Zch1s9JXgK5qKii": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e68f73e9930268327bbab936",
+  "6fX1cW0uhe0RMgWbO1X3jC": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0248941ad3a19133ed24d48f44",
+  "5ih0VII1s2EMakY7m1CLHH": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0297b71eb0fcc24060c8b90760",
+  "0tWKWsXRcLYOBQL6CyRVtd": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021031b47716cb9a8088d5ef96",
+  "6WRlosYMpuPZ6wk3xko2Ff": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e028986e42c4dcdc67b3ac1a82f",
+  "0scJw0FWIuCIYmy1oyhVud": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02701f7bba9584f0a33e0c3e65",
+  "alb:sault|untitled (rise)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024a08d9f639f2bb1054f357de",
+  "alb:союз|force of the wind": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0237e9e0ba4263eea584c17cb0",
+  "alb:doves|the universal want": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022759da8db912a1a5a2aad253",
+  "alb:yazmin lacey|voice notes": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022512dbb2479a1846076670d2",
+  "alb:rogê|curyman": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e023a04735ec37dabcde34b0320",
+  "alb:kendrick lamar|gnx": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e2a0a166493a2bde5480a420",
+  "alb:soichi terada|asakusa light": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e021234a451db367d3ef6ad502d",
+  "alb:jim|love makes magic": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a71942e719354745c088ea31",
+  "alb:yaya bey|remember your north star": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ba226ebfa218f47147b65ba4",
+  "alb:the orielles|disco volador": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0270cc528bf4e473db24455e82",
+  "alb:yard act|the overload": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02e9cb95bcfb8b7ce00a2c2fa0",
+  "alb:daniel maunick|persistence": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c8245069337b5a46a0628ce4",
+  "alb:eddie chacon|sundown": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022730f901fd5a14a91ce1df05",
+  "alb:sven wunder|daybreak": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02feeca1f6869ecdf8e61bb972",
+  "7IeuN8aA1Sq5aL2Ensvepy": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02bd51ac89e323492e7c71de82",
+  "alb:wayne shorter|speak no evil": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02532a787b7bf351f1faa9bbd5",
+  "alb:bala desejo|sim sim sim": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027fec71670a67730c9c694cc4",
+  "alb:noname|sundial": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e026e2a480f32d1825bbd89fc07",
+  "alb:arthur verocai|arthur verocai": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02816dff6b953279497b0e7732",
+  "alb:lynda dawn|11th hour": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f2d96591aba1b695f866a384",
+  "alb:greg foat|the glass frog": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02548a0f8ea2c6782e32208c39",
+  "alb:sessa|pequena vertigem de amor": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e86337fe9a473622e3ae3e6e",
+  "alb:matt wilde|find a way": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0273429d3cd417eba937acad4c",
+  "alb:the circling sun|spirits": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c270f9b44220fb0d3dfa6719",
+  "alb:donald byrd|places and spaces": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020076bf69db901ac62df6f04b",
+  "alb:little simz|no thank you": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0272f48f1e2e04cc76d06ee708",
+  "alb:kyoto jazz massive|message from a new dawn": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022a480e93a1c1160778aa5e3a",
+  "alb:nicola conte|umoja": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022d30c52678808009547aa3f0",
+  "alb:bright & findlay|everything is slow": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e026d485331a99c245fe0c38606",
+  "alb:róisín murphy|hit parade": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02fd781f70ac3ea49ed2e7c364",
+  "alb:musclecars|sugar honey iced tea!": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027f3afdc01e129424974a6b9d",
+  "alb:bruno berle|no reino dos afetos": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ff576a9d264e5704215e8b54",
+  "alb:isaiah collier|parallel universe": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026a83bb284171f2516bebaa4b",
+  "6uF67kzG2wKwjt2LCAAy87": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e023ae49d69b0000e171f953b6d",
+  "alb:kaidi tatham|don't rush the process": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02a76913a555155edbaef6b372",
+  "6gJ3npv02Xi3jhQr4IL5D2": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0231e9aec6ed716391b42fe4f7",
+  "alb:matthew halsall|an ever changing view": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e9c3b1fb74294302df97878a",
+  "alb:larombé|from philly": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02864430f305c1721966beda97",
+  "alb:seu jorge|night dreamer direct-to-disc sessions": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0295367c424a7b7fdda4ebf9c3",
+  "5eLjNaHtxv74rf1YBYt5A4": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0235897113232de4dd43bbb37b",
+  "0baHmScZuO8t7aQyBiih2f": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b8c14dc3279bd000d90970d3",
+  "alb:stella|détends-toi": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b2f1c866d2d264623277a46f",
+  "alb:turbulance|turbulance": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021ad40ac2cb9839952966a25a",
+  "alb:linkwood|face the facts": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f7cc3a9912dcbba5efcfa099",
+  "4ylmA1135YpyaRZ7ir7tZq": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0258b9ba7b9e619326bc7c92f2",
+  "6X3fgvBtf9IIutyIJixSf6": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024090a5cf4a046710a3e5f577",
+  "alb:prequel|love or (i heard you like heartbreak)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f21528dc785bc45e8ff66e63",
+  "4xHul0lZ8qC7nNDgBjsJSM": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0296302e6660967a140d5ed52f",
+  "alb:finn rees|dawn is a melody": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02c186b0291bfb3e4d363d3df8",
+  "alb:ashley henry|beautiful vinyl hunter": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02cac3db6635b6b06d9fe1d60f",
+  "alb:real estate|atlas": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02a7c2b23bc5c9e79300c67ed7",
+  "alb:anderson .paak|malibu": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02f8e77075414234fd77fce32b",
+  "alb:kaytranada|99.9%": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0257f193799c3b8605b2ff0a83",
+  "alb:tame impala|lonerism": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02370c12f82872c9cfaee80193",
+  "alb:lord echo|harmonies": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0265550fa0c7b021ac77983567",
+  "alb:arctic monkeys|tranquility base hotel & casino": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e028895ff0f90525f4aa9437c27",
+  "alb:django django|django django": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02dcd678d0ffcaf5fc2cf02e2f",
+  "alb:daft punk|random access memories": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e029b9b36b0e22870b9f542d937",
+  "alb:nu genea|nuova napoli": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02cc9c8da874cc0aa82d67f7b2",
+  "alb:breakbot|by your side": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e024ac2d979712c58dcc49290e0",
+  "alb:lewis taylor|lewis taylor": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e029fd63b507535347ceb25bcfa",
+  "alb:frank ocean|channel orange (explicit version)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027aede4855f6d0d738012e2e5",
+  "alb:father john misty|i love you, honeybear": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022b46da50b2cf64c6744a5e33",
+  "alb:greg foat|the dreaming jewels": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e028495300bd3f920a3ef99eaa7",
+  "alb:the war on drugs|lost in the dream": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f34338e9270f9c0561cf4c7e",
+  "alb:the cinematic orchestra|every day": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02699f0f7f83df8cd1b3cf42ef",
+  "alb:bonobo|black sands": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0253b0d1021a8fb05d19fa94bb",
+  "alb:sister sledge|definitive groove: sister sledge": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0283ecd2598914de23d0b974e0",
+  "alb:hiatus kaiyote|choose your weapon": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020dc6f758e71ad037c69b567a",
+  "alb:phoenix|bankrupt! (spotify exclusive)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ce012bca8ab9182d2dd7d0b5",
+  "alb:vampire weekend|modern vampires of the city": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021c658751a43dbb0e040ecaa8",
+  "alb:rodríguez|searching for sugar man": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e7e1b574a9e6b9f26c7c3f49",
+  "alb:the stone roses|the stone roses": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02cf1f6466a493eb73d6d9d280",
+  "alb:steely dan|aja": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02cf39e4261576717ff4737bb6",
+  "alb:marcos valle|nova bossa nova": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02f1698f392247a823d6f8ff82",
+  "alb:grupo magnético|positivo": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e024df6a453c71dfc0c609b4e94",
+  "alb:teymori|teymori": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02e35bd5041b101b550aff2a2a",
+  "alb:against all logic|2012 - 2017": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020b3dacdc4b1e83b8e390f6ec",
+  "alb:marvin gaye|i want you (deluxe edition)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02076df76a34dfb290c4893850",
+  "alb:the rolling stones|grrr! (deluxe version)": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02b98f37642280c7edad050c5e",
+  "alb:guru|jazzmatazz volume 1": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02423fc787b53e081679cfc4c0",
+  "alb:criolo|nó na orelha": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024309d355d1ba95d16e7f40fb",
+  "7a8eNYWC6j0LJFqKPAxnQ6": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0289b56f56323925d57b38944d",
+  "alb:lone|reality testing": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0258d3c41ece17b5a6ac257eda",
+  "alb:prince|the very best of prince": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02214f0bd9dc1ed0c65ae81760",
+  "alb:takuya kuroda|rising son": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e020e4bfa69aaced763e4d0c56d",
+  "alb:kanye west|yeezus": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e021dacfbc31cc873d132958af9",
+  "alb:wayne shorter|night dreamer": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02532a787b7bf351f1faa9bbd5",
+  "alb:kiki gyan|24 hours in a disco 1978-82": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02fc97e2dacbc79dbacc660f25",
+  "alb:seu jorge|musicas para churrasco, vol. 1": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02931e41642ebab615fdfce070",
+  "alb:spoon|they want my soul": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e025126861ec7787b311b0f8a33",
+  "alb:matthew e. white|fresh blood": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02c474d5c82c212c8ae405748b",
+  "alb:the internet|ego death": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0285270a0d79648e867c206379",
+  "alb:fat freddy's drop|blackbird": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02cbf8663781a123dd58f4ee48",
+  "alb:benjamin booker|benjamin booker": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0294fad803e910ff61d3ec92e8",
+  "3ohKjyLVnUGvLUGrIKD0OQ": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02dbb735f620859d5be2073920",
+  "alb:fleetwood mac|tango in the night": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02562c3dffcc5dc89d7af1a47e",
+  "alb:a tribe called quest|midnight marauders": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02f306af1dae08f81f9d6f1f9f",
+  "alb:solange|a seat at the table": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e025fbf6306df238e6b7356ac03",
+  "0iGGFvrv0qpxFqLViXCZY3": "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02a1a84846a9c52d4c965e7211"
+};
   var _artCache={};try{_artCache=JSON.parse(localStorage.getItem('gh_art_cache')||'{}')}catch(e){}
   var _artCacheT=null;
   function cacheArt(key,url){
@@ -4673,22 +4980,67 @@ window.addEventListener('hashchange',go);})();
   function fetchArt(el){
     if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
     var key=el.dataset.artKey;
+    if(key&&_bakedArt[key]){setArt(el,_bakedArt[key]);return Promise.resolve()}
     if(key&&_artCache[key]){setArt(el,_artCache[key]);return Promise.resolve()}
     /* albums: look the ALBUM up by name first — the most-played track's Spotify id
        often points at a pre-album SINGLE release wearing the wrong sleeve */
     if(el.dataset.artAlbum)return itunesArt(el).then(function(f){if(!f)return spotifyArt(el)});
     return spotifyArt(el).then(function(f){if(!f)return itunesArt(el)});
   }
-  /* ~200 cards across the racks: fetch sleeves in a polite queue, twelve at a time,
-     until every card is done — an IntersectionObserver proved unreliable for cards
-     deep inside the horizontal bins (cards silently never loaded). URLs cache in
-     localStorage so repeat visits paint instantly. */
+  /* One controlled queue: a burst of concurrent iTunes JSONP calls gets throttled
+     and leaves blank sleeves. Eight workers are quick without flooding it. Shelves
+     approaching the viewport move their first ten covers to the head of the queue. */
+  var _artQueue=[],_artActive=0,ART_WORKERS=8;
+  function pumpArt(){
+    while(_artActive<ART_WORKERS&&_artQueue.length){
+      var el=_artQueue.shift();
+      delete el.dataset.artQueued;
+      _artActive++;
+      fetchArt(el).then(artDone,artDone);
+    }
+    function artDone(){_artActive--;pumpArt()}
+  }
+  function queueArt(el,urgent){
+    if(el.dataset.artDone)return;
+    if(el.dataset.artQueued){
+      if(urgent){
+        var i=_artQueue.indexOf(el);
+        if(i>0){_artQueue.splice(i,1);_artQueue.unshift(el)}
+      }
+      return;
+    }
+    el.dataset.artQueued='1';
+    if(urgent)_artQueue.unshift(el);else _artQueue.push(el);
+  }
   function loadSleeves(root){
-    var els=[].slice.call(root.querySelectorAll('.gh-card-art'));
-    (function next(){
-      if(!els.length)return;
-      Promise.all(els.splice(0,12).map(fetchArt)).then(next,next);
-    })();
+    var priority=[],rest=[],fronts=[];
+    var shelves=[].slice.call(root.querySelectorAll('.gh-shelf'));
+    if(shelves.length){
+      shelves.forEach(function(shelf){
+        var els=[].slice.call(shelf.querySelectorAll('.gh-card-art'));
+        fronts.push(els.slice(0,10));
+        rest=rest.concat(els.slice(10));
+      });
+      /* Round-robin the front cards so no lower shelf sits at the back of the queue. */
+      for(var i=0;i<10;i++)fronts.forEach(function(run){if(run[i])priority.push(run[i])});
+      if('IntersectionObserver'in window){
+        var io=new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(!entry.isIntersecting)return;
+            var run=[].slice.call(entry.target.querySelectorAll('.gh-card-art'),0,10);
+            /* Reverse because urgent items are unshifted: card one stays first. */
+            run.reverse().forEach(function(el){queueArt(el,true)});
+            pumpArt();
+            io.unobserve(entry.target);
+          });
+        },{root:document.querySelector('.main-area'),rootMargin:'650px 0px'});
+        shelves.forEach(function(shelf){io.observe(shelf)});
+      }
+    }else{
+      priority=[].slice.call(root.querySelectorAll('.gh-card-art'));
+    }
+    priority.concat(rest).forEach(function(el){queueArt(el,false)});
+    pumpArt();
   }
   /* shelves only show records with a real Spotify link — unmatched comps and
      white labels get corrupt links and wrong fallback art, so they stay off */
@@ -4763,17 +5115,22 @@ window.addEventListener('hashchange',go);})();
     }).join('');
   }
   function unearthedShelf(){
-    /* the second-hand bin: OLDER records dug up this month — release year before
-       this year, added in the current intake */
+    /* The second-hand bin: older records dug up in the current archive month and
+       two before it. Broad enough to keep 50 choices without pretending they are
+       all from this week. */
     var yr=new Date().getFullYear();
     var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
+    var m=Math.floor(maxDa/100)*12+(maxDa%100)-1-2;
+    var cutoffDa=Math.floor(m/12)*100+(m%12)+1;
     var gs=groupRecords().filter(function(g){
-      return g.da===maxDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
+      return g.da>=cutoffDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
     });
-    sortByArtistPlays(gs,function(g){return g.pc});
+    /* These records only entered the archive in the last three months, so p1 is
+       effectively plays since arrival — the right weighting for this time zone. */
+    gs.sort(function(a,b){return (b.p1-a.p1)||(b.pc-a.pc)||(b.da-a.da)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)+(g.p1?' · '+g.p1+' plays':'')});
     }).join('');
   }
   /* hand-curated shelf entries for records that live off-Spotify (Bandcamp etc.)
@@ -4935,7 +5292,7 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
       +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed this month<span class="gh-shelf-note">older records Ben just dug up</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed recently<span class="gh-shelf-note">older records Ben dug up in the last three months</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'

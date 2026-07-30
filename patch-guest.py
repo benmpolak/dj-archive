@@ -8,6 +8,13 @@ import re
 with open('guest.js') as f:
     js = f.read()
 
+try:
+    with open('guest-art.json') as f:
+        art = f.read().strip()
+except FileNotFoundError:
+    art = '{}'
+js = js.replace('/*__GUEST_ART__*/{}', art)
+
 with open('index.html') as f:
     html = f.read()
 

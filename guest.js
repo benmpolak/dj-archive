@@ -74,10 +74,9 @@
     var sid=(t.sid||'').length===22?t.sid:'';
     var cc=crateColor(t);
     var albumName=(t.al||'').trim();
-    /* Prefer the named album sleeve whenever the archived track belongs to an
-       album, even if only one or two album tracks are in the archive. This avoids
-       retaining a launch-single sleeve after the full album has arrived. */
-    var useAlbumArt=!!albumName&&(g.tracks.length>=3||albumName.toLowerCase()!==String(t.t||'').trim().toLowerCase());
+    /* Three or more archived tracks means Ben is treating this as an album, so
+       prefer its album sleeve over whichever launch single supplied the track id. */
+    var useAlbumArt=!!albumName&&g.tracks.length>=3;
     var artKey=useAlbumArt?'alb:'+primary(t.a).toLowerCase()+'|'+albumName.toLowerCase():(sid||primary(t.a)+' '+(t.al||t.t));
     var artQuery=primary(t.a)+' '+(useAlbumArt?albumName:(t.al||t.t));
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
@@ -99,6 +98,7 @@
      fallback for records not on Spotify (JSONP — iTunes sends no CORS headers).
      The text-led card underneath stays when both miss. Discogs is a dead end:
      anonymous API responses carry no images. */
+  var _bakedArt=/*__GUEST_ART__*/{};
   var _artCache={};try{_artCache=JSON.parse(localStorage.getItem('gh_art_cache')||'{}')}catch(e){}
   var _artCacheT=null;
   function cacheArt(key,url){
@@ -137,22 +137,67 @@
   function fetchArt(el){
     if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
     var key=el.dataset.artKey;
+    if(key&&_bakedArt[key]){setArt(el,_bakedArt[key]);return Promise.resolve()}
     if(key&&_artCache[key]){setArt(el,_artCache[key]);return Promise.resolve()}
     /* albums: look the ALBUM up by name first — the most-played track's Spotify id
        often points at a pre-album SINGLE release wearing the wrong sleeve */
     if(el.dataset.artAlbum)return itunesArt(el).then(function(f){if(!f)return spotifyArt(el)});
     return spotifyArt(el).then(function(f){if(!f)return itunesArt(el)});
   }
-  /* ~200 cards across the racks: fetch sleeves in a polite queue, twelve at a time,
-     until every card is done — an IntersectionObserver proved unreliable for cards
-     deep inside the horizontal bins (cards silently never loaded). URLs cache in
-     localStorage so repeat visits paint instantly. */
+  /* One controlled queue: a burst of concurrent iTunes JSONP calls gets throttled
+     and leaves blank sleeves. Eight workers are quick without flooding it. Shelves
+     approaching the viewport move their first ten covers to the head of the queue. */
+  var _artQueue=[],_artActive=0,ART_WORKERS=8;
+  function pumpArt(){
+    while(_artActive<ART_WORKERS&&_artQueue.length){
+      var el=_artQueue.shift();
+      delete el.dataset.artQueued;
+      _artActive++;
+      fetchArt(el).then(artDone,artDone);
+    }
+    function artDone(){_artActive--;pumpArt()}
+  }
+  function queueArt(el,urgent){
+    if(el.dataset.artDone)return;
+    if(el.dataset.artQueued){
+      if(urgent){
+        var i=_artQueue.indexOf(el);
+        if(i>0){_artQueue.splice(i,1);_artQueue.unshift(el)}
+      }
+      return;
+    }
+    el.dataset.artQueued='1';
+    if(urgent)_artQueue.unshift(el);else _artQueue.push(el);
+  }
   function loadSleeves(root){
-    var els=[].slice.call(root.querySelectorAll('.gh-card-art'));
-    (function next(){
-      if(!els.length)return;
-      Promise.all(els.splice(0,12).map(fetchArt)).then(next,next);
-    })();
+    var priority=[],rest=[],fronts=[];
+    var shelves=[].slice.call(root.querySelectorAll('.gh-shelf'));
+    if(shelves.length){
+      shelves.forEach(function(shelf){
+        var els=[].slice.call(shelf.querySelectorAll('.gh-card-art'));
+        fronts.push(els.slice(0,10));
+        rest=rest.concat(els.slice(10));
+      });
+      /* Round-robin the front cards so no lower shelf sits at the back of the queue. */
+      for(var i=0;i<10;i++)fronts.forEach(function(run){if(run[i])priority.push(run[i])});
+      if('IntersectionObserver'in window){
+        var io=new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(!entry.isIntersecting)return;
+            var run=[].slice.call(entry.target.querySelectorAll('.gh-card-art'),0,10);
+            /* Reverse because urgent items are unshifted: card one stays first. */
+            run.reverse().forEach(function(el){queueArt(el,true)});
+            pumpArt();
+            io.unobserve(entry.target);
+          });
+        },{root:document.querySelector('.main-area'),rootMargin:'650px 0px'});
+        shelves.forEach(function(shelf){io.observe(shelf)});
+      }
+    }else{
+      priority=[].slice.call(root.querySelectorAll('.gh-card-art'));
+    }
+    priority.concat(rest).forEach(function(el){queueArt(el,false)});
+    pumpArt();
   }
   /* shelves only show records with a real Spotify link — unmatched comps and
      white labels get corrupt links and wrong fallback art, so they stay off */
@@ -227,17 +272,22 @@
     }).join('');
   }
   function unearthedShelf(){
-    /* the second-hand bin: OLDER records dug up this month — release year before
-       this year, added in the current intake */
+    /* The second-hand bin: older records dug up in the current archive month and
+       two before it. Broad enough to keep 50 choices without pretending they are
+       all from this week. */
     var yr=new Date().getFullYear();
     var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
+    var m=Math.floor(maxDa/100)*12+(maxDa%100)-1-2;
+    var cutoffDa=Math.floor(m/12)*100+(m%12)+1;
     var gs=groupRecords().filter(function(g){
-      return g.da===maxDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
+      return g.da>=cutoffDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
     });
-    sortByArtistPlays(gs,function(g){return g.pc});
+    /* These records only entered the archive in the last three months, so p1 is
+       effectively plays since arrival — the right weighting for this time zone. */
+    gs.sort(function(a,b){return (b.p1-a.p1)||(b.pc-a.pc)||(b.da-a.da)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)+(g.p1?' · '+g.p1+' plays':'')});
     }).join('');
   }
   /* hand-curated shelf entries for records that live off-Spotify (Bandcamp etc.)
@@ -399,7 +449,7 @@
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
       +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed this month<span class="gh-shelf-note">older records Ben just dug up</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed recently<span class="gh-shelf-note">older records Ben dug up in the last three months</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
