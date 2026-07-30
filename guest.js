@@ -81,7 +81,12 @@
     var artQuery=primary(t.a)+' '+(useAlbumArt?albumName:(t.al||t.t));
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
     var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
-    return '<div class="gh-card">'
+    var artist=primary(t.a),title=t.al||t.t,metaText=meta(g,t);
+    return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(artist)+' — '+E(title)+'"'
+      +' data-sid="'+E(sid)+'" data-did="'+E(t.did||'')+'"'
+      +' data-artist="'+E(artist)+'" data-album="'+E(title)+'"'
+      +' data-crate="'+E((t.c||[])[0]||'')+'" data-vibe="'+E(t.vb||'')+'"'
+      +' data-meta="'+E(metaText)+'">'
       +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(useAlbumArt?' data-art-album="1"':'')
       +' data-art-key="'+E(artKey)+'"'
       +' data-art-q="'+E(artQuery)+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
@@ -89,9 +94,9 @@
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶︎</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
       +'</div>'
-      +'<div class="gh-card-a">'+E(primary(t.a))+'</div>'
-      +'<div class="gh-card-al">'+E(t.al||t.t)+'</div>'
-      +'<div class="gh-card-meta">'+meta(g,t)+'</div>'
+      +'<div class="gh-card-a">'+E(artist)+'</div>'
+      +'<div class="gh-card-al">'+E(title)+'</div>'
+      +'<div class="gh-card-meta">'+metaText+'</div>'
       +'</div>';
   }
   /* real sleeves: Spotify oEmbed first (CORS-open, no auth), iTunes Search as the
@@ -298,7 +303,9 @@
      url:'https://theillusionsband.bandcamp.com/album/find-your-way',tag:'BANDCAMP'}
   ];
   function overrideCard(o){
-    return '<div class="gh-card">'
+    return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(o.a)+' — '+E(o.al)+'"'
+      +' data-artist="'+E(o.a)+'" data-album="'+E(o.al)+'" data-meta="'+o.r+' · added '+fmtDa(o.da)+'"'
+      +' data-url="'+E(o.url)+'" data-service="'+E(o.tag||'Bandcamp')+'" data-crate="Vinyl">'
       +'<div class="gh-card-art has-art" style="background-image:url(\''+o.art+'\')">'
       +'<span class="gh-card-play" onclick="window.open(\''+o.url+'\',\'_blank\')" title="Open on '+(o.tag||'Bandcamp')+'">▶︎</span>'
       +'<span class="gh-card-vinyl">'+(o.tag||'VINYL')+'</span>'
@@ -427,6 +434,113 @@
     });
   }
 
+  /* Sleeves stay fast to scan; the facts arrive only when a record is chosen.
+     This is a lightbox, not a product page: one large sleeve, archive evidence,
+     then the useful listening / digging exits. */
+  function installRecordViewer(root){
+    var viewer=document.createElement('div');
+    viewer.className='gh-detail';
+    viewer.setAttribute('aria-hidden','true');
+    viewer.innerHTML=
+      '<div class="gh-detail-backdrop"></div>'
+      +'<div class="gh-detail-panel" role="dialog" aria-modal="true" aria-labelledby="gh-detail-album">'
+      +'<button class="gh-detail-close" type="button" aria-label="Close">×</button>'
+      +'<button class="gh-detail-nav prev" type="button" aria-label="Previous record">‹</button>'
+      +'<button class="gh-detail-nav next" type="button" aria-label="Next record">›</button>'
+      +'<div class="gh-detail-art"></div>'
+      +'<div class="gh-detail-copy">'
+      +'<div class="gh-detail-kicker">From Ben&rsquo;s shelves</div>'
+      +'<div class="gh-detail-artist"></div>'
+      +'<div class="gh-detail-album" id="gh-detail-album"></div>'
+      +'<div class="gh-detail-meta"></div>'
+      +'<div class="gh-detail-tags"></div>'
+      +'<div class="gh-detail-actions"></div>'
+      +'</div></div>';
+    document.body.appendChild(viewer);
+    var lastFocus=null,currentCards=[],currentIndex=0,touchX=0;
+    function close(){
+      viewer.classList.remove('open');
+      viewer.setAttribute('aria-hidden','true');
+      document.body.classList.remove('gh-detail-open');
+      if(lastFocus)lastFocus.focus();
+    }
+    function action(label,cls,fn,href){
+      var el=document.createElement(href?'a':'button');
+      el.className='gh-detail-action '+(cls||'');
+      el.textContent=label;
+      if(href){el.href=href;el.target='_blank';el.rel='noopener'}
+      else{el.type='button';el.onclick=fn}
+      return el;
+    }
+    function show(card){
+      var art=card.querySelector('.gh-card-art');
+      viewer.querySelector('.gh-detail-art').style.backgroundImage=art.style.backgroundImage;
+      viewer.querySelector('.gh-detail-artist').textContent=card.dataset.artist||'';
+      viewer.querySelector('.gh-detail-album').textContent=card.dataset.album||'';
+      viewer.querySelector('.gh-detail-meta').textContent=card.dataset.meta||'';
+      var tags=viewer.querySelector('.gh-detail-tags');tags.innerHTML='';
+      [['CRATE',card.dataset.crate],['VIBE',card.dataset.vibe]].forEach(function(x){
+        if(!x[1])return;
+        var tag=document.createElement('span');
+        tag.innerHTML='<small>'+x[0]+'</small>'+E(x[1]);
+        tags.appendChild(tag);
+      });
+      var actions=viewer.querySelector('.gh-detail-actions');actions.innerHTML='';
+      var sid=card.dataset.sid,did=card.dataset.did,url=card.dataset.url;
+      if(sid){
+        actions.appendChild(action('Play','primary',function(){playPreview(sid,this)}));
+        actions.appendChild(action('Spotify ↗','',null,'https://open.spotify.com/track/'+sid));
+      }
+      if(did)actions.appendChild(action('Discogs ↗','',null,'https://www.discogs.com/release/'+did));
+      if(url)actions.appendChild(action((card.dataset.service||'Listen')+' ↗','primary',null,url));
+      var shelf=card.closest('.gh-shelf'),title=shelf&&shelf.querySelector('.gh-shelf-title');
+      var shelfName=title&&title.childNodes[0]?title.childNodes[0].textContent.trim():'From Ben’s shelves';
+      viewer.querySelector('.gh-detail-kicker').textContent=shelfName+' · '+(currentIndex+1)+' of '+currentCards.length;
+      viewer.querySelector('.gh-detail-nav.prev').disabled=currentIndex===0;
+      viewer.querySelector('.gh-detail-nav.next').disabled=currentIndex===currentCards.length-1;
+    }
+    function open(card){
+      lastFocus=card;
+      currentCards=[].slice.call(card.closest('.gh-bin').querySelectorAll('.gh-card'));
+      currentIndex=currentCards.indexOf(card);
+      show(card);
+      viewer.classList.add('open');
+      viewer.setAttribute('aria-hidden','false');
+      document.body.classList.add('gh-detail-open');
+      requestAnimationFrame(function(){viewer.querySelector('.gh-detail-close').focus()});
+    }
+    function step(dir){
+      var next=currentIndex+dir;
+      if(next<0||next>=currentCards.length)return;
+      currentIndex=next;show(currentCards[currentIndex]);
+    }
+    root.addEventListener('click',function(e){
+      var card=e.target.closest('.gh-card');
+      if(!card||e.target.closest('.gh-card-play'))return;
+      open(card);
+    });
+    root.addEventListener('keydown',function(e){
+      var card=e.target.closest('.gh-card');
+      if(!card||e.target!==card||(e.key!=='Enter'&&e.key!==' '))return;
+      e.preventDefault();open(card);
+    });
+    viewer.querySelector('.gh-detail-close').onclick=close;
+    viewer.querySelector('.gh-detail-nav.prev').onclick=function(){step(-1)};
+    viewer.querySelector('.gh-detail-nav.next').onclick=function(){step(1)};
+    viewer.querySelector('.gh-detail-backdrop').onclick=close;
+    viewer.querySelector('.gh-detail-panel').addEventListener('touchstart',function(e){touchX=e.changedTouches[0].clientX},{passive:true});
+    viewer.querySelector('.gh-detail-panel').addEventListener('touchend',function(e){
+      var dx=e.changedTouches[0].clientX-touchX;
+      if(Math.abs(dx)>55)step(dx<0?1:-1);
+    },{passive:true});
+    document.addEventListener('keydown',function(e){
+      if(!viewer.classList.contains('open'))return;
+      if(e.key==='Escape')close();
+      else if(e.key==='ArrowLeft')step(-1);
+      else if(e.key==='ArrowRight')step(1);
+    });
+  }
+
   /* ---------- build ---------- */
   var CHIPS=['Brazilian sunshine','Late-night jazz','90s deep house','70s funk','Dub session','Like Marcos Valle','Jazz on vinyl'];
   function buildHero(){
@@ -465,6 +579,7 @@
     ['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)ghp.appendChild(p)});
     loadSleeves(el);
     installShelfControls(el);
+    installRecordViewer(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};
