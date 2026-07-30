@@ -18,6 +18,7 @@ var CRATE_SYN={'indie & rock':'Indie & Rock','indie':'Indie & Rock','rock':'Indi
 'hip hop':'Hip Hop','hip-hop':'Hip Hop','hiphop':'Hip Hop','rap':'Hip Hop',
 'afro & world':'Afro & World','afro':'Afro & World','african':'Afro & World','world':'Afro & World',
 'brazilian':'Brazilian','brasil':'Brazilian','brazil':'Brazilian',
+'reggae & dub':'Reggae & Dub','reggae':'Reggae & Dub','dub':'Reggae & Dub','ska':'Reggae & Dub','rocksteady':'Reggae & Dub','dancehall':'Reggae & Dub',
 'house':'House','jazz':'Jazz','funk':'Funk','downtempo':'Downtempo','electronic':'Electronic'};
 var VIBE_SYN={'deep & mellow':'Deep & Mellow','mellow':'Deep & Mellow','deep':'Deep & Mellow','slow':'Deep & Mellow','dusty':'Deep & Mellow','dinner':'Deep & Mellow','dinner party':'Deep & Mellow','cooking':'Deep & Mellow','wine':'Deep & Mellow',
 'feel good':'Feel Good','feelgood':'Feel Good','feel-good':'Feel Good','upbeat':'Feel Good','uplifting':'Feel Good','happy':'Feel Good','fun':'Feel Good',
@@ -558,7 +559,7 @@ function renderDeal(){
     var t=e.t,rm=ROLE_META[e.role];
     return '<div class="dlr-row">'
       +'<span class="dlr-num">'+String(i+1).padStart(2,'0')+'</span>'
-      +'<span class="play-btn" onclick="playPreview(\''+t.sid+'\',this)" title="Play">▶</span>'
+      +'<span class="row-sleeve" data-sleeve="'+t.sid+'"><span class="play-btn" onclick="playPreview(\''+t.sid+'\',this)" title="Play">▶</span></span>'
       +'<div class="dlr-tt"><span class="dlr-a">'+esc(t.a.split(';')[0])+'</span><span class="dlr-t">'+esc(t.t)+'</span>'
       +'<span class="dlr-meta">'+esc(t.al||'')+(t.r?' · '+t.r:'')+'</span></div>'
       +'<span class="dlr-bpm">'+(t.tp>0?Math.round(t.tp):'')+'</span>'
@@ -584,6 +585,7 @@ function renderDeal(){
     +'</div>'
     +'<div class="dlr-rows">'+rowsH+'</div>'
     +'</div>';
+  if(typeof loadSleeves==='function')loadSleeves(el);
   el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 

@@ -89,10 +89,18 @@
     });
   }
   function newInShelf(){
-    var gs=groupRecords().filter(function(g){return g.da});
+    /* digital finds only — vinyl pickups get their own shelf below */
+    var gs=groupRecords().filter(function(g){return g.da&&!g.vy});
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     return gs.slice(0,10).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
+    }).join('');
+  }
+  function freshVinylShelf(){
+    var gs=groupRecords().filter(function(g){return g.da&&g.vy});
+    gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
+    return gs.slice(0,10).map(function(g){
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
     }).join('');
   }
   function onRepeatShelf(){
@@ -147,6 +155,7 @@
       +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Dig</button></div>'
       +'<div id="gh-panels"></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">New in</div><div class="gh-bin">'+newInShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Fresh vinyl<span class="gh-shelf-note">records that just hit the physical crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">On repeat'
       +(cutoff?'<span class="gh-shelf-note">listening data through '+cutoff+'</span>':'')
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'

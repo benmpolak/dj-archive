@@ -166,11 +166,42 @@ body.guest-focus .main-area{overflow-y:auto}
 /* -- mini player must float above the Selector overlay (z 1200), not under it -- */
 .mini-player{z-index:1300}
 
+/* -- row sleeves: album art thumbs in Selector / Dig Deeper / Rediscover rows -- */
+.row-sleeve{flex-shrink:0;width:42px;height:42px;border-radius:6px;background:var(--card2);
+  background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.row-sleeve .play-btn,.row-sleeve .dt-play{background:rgba(0,0,0,0.45);color:#1DB954;width:26px;height:26px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68em;padding-left:2px;
+  transition:transform 0.1s,background 0.15s}
+.row-sleeve:hover .play-btn,.row-sleeve:hover .dt-play{background:#1DB954;color:#000;transform:scale(1.08)}
+.rd-track .row-sleeve{pointer-events:none}  /* whole rediscover row already plays */
+
 /* -- scrollbars -- */
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#22222e;border-radius:5px;border:2px solid var(--bg)}
 ::-webkit-scrollbar-thumb:hover{background:#2e2e3c}
+
+/* -- serious mobile pass: the Selector becomes a full-screen takeover, pickers
+      become one-line scrollers, hero chips scroll instead of stacking -- */
+@media(max-width:768px){
+  .dlr-overlay{padding:0}
+  .dlr-modal{min-height:100vh;max-width:none;border:none;border-radius:0;margin-bottom:0;padding:16px 14px 90px}
+  .dlr-modal h2{font-size:1.15em}
+  .dlr-sub{display:none}
+  .dlr-presets,.dlr-pickrow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .dlr-presets::-webkit-scrollbar,.dlr-pickrow::-webkit-scrollbar{display:none}
+  .dlr-presets>*,.dlr-pickrow>*{flex-shrink:0}
+  .dlr-picklabel{width:auto !important}
+  .dlr-row{padding:7px 8px;gap:8px}
+  .row-sleeve{width:38px;height:38px;border-radius:5px}
+  .dlr-rtitle{font-size:1.15em}
+  .gh-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .gh-chips::-webkit-scrollbar{display:none}
+  .gh-chip{flex-shrink:0;padding:8px 14px}
+  .gh-2nd{padding:11px 16px}
+  .gh-sub{font-size:0.72em}
+  .gh-explore{width:calc(100% - 8px);padding:13px 24px}
+}
 
 /* -- mobile tidy-up -- */
 @media(max-width:768px){
