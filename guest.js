@@ -118,6 +118,15 @@
   /* shelves only show records with a real Spotify link — unmatched comps and
      white labels get corrupt links and wrong fallback art, so they stay off */
   function hasSpotify(g){return (rep(g,function(t){return t.p1||0}).sid||'').length===22}
+  /* one card per artist per shelf — an artist's run of singles shouldn't take
+     multiple slots (the Okonski rule); list must already be sorted best-first */
+  function onePerArtist(gs){
+    var seen={};
+    return gs.filter(function(g){
+      var a=primary(rep(g,function(t){return t.p1||0}).a).toLowerCase();
+      if(seen[a])return false;seen[a]=1;return true;
+    });
+  }
   function newReleasesShelf(){
     /* brand-new MUSIC: this year's releases added in the last two months,
        ordered by how much Ben has actually played them.
@@ -129,7 +138,8 @@
       return g.da>=prevDa&&!g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
     });
     gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
-    return gs.slice(0,25).map(function(g){
+    gs=onePerArtist(gs);
+    return gs.slice(0,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+(g.pc?g.pc+' plays':'archived '+fmtDa(g.da))});
     }).join('');
   }
@@ -141,9 +151,10 @@
     var gs=groupRecords().filter(function(g){
       return g.da===maxDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
     });
-    gs.sort(function(a,b){return b.idx-a.idx});
-    return gs.slice(0,25).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
+    gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
+    gs=onePerArtist(gs);
+    return gs.slice(0,50).map(function(g){
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+(g.pc?g.pc+' plays':'dug up '+fmtDa(g.da))});
     }).join('');
   }
   /* hand-curated shelf entries for records that live off-Spotify (Bandcamp etc.)
@@ -165,9 +176,11 @@
       +'</div>';
   }
   function freshVinylShelf(){
-    /* albums and EPs only (4+ tracks) — 45s make loose, one-song cards */
-    var gs=groupRecords().filter(function(g){return g.da&&g.vy&&hasSpotify(g)&&g.tracks.length>=4});
+    /* albums and EPs only (4+ tracks), bought THIS year — 45s make loose, one-song cards */
+    var thisYr=new Date().getFullYear()*100+1;
+    var gs=groupRecords().filter(function(g){return g.da>=thisYr&&g.vy&&hasSpotify(g)&&g.tracks.length>=4});
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
+    gs=onePerArtist(gs);
     var ov=VINYL_OVERRIDES.map(overrideCard).join('');
     return ov+gs.slice(0,25-VINYL_OVERRIDES.length).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
@@ -176,7 +189,8 @@
   function onRepeatShelf(){
     var gs=groupRecords().filter(function(g){return g.p1>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.p1-a.p1});
-    return gs.slice(0,25).map(function(g){
+    gs=onePerArtist(gs);
+    return gs.slice(0,50).map(function(g){
       return card(g,function(g,t){return g.p1+' plays this year'});
     }).join('');
   }
@@ -186,7 +200,8 @@
     gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
     gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.pPrev-a.pPrev});
-    return gs.slice(0,25).map(function(g){
+    gs=onePerArtist(gs);
+    return gs.slice(0,50).map(function(g){
       return card(g,function(g,t){return g.pPrev+' plays that year'});
     }).join('');
   }
