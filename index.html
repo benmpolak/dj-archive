@@ -4526,12 +4526,21 @@ window.addEventListener('hashchange',go);})();
     var q=encodeURIComponent(primary(t.a)+' '+t.t);
     return 'onclick="window.open(\'https://www.youtube.com/results?search_query='+q+'\',\'_blank\')"';
   }
+  /* hand-tuned crops for covers whose subject drowns at card size (framed photos,
+     minimal art) — zoom + position into the interesting region. Key: artist|album. */
+  var ART_TWEAKS={
+    'kendrick lamar|gnx':{s:'175%',p:'12% 96%'},              /* car + Kendrick, bottom-left */
+    'lynda dawn|at first light':{s:'152%',p:'50% 42%'},       /* crop off the white frame */
+    'lynda dawn|fonk street':{s:'152%',p:'50% 42%'}           /* same framed artwork */
+  };
   function card(g,meta){
     var t=rep(g,function(t){return t.p1||0});
     var sid=(t.sid||'').length===22?t.sid:'';
     var cc=crateColor(t);
+    var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
+    var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
     return '<div class="gh-card">'
-      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)">'
+      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
       +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
