@@ -38,11 +38,12 @@
     var groups={};
     DATA.forEach(function(t,i){
       var k=(primary(t.a)+'|'+(t.al||'').trim()).toLowerCase();
-      var g=groups[k]||(groups[k]={tracks:[],da:0,idx:0,p1:0,vy:0});
+      var g=groups[k]||(groups[k]={tracks:[],da:0,idx:0,p1:0,pc:0,vy:0});
       g.tracks.push(t);
       if((t.da||0)>g.da)g.da=t.da;
       if(i>g.idx)g.idx=i;
       g.p1+=(t.p1||0);
+      g.pc+=(t.pc||0);
       if(t.vy)g.vy=1;
     });
     return Object.keys(groups).map(function(k){return groups[k]});
@@ -117,37 +118,19 @@
   /* shelves only show records with a real Spotify link — unmatched comps and
      white labels get corrupt links and wrong fallback art, so they stay off */
   function hasSpotify(g){return (rep(g,function(t){return t.p1||0}).sid||'').length===22}
-  window._ghNewIn=function(){
-    /* the month card drops guests into the real thing: the recent-adds view */
-    _ghExplore();
-    var chip=document.querySelector('.time-chip[data-days="30"]');if(chip)chip.click();
-  };
-  function monthLeadCard(){
-    var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
-    if(!maxDa)return'';
-    var n=DATA.filter(function(t){return t.da===maxDa}).length;
-    var mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    var month=mn[(maxDa%100)-1]+' '+Math.floor(maxDa/100);
-    return '<div class="gh-card"><div class="gh-card-art gh-card-lead" onclick="_ghNewIn()">'
-      +'<span class="gh-lead-month">'+month+'</span>'
-      +'<span class="gh-lead-n">'+n+' new tracks</span>'
-      +'<span class="gh-lead-cta">flick through them &rarr;</span>'
-      +'</div>'
-      +'<div class="gh-card-a">The '+mn[(maxDa%100)-1]+' intake</div>'
-      +'<div class="gh-card-al">every track added this month</div>'
-      +'<div class="gh-card-meta">tap to open the full list</div>'
-      +'</div>';
-  }
   function newReleasesShelf(){
-    /* brand-new MUSIC: this year's releases, freshest into the archive first.
+    /* brand-new MUSIC: this year's releases added in the last two months,
+       ordered by how much Ben has actually played them.
        (Archive stores release year only, so "past 90 days" = this year's releases.) */
     var yr=new Date().getFullYear();
+    var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
+    var prevDa=(maxDa%100)===1?(Math.floor(maxDa/100)-1)*100+12:maxDa-1;
     var gs=groupRecords().filter(function(g){
-      return g.da&&!g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
+      return g.da>=prevDa&&!g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
     });
-    gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
+    gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
     return gs.slice(0,25).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+(g.pc?g.pc+' plays':'archived '+fmtDa(g.da))});
     }).join('');
   }
   function unearthedShelf(){
@@ -159,7 +142,7 @@
       return g.da===maxDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
     });
     gs.sort(function(a,b){return b.idx-a.idx});
-    return monthLeadCard()+gs.slice(0,24).map(function(g){
+    return gs.slice(0,25).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
     }).join('');
   }
@@ -244,7 +227,7 @@
       +'<div class="gh-prop">Tell Ben’s shelves what you fancy.</div>'
       +'<div class="gh-inputrow"><input id="gh-input" placeholder="Brazilian sunshine, late-night jazz, like Marcos Valle…" autocomplete="off"><button id="gh-select">SELECT</button></div>'
       +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
-      +'<div class="gh-sub">The Selector deals 25 tracks from one human-curated archive — 17,000+ records dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
+      +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ records dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
       +'<div class="gh-secondary">'
       +'<button class="gh-2nd" id="gh-artist-btn">🔭 Start with an artist</button>'
       +'<button class="gh-2nd" id="gh-surprise-btn">🔮 Surprise me</button>'

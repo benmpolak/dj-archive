@@ -147,15 +147,6 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
 .gh-card-meta{font-size:0.64em;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* month lead card: the door into the full recent-adds list */
-.gh-card-lead{cursor:pointer;flex-direction:column;gap:4px;display:flex;align-items:flex-start;justify-content:flex-end;
-  padding:12px;background:linear-gradient(150deg,rgba(232,160,64,0.28),rgba(232,64,96,0.16) 75%) !important;
-  border-color:rgba(232,160,64,0.5) !important;transition:box-shadow 0.15s}
-.gh-card-lead:hover{box-shadow:0 3px 18px rgba(232,160,64,0.25)}
-.gh-lead-month{font-size:0.66em;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent)}
-.gh-lead-n{font-size:1.05em;font-weight:800;line-height:1.1}
-.gh-lead-cta{font-size:0.64em;color:#c9c9da}
-
 .gh-explore-top{border-color:rgba(232,160,64,0.5);color:var(--accent)}
 .gh-explore-top:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(232,160,64,0.15)}
 .gh-explore{display:block;margin:34px auto 10px;padding:12px 28px;font-size:0.82em;font-weight:700;
