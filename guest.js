@@ -270,6 +270,18 @@
       return card(g,function(g,t){return t.r||''});
     }).join('');
   }
+  function prevYearShelf(){
+    /* p2-p1 = plays in the year before the current 12-month window.
+       Records already used by a fresher shelf remain excluded. */
+    var gs=groupRecords();
+    gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
+    gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
+    gs.sort(function(a,b){return b.pPrev-a.pPrev});
+    gs=onePerArtist(gs);
+    return takeUnseen(gs,50).map(function(g){
+      return card(g,function(g,t){return t.r||''});
+    }).join('');
+  }
   function playCutoff(){
     var mx=0;DATA.forEach(function(t){if((t.lp||0)>mx)mx=t.lp});
     if(!mx)return'';
@@ -344,6 +356,7 @@
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
     document.body.classList.add('guest-focus');
