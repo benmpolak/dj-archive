@@ -354,9 +354,9 @@
       +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed this month<span class="gh-shelf-note">older records Ben just dug up</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months</span>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Caned this year<span class="gh-shelf-note">what Ben has played relentlessly in the last 12 months</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Caned the year before<span class="gh-shelf-note">the previous 12 months&rsquo; obsessions</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
     document.body.classList.add('guest-focus');
