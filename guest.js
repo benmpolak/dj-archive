@@ -73,12 +73,19 @@
     var t=rep(g,function(t){return t.p1||0});
     var sid=(t.sid||'').length===22?t.sid:'';
     var cc=crateColor(t);
+    var albumName=(t.al||'').trim();
+    /* Prefer the named album sleeve whenever the archived track belongs to an
+       album, even if only one or two album tracks are in the archive. This avoids
+       retaining a launch-single sleeve after the full album has arrived. */
+    var useAlbumArt=!!albumName&&(g.tracks.length>=3||albumName.toLowerCase()!==String(t.t||'').trim().toLowerCase());
+    var artKey=useAlbumArt?'alb:'+primary(t.a).toLowerCase()+'|'+albumName.toLowerCase():(sid||primary(t.a)+' '+(t.al||t.t));
+    var artQuery=primary(t.a)+' '+(useAlbumArt?albumName:(t.al||t.t));
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
     var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
     return '<div class="gh-card">'
-      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(g.tracks.length>=4?' data-art-album="1"':'')
-      +' data-art-key="'+E(((g.tracks.length>=4?'alb:':'')+(sid||primary(t.a)+' '+(t.al||t.t))))+'"'
-      +' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
+      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(useAlbumArt?' data-art-album="1"':'')
+      +' data-art-key="'+E(artKey)+'"'
+      +' data-art-q="'+E(artQuery)+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
       +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶︎</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
@@ -291,6 +298,18 @@
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.pPrev+' plays'});
     }).join('');
   }
+  function decadeShelf(){
+    var yr=new Date().getFullYear(),start=Math.floor(yr/10)*10;
+    var gs=groupRecords().filter(function(g){
+      var r=parseInt(rep(g,function(t){return t.p1||0}).r)||0;
+      return g.pc>=3&&hasSpotify(g)&&r>=start&&r<=yr;
+    });
+    gs.sort(function(a,b){return b.pc-a.pc});
+    gs=onePerArtist(gs);
+    return takeUnseen(gs,50).map(function(g){
+      return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.pc+' plays'});
+    }).join('');
+  }
   function allTimeShelf(){
     var gs=groupRecords().filter(function(g){return g.pc>=3&&hasSpotify(g)});
     gs.sort(function(a,b){return b.pc-a.pc});
@@ -375,6 +394,7 @@
       +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this year<span class="gh-shelf-note">'+(yr-1)+'–'+yr+' releases Ben has played relentlessly</span>'
       +'</div><div class="gh-bin">'+onRepeatShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; last year<span class="gh-shelf-note">'+(yr-2)+'–'+(yr-1)+' releases Ben played relentlessly</span></div><div class="gh-bin">'+prevYearShelf()+'</div></div>'
+      +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; this decade<span class="gh-shelf-note">'+(Math.floor(yr/10)*10)+'–'+yr+' releases Ben has returned to most</span></div><div class="gh-bin">'+decadeShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Heavy rotation &mdash; all time<span class="gh-shelf-note">the records Ben has returned to most across the full listening history</span></div><div class="gh-bin">'+allTimeShelf()+'</div></div>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
     main.insertBefore(el,main.firstChild);
