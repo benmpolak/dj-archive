@@ -62,8 +62,11 @@
   }
   function card(g,meta){
     var t=rep(g,function(t){return t.p1||0});
+    var sid=(t.sid||'').length===22?t.sid:'';
+    var cc=crateColor(t);
     return '<div class="gh-card">'
-      +'<div class="gh-card-art" style="background:linear-gradient(150deg,'+crateColor(t)+'33,'+crateColor(t)+'0d 70%)">'
+      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)">'
+      +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
       +'</div>'
@@ -71,6 +74,19 @@
       +'<div class="gh-card-al">'+E(t.al||t.t)+'</div>'
       +'<div class="gh-card-meta">'+meta(g,t)+'</div>'
       +'</div>';
+  }
+  /* real sleeves via Spotify's public oEmbed (CORS-open, no auth); the text-led
+     card underneath is the fallback when a fetch fails or there's no Spotify id */
+  function loadSleeves(root){
+    root.querySelectorAll('[data-art-sid]').forEach(function(el){
+      fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
+        .then(function(r){return r.json()})
+        .then(function(j){if(j&&j.thumbnail_url){
+          el.style.backgroundImage='url("'+j.thumbnail_url+'")';
+          el.classList.add('has-art');
+        }})
+        .catch(function(){});
+    });
   }
   function newInShelf(){
     var gs=groupRecords().filter(function(g){return g.da});
@@ -141,6 +157,7 @@
        _ghExplore puts them back in front of the table */
     var ghp=document.getElementById('gh-panels');
     ['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)ghp.appendChild(p)});
+    loadSleeves(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};

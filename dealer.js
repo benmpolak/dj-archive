@@ -258,27 +258,51 @@ function wSample(cands,k,wfn){
   return picks;
 }
 
+var ARTIST_CAP=3;  /* max tracks per primary artist in a deal — "like Marcos Valle" must not become mostly Marcos Valle */
+function dealArtist(t){return (t.a||'').split(';')[0].trim().toLowerCase()}
+/* wSample with a shared per-artist counter: over-cap picks are discarded and sampling continues */
+function wSampleCapped(cands,k,wfn,counts){
+  var picks=[],pool=cands.slice();
+  while(picks.length<k&&pool.length){
+    var tot=0,ws=pool.map(function(c){var w=Math.max(wfn(c),0.001);tot+=w;return w});
+    var r=Math.random()*tot,idx=pool.length-1;
+    for(var i=0;i<pool.length;i++){r-=ws[i];if(r<=0){idx=i;break}}
+    var t=pool.splice(idx,1)[0],a=dealArtist(t);
+    if((counts[a]||0)>=ARTIST_CAP)continue;
+    counts[a]=(counts[a]||0)+1;picks.push(t);
+  }
+  return picks;
+}
+
 function dealFromPool(pool,total){
   total=Math.min(total||25,pool.length);
-  var used={};
+  var used={},artistCounts={};
   function take(arr){arr.forEach(function(t){used[t.sid]=1})}
   /* forgotten loves: loved once (4+ lifetime plays), untouched for 3+ years */
   var fCands=pool.filter(function(t){return (t.pc||0)>=4&&!(t.p3||0)})
     .sort(function(a,b){return bankerScore(b)-bankerScore(a)}).slice(0,40);
-  var forgotten=wSample(fCands,Math.min(5,Math.floor(total/5)),bankerScore);take(forgotten);
+  var forgotten=wSampleCapped(fCands,Math.min(5,Math.floor(total/5)),bankerScore,artistCounts);take(forgotten);
   /* wild cards: never played, barely playlisted — pure chance from the shelf */
   var wCands=pool.filter(function(t){return !(t.pc||0)&&(t.n||0)<=1&&!used[t.sid]});
-  var wild=wSample(wCands,Math.min(3,Math.floor(total/8)),function(){return 1});take(wild);
+  var wild=wSampleCapped(wCands,Math.min(3,Math.floor(total/8)),function(){return 1},artistCounts);take(wild);
   /* bankers: the spine — most playlisted + most played */
   var bCands=pool.filter(function(t){return !used[t.sid]&&bankerScore(t)>=2})
     .sort(function(a,b){return bankerScore(b)-bankerScore(a)}).slice(0,70);
-  var bankers=wSample(bCands,total-forgotten.length-wild.length,function(t){var s=bankerScore(t);return s*s});take(bankers);
-  /* thin slice: backfill with best of whatever remains */
+  var bankers=wSampleCapped(bCands,total-forgotten.length-wild.length,function(t){var s=bankerScore(t);return s*s},artistCounts);take(bankers);
+  /* thin slice: backfill with best of whatever remains — capped first, then uncapped
+     only if the pool genuinely can't fill the deal otherwise */
   var need=total-forgotten.length-wild.length-bankers.length;
   if(need>0){
     var rest=pool.filter(function(t){return !used[t.sid]})
       .sort(function(a,b){return bankerScore(b)-bankerScore(a)}).slice(0,need*3);
-    bankers=bankers.concat(wSample(rest,need,function(t){return bankerScore(t)+0.5}));
+    var fill=wSampleCapped(rest,need,function(t){return bankerScore(t)+0.5},artistCounts);take(fill);
+    bankers=bankers.concat(fill);
+    need=total-forgotten.length-wild.length-bankers.length;
+    if(need>0){
+      var rest2=pool.filter(function(t){return !used[t.sid]})
+        .sort(function(a,b){return bankerScore(b)-bankerScore(a)});
+      bankers=bankers.concat(wSample(rest2,need,function(t){return bankerScore(t)+0.5}));
+    }
   }
   var entries=bankers.map(function(t){return{t:t,role:'banker'}})
     .concat(forgotten.map(function(t){return{t:t,role:'forgotten'}}))
@@ -499,8 +523,10 @@ window.dealNow=function(){
 window.dlrSwap=function(i){
   if(!_deal||!_deal[i])return;
   var e=_deal[i];
+  var swapCounts={};
+  _deal.forEach(function(d,j){if(j!==i)swapCounts[dealArtist(d.t)]=(swapCounts[dealArtist(d.t)]||0)+1});
   var cands=(_dealPools[e.role]||[]).filter(function(t){
-    return !_deal.some(function(d){return d.t.sid===t.sid});
+    return !_deal.some(function(d){return d.t.sid===t.sid})&&(swapCounts[dealArtist(t)]||0)<ARTIST_CAP;
   });
   if(!cands.length){showToast('No more '+ROLE_META[e.role].label+'s in this slice');return}
   var pick=wSample(cands,1,e.role==='wild'?function(){return 1}:bankerScore)[0];

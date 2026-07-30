@@ -2140,6 +2140,8 @@ function playPreview(sid,btn){
   _nowPlayingBtn=btn;
   if(btn)btn.classList.add('now-playing');
   mp.classList.add('visible');
+  /* phones block the embed's autoplay — tell people where the play button lives */
+  if(window.matchMedia&&matchMedia('(pointer:coarse)').matches)showToast('Tap ▶ in the player bar below if it doesn\'t start');
   /* Track history for auto-play-similar */
   if(_radioHistory.indexOf(sid)<0)_radioHistory.push(sid);
   /* Always spawn fresh player — most reliable for track switching */
@@ -3715,27 +3717,51 @@ function wSample(cands,k,wfn){
   return picks;
 }
 
+var ARTIST_CAP=3;  /* max tracks per primary artist in a deal — "like Marcos Valle" must not become mostly Marcos Valle */
+function dealArtist(t){return (t.a||'').split(';')[0].trim().toLowerCase()}
+/* wSample with a shared per-artist counter: over-cap picks are discarded and sampling continues */
+function wSampleCapped(cands,k,wfn,counts){
+  var picks=[],pool=cands.slice();
+  while(picks.length<k&&pool.length){
+    var tot=0,ws=pool.map(function(c){var w=Math.max(wfn(c),0.001);tot+=w;return w});
+    var r=Math.random()*tot,idx=pool.length-1;
+    for(var i=0;i<pool.length;i++){r-=ws[i];if(r<=0){idx=i;break}}
+    var t=pool.splice(idx,1)[0],a=dealArtist(t);
+    if((counts[a]||0)>=ARTIST_CAP)continue;
+    counts[a]=(counts[a]||0)+1;picks.push(t);
+  }
+  return picks;
+}
+
 function dealFromPool(pool,total){
   total=Math.min(total||25,pool.length);
-  var used={};
+  var used={},artistCounts={};
   function take(arr){arr.forEach(function(t){used[t.sid]=1})}
   /* forgotten loves: loved once (4+ lifetime plays), untouched for 3+ years */
   var fCands=pool.filter(function(t){return (t.pc||0)>=4&&!(t.p3||0)})
     .sort(function(a,b){return bankerScore(b)-bankerScore(a)}).slice(0,40);
-  var forgotten=wSample(fCands,Math.min(5,Math.floor(total/5)),bankerScore);take(forgotten);
+  var forgotten=wSampleCapped(fCands,Math.min(5,Math.floor(total/5)),bankerScore,artistCounts);take(forgotten);
   /* wild cards: never played, barely playlisted — pure chance from the shelf */
   var wCands=pool.filter(function(t){return !(t.pc||0)&&(t.n||0)<=1&&!used[t.sid]});
-  var wild=wSample(wCands,Math.min(3,Math.floor(total/8)),function(){return 1});take(wild);
+  var wild=wSampleCapped(wCands,Math.min(3,Math.floor(total/8)),function(){return 1},artistCounts);take(wild);
   /* bankers: the spine — most playlisted + most played */
   var bCands=pool.filter(function(t){return !used[t.sid]&&bankerScore(t)>=2})
     .sort(function(a,b){return bankerScore(b)-bankerScore(a)}).slice(0,70);
-  var bankers=wSample(bCands,total-forgotten.length-wild.length,function(t){var s=bankerScore(t);return s*s});take(bankers);
-  /* thin slice: backfill with best of whatever remains */
+  var bankers=wSampleCapped(bCands,total-forgotten.length-wild.length,function(t){var s=bankerScore(t);return s*s},artistCounts);take(bankers);
+  /* thin slice: backfill with best of whatever remains — capped first, then uncapped
+     only if the pool genuinely can't fill the deal otherwise */
   var need=total-forgotten.length-wild.length-bankers.length;
   if(need>0){
     var rest=pool.filter(function(t){return !used[t.sid]})
       .sort(function(a,b){return bankerScore(b)-bankerScore(a)}).slice(0,need*3);
-    bankers=bankers.concat(wSample(rest,need,function(t){return bankerScore(t)+0.5}));
+    var fill=wSampleCapped(rest,need,function(t){return bankerScore(t)+0.5},artistCounts);take(fill);
+    bankers=bankers.concat(fill);
+    need=total-forgotten.length-wild.length-bankers.length;
+    if(need>0){
+      var rest2=pool.filter(function(t){return !used[t.sid]})
+        .sort(function(a,b){return bankerScore(b)-bankerScore(a)});
+      bankers=bankers.concat(wSample(rest2,need,function(t){return bankerScore(t)+0.5}));
+    }
   }
   var entries=bankers.map(function(t){return{t:t,role:'banker'}})
     .concat(forgotten.map(function(t){return{t:t,role:'forgotten'}}))
@@ -3956,8 +3982,10 @@ window.dealNow=function(){
 window.dlrSwap=function(i){
   if(!_deal||!_deal[i])return;
   var e=_deal[i];
+  var swapCounts={};
+  _deal.forEach(function(d,j){if(j!==i)swapCounts[dealArtist(d.t)]=(swapCounts[dealArtist(d.t)]||0)+1});
   var cands=(_dealPools[e.role]||[]).filter(function(t){
-    return !_deal.some(function(d){return d.t.sid===t.sid});
+    return !_deal.some(function(d){return d.t.sid===t.sid})&&(swapCounts[dealArtist(t)]||0)<ARTIST_CAP;
   });
   if(!cands.length){showToast('No more '+ROLE_META[e.role].label+'s in this slice');return}
   var pick=wSample(cands,1,e.role==='wild'?function(){return 1}:bankerScore)[0];
@@ -4317,12 +4345,15 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
 .gh-card{flex:0 0 150px;width:150px}
 .gh-card-art{position:relative;width:150px;height:150px;border-radius:10px;border:1px solid var(--border);
-  background:var(--card);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
-.gh-card-play{width:44px;height:44px;border-radius:50%;background:var(--green);color:#000;display:flex;
-  align-items:center;justify-content:center;font-size:0.9em;cursor:pointer;padding-left:3px;
-  transition:transform 0.1s;box-shadow:0 2px 10px rgba(0,0,0,0.4)}
+  background:var(--card);margin-bottom:8px;background-size:cover;background-position:center;overflow:hidden}
+.gh-card-albtxt{position:absolute;top:10px;left:11px;right:11px;font-size:0.72em;font-weight:700;line-height:1.3;
+  color:var(--text);opacity:0.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.gh-card-art.has-art .gh-card-albtxt{display:none}
+.gh-card-play{position:absolute;bottom:9px;right:9px;width:40px;height:40px;border-radius:50%;background:var(--green);
+  color:#000;display:flex;align-items:center;justify-content:center;font-size:0.85em;cursor:pointer;padding-left:3px;
+  transition:transform 0.1s;box-shadow:0 2px 10px rgba(0,0,0,0.55)}
 .gh-card-play:hover{transform:scale(1.1)}
-.gh-card-vinyl{position:absolute;top:8px;right:8px;font-size:0.56em;font-weight:700;letter-spacing:0.1em;
+.gh-card-vinyl{position:absolute;bottom:11px;left:9px;font-size:0.56em;font-weight:700;letter-spacing:0.1em;
   padding:2px 7px;border-radius:5px;background:rgba(0,0,0,0.55);color:var(--accent);border:1px solid rgba(232,160,64,0.4)}
 .gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gh-card-al{font-size:0.72em;color:#9a9ab0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:1px 0 2px}
@@ -4438,8 +4469,11 @@ window.addEventListener('hashchange',go);})();
   }
   function card(g,meta){
     var t=rep(g,function(t){return t.p1||0});
+    var sid=(t.sid||'').length===22?t.sid:'';
+    var cc=crateColor(t);
     return '<div class="gh-card">'
-      +'<div class="gh-card-art" style="background:linear-gradient(150deg,'+crateColor(t)+'33,'+crateColor(t)+'0d 70%)">'
+      +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+' style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)">'
+      +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
       +'</div>'
@@ -4447,6 +4481,19 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-card-al">'+E(t.al||t.t)+'</div>'
       +'<div class="gh-card-meta">'+meta(g,t)+'</div>'
       +'</div>';
+  }
+  /* real sleeves via Spotify's public oEmbed (CORS-open, no auth); the text-led
+     card underneath is the fallback when a fetch fails or there's no Spotify id */
+  function loadSleeves(root){
+    root.querySelectorAll('[data-art-sid]').forEach(function(el){
+      fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/'+el.dataset.artSid)
+        .then(function(r){return r.json()})
+        .then(function(j){if(j&&j.thumbnail_url){
+          el.style.backgroundImage='url("'+j.thumbnail_url+'")';
+          el.classList.add('has-art');
+        }})
+        .catch(function(){});
+    });
   }
   function newInShelf(){
     var gs=groupRecords().filter(function(g){return g.da});
@@ -4517,6 +4564,7 @@ window.addEventListener('hashchange',go);})();
        _ghExplore puts them back in front of the table */
     var ghp=document.getElementById('gh-panels');
     ['dig-panel','rd-panel'].forEach(function(id){var p=document.getElementById(id);if(p)ghp.appendChild(p)});
+    loadSleeves(el);
 
     var inp=document.getElementById('gh-input');
     document.getElementById('gh-select').onclick=function(){runSelector(inp.value)};
