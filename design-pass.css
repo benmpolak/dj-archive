@@ -1,7 +1,7 @@
 /* ===== DESIGN PASS (2026-06) =====
    Override sheet injected after all other styles by patch-design.py.
    Principles: one brand accent (gold), green reserved for Spotify actions,
-   The Dealer is the hero CTA, everything else is a quiet ghost. */
+   The Selector is the hero CTA, everything else is a quiet ghost. */
 
 /* -- wordmark + sidebar rhythm -- */
 .sidebar h1{font-size:1.12em;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;

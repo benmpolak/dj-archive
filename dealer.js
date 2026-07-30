@@ -1,4 +1,4 @@
-/* ===== THE DEALER ===== Deal a ~25-track curated loop from any slice of the archive.
+/* ===== THE SELECTOR ===== Select a ~25-track curated loop from any slice of the archive.
    Spine of bankers + forgotten loves + never-played wild cards, sequenced on a BPM arc.
    Injected into index.html by patch-dealer.py. Relies on globals: DATA, CC, MOODS,
    playPreview, showToast, esc, _doSpotifySave. */
@@ -380,9 +380,9 @@ function buildUI(){
     +'<span class="dlr-preset dlr-lucky" data-preset="*">🎲 Surprise me</span>';
   ov.innerHTML='<div class="dlr-modal">'
     +'<span class="dlr-close" onclick="closeDealer()">✕</span>'
-    +'<h2>🃏 The Dealer</h2>'
-    +'<div class="dlr-sub">Name a slice — crate, vibe, era, mood, or any combo — and get dealt a 25-track loop from your own shelves: a spine of bankers, a few forgotten loves, a couple of wild cards. Sequenced, not shuffled.</div>'
-    +'<div class="dlr-inputrow"><input class="dlr-input" id="dlr-input" placeholder="Try “Brazilian sunshine”, “dinner party jazz”, “late night 120 bpm”, “like Marcos Valle”…" autocomplete="off"><button class="dlr-dealbtn" id="dlr-deal-btn" onclick="dealNow()">DEAL</button></div>'
+    +'<h2>📻 The Selector</h2>'
+    +'<div class="dlr-sub">Tell the Selector what you’re after — crate, vibe, era, mood, any combo — and get a 25-track selection from your own shelves: a spine of bankers, a few forgotten loves, a couple of wild cards. Sequenced, not shuffled.</div>'
+    +'<div class="dlr-inputrow"><input class="dlr-input" id="dlr-input" placeholder="Try “Brazilian sunshine”, “dinner party jazz”, “late night 120 bpm”, “like Marcos Valle”…" autocomplete="off"><button class="dlr-dealbtn" id="dlr-deal-btn" onclick="dealNow()">SELECT</button></div>'
     +'<div class="dlr-poolct" id="dlr-poolct"></div>'
     +'<div class="dlr-presets" id="dlr-presets">'+presetChips+'</div>'
     +'<div class="dlr-pickers">'
@@ -438,9 +438,9 @@ function syncFromInput(){
   var rp=relaxedPool();var pool=rp.pool;_poolSize=pool.length;
   var pc=document.getElementById('dlr-poolct');
   var relaxNote=rp.notes.length?' <span style="color:var(--accent2)">(thin slice — '+rp.notes.join(', ')+')</span>':'';
-  if(!inp.value.trim()){pc.innerHTML='No slice named — the Dealer will draw from the <b>whole archive</b> ('+pool.length.toLocaleString()+' tracks).'}
+  if(!inp.value.trim()){pc.innerHTML='No slice named — the Selector will draw from the <b>whole archive</b> ('+pool.length.toLocaleString()+' tracks).'}
   else if(pool.length<8){pc.innerHTML='<span style="color:var(--red)">Only '+pool.length+' tracks in that slice, even after loosening it — name something broader.</span>'}
-  else{pc.innerHTML='Dealing <b>'+dlrTitle()+'</b> from <b>'+pool.length.toLocaleString()+'</b> tracks'+relaxNote
+  else{pc.innerHTML='Selecting <b>'+dlrTitle()+'</b> from <b>'+pool.length.toLocaleString()+'</b> tracks'+relaxNote
     +(DLR.ignored.length?' <span style="opacity:0.6">(ignored: '+DLR.ignored.join(', ')+')</span>':'')}
   /* reflect state on chips */
   document.querySelectorAll('#dlr-overlay .dlr-chip').forEach(function(ch){
@@ -492,7 +492,7 @@ function dealStatsLine(){
   var bits=[ts.length+' tracks'];
   if(bpms.length)bits.push(Math.min.apply(null,bpms)+'–'+Math.max.apply(null,bpms)+' BPM');
   if(yrs.length)bits.push(Math.min.apply(null,yrs)+'–'+Math.max.apply(null,yrs));
-  bits.push('dealt from '+_poolSize.toLocaleString());
+  bits.push('selected from '+_poolSize.toLocaleString());
   return bits.join(' · ');
 }
 function crateShares(){
@@ -524,7 +524,7 @@ function renderDeal(){
     +'<div class="dlr-actions">'
     +'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" onclick="saveDealToSpotify(this)">💚 Save to Spotify</button>'
     +'<button class="dlr-abtn" onclick="showEraCard()">🖼️ Era Card</button>'
-    +'<button class="dlr-abtn" onclick="dealNow()">↻ Re-deal</button>'
+    +'<button class="dlr-abtn" onclick="dealNow()">↻ Reselect</button>'
     +'</div>'
     +'<div class="dlr-rows">'+rowsH+'</div>'
     +'</div>';
@@ -535,7 +535,7 @@ window.saveDealToSpotify=function(btn){
   if(!_deal)return;
   var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var d=new Date();
-  var name='The Dealer: '+dlrTitle()+' — '+mn[d.getMonth()]+' '+d.getFullYear();
+  var name='The Selector: '+dlrTitle()+' — '+mn[d.getMonth()]+' '+d.getFullYear();
   _doSpotifySave(_deal.map(function(e){return e.t}),name,btn);
 };
 
@@ -623,7 +623,7 @@ function drawEraCard(){
   lines.forEach(function(l){x.fillText(l,P-3,ty);ty+=fs*1.1});
   /* subtitle */
   x.fillStyle='rgba(255,255,255,0.5)';x.font='500 28px Inter, sans-serif';
-  x.fillText(dealStatsLine().replace(/ · dealt from.*$/,''),P,ty+8);
+  x.fillText(dealStatsLine().replace(/ · selected from.*$/,''),P,ty+8);
   ty+=8;
   /* tracklist — left column, clear of the disc */
   var listTop=Math.max(ty+76,560);
@@ -661,7 +661,7 @@ function showCardPreview(cv){
   var dl=document.createElement('button');dl.className='dlr-abtn dlr-spotify';dl.textContent='⬇ Download PNG';
   dl.onclick=function(){
     var a=document.createElement('a');
-    a.download='dealer-'+dlrTitle().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';
+    a.download='selector-'+dlrTitle().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';
     a.href=img.src;a.click();
   };
   var cl=document.createElement('button');cl.className='dlr-abtn';cl.textContent='Close';
@@ -679,14 +679,14 @@ function mount(){
     var b=document.createElement('button');
     b.className='cc-quick-btn';b.id='btn-dealer';
     b.style.cssText='background:linear-gradient(135deg,rgba(232,160,64,0.18),rgba(232,64,96,0.18));border-color:var(--accent);color:var(--accent);font-weight:700';
-    b.innerHTML='🃏 The Dealer';
+    b.innerHTML='📻 The Selector';
     b.onclick=window.openDealer;
     qa.insertBefore(b,qa.firstChild);
   }
-  if(/#dealer\b/.test(location.hash))window.openDealer();
+  if(/#(dealer|selector)\b/.test(location.hash))window.openDealer();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
-window.addEventListener('hashchange',function(){if(/#dealer\b/.test(location.hash))window.openDealer()});
+window.addEventListener('hashchange',function(){if(/#(dealer|selector)\b/.test(location.hash))window.openDealer()});
 
 /* expose pure core for testing */
 window._dlrCore={parse:dlrParse,pool:dlrPool,deal:dealFromPool,seq:sequenceDeal,title:dlrTitle,setSlice:function(s){DLR=s},getSlice:function(){return DLR}};

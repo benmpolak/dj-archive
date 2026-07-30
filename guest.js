@@ -36,7 +36,7 @@
       +'<div class="gw-title">The DJ Archive</div>'
       +'<div class="gw-sub">17,000 tracks dug by ear over 14 years &mdash; jazz, house, Brazilian, soul, disco, dub. No algorithm, one pair of ears.</div>'
       +'<div class="gw-doors">'
-      +'<button class="gw-door" data-d="deal"><span class="gw-door-icon">🃏</span><span><span class="gw-door-name">Deal me a set</span><span class="gw-door-desc">Say what you fancy &mdash; artists, vibes, "90s deep house", "brazilian sunshine" &mdash; and get a sequenced set.</span></span></button>'
+      +'<button class="gw-door" data-d="deal"><span class="gw-door-icon">📻</span><span><span class="gw-door-name">Ask the Selector</span><span class="gw-door-desc">Say what you fancy &mdash; artists, vibes, "90s deep house", "brazilian sunshine" &mdash; and get a sequenced selection.</span></span></button>'
       +'<button class="gw-door" data-d="crates"><span class="gw-door-icon">📦</span><span><span class="gw-door-name">Browse the crates</span><span class="gw-door-desc">Straight into the shelves &mdash; 13 crates from Jazz to Reggae &amp; Dub.</span></span></button>'
       +'<button class="gw-door" data-d="surprise"><span class="gw-door-icon">🔮</span><span><span class="gw-door-name">Surprise me</span><span class="gw-door-desc">A hand of forgotten gems from deep in the archive.</span></span></button>'
       +'</div>'
