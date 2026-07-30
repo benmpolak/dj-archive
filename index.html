@@ -4609,12 +4609,26 @@ window.addEventListener('hashchange',go);})();
      multiple slots (the Okonski rule); list must already be sorted best-first.
      Key on the first artist before ';' AND ',' — playlist imports join
      collaborators with commas ("Okonski, Cochemea" vs "Okonski, Rachel Kitchlew"). */
+  function artistKey(g){
+    return primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
+  }
   function onePerArtist(gs){
     var seen={};
     return gs.filter(function(g){
-      var a=primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
+      var a=artistKey(g);
       if(seen[a])return false;seen[a]=1;return true;
     });
+  }
+  /* rank by the ARTIST's pooled plays across everything of theirs in the rack —
+     an artist whose plays are spread over several singles (Curió Curió) shouldn't
+     sink below one-record artists. Their single card is still their best record. */
+  function sortByArtistPlays(gs,playsOf){
+    var totals={};
+    gs.forEach(function(g){var k=artistKey(g);totals[k]=(totals[k]||0)+playsOf(g)});
+    gs.sort(function(a,b){
+      return (totals[artistKey(b)]-totals[artistKey(a)])||(playsOf(b)-playsOf(a))||(b.idx-a.idx);
+    });
+    return gs;
   }
   function newReleasesShelf(){
     /* brand-new MUSIC: this year's releases added in the last two months,
@@ -4626,7 +4640,7 @@ window.addEventListener('hashchange',go);})();
     var gs=groupRecords().filter(function(g){
       return g.da>=prevDa&&!g.vy&&hasSpotify(g)&&g.tracks.some(function(t){return (parseInt(t.r)||0)>=yr});
     });
-    gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
+    sortByArtistPlays(gs,function(g){return g.pc});
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
@@ -4640,7 +4654,7 @@ window.addEventListener('hashchange',go);})();
     var gs=groupRecords().filter(function(g){
       return g.da===maxDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
     });
-    gs.sort(function(a,b){return (b.pc-a.pc)||(b.idx-a.idx)});
+    sortByArtistPlays(gs,function(g){return g.pc});
     gs=onePerArtist(gs);
     return gs.slice(0,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)});
