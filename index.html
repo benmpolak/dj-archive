@@ -1751,6 +1751,12 @@ function _confirmSpotifySave(plName,trackCount){
 async function _doSpotifySave(trackList, plName, btn){
   await ensureSpToken();
   if(!spToken){
+    /* Spotify development-mode apps only accept explicitly allowlisted users.
+       Do not send public guests through an OAuth flow that will inevitably 403. */
+    if(!document.body.classList.contains('owner')){
+      showToast('Direct Spotify saving is limited by Spotify — copy the tracklist instead');
+      return;
+    }
     /* Not connected: stash the save, send them to Spotify auth;
        _spResumePendingSave() finishes it when they land back. */
     var pend={name:plName,sids:trackList.filter(function(t){return t.sid&&t.sid.length===22}).map(function(t){return t.sid})};
@@ -4032,6 +4038,7 @@ function crateShares(){
 function renderDeal(){
   var el=document.getElementById('dlr-result');
   var title=dlrTitle();
+  var canSaveDirect=(typeof spToken!=='undefined'&&!!spToken)||document.body.classList.contains('owner');
   var bar=crateShares().map(function(s){return '<div style="flex:'+s.n+';background:'+(CC[s.c]||'#555')+'" title="'+s.c+' ×'+s.n+'"></div>'}).join('');
   var rowsH=_deal.map(function(e,i){
     var t=e.t,rm=ROLE_META[e.role];
@@ -4057,7 +4064,8 @@ function renderDeal(){
     +'<div class="dlr-rsub">'+dealStatsLine()+(_dealNotes.length?' · <span style="color:var(--accent2)">'+_dealNotes.join(', ')+'</span>':'')+'</div>'
     +'<div class="dlr-cratebar">'+bar+'</div>'
     +'<div class="dlr-actions">'
-    +'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" onclick="saveDealToSpotify(this)">💚 Save to Spotify</button>'
+    +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" onclick="saveDealToSpotify(this)">💚 Save to Spotify</button>':'')
+    +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">📋 Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
     +'<button class="dlr-abtn" onclick="showEraCard()">🖼️ Era Card</button>'
     +'<button class="dlr-abtn" onclick="dealNow()">↻ Reselect</button>'
     +'</div>'
@@ -4073,6 +4081,25 @@ window.saveDealToSpotify=function(btn){
   var d=new Date();
   var name='The Selector: '+dlrTitle()+' — '+mn[d.getMonth()]+' '+d.getFullYear();
   _doSpotifySave(_deal.map(function(e){return e.t}),name,btn);
+};
+
+/* guests who can't OAuth (dev-mode allowlist) still leave with the selection */
+window.copyDealList=function(){
+  if(!_deal)return;
+  var txt='The Selector: '+dlrTitle()+'\n'
+    +_deal.map(function(e,i){
+      var line=String(i+1).padStart(2,'0')+'. '+e.t.a.split(';')[0]+' — '+e.t.t;
+      return line+((e.t.sid||'').length===22?'\n    https://open.spotify.com/track/'+e.t.sid:'');
+    }).join('\n');
+  var done=function(){showToast('Tracklist and Spotify links copied')};
+  var legacy=function(){
+    var ta=document.createElement('textarea');ta.value=txt;
+    ta.style.cssText='position:fixed;top:-999px;opacity:0';document.body.appendChild(ta);
+    ta.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}
+    ta.remove();ok?done():showToast('Copy blocked — long-press a track to share instead');
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,legacy);
+  else legacy();
 };
 
 /* ---------- era card (canvas sleeve) ---------- */
