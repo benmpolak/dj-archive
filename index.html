@@ -4811,7 +4811,12 @@ window.addEventListener('hashchange',go);})();
       var r=parseInt(rep(g,function(t){return t.p1||0}).r)||0;
       return g.p1>=3&&hasSpotify(g)&&(r===yr||r===yr-1);
     });
-    gs.sort(function(a,b){return b.p1-a.p1});
+    /* Fresher release year first; listening rank decides within each year. */
+    gs.sort(function(a,b){
+      var ay=parseInt(rep(a,function(t){return t.p1||0}).r)||0;
+      var by=parseInt(rep(b,function(t){return t.p1||0}).r)||0;
+      return (by-ay)||(b.p1-a.p1);
+    });
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.p1+' plays'});
@@ -4828,7 +4833,12 @@ window.addEventListener('hashchange',go);})();
     });
     gs.forEach(function(g){g.pPrev=0;g.tracks.forEach(function(t){g.pPrev+=Math.max((t.p2||0)-(t.p1||0),0)})});
     gs=gs.filter(function(g){return g.pPrev>=3&&hasSpotify(g)});
-    gs.sort(function(a,b){return b.pPrev-a.pPrev});
+    /* 2025 before 2024 (and equivalent in future years), then listening rank. */
+    gs.sort(function(a,b){
+      var ay=parseInt(rep(a,function(t){return t.p1||0}).r)||0;
+      var by=parseInt(rep(b,function(t){return t.p1||0}).r)||0;
+      return (by-ay)||(b.pPrev-a.pPrev);
+    });
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+g.pPrev+' plays'});
