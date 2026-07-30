@@ -919,7 +919,7 @@ function rows(tracks,off){
     const isLocal=t.sid&&t.sid.startsWith('spotify:local');
     const _hasSpArtist=_spArtists.has(t.a.split(';')[0].toLowerCase().trim());const spUrl=isSp?'https://open.spotify.com/track/'+t.sid:_hasSpArtist?'spotify:search:'+encodeURIComponent(t.a.split(';')[0]+' '+t.t):'https://www.youtube.com/results?search_query='+encodeURIComponent(t.a.split(';')[0]+' '+t.t);
     /* Play button — plays inline via Spotify embed */
-    const playBtn=isSp?'<span class="play-btn" onclick="event.stopPropagation();playPreview(\''+t.sid+'\',this)" title="Play track">▶</span>':(isLocal?(_hasSpArtist?'<a class="play-btn sp-search" href="'+spUrl+'" target="_blank" onclick="event.stopPropagation()" title="Search Spotify">▶</a>':'<a class="play-btn yt" href="'+spUrl+'" target="_blank" onclick="event.stopPropagation()" title="Search YouTube">▶</a>'):'<a class="play-btn yt" href="'+spUrl+'" target="_blank" onclick="event.stopPropagation()" title="Search YouTube">▶</a>');
+    const playBtn=isSp?'<span class="play-btn" onclick="event.stopPropagation();playPreview(\''+t.sid+'\',this)" title="Play track">▶︎</span>':(isLocal?(_hasSpArtist?'<a class="play-btn sp-search" href="'+spUrl+'" target="_blank" onclick="event.stopPropagation()" title="Search Spotify">▶</a>':'<a class="play-btn yt" href="'+spUrl+'" target="_blank" onclick="event.stopPropagation()" title="Search YouTube">▶</a>'):'<a class="play-btn yt" href="'+spUrl+'" target="_blank" onclick="event.stopPropagation()" title="Search YouTube">▶</a>');
     /* Open in Spotify app link — uses spotify: URI to launch app */
     const spLink=isSp?' <a class="sp-app-link" href="https://open.spotify.com/track/'+t.sid+'" onclick="event.stopPropagation();openSpotifyApp(\''+t.sid+'\',event)" title="Open in Spotify app"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1DB954"/><path d="M16.5 15.8c-.2 0-.4-.1-.5-.2-2.1-1.3-4.8-1.6-7.9-.9-.3.1-.6-.1-.7-.4-.1-.3.1-.6.4-.7 3.4-.8 6.4-.4 8.8 1 .3.2.4.5.2.8-.1.2-.2.3-.3.4zm1.3-2.8c-.2 0-.4-.1-.6-.2-2.4-1.5-6.1-1.9-8.9-1-.3.1-.7 0-.8-.4-.1-.3 0-.7.4-.8 3.2-1 7.2-.5 9.9 1.2.3.2.4.6.2.9-.2.2-.4.3-.2.3zm.1-2.9c-2.9-1.7-7.6-1.9-10.3-1-.3.1-.7-.1-.8-.5-.1-.3.1-.7.5-.8 3.1-1 8.3-.8 11.5 1.2.3.2.4.6.2 1-.2.2-.5.3-.7.3-.1 0-.3 0-.4-.2z" fill="white"/></svg></a>':'';
     /* Vinyl badge */
@@ -1026,7 +1026,7 @@ function renderSet(){
     if(i>0){const prev=djSet[i-1];if(prev.tp>0&&t.tp>0){const diff=Math.abs(t.tp-prev.tp);const color=diff<=3?'var(--green)':diff<=8?'var(--accent)':'var(--red)';flow='<span class="st-flow" style="background:'+color+'" title="'+diff.toFixed(0)+' BPM gap"></span>'}}
     const upBtn=i>0?'<span class="st-arrow" onclick="moveSetTrack('+i+',-1)" title="Move up">▲</span>':'<span class="st-arrow" style="visibility:hidden">▲</span>';
     const dnBtn=i<djSet.length-1?'<span class="st-arrow" onclick="moveSetTrack('+i+',1)" title="Move down">▼</span>':'<span class="st-arrow" style="visibility:hidden">▼</span>';
-    return '<div class="set-track" draggable="true" data-si="'+i+'" ondragstart="dsDragStart(event,'+i+')" ondragover="dsDragOver(event)" ondragenter="dsDragEnter(event,this)" ondragleave="dsDragLeave(event,this)" ondrop="dsDrop(event,'+i+')" ondragend="dsDragEnd()">'+flow+'<div class="st-arrows">'+upBtn+dnBtn+'</div><span class="st-num">'+(i+1)+'</span><a class="st-play" '+(isSp?'onclick="event.preventDefault();playPreview(\''+t.sid+'\',this)" ':'')+' href="'+url+'" target="_blank">▶</a><span class="st-info"><span class="st-artist">'+esc(t.a)+'</span> <span class="st-title">— '+esc(t.t)+'</span></span><span class="st-bpm">'+(t.tp>0?t.tp.toFixed(0)+'bpm':'')+'</span><span class="st-remove" onclick="djSet.splice('+i+',1);renderSet()">✕</span></div>';
+    return '<div class="set-track" draggable="true" data-si="'+i+'" ondragstart="dsDragStart(event,'+i+')" ondragover="dsDragOver(event)" ondragenter="dsDragEnter(event,this)" ondragleave="dsDragLeave(event,this)" ondrop="dsDrop(event,'+i+')" ondragend="dsDragEnd()">'+flow+'<div class="st-arrows">'+upBtn+dnBtn+'</div><span class="st-num">'+(i+1)+'</span><a class="st-play" '+(isSp?'onclick="event.preventDefault();playPreview(\''+t.sid+'\',this)" ':'')+' href="'+url+'" target="_blank">▶︎</a><span class="st-info"><span class="st-artist">'+esc(t.a)+'</span> <span class="st-title">— '+esc(t.t)+'</span></span><span class="st-bpm">'+(t.tp>0?t.tp.toFixed(0)+'bpm':'')+'</span><span class="st-remove" onclick="djSet.splice('+i+',1);renderSet()">✕</span></div>';
   }).join('');
   /* Add "More Like This" button at bottom */
   q('#set-tracks').innerHTML+='<button class="set-more" onclick="extendSetlist()">+ More like this — add 5 similar tracks</button>';
@@ -1177,7 +1177,7 @@ function _renderTransitions(){
     var bpmColor=bpmDiff<=3?'var(--green)':bpmDiff<=8?'var(--accent)':'var(--red)';
     html+='<div class="th-track" onclick="addToSet(this._track);renderSet()" title="Add to set">';
     html+='<span class="th-add">+</span>';
-    html+='<span class="th-play" onclick="event.stopPropagation();playPreview(\''+t.sid+'\',this)">▶</span>';
+    html+='<span class="th-play" onclick="event.stopPropagation();playPreview(\''+t.sid+'\',this)">▶︎</span>';
     html+='<span class="th-info"><span class="th-artist">'+esc(t.a.split(';')[0])+'</span> <span class="th-ttl">— '+esc(t.t)+'</span></span>';
     html+='<span class="th-meta"><span class="th-bpm" style="color:'+bpmColor+'">'+(t.tp>0?t.tp.toFixed(0):'?')+'</span><span class="th-gap" style="color:'+bpmColor+'">±'+bpmDiff+'</span><span class="th-vibe">'+t.vb+'</span></span>';
     html+='</div>';
@@ -1268,7 +1268,7 @@ function showTrackPop(track,ev){
     const isSp=t.sid&&t.sid.length===22;
     const _simSpA=_spArtists.has(t.a.split(';')[0].toLowerCase().trim());const url=isSp?'https://open.spotify.com/track/'+t.sid:_simSpA?'spotify:search:'+encodeURIComponent(t.a.split(';')[0]+' '+t.t):'https://www.youtube.com/results?search_query='+encodeURIComponent(t.a.split(';')[0]+' '+t.t);
     const pAct=isSp?'onclick="event.preventDefault();playPreview(\''+t.sid+'\',this)" ':'';
-    return '<div class="tp-track"><span class="tp-add" onclick="addToSet(findSimilarTracks._cache['+i+'])" title="Add to setlist">+</span><a class="tp-play" '+pAct+'href="'+url+'" target="_blank">▶</a><span class="tp-info"><span class="tp-artist">'+esc(t.a.split(';')[0])+'</span> <span class="tp-ttl">— '+esc(t.t)+'</span></span><span class="tp-bpm">'+(t.tp>0?t.tp.toFixed(0):'')+'</span></div>';
+    return '<div class="tp-track"><span class="tp-add" onclick="addToSet(findSimilarTracks._cache['+i+'])" title="Add to setlist">+</span><a class="tp-play" '+pAct+'href="'+url+'" target="_blank">▶︎</a><span class="tp-info"><span class="tp-artist">'+esc(t.a.split(';')[0])+'</span> <span class="tp-ttl">— '+esc(t.t)+'</span></span><span class="tp-bpm">'+(t.tp>0?t.tp.toFixed(0):'')+'</span></div>';
   }).join('');
   findSimilarTracks._cache=similar;
   /* Mobile action buttons */
@@ -2049,7 +2049,7 @@ function digDeeper(name){
     const _digSpA=_spArtists.has(t.a.split(';')[0].toLowerCase().trim());const url=isSp2?'https://open.spotify.com/track/'+t.sid:_digSpA?'spotify:search:'+encodeURIComponent(t.a.split(';')[0]+' '+t.t):'https://www.youtube.com/results?search_query='+encodeURIComponent(t.a.split(';')[0]+' '+t.t);
     const alb=t.al?' · '+esc(t.al):'';
     const dPact=isSp2?'onclick="event.preventDefault();playPreview(\''+t.sid+'\',this)" ':'';
-    return '<div class="dig-track"><span class="dt-num">'+(i+1)+'</span><span class="row-sleeve"'+(isSp2?' data-sleeve="'+t.sid+'"':'')+'><a class="dt-play" '+dPact+'href="'+url+'" target="_blank">▶</a></span><span class="dt-info"><span class="dt-artist" data-artist="'+esc(t.a)+'" onclick="filterByArtist(this.dataset.artist)">'+esc(t.a)+'</span> <span class="dt-title">— '+esc(t.t)+'</span><span class="dt-album">'+alb+'</span></span><span class="dt-meta"><span class="dt-vibe">'+t.vb+'</span></span></div>';
+    return '<div class="dig-track"><span class="dt-num">'+(i+1)+'</span><span class="row-sleeve"'+(isSp2?' data-sleeve="'+t.sid+'"':'')+'><a class="dt-play" '+dPact+'href="'+url+'" target="_blank">▶︎</a></span><span class="dt-info"><span class="dt-artist" data-artist="'+esc(t.a)+'" onclick="filterByArtist(this.dataset.artist)">'+esc(t.a)+'</span> <span class="dt-title">— '+esc(t.t)+'</span><span class="dt-album">'+alb+'</span></span><span class="dt-meta"><span class="dt-vibe">'+t.vb+'</span></span></div>';
   }).join('');
   loadSleeves(q('#dig-tracks'));
   q('#dig-panel').classList.add('visible');
@@ -4037,7 +4037,7 @@ function renderDeal(){
     var t=e.t,rm=ROLE_META[e.role];
     return '<div class="dlr-row">'
       +'<span class="dlr-num">'+String(i+1).padStart(2,'0')+'</span>'
-      +'<span class="row-sleeve" data-sleeve="'+t.sid+'"><span class="play-btn" onclick="playPreview(\''+t.sid+'\',this)" title="Play">▶</span></span>'
+      +'<span class="row-sleeve" data-sleeve="'+t.sid+'"><span class="play-btn" onclick="playPreview(\''+t.sid+'\',this)" title="Play">▶︎</span></span>'
       +'<div class="dlr-tt"><span class="dlr-a">'+esc(t.a.split(';')[0])+'</span><span class="dlr-t">'+esc(t.t)+'</span>'
       +'<span class="dlr-meta">'+esc(t.al||'')+(t.r?' · '+t.r:'')+'</span></div>'
       +'<span class="dlr-bpm">'+(t.tp>0?Math.round(t.tp):'')+'</span>'
@@ -4360,7 +4360,10 @@ body.guest-focus .main-area{overflow-y:auto}
   color:var(--text);font-weight:600;cursor:pointer;font-family:inherit}
 #gh-artist-go:hover{border-color:var(--accent)}
 /* record-shop bins */
-.gh-shelf{margin-top:26px}
+.gh-shelf{margin-top:26px;position:relative}
+/* right-edge fade: says "there's more" without a word */
+.gh-shelf::after{content:'';position:absolute;top:28px;right:0;bottom:8px;width:44px;
+  background:linear-gradient(to right,transparent,var(--bg) 85%);pointer-events:none}
 .gh-shelf-title{font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px}
 .gh-shelf-note{font-weight:400;text-transform:none;letter-spacing:0.02em;color:var(--dim);margin-left:10px;font-size:0.92em}
 .gh-bin{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
@@ -4370,10 +4373,11 @@ body.guest-focus .main-area{overflow-y:auto}
 .gh-card-albtxt{position:absolute;top:10px;left:11px;right:11px;font-size:0.72em;font-weight:700;line-height:1.3;
   color:var(--text);opacity:0.9;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .gh-card-art.has-art .gh-card-albtxt{display:none}
-.gh-card-play{position:absolute;bottom:9px;right:9px;width:40px;height:40px;border-radius:50%;background:var(--green);
-  color:#000;display:flex;align-items:center;justify-content:center;font-size:0.85em;cursor:pointer;padding-left:3px;
-  transition:transform 0.1s;box-shadow:0 2px 10px rgba(0,0,0,0.55)}
-.gh-card-play:hover{transform:scale(1.1)}
+.gh-card-play{position:absolute;bottom:8px;right:8px;width:34px;height:34px;border-radius:50%;
+  background:rgba(8,8,13,0.62);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.14);
+  color:#1DB954;display:flex;align-items:center;justify-content:center;font-size:0.72em;cursor:pointer;padding-left:2px;
+  transition:transform 0.1s,background 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.45)}
+.gh-card-play:hover{transform:scale(1.12);background:#1DB954;color:#000}
 .gh-card-vinyl{position:absolute;bottom:11px;left:9px;font-size:0.56em;font-weight:700;letter-spacing:0.1em;
   padding:2px 7px;border-radius:5px;background:rgba(0,0,0,0.55);color:var(--accent);border:1px solid rgba(232,160,64,0.4)}
 .gh-card-a{font-size:0.78em;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -4388,8 +4392,11 @@ body.guest-focus .main-area{overflow-y:auto}
 /* guest focus: dig + rediscover panels live inside the hero (moved by guest.js) */
 #gh-panels{margin-top:6px}
 @media(max-width:768px){
-  #guest-hero{padding:26px 16px 20px}
+  #guest-hero{padding:calc(22px + env(safe-area-inset-top)) 16px 20px}
   .gh-prop{font-size:1.35em}
+  /* first rack tells you the trick; the edge fade carries it from there */
+  .gh-shelf-first .gh-shelf-note::after{content:' · swipe \2192'}
+  .gh-card-play{width:38px;height:38px;font-size:0.78em}
   .gh-inputrow{flex-direction:column}
   #gh-select{width:100%}
   .gh-secondary{flex-wrap:wrap}
@@ -4544,7 +4551,7 @@ window.addEventListener('hashchange',go);})();
       +' data-art-key="'+E(((g.tracks.length>=4?'alb:':'')+(sid||primary(t.a)+' '+(t.al||t.t))))+'"'
       +' data-art-q="'+E(primary(t.a)+' '+(t.al||t.t))+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
       +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
-      +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶</span>'
+      +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶︎</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
       +'</div>'
       +'<div class="gh-card-a">'+E(primary(t.a))+'</div>'
@@ -4690,7 +4697,7 @@ window.addEventListener('hashchange',go);})();
   function overrideCard(o){
     return '<div class="gh-card">'
       +'<div class="gh-card-art has-art" style="background-image:url(\''+o.art+'\')">'
-      +'<span class="gh-card-play" onclick="window.open(\''+o.url+'\',\'_blank\')" title="Open on '+(o.tag||'Bandcamp')+'">▶</span>'
+      +'<span class="gh-card-play" onclick="window.open(\''+o.url+'\',\'_blank\')" title="Open on '+(o.tag||'Bandcamp')+'">▶︎</span>'
       +'<span class="gh-card-vinyl">'+(o.tag||'VINYL')+'</span>'
       +'</div>'
       +'<div class="gh-card-a">'+E(o.a)+'</div>'
@@ -4765,15 +4772,15 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-prop">Tell Ben’s shelves what you fancy.</div>'
       +'<div class="gh-inputrow"><input id="gh-input" placeholder="Brazilian sunshine, late-night jazz, like Marcos Valle…" autocomplete="off"><button id="gh-select">SELECT</button></div>'
       +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
-      +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ records dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
+      +'<div class="gh-sub">The Selector pulls 25 tracks from one human-curated archive — 17,000+ tracks dug by ear over 14 years: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
       +'<div class="gh-secondary">'
       +'<button class="gh-2nd" id="gh-artist-btn">🔭 Start with an artist</button>'
       +'<button class="gh-2nd" id="gh-surprise-btn">🔮 Surprise me</button>'
       +'<button class="gh-2nd gh-explore-top" onclick="_ghExplore()">📚 Explore the full archive — 17,000 tracks</button>'
       +'</div>'
-      +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Dig</button></div>'
+      +'<div class="gh-artistrow" id="gh-artist-row" style="display:none"><input id="gh-artist-input" placeholder="Type an artist — Marcos Valle, Roy Ayers, Theo Parrish…" autocomplete="off"><button id="gh-artist-go">Go</button></div>'
       +'<div id="gh-panels"></div>'
-      +'<div class="gh-shelf"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
+      +'<div class="gh-shelf gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Unearthed this month<span class="gh-shelf-note">older records Ben just dug up</span></div><div class="gh-bin">'+unearthedShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Just bought on vinyl<span class="gh-shelf-note">actual physical records, straight into Ben&rsquo;s crates</span></div><div class="gh-bin">'+freshVinylShelf()+'</div></div>'
       +'<div class="gh-shelf"><div class="gh-shelf-title">Hammered this year<span class="gh-shelf-note">what Ben has caned in the last 12 months</span>'

@@ -559,7 +559,7 @@ function renderDeal(){
     var t=e.t,rm=ROLE_META[e.role];
     return '<div class="dlr-row">'
       +'<span class="dlr-num">'+String(i+1).padStart(2,'0')+'</span>'
-      +'<span class="row-sleeve" data-sleeve="'+t.sid+'"><span class="play-btn" onclick="playPreview(\''+t.sid+'\',this)" title="Play">▶</span></span>'
+      +'<span class="row-sleeve" data-sleeve="'+t.sid+'"><span class="play-btn" onclick="playPreview(\''+t.sid+'\',this)" title="Play">▶︎</span></span>'
       +'<div class="dlr-tt"><span class="dlr-a">'+esc(t.a.split(';')[0])+'</span><span class="dlr-t">'+esc(t.t)+'</span>'
       +'<span class="dlr-meta">'+esc(t.al||'')+(t.r?' · '+t.r:'')+'</span></div>'
       +'<span class="dlr-bpm">'+(t.tp>0?Math.round(t.tp):'')+'</span>'
