@@ -38,12 +38,12 @@
     var groups={};
     DATA.forEach(function(t,i){
       var k=(primary(t.a)+'|'+(t.al||'').trim()).toLowerCase();
-      var g=groups[k]||(groups[k]={tracks:[],da:0,idx:0,p1:0,pc:0,vy:0});
+      var g=groups[k]||(groups[k]={tracks:[],da:0,idx:0,p1:0,pc:0,vy:0,ids:{},uc:0});
       g.tracks.push(t);
       if((t.da||0)>g.da)g.da=t.da;
       if(i>g.idx)g.idx=i;
-      g.p1+=(t.p1||0);
-      g.pc+=(t.pc||0);
+      var sid=t.sid||('row:'+i);
+      if(!g.ids[sid]){g.ids[sid]=1;g.uc++;g.p1+=(t.p1||0);g.pc+=(t.pc||0)}
       if(t.vy)g.vy=1;
     });
     return Object.keys(groups).map(function(k){return groups[k]});
@@ -76,7 +76,7 @@
     var albumName=(t.al||'').trim();
     /* Three or more archived tracks means Ben is treating this as an album, so
        prefer its album sleeve over whichever launch single supplied the track id. */
-    var useAlbumArt=!!albumName&&g.tracks.length>=3;
+    var useAlbumArt=!!albumName&&g.uc>=3;
     var artKey=useAlbumArt?'alb:'+primary(t.a).toLowerCase()+'|'+albumName.toLowerCase():(sid||primary(t.a)+' '+(t.al||t.t));
     var artQuery=primary(t.a)+' '+(useAlbumArt?albumName:(t.al||t.t));
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
@@ -229,13 +229,14 @@
     var out=[];
     for(var i=0;i<gs.length&&out.length<limit;i++){
       var k=recordKey(gs[i]);
-      if(_shelfSeen[k])continue;
+      if(SHELF_RECORD_EXCLUDE[k]||_shelfSeen[k])continue;
       _shelfSeen[k]=1;out.push(gs[i]);
     }
     return out;
   }
   /* never on the racks, whatever the play counts say */
   var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
+  var SHELF_RECORD_EXCLUDE={'gary barlow|paddington bear (from “the adventures of paddington”)':1};
   function onePerArtist(gs){
     var seen={};
     return gs.filter(function(g){
@@ -682,6 +683,7 @@
       +'<details class="gh-rifle"><summary><span class="gh-rifle-summary-title">Flick through the new arrivals</span><span class="gh-rifle-summary-note">choose a section &middot; add a feel if you fancy</span><span class="gh-fold-mark">+</span></summary>'
       +'<div class="gh-rifle-body"><div class="gh-rifle-row"><span>Section</span><div class="gh-rifle-chips" id="gh-rifle-genres"></div></div>'
       +'<div class="gh-rifle-row"><span>Feel</span><div class="gh-rifle-chips" id="gh-rifle-vibes"></div></div></div></details>'
+      +'<div class="gh-recommend-intro"><div class="gh-shelf-title">Recommended from Ben&rsquo;s shelves<span class="gh-shelf-note">records Ben is buying, playing and returning to &middot; tap any cover to listen</span></div></div>'
       +'<div class="gh-shelf" id="gh-rifle-results" hidden><div class="gh-rifle-result-head"><div><div class="gh-shelf-title gh-rifle-result-title"></div><div class="gh-rifle-result-note"></div></div>'
       +'<div class="gh-rifle-result-actions"><button class="gh-rifle-pick" type="button">Pull one for me</button><button class="gh-rifle-clear" type="button">Clear</button></div></div><div class="gh-bin"></div></div>'
       +'<div class="gh-shelf gh-new-source gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'

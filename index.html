@@ -4425,6 +4425,7 @@ body.guest-archive-open .gh-back-strip{display:flex}
   background:linear-gradient(to right,transparent,var(--bg) 85%);pointer-events:none}
 .gh-shelf-title{font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px}
 .gh-shelf-note{font-weight:400;text-transform:none;letter-spacing:0.02em;color:var(--dim);margin-left:10px;font-size:0.92em}
+.gh-recommend-intro{margin-top:34px;margin-bottom:-12px}
 .gh-bin{display:flex;gap:11px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:thin;scroll-behavior:smooth;
   scroll-snap-type:x proximity;overscroll-behavior-inline:contain}
 .gh-card{flex:0 0 158px;width:158px;scroll-snap-align:start;cursor:pointer;outline:none;
@@ -5654,6 +5655,7 @@ window.addEventListener('hashchange',go);})();
       +'<details class="gh-rifle"><summary><span class="gh-rifle-summary-title">Flick through the new arrivals</span><span class="gh-rifle-summary-note">choose a section &middot; add a feel if you fancy</span><span class="gh-fold-mark">+</span></summary>'
       +'<div class="gh-rifle-body"><div class="gh-rifle-row"><span>Section</span><div class="gh-rifle-chips" id="gh-rifle-genres"></div></div>'
       +'<div class="gh-rifle-row"><span>Feel</span><div class="gh-rifle-chips" id="gh-rifle-vibes"></div></div></div></details>'
+      +'<div class="gh-recommend-intro"><div class="gh-shelf-title">Recommended from Ben&rsquo;s shelves<span class="gh-shelf-note">records Ben is buying, playing and returning to &middot; tap any cover to listen</span></div></div>'
       +'<div class="gh-shelf" id="gh-rifle-results" hidden><div class="gh-rifle-result-head"><div><div class="gh-shelf-title gh-rifle-result-title"></div><div class="gh-rifle-result-note"></div></div>'
       +'<div class="gh-rifle-result-actions"><button class="gh-rifle-pick" type="button">Pull one for me</button><button class="gh-rifle-clear" type="button">Clear</button></div></div><div class="gh-bin"></div></div>'
       +'<div class="gh-shelf gh-new-source gh-shelf-first"><div class="gh-shelf-title">New in<span class="gh-shelf-note">brand-new music &mdash; released this year, straight into the archive</span></div><div class="gh-bin">'+newReleasesShelf()+'</div></div>'

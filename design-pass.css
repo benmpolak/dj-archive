@@ -143,6 +143,7 @@ body.guest-archive-open .gh-back-strip{display:flex}
   background:linear-gradient(to right,transparent,var(--bg) 85%);pointer-events:none}
 .gh-shelf-title{font-size:0.68em;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);margin-bottom:10px}
 .gh-shelf-note{font-weight:400;text-transform:none;letter-spacing:0.02em;color:var(--dim);margin-left:10px;font-size:0.92em}
+.gh-recommend-intro{margin-top:34px;margin-bottom:-12px}
 .gh-bin{display:flex;gap:11px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:thin;scroll-behavior:smooth;
   scroll-snap-type:x proximity;overscroll-behavior-inline:contain}
 .gh-card{flex:0 0 158px;width:158px;scroll-snap-align:start;cursor:pointer;outline:none;
