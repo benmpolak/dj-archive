@@ -236,9 +236,16 @@
   }
   /* never on the racks, whatever the play counts say */
   var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
-  /* hand-pinned to the front of New in, whatever the play counts say —
-     also exempt from the rack's date window so they stay put until unpinned */
-  var SHELF_PIN={'patchwork inc.':1};
+  /* hand-pinned RECORDS — front of New in, in this order, whatever the play
+     counts, release year or date window say; stay put until unpinned.
+     Key = first artist|album, lowercase (same shape as SHELF_RECORD_EXCLUDE). */
+  var SHELF_PIN=[
+    'patchwork inc.|more patchwork'
+  ];
+  function pinKey(g){
+    var t=rep(g,function(t){return t.p1||0});
+    return artistKey(g)+'|'+String(t.al||t.t).trim().toLowerCase();
+  }
   var SHELF_RECORD_EXCLUDE={'gary barlow|paddington bear (from “the adventures of paddington”)':1};
   function onePerArtist(gs){
     var seen={};
@@ -274,12 +281,20 @@
     });
     var yearTotals={};
     yearGs.forEach(function(g){var k=artistKey(g);yearTotals[k]=(yearTotals[k]||0)+g.pc});
-    var gs=yearGs.filter(function(g){return g.da>=prevDa||SHELF_PIN[artistKey(g)]});
+    var gs=yearGs.filter(function(g){return g.da>=prevDa});
     gs.sort(function(a,b){
-      var pin=(SHELF_PIN[artistKey(b)]?1:0)-(SHELF_PIN[artistKey(a)]?1:0);
-      return pin||(yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
+      return (yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
     });
     gs=onePerArtist(gs);
+    /* pinned records go to the front, in list order, from the whole archive —
+       and are exempt from the one-per-artist rule the rest of the rack obeys */
+    if(SHELF_PIN.length){
+      var byKey={};groupRecords().forEach(function(g){byKey[pinKey(g)]=g});
+      var pinned=SHELF_PIN.map(function(k){return byKey[k]})
+        .filter(function(g){return g&&hasSpotify(g)});
+      var isPinned={};SHELF_PIN.forEach(function(k){isPinned[k]=1});
+      gs=pinned.concat(gs.filter(function(g){return !isPinned[pinKey(g)]}));
+    }
     return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
