@@ -5208,6 +5208,9 @@ window.addEventListener('hashchange',go);})();
   }
   /* never on the racks, whatever the play counts say */
   var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
+  /* hand-pinned to the front of New in, whatever the play counts say —
+     also exempt from the rack's date window so they stay put until unpinned */
+  var SHELF_PIN={'patchwork inc.':1};
   var SHELF_RECORD_EXCLUDE={'gary barlow|paddington bear (from “the adventures of paddington”)':1};
   function onePerArtist(gs){
     var seen={};
@@ -5243,9 +5246,10 @@ window.addEventListener('hashchange',go);})();
     });
     var yearTotals={};
     yearGs.forEach(function(g){var k=artistKey(g);yearTotals[k]=(yearTotals[k]||0)+g.pc});
-    var gs=yearGs.filter(function(g){return g.da>=prevDa});
+    var gs=yearGs.filter(function(g){return g.da>=prevDa||SHELF_PIN[artistKey(g)]});
     gs.sort(function(a,b){
-      return (yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
+      var pin=(SHELF_PIN[artistKey(b)]?1:0)-(SHELF_PIN[artistKey(a)]?1:0);
+      return pin||(yearTotals[artistKey(b)]-yearTotals[artistKey(a)])||(b.pc-a.pc)||(b.idx-a.idx);
     });
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
