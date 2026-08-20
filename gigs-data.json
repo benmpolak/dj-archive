@@ -1,204 +1,7 @@
 {
- "generated": "2026-08-13",
- "events": 2897,
+ "generated": "2026-08-20",
+ "events": 2926,
  "matches": [
-  {
-   "date": "2026-08-13",
-   "title": "Rinse Summer Series ft. p-rallel, Eliza Rose, Scotti Dee + more",
-   "venue": "Night Tales",
-   "url": "https://ra.co/events/2494473",
-   "source": "RA",
-   "how": "lineup",
-   "score": 22.5,
-   "etype": "dj",
-   "first_seen": "2026-07-23",
-   "artist": "Eliza Rose",
-   "co": []
-  },
-  {
-   "date": "2026-08-14",
-   "title": "Beirut Groove Collective Summer Club: Natalie Shooter // Ernesto Chahoud // + Guests",
-   "venue": "Grow",
-   "url": "https://ra.co/events/2491298",
-   "source": "RA",
-   "how": "title",
-   "score": 8.4,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Groove Collective",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "Cooking with Palms Trax with Call Super, Prosumer, OK Williams, John Talabot & More",
-   "venue": "The Cause",
-   "url": "https://ra.co/events/2457152",
-   "source": "RA",
-   "how": "lineup",
-   "score": 17.2,
-   "etype": "day",
-   "first_seen": "2000-01-01",
-   "artist": "John Talabot",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "Moby Live on the Thames",
-   "venue": "Old Royal Naval College",
-   "url": "https://ra.co/events/2354022",
-   "source": "RA",
-   "how": "lineup",
-   "score": 9.0,
-   "etype": "day",
-   "first_seen": "2000-01-01",
-   "artist": "Moby",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "A day with LF System + SHEE, Daisybelle & Lucy Lennox",
-   "venue": "LDN East",
-   "url": "https://ra.co/events/2464120",
-   "source": "RA",
-   "how": "lineup",
-   "score": 70.7,
-   "etype": "day",
-   "first_seen": "2026-08-06",
-   "artist": "Daisybelle",
-   "co": [
-    "LF SYSTEM"
-   ]
-  },
-  {
-   "date": "2026-08-15",
-   "title": "Jumbi Jamboree: Free Warehouse Edition with Dennis Bovell",
-   "venue": "Jumbi",
-   "url": "https://ra.co/events/2506168",
-   "source": "RA",
-   "how": "lineup",
-   "score": 12.3,
-   "etype": "day",
-   "first_seen": "2026-08-06",
-   "artist": "Dennis Bovell",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "Razor-N-Tape Party at Jazz Cafe",
-   "venue": "The Jazz Cafe",
-   "url": "https://ra.co/events/2461548",
-   "source": "RA",
-   "how": "lineup",
-   "score": 62.2,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "JKriv",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "HUNEE - DJ Set - {PAIRED} Serpentine",
-   "venue": "Serpentine Galleries",
-   "url": "https://ra.co/events/2484570",
-   "source": "RA",
-   "how": "lineup",
-   "score": 13.6,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Hunee",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "Ziber London \u2606 SUMMER CAMP \u2606 11 HOUR MARATHON",
-   "venue": "Distillery N17",
-   "url": "https://ra.co/events/2488328",
-   "source": "RA",
-   "how": "title",
-   "score": 12.0,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Summer Camp",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "PRISM: Elkka, Meilgaarden, r:elise, Teecra",
-   "venue": "Vittoria Wharf Studio",
-   "url": "https://ra.co/events/2456858",
-   "source": "RA",
-   "how": "lineup",
-   "score": 26.8,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Elkka",
-   "co": []
-  },
-  {
-   "date": "2026-08-15",
-   "title": "A GOOD AFTERNOON - Open Air Terrace Party",
-   "venue": "Gloves Off",
-   "url": "https://ra.co/events/2470654",
-   "source": "RA",
-   "how": "lineup",
-   "score": 11.5,
-   "etype": "day",
-   "first_seen": "2000-01-01",
-   "artist": "Raw Silk",
-   "co": []
-  },
-  {
-   "date": "2026-08-16",
-   "title": "Palais: Bill Brewster's Birthday",
-   "venue": "Palais",
-   "url": "https://ra.co/events/2431613",
-   "source": "RA",
-   "how": "lineup",
-   "score": 18.0,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Ray Mang",
-   "co": []
-  },
-  {
-   "date": "2026-08-16",
-   "title": "The Elmhurst Garden Party & BBQ with Guilty Feet + Chris Coco",
-   "venue": "The Elmhurst",
-   "url": "https://ra.co/events/2507698",
-   "source": "RA",
-   "how": "lineup",
-   "score": 10.3,
-   "etype": "day",
-   "first_seen": "2026-08-13",
-   "artist": "Chris Coco",
-   "co": []
-  },
-  {
-   "date": "2026-08-16",
-   "title": "Vinyl Quest",
-   "venue": "Filly Brook",
-   "url": "https://ra.co/events/2492220",
-   "source": "RA",
-   "how": "lineup",
-   "score": 85.6,
-   "etype": "dj",
-   "first_seen": "2026-08-06",
-   "artist": "Max Sin\u00e0l",
-   "co": []
-  },
-  {
-   "date": "2026-08-16",
-   "title": "Horse Meat Disco at Eagle London",
-   "venue": "The Eagle",
-   "url": "https://ra.co/events/2499581",
-   "source": "RA",
-   "how": "lineup",
-   "score": 13.8,
-   "etype": "dj",
-   "first_seen": "2026-07-30",
-   "artist": "Horse Meat Disco",
-   "co": []
-  },
   {
    "date": "2026-08-20",
    "title": "Ballroom at Palais: GRACE (RAW SILK)",
@@ -240,6 +43,19 @@
   },
   {
    "date": "2026-08-20",
+   "title": "Energy Exchange Records : Tones of Resistance",
+   "venue": "The Jago",
+   "url": "https://ra.co/events/2513293",
+   "source": "RA",
+   "how": "lineup",
+   "score": 55.2,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Magic Manfred",
+   "co": []
+  },
+  {
+   "date": "2026-08-20",
    "title": "Harrison",
    "venue": "The Broadcaster",
    "url": "https://ra.co/events/2483204",
@@ -249,6 +65,19 @@
    "etype": "dj",
    "first_seen": "2000-01-01",
    "artist": "Harrison",
+   "co": []
+  },
+  {
+   "date": "2026-08-20",
+   "title": "Mark de Clive-Lowe",
+   "venue": "Ronnie Scott's Bar",
+   "url": "https://ra.co/events/2516455",
+   "source": "RA",
+   "how": "lineup",
+   "score": 138.5,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Mark de Clive-Lowe",
    "co": []
   },
   {
@@ -339,7 +168,7 @@
   },
   {
    "date": "2026-08-22",
-   "title": "Toy Tonics Jam (Day & Night Party) with Kapote, Davide Dev, Marla Kether, Mr. Redly",
+   "title": "Toy Tonics Jam (Day & Night Party) with Kapote, Davide Dev, Marla Kether, Mr.Redley",
    "venue": "The Jazz Cafe",
    "url": "https://ra.co/events/2455719",
    "source": "RA",
@@ -563,6 +392,19 @@
   },
   {
    "date": "2026-08-29",
+   "title": "Appetite Afterparty (Saturday) - Skream, Jamback, Jaden Thompson, Kellie Allen + more",
+   "venue": "fabric",
+   "url": "https://ra.co/events/2454581",
+   "source": "RA",
+   "how": "lineup",
+   "score": 6.6,
+   "etype": "dj",
+   "first_seen": "2026-07-30",
+   "artist": "Skream",
+   "co": []
+  },
+  {
+   "date": "2026-08-29",
    "title": "Paraiso Disco: House, Disco, Classics",
    "venue": "Night Tales",
    "url": "https://ra.co/events/2424695",
@@ -576,15 +418,15 @@
   },
   {
    "date": "2026-08-29",
-   "title": "Appetite Afterparty (Saturday) - Skream, Special Guests, Jaden Thompson, Kellie Allen + more",
-   "venue": "fabric",
-   "url": "https://ra.co/events/2454581",
+   "title": "SOULFUEL: Alex Nut (House, Disco, Soul, Brokenbeat)",
+   "venue": "Night Tales Loft",
+   "url": "https://ra.co/events/2494400",
    "source": "RA",
-   "how": "lineup",
-   "score": 6.6,
+   "how": "title",
+   "score": 80.6,
    "etype": "dj",
-   "first_seen": "2026-07-30",
-   "artist": "Skream",
+   "first_seen": "2026-08-20",
+   "artist": "Alex Nut",
    "co": []
   },
   {
@@ -682,6 +524,19 @@
   },
   {
    "date": "2026-08-30",
+   "title": "Appetite Afterparty (Sunday) - Locky B2B Elliot Schooling & Liam Palmer, Captain Wallop + more",
+   "venue": "fabric",
+   "url": "https://ra.co/events/2454809",
+   "source": "RA",
+   "how": "lineup",
+   "score": 85.6,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Max Sin\u00e0l",
+   "co": []
+  },
+  {
+   "date": "2026-08-30",
    "title": "Percy Mingle Carnival Afterparty: Novelist, Scratcha DVA, LCN, Cooly G, Marleigh",
    "venue": "Palais",
    "url": "https://ra.co/events/2431673",
@@ -728,8 +583,34 @@
    ]
   },
   {
+   "date": "2026-08-30",
+   "title": "Mama's Boy Boat Party: Laurence Guy",
+   "venue": "Festival Pier",
+   "url": "https://ra.co/events/2500340",
+   "source": "RA",
+   "how": "lineup",
+   "score": 5.4,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Laurence Guy",
+   "co": []
+  },
+  {
    "date": "2026-08-31",
-   "title": "Ambient Launch Party \u2022 Marysia Osu, Millie McKee & TBA",
+   "title": "Rinse Carnival After Party ft. Katy B (DJ Set), Brighter Days Family, Geeneus + many more",
+   "venue": "Paradise",
+   "url": "https://ra.co/events/2485830",
+   "source": "RA",
+   "how": "title",
+   "score": 12.6,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Brighter Days Family",
+   "co": []
+  },
+  {
+   "date": "2026-08-31",
+   "title": "Ambient Launch Party \u2022 Marysia Osu, Maybe Laura & Millie McKee",
    "venue": "Sauna Social Club",
    "url": "https://ra.co/events/2511349",
    "source": "RA",
@@ -755,7 +636,7 @@
   },
   {
    "date": "2026-09-04",
-   "title": "HVYWGHT x 10 Years of 1985: Alix Perez (140 set)",
+   "title": "HVYWGHT x 10 Years of 1985: Alix Perez [SOLD OUT]",
    "venue": "HERE",
    "url": "https://ra.co/events/2435609",
    "source": "RA",
@@ -811,7 +692,7 @@
   },
   {
    "date": "2026-09-04",
-   "title": "Kings of Tomorrow (Live Ensemble)",
+   "title": "Kings of Tomorrow - Live Ensemble (Evening Show)",
    "venue": "The Jazz Cafe",
    "url": "https://ra.co/events/2490781",
    "source": "RA",
@@ -865,6 +746,19 @@
   },
   {
    "date": "2026-09-04",
+   "title": "SHUSH // Ken Okuda & D'Monk (All Night Long)",
+   "venue": "The Carpet Shop",
+   "url": "https://ra.co/events/2513871",
+   "source": "RA",
+   "how": "lineup",
+   "score": 40.8,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "D\u2019Monk",
+   "co": []
+  },
+  {
+   "date": "2026-09-04",
    "title": "Face-esc presents: Major Arcana Episode 1 - The Magician",
    "venue": "Multi Story",
    "url": "https://ra.co/events/2502769",
@@ -906,20 +800,20 @@
   },
   {
    "date": "2026-09-05",
-   "title": "Fervo Fluxo 5th Birthday: Weird Baile [JLZ, Vhoor, Mu540, Ramemes]",
-   "venue": "EartH",
-   "url": "https://ra.co/events/2490772",
+   "title": "The Cause x Cortex presents: Loxy, DJ Flight, Nectax, CHEZA LUCINA",
+   "venue": "The Cause",
+   "url": "https://ra.co/events/2485756",
    "source": "RA",
-   "how": "lineup",
-   "score": 11.1,
+   "how": "title",
+   "score": 7.6,
    "etype": "dj",
    "first_seen": "2000-01-01",
-   "artist": "VHOOR",
+   "artist": "Cortex",
    "co": []
   },
   {
    "date": "2026-09-05",
-   "title": "Phonox: Wilfy D + Friends",
+   "title": "Phonox: Wilfy D, malix, Goldie Quaker, Scotti Dee B2B Decimal",
    "venue": "Phonox",
    "url": "https://ra.co/events/2487311",
    "source": "RA",
@@ -945,15 +839,15 @@
   },
   {
    "date": "2026-09-05",
-   "title": "The Cause x Cortex presents: Loxy, DJ Flight, Nectax, CHEZA LUCINA",
-   "venue": "The Cause",
-   "url": "https://ra.co/events/2485756",
+   "title": "JLZ, Vhoor, Mu540, RaMeMes - EartH Hackney",
+   "venue": "EartH",
+   "url": "https://ra.co/events/2490772",
    "source": "RA",
-   "how": "title",
-   "score": 7.6,
+   "how": "lineup",
+   "score": 11.1,
    "etype": "dj",
    "first_seen": "2000-01-01",
-   "artist": "Cortex",
+   "artist": "VHOOR",
    "co": []
   },
   {
@@ -975,19 +869,6 @@
   },
   {
    "date": "2026-09-05",
-   "title": "Roche Musique: Cezaire + Crayon + Amy Os",
-   "venue": "The Jazz Cafe",
-   "url": "https://ra.co/events/2439951",
-   "source": "RA",
-   "how": "title",
-   "score": 13.6,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "artist": "Crayon",
-   "co": []
-  },
-  {
-   "date": "2026-09-05",
    "title": "Gallery Season 4 Launch party with Dennis Ferrer",
    "venue": "Gallery",
    "url": "https://ra.co/events/2497410",
@@ -997,6 +878,19 @@
    "etype": "dj",
    "first_seen": "2026-08-06",
    "artist": "Dennis Ferrer",
+   "co": []
+  },
+  {
+   "date": "2026-09-05",
+   "title": "Roche Musique: Cezaire + Crayon + Amy Os",
+   "venue": "The Jazz Cafe",
+   "url": "https://ra.co/events/2439951",
+   "source": "RA",
+   "how": "title",
+   "score": 13.6,
+   "etype": "dj",
+   "first_seen": "2000-01-01",
+   "artist": "Crayon",
    "co": []
   },
   {
@@ -1014,6 +908,21 @@
   },
   {
    "date": "2026-09-05",
+   "title": "Jazz on Wick 2026",
+   "venue": "Hackney Bridge",
+   "url": "https://ra.co/events/2512686",
+   "source": "RA",
+   "how": "lineup",
+   "score": 72.0,
+   "etype": "day",
+   "first_seen": "2026-08-20",
+   "artist": "Steven Julien",
+   "co": [
+    "Neue Grafik"
+   ]
+  },
+  {
+   "date": "2026-09-05",
    "title": "GHOST OF GARAGE W/ MJ Cole, DJ Perception, Rich Reason + Chunky",
    "venue": "Freight Brixton",
    "url": "https://ra.co/events/2478497",
@@ -1023,6 +932,19 @@
    "etype": "dj",
    "first_seen": "2000-01-01",
    "artist": "MJ Cole",
+   "co": []
+  },
+  {
+   "date": "2026-09-09",
+   "title": "Pitchblack Playback: Jamiroquai 'Travelling Without Moving' (30th Anniversary)",
+   "venue": "The Castle Cinema",
+   "url": "https://ra.co/events/2515899",
+   "source": "RA",
+   "how": "title",
+   "score": 46.8,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Jamiroquai",
    "co": []
   },
   {
@@ -1150,12 +1072,25 @@
   },
   {
    "date": "2026-09-12",
+   "title": "Distant Planet X Singularity UK: Inside Out",
+   "venue": "M.O.T",
+   "url": "https://ra.co/events/2511469",
+   "source": "RA",
+   "how": "lineup",
+   "score": 7.9,
+   "etype": "day",
+   "first_seen": "2026-08-20",
+   "artist": "Tim Reaper",
+   "co": []
+  },
+  {
+   "date": "2026-09-12",
    "title": "Waterworks Extended 2026",
    "venue": "The Cause",
    "url": "https://ra.co/events/2345415",
    "source": "RA",
    "how": "lineup",
-   "score": 199.9,
+   "score": 194.9,
    "etype": "day",
    "first_seen": "2000-01-01",
    "artist": "Shy One",
@@ -1165,7 +1100,6 @@
     "Midland",
     "Scarlett O'Malley",
     "Leon Vynehall",
-    "Tim Reaper",
     "Alex Kassian"
    ]
   },
@@ -1176,11 +1110,13 @@
    "url": "https://ra.co/events/2496619",
    "source": "RA",
    "how": "lineup",
-   "score": 60.8,
+   "score": 104.6,
    "etype": "day",
-   "first_seen": "2026-07-30",
-   "artist": "Aroop Roy",
-   "co": []
+   "first_seen": "2026-08-20",
+   "artist": "Jimpster",
+   "co": [
+    "Aroop Roy"
+   ]
   },
   {
    "date": "2026-09-17",
@@ -1310,7 +1246,20 @@
   },
   {
    "date": "2026-09-19",
-   "title": "Wisdom Teeth: Facta & K-LONE (All Day Long) & More TBA",
+   "title": "Paraiso Disco: House, Disco, Classics",
+   "venue": "Night Tales",
+   "url": "https://ra.co/events/2468550",
+   "source": "RA",
+   "how": "title",
+   "score": 19.5,
+   "etype": "dj",
+   "first_seen": "2000-01-01",
+   "artist": "Para\u00edso",
+   "co": []
+  },
+  {
+   "date": "2026-09-19",
+   "title": "Wisdom Teeth: Pariah, Manami, Jorg Kuning, FYI Robyn & Facta x K-LONE (All Day Long)",
    "venue": "Gaffe",
    "url": "https://ra.co/events/2486799",
    "source": "RA",
@@ -1319,19 +1268,6 @@
    "etype": "day",
    "first_seen": "2000-01-01",
    "artist": "K-Lone",
-   "co": []
-  },
-  {
-   "date": "2026-09-19",
-   "title": "UVB-76 x MOT: Tim Reaper, Pessimist, Gremlinz, Anina & i-sha, Vega & Outer Heaven - Ethics MC",
-   "venue": "M.O.T",
-   "url": "https://ra.co/events/2494418",
-   "source": "RA",
-   "how": "lineup",
-   "score": 7.9,
-   "etype": "dj",
-   "first_seen": "2026-07-23",
-   "artist": "Tim Reaper",
    "co": []
   },
   {
@@ -1349,15 +1285,15 @@
   },
   {
    "date": "2026-09-19",
-   "title": "Paraiso Disco: House, Disco, Classics",
-   "venue": "Night Tales",
-   "url": "https://ra.co/events/2468550",
+   "title": "UVB-76 x MOT: Tim Reaper, Pessimist, Gremlinz, Anina & i-sha, Vega & Outer Heaven - Ethics MC",
+   "venue": "M.O.T",
+   "url": "https://ra.co/events/2494418",
    "source": "RA",
-   "how": "title",
-   "score": 19.5,
-   "etype": "day",
-   "first_seen": "2000-01-01",
-   "artist": "Para\u00edso",
+   "how": "lineup",
+   "score": 7.9,
+   "etype": "dj",
+   "first_seen": "2026-07-23",
+   "artist": "Tim Reaper",
    "co": []
   },
   {
@@ -1481,6 +1417,19 @@
   },
   {
    "date": "2026-09-25",
+   "title": "Primo Italiano with DJ Subaru, Hollick & Manuel Darquart",
+   "venue": "The Carpet Shop",
+   "url": "https://ra.co/events/2514792",
+   "source": "RA",
+   "how": "lineup",
+   "score": 68.7,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Manuel Darquart",
+   "co": []
+  },
+  {
+   "date": "2026-09-25",
    "title": "NT's Loft: Tonno Disko & Friends",
    "venue": "Night Tales Loft",
    "url": "https://ra.co/events/2492255",
@@ -1533,6 +1482,19 @@
   },
   {
    "date": "2026-09-26",
+   "title": "Shogun Sessions: HERE at Outernet",
+   "venue": "HERE",
+   "url": "https://ra.co/events/2429505",
+   "source": "RA",
+   "how": "lineup",
+   "score": 11.4,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Stamina MC",
+   "co": []
+  },
+  {
+   "date": "2026-09-26",
    "title": "Hecaton x Bakk Heia w/ Stella Z, Bitzer M, Schuttle",
    "venue": "Spanners",
    "url": "https://ra.co/events/2507002",
@@ -1572,6 +1534,21 @@
   },
   {
    "date": "2026-09-26",
+   "title": "Maizon x Fabwick presents: Girls of the Internet (DJ Set)",
+   "venue": "Fabwick",
+   "url": "https://ra.co/events/2514236",
+   "source": "RA",
+   "how": "title",
+   "score": 48.0,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "The Internet",
+   "co": [
+    "Girls of the Internet"
+   ]
+  },
+  {
+   "date": "2026-09-26",
    "title": "\ud835\udc76\ud835\udc6b\ud835\udc80\ud835\udc7a\ud835\udc7a\ud835\udc6c\ud835\udc80:\ud835\udc6a\ud835\udc73\ud835\udc7c\ud835\udc69",
    "venue": "The Waiting Room",
    "url": "https://ra.co/events/2505944",
@@ -1598,7 +1575,7 @@
   },
   {
    "date": "2026-10-02",
-   "title": "FABRICLIVE: Yung Singh, O'Flynn, KOLLIN + more tba",
+   "title": "FABRICLIVE: Yung Singh, O'Flynn (All Night Long), KOLLIN, Ma Sha, Percy Mingle + more",
    "venue": "fabric",
    "url": "https://ra.co/events/2476950",
    "source": "RA",
@@ -1620,6 +1597,19 @@
    "etype": "dj",
    "first_seen": "2026-08-06",
    "artist": "Austin Ato",
+   "co": []
+  },
+  {
+   "date": "2026-10-02",
+   "title": "SPOTLIGHT: Takeover Planet Wax",
+   "venue": "Planet Wax",
+   "url": "https://ra.co/events/2515591",
+   "source": "RA",
+   "how": "lineup",
+   "score": 46.2,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Aura",
    "co": []
   },
   {
@@ -1738,6 +1728,19 @@
   },
   {
    "date": "2026-10-10",
+   "title": "Neighbourhood - Andy Martin, Benny Rodrigues, D-Leria, Decoder, Gonno, OK Williams, Shy One\u2026",
+   "venue": "FOLD",
+   "url": "https://ra.co/events/2426235",
+   "source": "RA",
+   "how": "lineup",
+   "score": 164.9,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Shy One",
+   "co": []
+  },
+  {
+   "date": "2026-10-10",
    "title": "Digitalism",
    "venue": "EartH",
    "url": "https://ra.co/events/2389477",
@@ -1777,6 +1780,19 @@
   },
   {
    "date": "2026-10-10",
+   "title": "Queens of Lovers Rock: Janet Kay & Carroll Thompson",
+   "venue": "The Fox and Firkin",
+   "url": "https://ra.co/events/2511415",
+   "source": "RA",
+   "how": "title",
+   "score": 6.6,
+   "etype": "dj",
+   "first_seen": "2026-08-13",
+   "artist": "Janet Kay",
+   "co": []
+  },
+  {
+   "date": "2026-10-10",
    "title": "Big Fish Little Fish Family Rave - Balham",
    "venue": "The Bedford",
    "url": "https://ra.co/events/2494697",
@@ -1789,16 +1805,16 @@
    "co": []
   },
   {
-   "date": "2026-10-10",
-   "title": "Queens of Lovers Rock: Janet Kay & Carroll Thompson",
-   "venue": "The Fox and Firkin",
-   "url": "https://ra.co/events/2511415",
+   "date": "2026-10-11",
+   "title": "fabric: The Martinez Brothers (6 Hour Set), Sarahrey",
+   "venue": "fabric",
+   "url": "https://ra.co/events/2506210",
    "source": "RA",
-   "how": "title",
-   "score": 6.6,
+   "how": "lineup",
+   "score": 13.1,
    "etype": "dj",
-   "first_seen": "2026-08-13",
-   "artist": "Janet Kay",
+   "first_seen": "2026-08-20",
+   "artist": "The Martinez Brothers",
    "co": []
   },
   {
@@ -1854,6 +1870,19 @@
    "co": [
     "Crackazat"
    ]
+  },
+  {
+   "date": "2026-10-17",
+   "title": "The Common x Refugee Community Kitchen Takeover",
+   "venue": "The Fox and Firkin",
+   "url": "https://ra.co/events/2515464",
+   "source": "RA",
+   "how": "title",
+   "score": 48.4,
+   "etype": "day",
+   "first_seen": "2026-08-20",
+   "artist": "Common",
+   "co": []
   },
   {
    "date": "2026-10-22",
@@ -1951,6 +1980,19 @@
   },
   {
    "date": "2026-10-30",
+   "title": "Tessellate x Origins: The Trip, Spray & Scarlett O'Malley",
+   "venue": "EartH",
+   "url": "https://ra.co/events/2515403",
+   "source": "RA",
+   "how": "lineup",
+   "score": 55.2,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Scarlett O'Malley",
+   "co": []
+  },
+  {
+   "date": "2026-10-30",
    "title": "Night Tales: Luke Una presents The '\u00c9 Soul Cultura' Residency [4 Fridays In October]",
    "venue": "Night Tales",
    "url": "https://ra.co/events/2500972",
@@ -1964,7 +2006,20 @@
   },
   {
    "date": "2026-10-31",
-   "title": "The Hydra presents Honey Dijon extended set",
+   "title": "Boat Club Halloween @ 93 Feet East & E1 Afterparty",
+   "venue": "TBA - Multiple Venues (93 Feet East & E1 Afterparty)",
+   "url": "https://ra.co/events/2514807",
+   "source": "RA",
+   "how": "title",
+   "score": 7.9,
+   "etype": "dj",
+   "first_seen": "2026-08-20",
+   "artist": "Boat Club",
+   "co": []
+  },
+  {
+   "date": "2026-10-31",
+   "title": "The Hydra presents Honey Dijon - 4 Hour Set",
    "venue": "Magazine London",
    "url": "https://ra.co/events/2480358",
    "source": "RA",
@@ -2140,6 +2195,19 @@
    "co": []
   },
   {
+   "date": "2026-12-05",
+   "title": "DJ Marky & Friends London",
+   "venue": "KOKO",
+   "url": "https://ra.co/events/2515702",
+   "source": "RA",
+   "how": "lineup",
+   "score": 13.8,
+   "etype": "day",
+   "first_seen": "2026-08-20",
+   "artist": "DJ Marky",
+   "co": []
+  },
+  {
    "date": "2026-12-11",
    "title": "Session Victim (A Brand New Full Live Show)",
    "venue": "The Jazz Cafe",
@@ -2260,6 +2328,19 @@
    "co": []
   },
   {
+   "date": "2026-11-26",
+   "title": "LEN",
+   "venue": "KOKO",
+   "url": "https://www.koko.co.uk/events/len",
+   "source": "KOKO",
+   "how": "lineup",
+   "score": 12.3,
+   "etype": "gig",
+   "first_seen": "2026-08-20",
+   "artist": "LEN",
+   "co": []
+  },
+  {
    "date": "2026-12-11",
    "title": "Lapsley",
    "venue": "KOKO",
@@ -2335,32 +2416,6 @@
    "etype": "gig",
    "first_seen": "2000-01-01",
    "artist": "Joyce Moreno",
-   "co": []
-  },
-  {
-   "date": "2026-08-19",
-   "title": "Ana Frango El\u00e9trico",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/ana-frango-eletrico-2/",
-   "source": "JazzCafe",
-   "how": "lineup",
-   "score": 106.8,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "artist": "Ana Frango El\u00e9trico",
-   "co": []
-  },
-  {
-   "date": "2026-08-19",
-   "title": "Digable Planets",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/digable-planets/",
-   "source": "JazzCafe",
-   "how": "lineup",
-   "score": 27.0,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "artist": "Digable Planets",
    "co": []
   },
   {
