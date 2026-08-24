@@ -331,7 +331,12 @@
   var VINYL_OVERRIDES=[
     {a:'The Illusions & Nathan Haines',al:'Find Your Way',r:2026,da:202607,
      art:'https://f4.bcbits.com/img/a3484678180_5.jpg',
-     url:'https://theillusionsband.bandcamp.com/album/find-your-way',tag:'BANDCAMP'}
+     url:'https://theillusionsband.bandcamp.com/album/find-your-way',tag:'BANDCAMP'},
+    /* the 45s box is on the shelf as DJ Koco's continuous mix of it — Ben's
+       call: the mix is the record's face, not one loose track */
+    {a:'Mr Bongo x DJ Koco',al:'Cuban Boxset · Cuban 45s Mix',r:2026,da:202604,
+     art:'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e026d21a59a1cf727fc41814ee0',
+     url:'https://open.spotify.com/album/1jMAt3KSjlvIgkvWovGGAC',tag:'VINYL'}
   ];
   function overrideCard(o){
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(o.a)+' — '+E(o.al)+'"'
@@ -357,10 +362,17 @@
        that keep their own album name — the Johnny Clarke case), and skip when
        any single artist holds 4+ of the tracks (the artist-group already
        carries that record; avoids double cards). */
+    /* taste vetoes — Ben's calls, by Discogs release id. Squidgy rule of thumb:
+       a new release with real artwork earns a slot (Electric Jungle); reissue
+       singles and scrappy-looking comps don't. */
+    var SHELF_COMP_EXCLUDE={
+      '13927173':1,  // Fonda Rae / Classic Tracks white-label comp — "looks crap"
+      '33024036':1,  // Fania Latin Sound of NY 45 — single reissue
+      '37068723':1}; // Cuban Boxset — represented by the VINYL_OVERRIDES mix card instead
     var gs=groupRecords();
     var byDid={};
     DATA.forEach(function(t,i){
-      if(!t.vy||!t.did)return;
+      if(!t.vy||!t.did||SHELF_COMP_EXCLUDE[t.did])return;
       (byDid[t.did]=byDid[t.did]||[]).push({t:t,i:i});
     });
     Object.keys(byDid).forEach(function(did){
