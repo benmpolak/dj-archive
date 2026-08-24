@@ -4747,6 +4747,9 @@ window.addEventListener('hashchange',go);})();
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
     var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
     var artist=primary(t.a),title=t.al||t.t,metaText=meta(g,t);
+    /* a V/A comp reads like the record, not like whichever track got played
+       most — the sleeve line says Various Artists, the album title leads */
+    if(g.va){artist='Various Artists';artQuery=albumName;artKey='alb:va|'+albumName.toLowerCase()}
     /* Listening evidence belongs in the opened record view, not under every
        sleeve. Keep the rack visual and fast to scan. */
     var rackMeta=metaText.replace(/\s*·\s*\d+\s+plays?\s*$/i,'');
@@ -5356,7 +5359,7 @@ window.addEventListener('hashchange',go);})();
       core.forEach(function(r){var a=primary(r.t.a).toLowerCase();
         perArtist[a]=(perArtist[a]||0)+1;if(perArtist[a]>maxPer)maxPer=perArtist[a]});
       if(core.length<4||Object.keys(perArtist).length<3||maxPer>=4)return;
-      var g={tracks:[],da:0,idx:0,p1:0,pc:0,vy:1,ids:{},uc:0};
+      var g={tracks:[],da:0,idx:0,p1:0,pc:0,vy:1,ids:{},uc:0,va:1};
       core.forEach(function(r){var t=r.t;g.tracks.push(t);
         if((t.da||0)>g.da)g.da=t.da;
         if(r.i>g.idx)g.idx=r.i;
@@ -5375,10 +5378,14 @@ window.addEventListener('hashchange',go);})();
     });
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
-    var ov=VINYL_OVERRIDES.map(overrideCard).join('');
-    return ov+takeUnseen(gs,25-VINYL_OVERRIDES.length).map(function(g){
-      return card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)});
-    }).join('');
+    /* overrides slot into the date order like any other record — latest
+       additions first across the whole rack, not pinned to the front */
+    var items=takeUnseen(gs,25-VINYL_OVERRIDES.length).map(function(g){
+      return {da:g.da||0,html:card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)})};
+    });
+    VINYL_OVERRIDES.forEach(function(o){items.push({da:o.da||0,html:overrideCard(o)})});
+    items.sort(function(a,b){return b.da-a.da});
+    return items.map(function(x){return x.html}).join('');
   }
   function onRepeatShelf(){
     var yr=new Date().getFullYear();
