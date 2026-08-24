@@ -35,6 +35,7 @@ PLAYLIST_CRATES = {
     '50s60s70s_Soul':        ['Soul & R&B'],
     'Meditative_':           [],
     'July_2026':             [],
+    'August_2026':           [],
     '70s_and_80s_Chilled_':  [],
     'Sunshine_sounds':       [],
     'May_2026':              [],

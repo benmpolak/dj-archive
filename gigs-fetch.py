@@ -1060,10 +1060,12 @@ One DJ&rsquo;s ears, no algorithm.{('' if public else ' Refresh: <code>python3 g
 <script>
 (function(){{
 var F={{q:'',v:'',t:null,mo:null,c:null,n:false,range:null,saved:false}};
-var TODAY=new Date('{TODAY}T00:00:00');
+var TODAY=new Date();TODAY.setHours(0,0,0,0);
 var SAVED_KEY='gr_saved_gigs_v1';
 var saved={{}};
 try{{saved=JSON.parse(localStorage.getItem(SAVED_KEY)||'{{}}')}}catch(e){{saved={{}}}}
+var _cut=iso(TODAY);
+document.querySelectorAll('.row,.card').forEach(function(el){{if(el.dataset.d&&el.dataset.d<_cut)el.remove()}});
 function on(sel,ev,fn){{document.querySelectorAll(sel).forEach(function(el){{el.addEventListener(ev,fn)}})}}
 function toggle(btn,group,key,val){{
   var was=btn.classList.contains('on');
