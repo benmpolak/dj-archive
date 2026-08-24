@@ -5114,6 +5114,14 @@ window.addEventListener('hashchange',go);})();
       .then(function(j){if(j&&j.thumbnail_url){setArt(el,j.thumbnail_url);cacheArt(el.dataset.artKey,j.thumbnail_url);return true}return false})
       .catch(function(){return false});
   }
+  function dropArtlessVinyl(el){
+    /* Ben's rule: a vinyl record earns a rack slot only with its real sleeve —
+       a text-led placeholder next to actual artwork cheapens the shelf. Ditch
+       the card when both art sources miss. */
+    if(el.classList.contains('has-art'))return;
+    var card=el.closest('.gh-card');
+    if(card&&card.querySelector('.gh-card-vinyl'))card.remove();
+  }
   function fetchArt(el){
     if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
     var key=el.dataset.artKey;
@@ -5121,8 +5129,8 @@ window.addEventListener('hashchange',go);})();
     if(key&&_artCache[key]){setArt(el,_artCache[key]);return Promise.resolve()}
     /* albums: look the ALBUM up by name first — the most-played track's Spotify id
        often points at a pre-album SINGLE release wearing the wrong sleeve */
-    if(el.dataset.artAlbum)return itunesArt(el).then(function(f){if(!f)return spotifyArt(el)});
-    return spotifyArt(el).then(function(f){if(!f)return itunesArt(el)});
+    if(el.dataset.artAlbum)return itunesArt(el).then(function(f){if(!f)return spotifyArt(el)}).then(function(){dropArtlessVinyl(el)});
+    return spotifyArt(el).then(function(f){if(!f)return itunesArt(el)}).then(function(){dropArtlessVinyl(el)});
   }
   /* One controlled queue: a burst of concurrent iTunes JSONP calls gets throttled
      and leaves blank sleeves. Eight workers are quick without flooding it. Shelves
