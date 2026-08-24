@@ -338,10 +338,49 @@
       +'<div class="gh-card-meta">'+o.r+' · added '+fmtDa(o.da)+'</div>'
       +'</div>';
   }
+  /* 2-track 12"s allowed onto the vinyl shelf despite the albums-only rule —
+     keyed by Discogs release id. Ben asks by name; add ids here. */
+  var VINYL_PIN={'37291038':1}; // Ron Trent — Electric Jungle
+  function vinylShelfGroups(){
+    /* artist|album grouping shatters a various-artists comp (Ariwa Sounds)
+       into one-track fragments that can never clear the 4-track bar — so on
+       top of the normal groups, synthesize ONE group per Discogs release for
+       true V/A comps. Guards: majority-album only (comp cuts merge onto rows
+       that keep their own album name — the Johnny Clarke case), and skip when
+       any single artist holds 4+ of the tracks (the artist-group already
+       carries that record; avoids double cards). */
+    var gs=groupRecords();
+    var byDid={};
+    DATA.forEach(function(t,i){
+      if(!t.vy||!t.did)return;
+      (byDid[t.did]=byDid[t.did]||[]).push({t:t,i:i});
+    });
+    Object.keys(byDid).forEach(function(did){
+      var rows=byDid[did],counts={};
+      rows.forEach(function(r){var a=(r.t.al||'').trim().toLowerCase();counts[a]=(counts[a]||0)+1});
+      var modal=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a]})[0];
+      var core=rows.filter(function(r){return (r.t.al||'').trim().toLowerCase()===modal});
+      var perArtist={},maxPer=0;
+      core.forEach(function(r){var a=primary(r.t.a).toLowerCase();
+        perArtist[a]=(perArtist[a]||0)+1;if(perArtist[a]>maxPer)maxPer=perArtist[a]});
+      if(core.length<4||Object.keys(perArtist).length<3||maxPer>=4)return;
+      var g={tracks:[],da:0,idx:0,p1:0,pc:0,vy:1,ids:{},uc:0};
+      core.forEach(function(r){var t=r.t;g.tracks.push(t);
+        if((t.da||0)>g.da)g.da=t.da;
+        if(r.i>g.idx)g.idx=r.i;
+        var sid=t.sid||('row:'+r.i);
+        if(!g.ids[sid]){g.ids[sid]=1;g.uc++;g.p1+=(t.p1||0);g.pc+=(t.pc||0)}});
+      gs.push(g);
+    });
+    return gs;
+  }
   function freshVinylShelf(){
-    /* albums and EPs only (4+ tracks), bought THIS year — 45s make loose, one-song cards */
+    /* albums and EPs only (4+ tracks, or VINYL_PIN), bought THIS year — 45s make loose, one-song cards */
     var thisYr=new Date().getFullYear()*100+1;
-    var gs=groupRecords().filter(function(g){return g.da>=thisYr&&g.vy&&hasSpotify(g)&&g.tracks.length>=4});
+    var gs=vinylShelfGroups().filter(function(g){
+      return g.da>=thisYr&&g.vy&&hasSpotify(g)&&
+        (g.tracks.length>=4||g.tracks.some(function(t){return VINYL_PIN[t.did]}));
+    });
     gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     var ov=VINYL_OVERRIDES.map(overrideCard).join('');
