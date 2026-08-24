@@ -9,6 +9,7 @@ Sources:
     Forum Kentish Town, Islington Academies)
   - Ronnie Scott's via the r.jina.ai reader service (their site doesn't serve
     plain fetches; the reader renders it)
+  - Blue Note London via Yoast tm_events sitemap + event detail pages
   - Ticketmaster Discovery API IF env TM_API_KEY is set (optional extra)
 Gaps (checked 2026-07-20): Union Chapel (JS-only); Space Talk & One Eighty One
 programme on Instagram only.
@@ -590,6 +591,64 @@ def fetch_spiritland():
                        'venue': "Spiritland King's Cross", 'url': url,
                        'names': [title.strip()], 'start': start,
                        'source': 'Spiritland', 'hint': 'dj'})
+    return events
+
+
+def fetch_bluenote():
+    """Blue Note London (Covent Garden, opened Sept 2026). The what's-on page
+    is client-rendered by Ticketweb's event-discovery plugin, but Yoast's
+    tm_events sitemap lists every event page, and each page server-renders a
+    <time> block plus a Ticketmaster URL carrying the full date
+    (...-london-29-11-2026/event/...). Duplicate slugs (-2, -3...) are the
+    early/late seatings of the same night — deduped by (title, date)."""
+    try:
+        xml = http_get('https://www.bluenotejazz.com/london/tm_events-sitemap.xml')
+    except Exception:
+        return []
+    urls = re.findall(r'<loc>(https://www\.bluenotejazz\.com/london/tm-event/[^<]+)</loc>', xml)
+
+    def one(u):
+        """A run's every seating page renders the WHOLE run's group listing
+        (all nights, both seatings) — collect every distinct TM date on the
+        page; cross-page dupes collapse in the (title, date) dedupe below."""
+        try:
+            h = http_get(u)
+        except Exception:
+            return []
+        tm = re.search(r'<title>([^<|]+)', h)
+        if not tm:
+            return []
+        title = re.sub(r'&#?\w+;', lambda m: {'&amp;': '&', '&#039;': "'",
+                       '&#8217;': '’'}.get(m.group(0), ' '), tm.group(1)).strip()
+        dates = {f'{yyyy}-{mm}-{dd}' for dd, mm, yyyy in re.findall(
+            r'ticketmaster\.[a-z.]+/[a-z0-9-]*?-(\d{2})-(\d{2})-(\d{4})/event/', h)}
+        if not dates:
+            dm = re.search(r"class='day'>(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)[a-z]*,?\s+"
+                           r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})", h)
+            if not dm:
+                return []
+            inferred = infer_year(int(dm.group(2)), MONTHS[dm.group(1).lower()])
+            if not inferred:
+                return []
+            dates = {str(inferred)}
+        st = re.search(r"class='time'>(\d{1,2}):(\d{2})\s*(AM|PM)", h)
+        start = ''
+        if st:
+            hh = int(st.group(1)) % 12 + (12 if st.group(3) == 'PM' else 0)
+            start = f'{hh:02d}:{st.group(2)}'
+        return [{'date': d, 'title': title, 'venue': 'Blue Note London', 'url': u,
+                 'names': [title], 'start': start,
+                 'source': 'BlueNote', 'hint': 'gig'} for d in sorted(dates)]
+
+    events, seen = [], set()
+    with ThreadPoolExecutor(8) as ex:
+        for batch in ex.map(one, urls[:200]):
+            for ev in batch:
+                key = (ev['title'].lower(), ev['date'])
+                if key in seen:
+                    continue
+                seen.add(key)
+                events.append(ev)
     return events
 
 
@@ -1208,7 +1267,8 @@ def hydrate_saved_matches(payload, artists):
 
 def existing_sources_note():
     return ('Sources: RA, KOKO, EartH, Jazz Cafe, Roundhouse, Ally Pally, '
-            'Barbican, AMG/Live Nation, Apollo, Spiritland, Ronnie Scott\'s, '
+            'Barbican, AMG/Live Nation, Apollo, Spiritland, Blue Note London, '
+            'Ronnie Scott\'s, '
             'The O2, OVO Arena, Wembley Stadium, Open Air Theatre. Tribute / '
             'covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
             'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
@@ -1258,6 +1318,7 @@ def main():
                       ('Barbican', fetch_barbican),
                       ('AMG/Live Nation', fetch_amg), ('Apollo', fetch_apollo),
                       ('Spiritland', fetch_spiritland),
+                      ('Blue Note', fetch_bluenote),
                       ("Ronnie Scott's", fetch_ronnies), ('The O2', fetch_theo2),
                       ('OVO Arena', fetch_ovo), ('Wembley Stadium', fetch_wembley),
                       ('Open Air Theatre', fetch_openair),
