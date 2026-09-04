@@ -2,3 +2,5 @@
 
 _backup-*
 *.log
+
+__pycache__/

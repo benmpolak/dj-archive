@@ -582,14 +582,18 @@ function renderDeal(){
     +'<div class="dlr-actions">'
     +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" data-reset-label="Save to Spotify" onclick="saveDealToSpotify(this)">Save to Spotify</button>':'')
     +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
+    +'<button class="dlr-abtn" onclick="keepDeal()">Keep selection</button>'
     +'<button class="dlr-abtn" onclick="showEraCard()">Era Card</button>'
     +'<button class="dlr-abtn" onclick="dealNow()">Reselect</button>'
     +'</div>'
     +'<div class="dlr-rows">'+rowsH+'</div>'
     +'</div>';
+  if(window.MusicHome)MusicHome.remember(dlrTitle(),_deal.map(e=>e.t),'selector:'+document.getElementById('dlr-input').value);
   if(typeof loadSleeves==='function')loadSleeves(el);
   el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
+window.keepDeal=function(){if(_deal&&window.MusicHome)MusicHome.keep(dlrTitle(),_deal.map(e=>e.t),'selector:'+document.getElementById('dlr-input').value);};
 
 window.saveDealToSpotify=function(btn){
   if(!_deal)return;

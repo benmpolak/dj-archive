@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "trackCount": 17325,
+  "spotifyTracks": 16756,
+  "catalogueRevision": "f3adb3a3ba9c102d",
+  "shards": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+  ],
+  "lookup": "tracks-{firstCharacterOfSpotifyId}.json",
+  "gigs": "../gigs-data.json",
+  "selectionContract": "../music-core.js"
+}

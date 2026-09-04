@@ -1,0 +1,846 @@
+/* Shared music navigation and a quieter, readable layer over the existing archive. */
+.music-nav {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 62px;
+  padding: 10px max(22px, calc((100vw - 1000px) / 2));
+  background: #101014;
+  border-bottom: 1px solid #303039;
+  z-index: 100;
+  font:
+    500 14px/1.4 Inter,
+    system-ui,
+    sans-serif;
+  position: relative;
+}
+.music-nav a {
+  color: #c4c1bd;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.music-nav a:hover,
+.music-nav a:focus-visible {
+  color: #fff;
+  background: #29272a;
+}
+.music-nav [aria-current] {
+  color: #f4c17b;
+  background: #25211b;
+}
+.music-nav .music-brand {
+  margin-right: auto;
+  padding-left: 0;
+  color: #f1e7d7;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+body:has(.music-nav) {
+  padding-top: 0;
+}
+.music-nav + header.hero {
+  margin-top: 0;
+}
+body:has(.music-nav) > .layout {
+  min-height: calc(100vh - 62px);
+}
+#guest-hero {
+  padding-top: 30px !important;
+}
+.gh-brand {
+  display: none;
+}
+.gh-proofline {
+  font-size: 12px !important;
+  color: #aaa8ae !important;
+}
+.gh-prop {
+  font-size: 28px !important;
+  line-height: 1.2 !important;
+}
+.gh-sub {
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  color: #bab7bf !important;
+  max-width: 600px;
+}
+.gh-inputrow input {
+  font-size: 16px !important;
+}
+.gh-inputrow button {
+  box-shadow: none !important;
+  background: #efb46b !important;
+  color: #19150f !important;
+  border-radius: 8px !important;
+}
+.gh-chip {
+  font-size: 13px !important;
+}
+.gh-secondary {
+  margin-top: 14px !important;
+  margin-bottom: 12px !important;
+}
+.gh-2nd {
+  font-size: 14px !important;
+}
+.gh-route-divider {
+  margin: 20px 0 14px !important;
+}
+.gh-rifle {
+  margin-bottom: 22px !important;
+}
+.gh-shelf-note {
+  color: #aaa8ae !important;
+  font-size: 12px !important;
+}
+.gh-card-a {
+  font-size: 14px !important;
+}
+.gh-card-al {
+  font-size: 13px !important;
+  color: #c1bdc6 !important;
+}
+.gh-card-meta {
+  font-size: 12px !important;
+  color: #a6a1ac !important;
+}
+.gh-detail-album {
+  color: #d1cbd4 !important;
+}
+.gh-detail-meta {
+  font-size: 14px !important;
+  color: #bcb6c0 !important;
+}
+.dlr-t {
+  color: #c0bbc8 !important;
+}
+.dlr-meta {
+  color: #a49dac !important;
+  font-size: 12px !important;
+}
+.dlr-bpm {
+  color: #bbb4c2 !important;
+}
+.dlr-abtn {
+  font-size: 14px !important;
+  min-height: 42px;
+}
+.dlr-row {
+  min-height: 58px;
+}
+.dlr-sub {
+  color: #bcb6c5 !important;
+  font-size: 14px !important;
+}
+.music-dialog {
+  box-sizing: border-box;
+  background: #141419;
+  color: #eee8de;
+  border: 1px solid #43404a;
+  border-radius: 14px;
+  width: min(720px, calc(100vw - 24px));
+  max-height: 88dvh;
+  padding: 26px;
+  font:
+    15px/1.5 Inter,
+    system-ui,
+    sans-serif;
+}
+.music-dialog::backdrop {
+  background: #050507da;
+  backdrop-filter: blur(5px);
+}
+.mh-dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mh-kicker {
+  color: #e8b67a;
+  letter-spacing: 0.15em;
+  font-size: 12px;
+}
+.music-dialog h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 18px 0;
+}
+.music-dialog button,
+.music-dialog a,
+.mh-keep-set {
+  font:
+    500 14px/1.3 Inter,
+    system-ui,
+    sans-serif;
+  border: 1px solid #44404b;
+  background: #222127;
+  color: #eee8de;
+  border-radius: 7px;
+  padding: 10px 13px;
+  cursor: pointer;
+  text-decoration: none;
+  min-height: 42px;
+}
+.music-dialog button:hover,
+.music-dialog a:hover {
+  border-color: #e8b67a;
+}
+.music-dialog .primary {
+  background: #efb46b;
+  color: #17130f;
+  border-color: #efb46b;
+}
+.music-dialog .mh-close {
+  font-size: 22px;
+  padding: 4px 12px;
+}
+.music-dialog label {
+  display: block;
+  color: #bdb7c3;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.music-dialog input:not([type="file"]) {
+  box-sizing: border-box;
+  background: #0c0c10;
+  border: 1px solid #49424f;
+  border-radius: 7px;
+  padding: 12px;
+  color: #fff;
+  font:
+    16px Inter,
+    system-ui,
+    sans-serif;
+  width: 100%;
+}
+.mh-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.mh-muted,
+#mh-message {
+  color: #bbb4c1;
+  font-size: 14px;
+}
+#mh-message:empty {
+  display: none;
+}
+.mh-tracklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: tracks;
+}
+.mh-tracklist li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid #35303b;
+  padding: 12px 0;
+  counter-increment: tracks;
+}
+.mh-tracklist li::before {
+  content: counter(tracks, decimal-leading-zero);
+  color: #948d9e;
+  font-size: 12px;
+}
+.mh-tracklist li > div {
+  flex: 1;
+  min-width: 0;
+}
+.mh-tracklist strong,
+.mh-tracklist span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.mh-tracklist span {
+  color: #b9b1c2;
+  font-size: 14px;
+}
+.mh-tracklist a,
+.mh-tracklist button {
+  font-size: 12px;
+  padding: 8px;
+}
+.mh-saved-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+.music-dialog .mh-saved-item {
+  display: block;
+  text-align: left;
+  flex: 1;
+  width: 100%;
+  margin: 8px 0;
+  background: #222127;
+}
+.mh-artist-gigs {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  margin-top: 24px;
+  border-top: 1px solid #38333e;
+  padding-top: 18px;
+  font-size: 14px;
+}
+.mh-artist-gigs[hidden] {
+  display: none;
+}
+.mh-artist-gigs strong {
+  color: #d5ae7d;
+}
+.mh-artist-gigs a {
+  color: #e5dfec;
+  text-decoration: none;
+}
+/* Gig Radar: short list first, practical filters always within reach. */
+.quick-when {
+  padding: 4px 0 8px;
+  gap: 8px !important;
+}
+.fc,
+.mini-action {
+  font-size: 13px !important;
+  min-height: 40px;
+}
+.card-event {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #c4bdca;
+  margin: 6px 0;
+}
+.card-venue,
+.r-venue {
+  color: #c3bdcb !important;
+  font-size: 14px !important;
+}
+.why {
+  color: #afa6ba !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
+.card-actions,
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.card-actions a,
+.row-actions a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.card-artist {
+  font-size: 20px !important;
+}
+.r-artist {
+  font-size: 17px !important;
+}
+.r-sub {
+  font-size: 14px !important;
+}
+.r-type {
+  font-size: 11px !important;
+}
+.foot {
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+.hero .sub {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+.hero-stats {
+  margin-top: 18px !important;
+}
+.hero h1 {
+  font-size: 28px !important;
+}
+.card {
+  padding: 18px !important;
+}
+.card-cover {
+  pointer-events: none;
+}
+.card .a-link,
+.card-actions {
+  position: relative;
+  z-index: 2;
+}
+.card .card-actions::after {
+  content: none;
+}
+@media (max-width: 768px) {
+  .music-nav {
+    padding: 8px 10px;
+    gap: 2px;
+    justify-content: space-between;
+    min-height: 56px;
+  }
+  .music-nav .music-brand {
+    display: none;
+  }
+  .music-nav a {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  .gh-proofline {
+    font-size: 11px !important;
+  }
+  .gh-prop {
+    font-size: 25px !important;
+  }
+  .gh-secondary {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .gh-sub {
+    font-size: 13px !important;
+    margin: 10px 0 !important;
+  }
+  .gh-route-divider {
+    margin: 12px 0 !important;
+  }
+  .gh-rifle-summary-note {
+    display: none !important;
+  }
+  .gh-rifle {
+    margin-bottom: 18px !important;
+  }
+  .gh-rifle summary {
+    padding: 14px !important;
+  }
+  #guest-hero {
+    padding-top: 22px !important;
+  }
+  .gh-chips {
+    margin-bottom: 10px !important;
+  }
+  .gh-shelf-first {
+    margin-top: 6px !important;
+  }
+  .music-dialog {
+    padding: 20px 16px;
+  }
+  .music-dialog h2 {
+    font-size: 25px;
+  }
+  .mh-tracklist li {
+    gap: 8px;
+  }
+  .mh-tracklist a,
+  .mh-tracklist button {
+    padding: 8px 6px;
+  }
+  .mh-tracklist span {
+    font-size: 13px;
+  }
+  .quick-when {
+    display: flex !important;
+  }
+  .filters {
+    position: static !important;
+  }
+  .card {
+    padding: 16px !important;
+  }
+  .grid {
+    gap: 12px !important;
+  }
+  .hero {
+    padding: 24px 0 !important;
+  }
+  .row {
+    align-items: flex-start !important;
+  }
+  .row-actions {
+    margin-left: 52px;
+  }
+  .mh-keep-set {
+    margin: 8px;
+  }
+  .gh-detail-panel {
+    max-height: 90dvh;
+    overflow: auto;
+  }
+}
+body:has(> .music-nav) > .app {
+  height: calc(100dvh - 62px);
+}
+@media (max-width: 768px) {
+  body:has(> .music-nav) > .app {
+    height: calc(100dvh - 56px);
+  }
+}
+/* Warm, quiet homepage colours. */
+body.guest-focus {
+  --bg: #11110f;
+  --card: #191917;
+  --card2: #252520;
+  --border: #35352f;
+  --text: #eeeade;
+  --dim: #aaa797;
+  background: #11110f;
+}
+body.guest-focus .main-area {
+  background: #11110f;
+}
+body.guest-focus #guest-hero {
+  max-width: 1060px;
+  padding: 32px 32px 80px !important;
+}
+.gh-brand {
+  display: none !important;
+}
+.gh-masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #39392f;
+}
+.gh-wordmark {
+  font:
+    400 45px/1.05 Georgia,
+    "Times New Roman",
+    serif;
+  letter-spacing: -0.035em;
+  color: #f2edde;
+  margin-bottom: 14px;
+}
+.gh-proofline {
+  font-size: 11px !important;
+  letter-spacing: 0.09em !important;
+  color: #aaa795 !important;
+}
+.gh-masthead .gh-prop {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+  margin: 26px 0 10px !important;
+  color: #dfdccd;
+}
+.gh-masthead .gh-inputrow {
+  max-width: 720px;
+  gap: 8px;
+}
+.gh-masthead .gh-inputrow input {
+  min-width: 0;
+  background: #1c1c19 !important;
+  border: 1px solid #414136 !important;
+  padding: 13px !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+}
+.gh-masthead .gh-inputrow button {
+  padding: 12px 17px !important;
+  font-size: 13px !important;
+  border-radius: 5px !important;
+}
+.gh-masthead .gh-chips {
+  margin: 10px 0 !important;
+  gap: 7px !important;
+}
+.gh-masthead .gh-chip {
+  background: none !important;
+  border: 0 !important;
+  padding: 2px 0 !important;
+  margin-right: 10px;
+  text-decoration: underline;
+  text-decoration-color: #595847;
+  text-underline-offset: 4px;
+  color: #c6c1ae !important;
+  font-size: 12px !important;
+}
+.gh-masthead .gh-sub {
+  font-size: 13px !important;
+  color: #aaa795 !important;
+  margin: 14px 0 !important;
+}
+.gh-masthead .gh-secondary {
+  gap: 16px !important;
+  margin: 12px 0 0 !important;
+}
+.gh-masthead .gh-2nd {
+  background: none !important;
+  border: 0 !important;
+  padding: 4px 0 !important;
+  color: #ddc39d !important;
+  font-size: 13px !important;
+}
+
+
+
+
+
+
+
+
+
+body.guest-focus .gh-route-divider {
+  display: none;
+}
+body.guest-focus .gh-rifle {
+  background: transparent !important;
+  border-color: #39392f !important;
+  border-radius: 5px !important;
+  margin-bottom: 26px !important;
+}
+body.guest-focus .gh-rifle-summary-title {
+  color: #d3bf9b !important;
+}
+body.guest-focus .gh-recommend-intro {
+  margin-bottom: 20px !important;
+}
+body.guest-focus .gh-shelf-title {
+  color: #d4c0a0 !important;
+}
+body.guest-focus .gh-card-art {
+  border-radius: 3px !important;
+}
+body.guest-focus .gh-shelf {
+  margin-bottom: 32px;
+}
+body.guest-focus .gh-bin {
+  gap: 20px !important;
+}
+@media (max-width: 768px) {
+  body.guest-focus #guest-hero {
+    padding: 24px 18px 64px !important;
+  }
+  .gh-masthead {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    padding-bottom: 18px;
+    margin-bottom: 16px;
+  }
+  .gh-wordmark {
+    font-size: 31px;
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+  .gh-proofline {
+    font-size: 10px !important;
+    line-height: 1.6 !important;
+  }
+  .gh-intro-copy {
+    display: contents;
+  }
+  .gh-wordmark,
+  .gh-proofline {
+    grid-column: 1;
+  }
+
+
+
+
+  .gh-masthead .gh-prop,
+  .gh-masthead .gh-inputrow,
+  .gh-masthead .gh-chips,
+  .gh-masthead .gh-sub,
+  .gh-masthead .gh-secondary,
+  .gh-masthead .gh-artistrow {
+    grid-column: 1 / -1;
+    margin: 0 !important;
+  }
+  .gh-masthead .gh-prop {
+    margin: 0 !important;
+    font-size: 14px !important;
+  }
+  .gh-masthead .gh-inputrow {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100%;
+  }
+  .gh-masthead .gh-inputrow input {
+    flex: 1;
+    font-size: 16px !important;
+    width: 0 !important;
+  }
+  .gh-masthead .gh-inputrow button {
+    width: auto !important;
+    flex: none;
+    padding: 12px !important;
+  }
+  .gh-masthead .gh-chips {
+    overflow-x: auto;
+  }
+  .gh-masthead .gh-sub {
+    display: none !important;
+  }
+  .gh-masthead .gh-secondary {
+    margin: 0 !important;
+  }
+  .gh-masthead .gh-2nd {
+    font-size: 13px !important;
+  }
+  .gh-masthead {
+    row-gap: 12px;
+  }
+  .gh-rifle summary {
+    padding: 12px !important;
+  }
+  body.guest-focus .gh-rifle {
+    margin-bottom: 22px !important;
+  }
+  .gh-shelf-note {
+    display: block;
+    margin: 5px 0 0 !important;
+    line-height: 1.5 !important;
+  }
+
+}
+body.guest-focus #guest-hero {
+  width: 100%;
+  margin: 0 auto !important;
+  background: none !important;
+}
+
+
+.music-dialog {
+  margin: auto;
+}
+.music-nav a:focus-visible,
+.gh-chip:focus-visible {
+  outline: 2px solid #efb46b;
+  outline-offset: 3px;
+}
+body:has(> .hero) {
+  --bg: #11110f;
+  --card: #1b1b18;
+  --card2: #252520;
+  --border: #39392f;
+  --dim: #aaa797;
+  --text: #eeeade;
+  background: #11110f;
+  color: #eeeade;
+}
+body:has(> .hero) .hero {
+  background: #161613;
+  border-color: #39392f;
+}
+body:has(> .hero) .hero h1 {
+  font:
+    400 38px/1.15 Georgia,
+    "Times New Roman",
+    serif !important;
+  letter-spacing: -0.025em !important;
+  text-transform: none !important;
+  background: none !important;
+  -webkit-text-fill-color: #f2edde;
+  color: #f2edde;
+}
+body:has(> .hero) .filters {
+  background: #11110f;
+}
+body:has(> .hero) .card {
+  background: #1b1b18;
+  border-color: #39392f;
+}
+body:has(> .hero) .fc {
+  background: #24241f;
+  border-color: #3b3b32;
+  color: #c9c6b8;
+}
+body:has(> .hero) .why {
+  color: #b4b09f !important;
+}
+body:has(> .hero) .r-type {
+  color: #b4b09f !important;
+}
+
+/* Full archive: keep every column reachable, including on a phone. */
+.main-area { min-width: 0; }
+#table-wrap { overflow: auto; min-height: 0; }
+#table-wrap::-webkit-scrollbar { width: 10px; height: 10px; }
+#table-wrap table { min-width: 1450px; table-layout: fixed; }
+#table-wrap .col-play { width: 48px; }
+#table-wrap .col-a { width: 220px; }
+#table-wrap .col-t { width: 260px; }
+#table-wrap .col-al { width: 220px; }
+#table-wrap .col-yr { width: 65px; }
+#table-wrap .col-da { width: 85px; }
+#table-wrap .col-bpm { width: 65px; }
+#table-wrap .col-pc { width: 70px; }
+#table-wrap .col-vb { width: 145px; }
+#table-wrap .col-cr { width: 140px; }
+#table-wrap .col-gr { width: 200px; }
+#table-wrap th, #table-wrap td { display: table-cell; }
+#table-wrap:focus-visible { outline: 2px solid #efb46b; outline-offset: -2px; }
+.archive-scroll-tools { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--dim); }
+.archive-scroll-tools span { margin-right: auto; }
+.archive-scroll-tools button { background: var(--card2); color: var(--text); border: 1px solid var(--border); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+.archive-scroll-tools button:disabled { opacity: .35; cursor: default; }
+body.guest-focus .archive-scroll-tools { display: none; }
+@media (max-width: 900px) {
+  #table-wrap { max-height: 72dvh; flex: none; width: 100%; }
+}
+@media (max-width: 900px) {
+  .cc-quick-actions { flex-wrap: wrap; }
+  .cc-quick-actions .cc-quick-btn { flex: 1 1 28%; min-width: 0; }
+}
+
+/* Sleeves lead the homepage, with a compact search above. */
+body.guest-focus { height: auto; overflow-y: auto; }
+body.guest-focus > .app { display: block; height: auto; min-height: calc(100dvh - 62px); }
+body.guest-focus .main-area { overflow: visible; }
+body.guest-focus #guest-hero { max-width: 1240px; padding: 24px 40px 64px !important; }
+.gh-masthead { display: block; margin-bottom: 24px; padding: 0; border: 0; }
+.gh-intro-copy { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 20px; }
+.gh-wordmark { font-size: 38px; margin: 0; }
+.gh-proofline { margin: 0; font-size: 10px !important; }
+.gh-masthead .gh-inputrow { grid-column: 1 / -1; max-width: none; margin: 20px 0 0 !important; }
+.gh-masthead .gh-inputrow button { letter-spacing: 0; white-space: nowrap; }
+.gh-masthead .gh-chips { grid-column: 1 / -1; margin: 9px 0 0 !important; }
+body.guest-focus .gh-shelf { margin-top: 24px; margin-bottom: 24px; }
+body.guest-focus .gh-shelf-first { margin-top: 0; }
+.gh-shelf::after { content: none !important; }
+/* A continuous sleeve rack: fixed-size records, breathing room and free scrolling. */
+body.guest-focus .gh-bin { display: flex; gap: 18px !important; padding: 5px 0 12px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: #625d4d transparent; }
+body.guest-focus .gh-bin::-webkit-scrollbar { display: block; height: 4px; }
+body.guest-focus .gh-bin::-webkit-scrollbar-thumb { background: #625d4d; border-radius: 2px; }
+body.guest-focus .gh-bin::-webkit-scrollbar-track { background: transparent; }
+body.guest-focus .gh-card { flex: 0 0 188px; width: 188px; min-width: 0; }
+body.guest-focus .gh-card-art { width: 100%; height: auto; aspect-ratio: 1; }
+body.guest-focus .gh-shelf-title { padding-right: 88px; min-height: 30px; margin-bottom: 8px; }
+body.guest-focus .gh-shelf-note { display: block; margin: 5px 0 0 !important; }
+body.guest-focus .gh-shelf-arrow { display: block; top: -2px; width: 32px; height: 30px; border-radius: 4px; opacity: 1; background: #252520; border-color: #49483b; box-shadow: none; }
+body.guest-focus .gh-shelf-arrow.prev { left: auto; right: 40px; }
+body.guest-focus .gh-shelf-arrow.next { right: 0; }
+body.guest-focus .gh-shelf-arrow:disabled { opacity: .25; }
+body.guest-focus .gh-shelf-arrow[hidden] { display: none; }
+.gh-browse-tools { display: flex; align-items: start; gap: 20px; flex-wrap: wrap; border-top: 1px solid #39392f; border-bottom: 1px solid #39392f; padding: 10px 0; }
+body.guest-focus .gh-browse-tools .gh-rifle { flex: 1; min-width: 240px; margin: 0 !important; border: 0 !important; }
+.gh-browse-tools .gh-rifle summary { padding: 8px 0 !important; }
+.gh-browse-tools .gh-secondary { margin: 0 !important; gap: 14px; }
+.gh-browse-tools .gh-2nd { background: none; border: 0; padding: 7px 0; font-size: 12px !important; }
+.gh-browse-tools .gh-artistrow { flex-basis: 100%; margin: 0; }
+@media (max-width: 1000px) and (min-width: 601px) {
+  body.guest-focus .gh-card { flex-basis: 172px; width: 172px; }
+  .gh-intro-copy { grid-template-columns: 1fr; row-gap: 8px; }
+}
+@media (max-width: 600px) {
+  body.guest-focus #guest-hero { padding: 20px 18px 50px !important; }
+  .gh-intro-copy { display: block; }
+  .gh-wordmark { font-size: 31px; margin-bottom: 8px; }
+  .gh-masthead .gh-inputrow { margin: 16px 0 0 !important; }
+  .gh-masthead .gh-inputrow button { padding: 10px !important; font-size: 12px !important; }
+  .gh-masthead .gh-chips { margin-top: 9px !important; }
+  .gh-masthead { margin-bottom: 20px; }
+  body.guest-focus .gh-bin { gap: 16px !important; padding-right: 0; }
+  body.guest-focus .gh-card { flex-basis: 156px; width: 156px; }
+  body.guest-focus .gh-shelf-first .gh-shelf-note::after { content: none !important; }
+  .gh-browse-tools { gap: 0; }
+  .gh-browse-tools .gh-rifle { flex-basis: 100%; }
+}

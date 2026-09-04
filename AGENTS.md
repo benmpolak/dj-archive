@@ -1,6 +1,6 @@
 # DJ Archive
 
-A single-page web app that serves as a personal DJ music archive — 16,544 tracks curated over 14 years. No algorithms; every track was chosen by ear.
+A single-page web app that serves as a personal DJ music archive — 17,325 tracks curated over 14 years. No algorithms; every track was chosen by ear.
 
 ## Architecture
 
@@ -10,8 +10,8 @@ The entire app is a single `index.html` file (~6MB). It contains all HTML, CSS, 
 Each track object in `DATA`: `{a (artist), t (title), al (album), r (release year), d (danceability 0-1), e (energy 0-1), v (valence 0-1), tp (tempo/BPM), ins (instrumentalness), c (crates array), vb (vibe string), n (playlist count), p (popularity), g (genres string), sid (Spotify ID — 22 chars if matched, or spotify:local:... if unmatched), vy (1=vinyl), era (string), tags (array), did (Discogs release ID), da (YYYYMM date added)}`
 
 ### Key stats
-- ~2,380 vinyl tracks (vy=1)
-- ~1,700 tracks still need Spotify matching (have spotify:local placeholder IDs)
+- 2,531 vinyl tracks (vy=1)
+- 402 tracks still need Spotify matching (have spotify:local placeholder IDs)
 - `_spArtists` JS Set routes known Spotify artists to Spotify search, others to YouTube
 
 ## Key features
@@ -52,3 +52,10 @@ Each track object in `DATA`: `{a (artist), t (title), al (album), r (release yea
 - Removed 23 duplicates (17 more found and removed this session)
 - Assigned proper crates/vibes to 1,861 vinyl tracks
 - Genre-fixed 196 well-known artists across 2,269 tracks
+
+## Gig Radar rules
+
+- Only explicitly listed performers qualify. A name in an event title never qualifies an artist, including titles copied into a scraper's names field.
+- Require structured source lineup/performer evidence or explicitly verified manual performers. Drop uncertain cached matches, rather than labelling them confirmed.
+- Exclude cancelled/postponed events. Keep performer evidence in the exported data so the archive and desk screen apply the same rule.
+- Run `python3 build.py` after changing `guest.js`, `dealer.js` or `design-pass.css`. It rebuilds the injected modules and shared device catalogue without changing imported track data.

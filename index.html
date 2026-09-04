@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>window._musicIncoming=location.search;</script>
+<link rel="stylesheet" href="music-home.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The DJ Archive — 17,000 Tracks Chosen by Ear</title>
@@ -505,7 +507,7 @@
   <div class="mobile-toggle" id="mobile-toggle"><span>☰ Filters</span><span id="mob-count" style="font-size:0.75em;color:var(--dim)"></span></div>
   <div class="sidebar">
     <h1>DJ Archive</h1>
-    <p class="sub">Not an algorithm. One DJ's 14-year collection — <span class="live-count">16,950</span> tracks curated by ear.</p>
+    <p class="sub">Chosen by ear. One DJ's 14-year collection — <span class="live-count">16,950</span> tracks curated by ear.</p>
     <div class="about-link" onclick="q('#intro').style.display='flex'">ℹ️ About this archive</div>
     <input type="text" class="search-box" id="search" placeholder="Search for an artist, track or album...">
     <div class="dig-inline-row">
@@ -590,7 +592,7 @@
       <div class="cc-inner">
         <div class="cc-section cc-welcome">
           <div class="cc-title">Recently Added to the Archive</div>
-          <div class="cc-text">You're looking at the newest additions — <b id="cc-recent">0</b> tracks added in the last 6 months, from a collection of <span class="live-count">16,950</span> tracks spanning 14 years. Not an algorithm — one DJ's ears.</div>
+          <div class="cc-text">You're looking at the newest additions — <b id="cc-recent">0</b> tracks added in the last 6 months, from a collection of <span class="live-count">16,950</span> tracks spanning 14 years. Chosen by ear.</div>
         </div>
         <div class="cc-actions">
           <button class="cc-btn cc-btn-archive" id="btn-full-az" onclick="resetToAZ()">📖 Full Archive A–Z</button>
@@ -720,7 +722,7 @@ function pushState(){
   if(window._statsTab){p.push('stats='+window._statsTab)}
   else if(window._statsTab!==null){var _mh=(window.location.hash||'').match(/[#&]stats[=\/]([a-z]+)/);if(_mh)p.push('stats='+_mh[1])}
   var hash=p.length?'#'+p.join('&'):'';
-  if(window.location.hash!==hash)history.replaceState(null,'',hash||window.location.pathname);
+  if(window.location.hash!==hash)history.replaceState(null,'',window.location.pathname+window.location.search+hash);
 }
 function readState(){
   var h=window.location.hash.slice(1);if(!h)return false;
@@ -4089,14 +4091,18 @@ function renderDeal(){
     +'<div class="dlr-actions">'
     +(canSaveDirect?'<button class="dlr-abtn dlr-spotify" id="dlr-save-btn" data-reset-label="Save to Spotify" onclick="saveDealToSpotify(this)">Save to Spotify</button>':'')
     +'<button class="dlr-abtn'+(canSaveDirect?'':' dlr-spotify')+'" onclick="copyDealList()">Copy tracklist'+(canSaveDirect?'':' + Spotify links')+'</button>'
+    +'<button class="dlr-abtn" onclick="keepDeal()">Keep selection</button>'
     +'<button class="dlr-abtn" onclick="showEraCard()">Era Card</button>'
     +'<button class="dlr-abtn" onclick="dealNow()">Reselect</button>'
     +'</div>'
     +'<div class="dlr-rows">'+rowsH+'</div>'
     +'</div>';
+  if(window.MusicHome)MusicHome.remember(dlrTitle(),_deal.map(e=>e.t),'selector:'+document.getElementById('dlr-input').value);
   if(typeof loadSleeves==='function')loadSleeves(el);
   el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
+window.keepDeal=function(){if(_deal&&window.MusicHome)MusicHome.keep(dlrTitle(),_deal.map(e=>e.t),'selector:'+document.getElementById('dlr-input').value);};
 
 window.saveDealToSpotify=function(btn){
   if(!_deal)return;
@@ -4760,7 +4766,7 @@ window.addEventListener('hashchange',go);})();
       +' data-meta="'+E(metaText)+'">'
       +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(useAlbumArt?' data-art-album="1"':'')
       +' data-art-key="'+E(artKey)+'"'
-      +' data-art-q="'+E(artQuery)+'" style="background:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
+      +' data-art-q="'+E(artQuery)+'" style="background-image:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
       +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶︎</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
@@ -5093,7 +5099,13 @@ window.addEventListener('hashchange',go);})();
       localStorage.setItem('gh_art_cache',JSON.stringify(_artCache));
     }catch(e){}},400);
   }
-  function setArt(el,url){el.style.backgroundImage='url("'+url+'")';el.classList.add('has-art')}
+  function setArt(el,url){
+    el.style.backgroundImage='url("'+url+'")';
+    // The inline gradient shorthand resets background sizing: fit the sleeve.
+    if(!el.style.backgroundSize||el.style.backgroundSize==='auto')el.style.backgroundSize='cover';
+    if(!el.style.backgroundPosition||el.style.backgroundPosition==='0% 0%')el.style.backgroundPosition='center';
+    el.classList.add('has-art');
+  }
   function itunesArt(el){
     var q=el.dataset.artQ;if(!q)return Promise.resolve(false);
     return new Promise(function(res){
@@ -5507,7 +5519,10 @@ window.addEventListener('hashchange',go);})();
         next.disabled=!scrollable||bin.scrollLeft+bin.clientWidth>=bin.scrollWidth-4;
       }
       function move(dir){
-        bin.scrollBy({left:dir*Math.max(320,Math.floor(bin.clientWidth*0.82)),behavior:'smooth'});
+        var card=bin.querySelector('.gh-card');
+        var step=card?card.getBoundingClientRect().width+(parseFloat(getComputedStyle(bin).columnGap)||0):bin.clientWidth;
+        var count=Math.max(1,Math.floor(bin.clientWidth/step));
+        bin.scrollTo({left:(Math.round(bin.scrollLeft/step)+dir*count)*step,behavior:'smooth'});
       }
       prev.onclick=function(){move(-1)};next.onclick=function(){move(1)};
       bin.addEventListener('scroll',update,{passive:true});
@@ -5582,7 +5597,7 @@ window.addEventListener('hashchange',go);})();
       var active=state.genre||state.vibe;
       results.hidden=!active;
       if(!active){
-        rifle.querySelector('.gh-rifle-summary-note').textContent='choose a section · add a feel if you fancy';
+        rifle.querySelector('.gh-rifle-summary-note').textContent='';
         return;
       }
       title.textContent=[state.genre,state.vibe].filter(Boolean).join(' · ');
@@ -5595,7 +5610,7 @@ window.addEventListener('hashchange',go);})();
     results.querySelector('.gh-rifle-clear').onclick=function(){
       state.genre=state.vibe='';
       rifle.querySelectorAll('.gh-rifle-chip').forEach(function(x){x.classList.remove('active')});
-      rifle.querySelector('.gh-rifle-summary-note').textContent='choose a section · add a feel if you fancy';
+      rifle.querySelector('.gh-rifle-summary-note').textContent='';
       results.hidden=true;bin.innerHTML='';
     };
     results.querySelector('.gh-rifle-pick').onclick=function(){
@@ -5628,7 +5643,7 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-detail-album" id="gh-detail-album"></div>'
       +'<div class="gh-detail-meta"></div>'
       +'<div class="gh-detail-tags"></div>'
-      +'<div class="gh-detail-actions"></div>'
+      +'<div class="gh-detail-actions"></div><div class="mh-artist-gigs" hidden></div>'
       +'</div></div>';
     document.body.appendChild(viewer);
     var lastFocus=null,currentCards=[],currentIndex=0,touchX=0;
@@ -5667,6 +5682,7 @@ window.addEventListener('hashchange',go);})();
       }
       if(did)actions.appendChild(action('Discogs ↗','',null,'https://www.discogs.com/release/'+did));
       if(url)actions.appendChild(action((card.dataset.service||'Listen')+' ↗','primary',null,url));
+      if(window.MusicHome)MusicHome.artistGigs(card.dataset.artist,viewer.querySelector('.mh-artist-gigs'));
       var shelf=card.closest('.gh-shelf'),title=shelf&&shelf.querySelector('.gh-shelf-title');
       var shelfName=title&&title.childNodes[0]?title.childNodes[0].textContent.trim():'From Ben’s shelves';
       viewer.querySelector('.gh-detail-kicker').textContent=shelfName+' · '+(currentIndex+1)+' of '+currentCards.length;
@@ -5727,9 +5743,9 @@ window.addEventListener('hashchange',go);})();
       '<div class="gh-brand">The DJ Archive</div>'
       +'<div class="gh-proofline">17,000+ tracks &middot; 14 years &middot; chosen by ear</div>'
       +'<div class="gh-prop">Tell Ben’s shelves what you fancy.</div>'
-      +'<div class="gh-inputrow"><input id="gh-input" placeholder="Brazilian sunshine, late-night jazz, like Marcos Valle…" autocomplete="off"><button id="gh-select">SELECT</button></div>'
-      +'<div class="gh-chips">'+CHIPS.map(function(c){return '<span class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</span>'}).join('')+'</div>'
-      +'<div class="gh-sub">The Selector deals 25 tracks from Ben&rsquo;s shelves: bankers, forgotten loves and a couple of wild cards. Sequenced, not shuffled. No algorithm.</div>'
+      +'<div class="gh-inputrow"><input id="gh-input" aria-label="Describe the music you fancy" placeholder="Brazilian sunshine, late-night jazz, like Marcos Valle…" autocomplete="off"><button id="gh-select">Find me a mix</button></div>'
+      +'<div class="gh-chips">'+CHIPS.map(function(c){return '<button type="button" class="gh-chip" data-q="'+E(c)+'">'+E(c)+'</button>'}).join('')+'</div>'
+      +'<div class="gh-sub">25 records from Ben’s shelves. Favourites, forgotten loves and a few surprises.</div>'
       +'<div class="gh-secondary">'
       +'<button class="gh-2nd" id="gh-artist-btn">Start with an artist</button>'
       +'<button class="gh-2nd" id="gh-surprise-btn">Surprise me</button>'
@@ -5755,6 +5771,23 @@ window.addEventListener('hashchange',go);})();
       +'<div class="gh-shelf gh-long-shelf" data-long="ever" hidden><div class="gh-shelf-title">Ever<span class="gh-shelf-note">the records Ben has returned to most across the full listening history</span></div><div class="gh-bin">'+allTimeShelf()+'</div></div>'
       +'</div></details>'
       +'<button class="gh-explore" onclick="_ghExplore()">Explore the full archive ↓</button>';
+    // Keep the introduction focused; artwork belongs on the record shelves.
+    var intro=document.createElement('div');intro.className='gh-intro-copy';
+    ['.gh-proofline','.gh-prop','.gh-inputrow','.gh-chips','.gh-sub','.gh-secondary','.gh-artistrow'].forEach(function(sel){var n=el.querySelector(sel);if(n)intro.appendChild(n)});
+    var mast=document.createElement('section');mast.className='gh-masthead';
+    var wordmark=document.createElement('div');wordmark.className='gh-wordmark';wordmark.textContent='The DJ Archive';
+    intro.insertBefore(wordmark,intro.firstChild);
+    var prop=intro.querySelector('.gh-prop');prop.textContent='What do you fancy?';
+    mast.appendChild(intro);el.prepend(mast);
+    // Lead with sleeves; keep extra ways to browse just below the first rack.
+    ['.gh-recommend-intro','.gh-sub','.gh-prop'].forEach(function(sel){var n=el.querySelector(sel);if(n)n.remove()});
+    var tools=document.createElement('div');tools.className='gh-browse-tools';
+    ['.gh-rifle','.gh-secondary','.gh-artistrow'].forEach(function(sel){var n=el.querySelector(sel);if(n)tools.appendChild(n)});
+    el.querySelector('.gh-shelf-first').after(tools);
+    tools.after(el.querySelector('#gh-rifle-results'));
+    el.querySelector('.gh-rifle-summary-title').textContent='Browse by genre or mood';
+    el.querySelector('.gh-rifle-summary-note').textContent='';
+    el.querySelector('.gh-shelf-first .gh-shelf-note').textContent='Recent releases from the shelves';
     main.insertBefore(el,main.firstChild);
     var back=document.createElement('div');
     back.className='gh-back-strip';
@@ -5793,5 +5826,7 @@ window.addEventListener('hashchange',go);})();
 })();
 
 </script>
+<script src="music-core.js"></script>
+<script src="music-home.js"></script>
 </body>
 </html>

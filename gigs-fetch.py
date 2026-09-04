@@ -14,14 +14,16 @@ Sources:
 Gaps (checked 2026-07-20): Union Chapel (JS-only); Space Talk & One Eighty One
 programme on Instagram only.
 
-Matching: structured lineup names exact + title phrase-scan (strict — see
-match_event). Weighted on plays + recency + newly-added artists.
+Matching: explicit performer/lineup names only. Event titles NEVER qualify an
+artist, even when a scraper previously copied the title into its names field. Weighted on plays + recency + newly-added artists.
 Tribute/covers/"vs" nights are dropped entirely (is_tribute).
 first_seen per show persists across runs via gigs-data.json -> "Just announced".
 
 Usage: python3 gigs-fetch.py [--days 365] [--out gigs.html]
 """
 import argparse, json, os, re, sys, time, unicodedata, urllib.request
+from pathlib import Path
+from urllib.parse import quote
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 from collections import defaultdict
@@ -36,19 +38,6 @@ MONTHS = {m.lower(): i + 1 for i, m in enumerate(
 
 NAME_STOP = {'tba', 'tbc', 'guests', 'special guests', 'friends', 'more', 'live',
              'dj set', 'djs', 'residents', 'support', 'and friends', 'special guest'}
-
-TITLE_STOP = {'jungle', 'underground', 'electronic', 'liquid', 'forest', 'pleasure',
-              'sundown', 'garage', 'house', 'techno', 'disco', 'funk', 'soul', 'jazz',
-              'gospel', 'orchestra', 'ensemble', 'collective', 'social', 'summer',
-              'winter', 'sunset', 'sunrise', 'midnight', 'warehouse', 'paradise',
-              'daughter', 'mother', 'brother', 'sister', 'lovers', 'dreams', 'magic',
-              'joseph', 'simone', 'marcel', 'george', 'marie', 'james', 'thomas',
-              'charlie', 'jamie', 'oscar', 'leon', 'otis', 'ruby', 'pearl',
-              'outside', 'return', 'prince', 'inside', 'weekend', 'holiday', 'disney',
-              'salute', 'calendar', 'church', 'movement', 'together', 'culture',
-              'unity', 'rhythm', 'spirit', 'temple', 'freedom', 'harmony', 'family',
-              'garden', 'tonight', 'twilight', 'honey', 'sugar', 'velvet', 'cream',
-              'motion', 'vision', 'future', 'energy', 'nature', 'legacy', 'people'}
 
 # hard signals always mean covers/tribute; soft ones ("celebrating", "vs") only
 # count when the artist was matched from the free-text title — a structured
@@ -256,7 +245,7 @@ def fetch_ra(days):
                            'venue': (e.get('venue') or {}).get('name') or '',
                            'url': 'https://ra.co' + e['contentUrl'],
                            'names': [a['name'] for a in e.get('artists') or []],
-                           'start': start, 'source': 'RA', 'hint': ''})
+                           'start': start, 'source': 'RA', 'hint': '', 'lineup_verified': True})
         total = rows.get('totalResults') or 0
         if page * 100 >= total:
             break
@@ -322,12 +311,13 @@ def fetch_jazzcafe():
             continue
         title = re.sub(r'<span class="host">.*?</span>', '', tm.group(1), flags=re.S)
         title = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', title)).strip()
+        lineup = re.search(r'<ul class="line-up[^"]*">(.*?)</ul>', block, re.S)
         names = [re.sub(r'<[^>]+>', '', n).strip()
-                 for n in re.findall(r'<li>(.*?)</li>', block, re.S)]
+                 for n in re.findall(r'<li>(.*?)</li>', lineup.group(1), re.S)] if lineup else []
         events.append({'date': str(d), 'title': title or (names[0] if names else ''),
                        'venue': 'The Jazz Cafe', 'url': um.group(1),
                        'names': [n for n in names if n], 'start': '',
-                       'source': 'JazzCafe', 'hint': hint})
+                       'source': 'JazzCafe', 'hint': hint, 'lineup_verified': True})
     return events
 
 
@@ -351,7 +341,8 @@ def _detail_event(url, venue, hint):
                 nm = it.get('name') or ''
                 if sd and nm and 'Comedy' not in t:
                     return {'date': sd, 'title': nm.strip(), 'venue': venue, 'url': url,
-                            'names': [nm.strip()], 'start': (it.get('startDate') or '')[11:16],
+                            'names': performer_names(it.get('performer')), 'lineup_verified': True,
+                            'status': it.get('eventStatus', ''), 'start': (it.get('startDate') or '')[11:16],
                             'source': venue, 'hint': hint}
                 return None
     # fallback: visible date like "Fri 19 Sep 2026" or "19 Sep 2026"
@@ -674,11 +665,11 @@ def fetch_amg():
             slug = AMG_SLUGS.get(vname, '')
             url = ('https://www.academymusicgroup.com/' + slug + x['url']) if slug and x.get('url') \
                 else 'https://www.academymusicgroup.com'
-            names = [a.get('name', '') for a in x.get('lineup') or []] or [x.get('name', '')]
+            names = [a.get('name', '') for a in x.get('lineup') or []]
             events.append({'date': (x.get('eventDate') or '')[:10], 'title': x.get('name', ''),
                            'venue': vname, 'url': url,
                            'names': [n for n in names if n],
-                           'start': x.get('doorTime') or '', 'source': 'AMG', 'hint': 'gig'})
+                           'start': x.get('doorTime') or '', 'source': 'AMG', 'hint': 'gig', 'lineup_verified': True})
         if page * 20 >= (d.get('total') or 0):
             break
         page += 1
@@ -721,7 +712,8 @@ def fetch_ticketmaster(days):
                            'title': e.get('name', ''), 'venue': venues[0].get('name', ''),
                            'url': e.get('url', ''), 'names': [a.get('name', '') for a in atts],
                            'start': ((e.get('dates') or {}).get('start') or {}).get('localTime', '')[:5],
-                           'source': 'Ticketmaster', 'hint': 'gig'})
+                           'source': 'Ticketmaster', 'hint': 'gig', 'lineup_verified': True,
+                           'status': (e.get('dates') or {}).get('status', {}).get('code', '')})
         if page >= (d.get('page') or {}).get('totalPages', 1) - 1:
             break
         page += 1
@@ -753,7 +745,9 @@ def too_thin(r):
 
 def match_event(ev, artists):
     hits = {}
-    for raw in ev['names']:
+    if not ev.get("lineup_verified") or is_cancelled(ev):
+        return hits
+    for raw in ev.get("names", []):
         norm = normalize(clean_name(raw))
         if not norm or norm in NAME_STOP or norm not in artists:
             continue
@@ -763,59 +757,7 @@ def match_event(ev, artists):
         if ' ' not in norm and r['tracks'] < 2 and r['plays'] < 10:
             continue
         hits[norm] = 'lineup'
-    tnorm = ' ' + normalize(ev['title']) + ' '
-    for norm, r in artists.items():
-        if norm in hits or norm in NAME_STOP:
-            continue
-        single = ' ' not in norm
-        if single and (len(norm) < 6 or norm in TITLE_STOP):
-            continue
-        if r['tracks'] < 2 and r['plays'] < 3:
-            continue
-        if too_thin(r):
-            continue
-        needle = f' the {norm} ' if (r['the'] and single) else f' {norm} '
-        if needle in tnorm:
-            if single and _part_of_longer_name(r['name'], ev['title']):
-                continue
-            hits[norm] = 'title'
     return hits
-
-
-_NEXT_OK = {'Live', 'Presents', 'DJ', 'Set', 'Band', 'All', 'At', 'In', 'On', 'And',
-            'Takeover', 'Tour', 'London', 'Tickets', 'Plus', 'B2B', 'X'}
-_PREV_OK = {'The', 'DJ', 'MC', 'With', 'Ft', 'Feat', 'And', 'Featuring', 'By'}
-
-
-def _part_of_longer_name(name, title):
-    """'Beirut' inside 'Beirut Groove Collective' is a different act: a single-word
-    artist flanked by another capitalised word is part of a longer name."""
-    m = re.search(r'(?:^|[^A-Za-z])(' + re.escape(name) + r')(?=$|[^A-Za-z])', title, re.I)
-    if not m:
-        return False
-    after = re.match(r'\s+([A-Z][a-zA-Z&\']+)', title[m.end(1):])
-    if after and after.group(1) not in _NEXT_OK:
-        return True
-    before = re.search(r'([A-Z][a-zA-Z&\']+)\s+$', title[:m.start(1)])
-    if before and before.group(1) not in _PREV_OK:
-        return True
-    return False
-
-
-def drop_generic_title_matches(per_event_hits):
-    counts = defaultdict(set)
-    for ev, hits in per_event_hits:
-        tnorm = normalize(ev['title'])
-        for norm, how in hits.items():
-            if how == 'title' and tnorm != norm and not tnorm.startswith(norm + ' '):
-                counts[norm].add(tnorm)
-    generic = {n for n, evs in counts.items() if len(evs) >= 3}
-    if generic:
-        print(f"  dropped generic title-words: {sorted(generic)}")
-    for _, hits in per_event_hits:
-        for n in list(hits):
-            if hits[n] == 'title' and n in generic:
-                del hits[n]
 
 
 def classify(ev, title):
@@ -853,23 +795,24 @@ BADGE_CSS = {'new': ('rgba(96,232,160,0.12)', '#60e8a0'),
 TYPE_LABEL = {'gig': 'Live gig', 'dj': 'DJ night', 'day': 'Day party'}
 
 
-def render(matches, n_events, n_artists, sources_note, out, public=False):
+def render(matches, n_events, n_artists, sources_note, out, public=False, generated=None):
     matches = sorted(matches, key=lambda m: (m['date'], -m['score']))
     fresh_cut = str(TODAY - timedelta(days=7))
     picks, picked_artists = [], set()
-    for m in sorted(matches, key=lambda m: -m['score']):
+    soon = [m for m in matches if m['date'] <= str(TODAY + timedelta(days=30))]
+    for m in sorted(soon or matches, key=lambda m: -m['score']):
         artist_name = m['artist']['name']
         if artist_name in picked_artists:
             continue
         picked_artists.add(artist_name)
         picks.append(m)
-        if len(picks) == 6:
+        if len(picks) == 3:
             break
     picks.sort(key=lambda m: (m['date'], -m['score']))
-    upd = TODAY.strftime('%-d %b %Y')
+    upd = date.fromisoformat(generated or str(TODAY)).strftime('%-d %b %Y')
     venues = sorted({m['venue'] for m in matches if m['venue']}, key=str.lower)
     crates = sorted({m['artist']['crate'] for m in matches if m['artist']['crate']},
-                    key=lambda c: -sum(1 for m in matches if m['artist']['crate'] == c))
+                    key=lambda c: (-sum(1 for m in matches if m['artist']['crate'] == c), c))
     months = sorted({m['date'][:7] for m in matches})
     n_new = sum(1 for m in matches if m['first_seen'] >= fresh_cut)
 
@@ -915,7 +858,8 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
         return (f'<button class="mini-action save-btn" type="button" '
                 f'aria-label="Save {nm}" aria-pressed="false" title="Save">☆</button>'
                 f'<button class="mini-action cal-btn" type="button" '
-                f'aria-label="Add {nm} to calendar" title="Add to calendar">+ Cal</button>')
+                f'aria-label="Add {nm} to calendar" title="Add to calendar">+ Cal</button>'
+                f'<a class="mini-action" href="index.html?hear={quote(m["artist"]["name"])}">Hear five tracks</a>')
 
     def card(m):
         d = date.fromisoformat(m['date'])
@@ -924,10 +868,11 @@ def render(matches, n_events, n_artists, sources_note, out, public=False):
   <a class="card-cover" href="{esc(m['url'])}" target="_blank" rel="noopener" aria-label="Tickets: {nm}"></a>
   <div class="card-top"><span class="card-date">{d.strftime('%a %-d %b').upper()}</span><span class="card-type">{TYPE_LABEL[m['etype']]}</span></div>
   <div class="card-artist"><a class="a-link" href="index.html#find={nm}" onclick="try{{localStorage.setItem('gr_find',this.dataset.a)}}catch(e){{}}" data-a="{nm}" title="See them in the archive">{nm}</a><a class="sp-link" href="https://open.spotify.com/search/{nm}" target="_blank" rel="noopener" title="Open in Spotify">&#9654;</a></div>
+  <div class="card-event">{esc(m['title'])}</div>
   <div class="card-venue">{esc(m['venue'])}</div>
   <div class="badges">{badge_html(m)}</div>
   {f'<div class="why">{why(m)}</div>' if why(m) else ''}
-  <div class="card-actions">{event_actions(m)}</div>
+  <div class="card-actions">{event_actions(m)}<a class="mini-action" href="{esc(m['url'])}" target="_blank" rel="noopener">Tickets</a></div>
 </div>'''
 
     def row(m):
@@ -1070,14 +1015,13 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
   .hero-stats{{gap:18px}}
   .card-actions{{margin-top:8px}}
 }}
-</style></head><body>
+</style><link rel="stylesheet" href="music-home.css"></head><body>
+<nav class="music-nav" aria-label="Music"><a class="music-brand" href="index.html">DJ Archive</a><a href="index.html">Discover</a><a href="index.html?view=records">Full archive</a><a href="gigs.html" aria-current="page">Gigs</a><a href="index.html?view=saved">Saved</a></nav>
 <header class="hero"><div class="wrap">
 <h1>Gig Radar</h1>
-<div class="sub">{('Upcoming London shows, hand-filtered through <a href="index.html">the DJ Archive</a> — 17,000+ tracks curated by ear over 14 years. Only artists in the archive make this list. No algorithm.' if public else f'London listings matched to the archive · updated {upd} · <a href="index.html">← back to the archive</a> · <a href="gigs-share.html">shareable version</a>')}</div>
+<div class="sub">{('Upcoming London shows, hand-filtered through <a href="index.html">the DJ Archive</a> — 17,000+ tracks curated by ear over 14 years. Only confirmed performers from the archive make this list.' if public else f'Confirmed performers from the archive · updated {upd} · <a href="gigs-share.html">shareable version</a>')}</div>
 <div class="hero-stats">
 <div class="hs"><b>{len(matches)}</b><span>shows</span></div>
-<div class="hs"><b>{len({m['artist']['name'] for m in matches})}</b><span>artists</span></div>
-<div class="hs"><b>{len(venues)}</b><span>venues</span></div>
 <div class="hs"><b>{n_new}</b><span>new this week</span></div>
 </div>
 </div></header>
@@ -1088,13 +1032,13 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 <button class="fc" id="filters-toggle" type="button" aria-expanded="false" aria-controls="filter-more">Filters</button>
 </div>
 <div class="filter-summary"><span id="result-count" role="status" aria-live="polite">Showing {len(matches)} shows</span><span><button class="fc" id="copy-link" type="button">Copy link</button><button class="fc" id="clear" type="button">Clear</button></span></div>
-<div class="filter-more" id="filter-more">
-<div class="f-line"><span class="f-label">Venue</span><label class="visually-hidden" for="venue">Venue</label><select id="venue">{venue_opts}</select></div>
-<div class="f-line"><span class="f-label">When</span>
+<div class="f-line quick-when">
 <button class="fc fc-range" data-range="weekend" type="button">This weekend</button>
 <button class="fc fc-range" data-range="30" type="button">Next 30 days</button>
 <button class="fc" id="fsaved" type="button">Saved</button>
 </div>
+<div class="filter-more" id="filter-more">
+<div class="f-line"><span class="f-label">Venue</span><label class="visually-hidden" for="venue">Venue</label><select id="venue">{venue_opts}</select></div>
 <div class="f-line"><span class="f-label">Type</span>
 <button class="fc fc-t" data-t="gig" type="button">Live gigs</button>
 <button class="fc fc-t" data-t="dj" type="button">DJ nights</button>
@@ -1114,7 +1058,7 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 <div id="none">Nothing matches those filters.</div>
 <div class="foot">Matched from {n_events:,} London listings against {n_artists:,} archive artists · updated {upd}.<br>
 {sources_note}<br>
-One DJ&rsquo;s ears, no algorithm.{('' if public else ' Refresh: <code>python3 gigs-fetch.py</code>')}</div>
+Chosen by ear. Matched against confirmed performers.{('' if public else ' Refresh: <code>python3 gigs-fetch.py</code>')}</div>
 </div>
 <script>
 (function(){{
@@ -1244,35 +1188,70 @@ apply(true);
 }})();
 </script>
 </body></html>'''
-    open(out, 'w', encoding='utf-8').write(html)
+    open(out, 'w', encoding='utf-8').write('\n'.join(line.rstrip() for line in html.split('\n')))
 
 
 # ---------- main ----------
 
+def performer_names(value):
+    """JSON-LD performer, never Event.name or a page title."""
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [value['name']] if isinstance(value.get('name'), str) else []
+    if isinstance(value, list):
+        return [name for item in value for name in performer_names(item)]
+    return []
+
+
+def is_cancelled(event):
+    return bool(re.search(r'\bcancelled\b|\bcanceled\b|\bpostponed\b', event.get('title', ''), re.I)
+                or re.search(r'cancel|postpon', str(event.get('status', '')), re.I))
+
+
 def hydrate_saved_matches(payload, artists):
-    """Rebuild render-ready matches from gigs-data.json without refetching."""
+    """Fail closed: legacy 'lineup' is reliable only for these structured feeds.
+    Old co-artists lack individual provenance and must be re-fetched.
+    """
     rebuilt = []
     for saved in payload.get('matches', []):
         norm = normalize(saved.get('artist', ''))
-        if (norm not in artists or norm in DEAD_ARTISTS or norm in EXCLUDE_ARTISTS
+        explicit = saved.get('performers')
+        trusted = (norm in {normalize(clean_name(n)) for n in explicit}
+                   if isinstance(explicit, list) else
+                   saved.get('how') == 'lineup' and saved.get('source') in {'RA', 'JazzCafe', 'Ticketmaster'})
+        if (not trusted or is_cancelled(saved) or saved.get('date', '') < str(TODAY)
+                or norm not in artists or norm in DEAD_ARTISTS or norm in EXCLUDE_ARTISTS
                 or normalize(saved.get('venue', '')) in OUTSIDE_LONDON_VENUES
-                or is_tribute(saved.get('title', ''), saved.get('how', 'title'))):
+                or is_tribute(saved.get('title', ''), 'lineup')):
             continue
+        verified = {normalize(clean_name(n)) for n in explicit or []}
         co = [artists[normalize(name)] for name in saved.get('co', [])
-              if normalize(name) in artists]
-        rebuilt.append({**saved, 'artist': artists[norm], 'co': co,
-                        'all_names': [saved['artist']] + saved.get('co', [])})
+              if normalize(name) in artists and normalize(name) in verified
+              and normalize(name) not in DEAD_ARTISTS | EXCLUDE_ARTISTS]
+        rebuilt.append({**saved, 'how': 'lineup', 'artist': artists[norm], 'co': co,
+                        'performers': explicit or [saved['artist']],
+                        'all_names': explicit or [saved['artist']]})
     return rebuilt
+
+
+def save_matches(matches, generated, n_events):
+    payload = {'generated': generated, 'events': n_events, 'matching_rule': 'explicit-performers-v1',
+               'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url', 'source',
+                                              'how', 'score', 'etype', 'first_seen')},
+                            'performers': m['performers'], 'artist': m['artist']['name'],
+                            'co': [r['name'] for r in m['co']]} for m in matches]}
+    Path(HERE, 'gigs-data.json').write_text(json.dumps(payload, indent=1))
 
 
 def existing_sources_note():
     return ('Sources: RA, KOKO, EartH, Jazz Cafe, Roundhouse, Ally Pally, '
             'Barbican, AMG/Live Nation, Apollo, Spiritland, Blue Note London, '
             'Ronnie Scott\'s, '
-            'The O2, OVO Arena, Wembley Stadium, Open Air Theatre. Tribute / '
+            'The O2, OVO Arena, Wembley Stadium, Open Air Theatre. Coverage requires explicit performer data; title-only listings are omitted. Tribute / '
             'covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
             'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
-            'Space Talk, One Eighty One &amp; Brilliant Corners programme on '
+            'Title-only venue feeds are excluded. Space Talk, One Eighty One &amp; Brilliant Corners programme on '
             'Instagram only (their RA-listed nights are covered). SJQ via RA.')
 
 def main():
@@ -1291,9 +1270,10 @@ def main():
         payload = json.load(open(f'{HERE}/gigs-data.json'))
         matches = hydrate_saved_matches(payload, artists)
         note = existing_sources_note()
-        render(matches, payload.get('events', 0), len(artists), note, args.out)
+        save_matches(matches, payload['generated'], payload.get('events', 0))
+        render(matches, payload.get('events', 0), len(artists), note, args.out, generated=payload['generated'])
         share_out = args.out.replace('gigs.html', 'gigs-share.html')
-        render(matches, payload.get('events', 0), len(artists), note, share_out, public=True)
+        render(matches, payload.get('events', 0), len(artists), note, share_out, public=True, generated=payload['generated'])
         print(f'Wrote {args.out} + {share_out} from existing data')
         return
 
@@ -1337,7 +1317,8 @@ def main():
     try:
         extra = json.load(open(f'{HERE}/gigs-extra.json'))
         for e in extra:
-            e.setdefault('names', [e['title']])
+            e.setdefault('names', [])
+            e['lineup_verified'] = bool(e.get('performers_verified'))
             e.setdefault('start', '')
             e.setdefault('source', 'Manual')
             e.setdefault('hint', 'dj')
@@ -1359,7 +1340,6 @@ def main():
                  'keeping the existing gigs.html.')
 
     per_event = [(ev, match_event(ev, artists)) for ev in events]
-    drop_generic_title_matches(per_event)
 
     matches, seen, n_trib = [], set(), 0
     for ev, hits in per_event:
@@ -1369,14 +1349,14 @@ def main():
             if is_tribute(ev['title'], how) or norm in DEAD_ARTISTS or norm in EXCLUDE_ARTISTS:
                 n_trib += 1
                 continue
-            key = (norm, ev['date'])
+            key = (norm, ev['date'], ev['url'])
             if key in seen:
                 continue
             seen.add(key)
             r = artists[norm]
             matches.append({'date': ev['date'], 'title': ev['title'], 'venue': ev['venue'],
                             'url': ev['url'], 'source': ev['source'], 'how': how,
-                            'artist': r, 'all_names': ev['names'],
+                            'artist': r, 'all_names': ev['names'], 'performers': ev['names'],
                             'etype': classify(ev, ev['title']),
                             'first_seen': ('2000-01-01' if bootstrap or ev['source'] not in prev_sources
                                            else prev_seen.get((r['name'], ev['date']), str(TODAY))),
@@ -1387,6 +1367,7 @@ def main():
     for m in matches:
         gk = (m['date'], normalize(m['venue']), normalize(m['title']))
         g = grouped.setdefault(gk, m | {'co': []})
+        g['performers'] = list(dict.fromkeys(g['performers'] + m['performers']))
         if m is not g and m['artist'] is not g['artist']:
             if m['score'] > g['score']:
                 g['co'].append(g['artist'])
@@ -1394,6 +1375,8 @@ def main():
             else:
                 g['co'].append(m['artist'])
     matches = list(grouped.values())
+    if not matches:
+        sys.exit('No verified performers found — retaining the existing gig files.')
     for m in matches:
         m['score'] += 5 * len(m['co'])
 
@@ -1411,18 +1394,13 @@ def main():
         time.sleep(1.5)
     print(f'{len(events)} events in window -> {len(matches)} matched shows')
 
-    json.dump({'generated': str(TODAY), 'events': len(events),
-               'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url', 'source',
-                                                 'how', 'score', 'etype', 'first_seen')},
-                            'artist': m['artist']['name'],
-                            'co': [r['name'] for r in m['co']]} for m in matches]},
-              open(f'{HERE}/gigs-data.json', 'w'), indent=1)
+    save_matches(matches, str(TODAY), len(events))
 
     got = [k for k, v in src_counts.items() if v]
     note = ('Sources: ' + ', '.join(got) +
-            '. Tribute / covers / &ldquo;plays the music of&rdquo; nights are filtered out. '
+            '. Only explicitly listed performers qualify. Title mentions and cancelled shows are excluded. '
             'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
-            'Space Talk, One Eighty One &amp; Brilliant Corners programme on '
+            'Title-only venue feeds are excluded. Space Talk, One Eighty One &amp; Brilliant Corners programme on '
             'Instagram only (their RA-listed nights are covered). SJQ via RA.')
     render(matches, len(events), len(artists), note, args.out)
     share_out = args.out.replace('gigs.html', 'gigs-share.html')
