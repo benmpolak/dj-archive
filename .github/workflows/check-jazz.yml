@@ -1,6 +1,8 @@
 name: Check jazz feeds
 on:
   workflow_dispatch: {}
+  push:
+    branches: [fix/jazz-feeds-september]
 permissions:
   contents: read
 jobs:
