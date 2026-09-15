@@ -17,8 +17,8 @@ from collections import defaultdict, Counter
 HERE = os.path.dirname(os.path.abspath(__file__))
 ARCHIVE = os.path.join(HERE, 'index.html')
 ZIP_ACCOUNT = '/Users/benpolak/Downloads/my_spotify_data (2).zip'
-CSV_FOLDERS = ['Playlists 11 april 2026', 'Playlists may 2026',
-               'Playlists auto 2026-06-09', 'Playlists exportify 2026-06-11']
+CSV_FOLDERS = sorted(os.path.basename(p) for p in glob.glob(os.path.join(HERE, 'Playlists*'))
+                     if os.path.isdir(p))
 
 def skip_playlist(name):
     n = (name or '').strip()
@@ -31,6 +31,15 @@ def record(pl, sid, ym):
     cur = ledger[pl].get(sid)
     if cur is None or ym < cur:
         ledger[pl][sid] = ym
+
+# Preserve the account-export history even when its original ZIP has moved.
+ledger_path = os.path.join(HERE, 'add-ledger.json')
+if os.path.exists(ledger_path):
+    with open(ledger_path) as f:
+        for pl, items in json.load(f).items():
+            if not skip_playlist(pl):
+                for sid, ym in items.items():
+                    record(pl, sid, ym)
 
 # --- Account Data export (full history) ---
 try:

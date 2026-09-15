@@ -257,6 +257,8 @@
      counts, release year or date window say; stay put until unpinned.
      Key = first artist|album, lowercase (same shape as SHELF_RECORD_EXCLUDE). */
   var SHELF_PIN=[
+    'liana flores|and so it goes...',
+    'erykah badu|before the world blows',
     'patchwork inc.|more patchwork'
   ];
   function pinKey(g){

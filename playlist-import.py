@@ -36,6 +36,7 @@ PLAYLIST_CRATES = {
     'Meditative_':           [],
     'July_2026':             [],
     'August_2026':           [],
+    'September_2026':        [],
     '70s_and_80s_Chilled_':  [],
     'Sunshine_sounds':       [],
     'May_2026':              [],
@@ -171,21 +172,24 @@ print(f"\nTotal unique tracks across CSVs: {len(tracks)}")
 new_count = 0
 updated_count = 0
 crates_added_total = 0
+imported_playlists = defaultdict(set)
 
 for sid, info in tracks.items():
     row = info['row']
     new_crates = info['crates']
 
-    if sid not in sid_index:
-        # Same song under a different release ID? Treat as existing.
-        ti = title_index.get(title_key(row.get('Artist Name(s)'), row.get('Track Name')))
-        if ti is not None:
-            sid = DATA[ti].get('sid')
+    track_key = title_key(row.get('Artist Name(s)'), row.get('Track Name'))
+    idx = sid_index.get(sid)
+    if idx is None:
+        # Match the row directly, including archive tracks with local IDs.
+        idx = title_index.get(track_key)
 
-    if sid in sid_index:
+    if idx is not None:
         # Existing track: merge crates if any
-        idx = sid_index[sid]
         existing = DATA[idx]
+        if not extract_sid('spotify:track:' + (existing.get('sid') or '')):
+            existing['sid'] = sid
+        sid_index[sid] = idx
         existing_crates = set(existing.get('c') or [])
         additions = new_crates - existing_crates
         if additions:
@@ -197,7 +201,8 @@ for sid, info in tracks.items():
             updated_count += 1
             crates_added_total += len(additions)
         # Bump playlist count if new value is higher
-        pl_count = len(info['playlists'])
+        imported_playlists[idx].update(info['playlists'])
+        pl_count = len(imported_playlists[idx])
         if pl_count > safe_int(existing.get('n'), 0):
             existing['n'] = pl_count
     else:
@@ -226,6 +231,10 @@ for sid, info in tracks.items():
             'da':  parse_yyyymm(row.get('Added At', '')) or 202604,
         }
         DATA.append(new_track)
+        idx = len(DATA) - 1
+        sid_index[sid] = idx
+        title_index.setdefault(track_key, idx)
+        imported_playlists[idx].update(info['playlists'])
         new_count += 1
 
 # --- Save ---

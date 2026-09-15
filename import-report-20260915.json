@@ -1,0 +1,681 @@
+{
+  "files": [
+    "September_2026 (1).csv",
+    "Summer_Sounds (2).csv",
+    "Hispanic (2).csv",
+    "Africa_Sounds (2).csv",
+    "Brasil (2).csv",
+    "Brazilian_Boogie.csv",
+    "Brasil_Novo.csv",
+    "All_That_Jazz (1).csv",
+    "Indie (1).csv",
+    "Older_Dance (3).csv",
+    "Hip_Hop.csv",
+    "Sunshine_dance (3).csv",
+    "Soul_&_Disco_revival_ (3).csv",
+    "August_2026 (2).csv"
+  ],
+  "input_rows": 4445,
+  "verification": {
+    "tracks_added": 64,
+    "total": 17389,
+    "existing_track_changes": [
+      {
+        "artist": "Ladyhawke",
+        "title": "Paris Is Burning",
+        "fields": [
+          "sid"
+        ]
+      },
+      {
+        "artist": "Latimore",
+        "title": "Sweet Vibrations",
+        "fields": [
+          "c"
+        ]
+      },
+      {
+        "artist": "Sonzeira;Emanuelle Araújo;Arlindo Cruz;Chico Chagas",
+        "title": "Brasil Pandeiro",
+        "fields": [
+          "n"
+        ]
+      },
+      {
+        "artist": "Sabrina Malheiros",
+        "title": "Brisa Mar - Nicola Conte Re-Work",
+        "fields": [
+          "n"
+        ]
+      }
+    ],
+    "duplicate_tracks_added": 0,
+    "repeat_import_unchanged": true,
+    "ledger_prior_events": 22217,
+    "ledger_events": 22840,
+    "changed_outputs": [
+      "playlist-import.py",
+      "add-ledger.json",
+      "patch-digging.py",
+      "gigs-data.json",
+      "gigs.html",
+      "gigs-share.html",
+      "music/tracks-4.json",
+      "music/tracks-5.json",
+      "music/tracks-2.json",
+      "music/tracks-3.json",
+      "music/tracks-0.json",
+      "music/tracks-1.json",
+      "music/manifest.json",
+      "music/tracks-6.json",
+      "music/tracks-7.json"
+    ]
+  },
+  "new_tracks": [
+    {
+      "sid": "1aVVhEGbYleglDoJUMAKfi",
+      "a": "Paulinho Da Costa",
+      "t": "Toledo Bagel",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Groover"
+    },
+    {
+      "sid": "6wXz6pY68gE9otzSW1dhvm",
+      "a": "Soul In The Horn;Karizma",
+      "t": "Around",
+      "c": [
+        "House"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "7xv0LwUvvBq70KdcVdhfgm",
+      "a": "Candice Hoyes;Junius Paul;Makaya McCraven",
+      "t": "Expecting",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "1e8utlwSHxX1R7b5mvp5H7",
+      "a": "Thee Sinseers;Joey Quiñones",
+      "t": "Did Ya Know?",
+      "c": [
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "5HrxRmFz0Vh82HC8WNl8pK",
+      "a": "Carletta Sue;Shoestring",
+      "t": "You Keep Holding Back On Love",
+      "c": [
+        "Disco & Boogie"
+      ],
+      "vb": "Feel Good"
+    },
+    {
+      "sid": "5D3bHecBBMUXUYZcgBvySo",
+      "a": "Cleo Sol",
+      "t": "Gentlewoman",
+      "c": [
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "5EfC6GLSukgas7dizprNHh",
+      "a": "Copa 7",
+      "t": "Mulher Absoluta",
+      "c": [
+        "Brazilian",
+        "Disco & Boogie",
+        "Jazz"
+      ],
+      "vb": "Sunshine"
+    },
+    {
+      "sid": "3pXLoRFJGxsfqfko9V1UID",
+      "a": "Rafael Cortijo Y Su Bonche",
+      "t": "Sorongo",
+      "c": [
+        "Afro & World"
+      ],
+      "vb": "Sunshine"
+    },
+    {
+      "sid": "08ow33ctOJWxj2Q4u6VPdQ",
+      "a": "Cevin Fisher;Hardtrax",
+      "t": "Gonna Be Alright",
+      "c": [
+        "House"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "04cFhVs1lgYpaRgzmF1wkk",
+      "a": "Seydinah;KSM",
+      "t": "A La Folie - Remode Mix",
+      "c": [
+        "House"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "35JgkPlDixbmFA1CxZzzjM",
+      "a": "SLICKnBOBBY",
+      "t": "Alpha Dub",
+      "c": [
+        "Jazz",
+        "Reggae & Dub"
+      ],
+      "vb": "Chill"
+    },
+    {
+      "sid": "0JZqbG8jDuIXRYvUxXiv5k",
+      "a": "Erykah Badu;The Alchemist",
+      "t": "Witch Doctor",
+      "c": [
+        "Hip Hop",
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "0fv00pOf3fObPKjVHk1K5Y",
+      "a": "Erykah Badu;The Alchemist;Kamasi Washington",
+      "t": "Black Box - feat. Kamasi Washington",
+      "c": [
+        "Hip Hop",
+        "Jazz",
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "3d9j2wiKls3PpfRlFCQliw",
+      "a": "Kiefer;Walter Smith III;Flanafi;Shibo",
+      "t": "Memory Bomb (feat. Walter Smith III, Flanafi, Shibo)",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "38xRvjsX3eC6VW4RAtbMIX",
+      "a": "Billy Hare",
+      "t": "Too Much",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "2jDxaHfoF4HSYhXfwB28Dv",
+      "a": "Didiér Styn;Rainer Trueby;Marlow;Lex Empress",
+      "t": "The Blessing - Rainer Trüby & Marlow Remix",
+      "c": [
+        "House"
+      ],
+      "vb": "Deep & Mellow"
+    },
+    {
+      "sid": "7qsWQiFgO2oW8PptqhHnWI",
+      "a": "JT Donaldson",
+      "t": "no 1",
+      "c": [
+        "House"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "59kHr6xGrsIFUscslBdqPB",
+      "a": "Mondo Freaks;musclecars",
+      "t": "Won't You Decide - musclecars Remix",
+      "c": [
+        "Disco & Boogie",
+        "House"
+      ],
+      "vb": "Feel Good"
+    },
+    {
+      "sid": "4hiLD6sygDFrG4r7W3iWUz",
+      "a": "Sūn Byrd",
+      "t": "Dance in the Sūn",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "53GWk0ewbWWiAQGLTLrgog",
+      "a": "corto.alto;Jacob Alon",
+      "t": "NOBLEHILL",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "0eUQjgjfODDPqTpwzjynYx",
+      "a": "Steve Verdugo",
+      "t": "Martinique",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "6y4sECHFUJUeryHxKVRDm2",
+      "a": "Alexander Flood;Close Counters;Vivian Sessoms",
+      "t": "CAN'T GET ENOUGH - Close Counters Remix",
+      "c": [
+        "House",
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "3dcWjxOpSeOkaXt8bECN8i",
+      "a": "Erykah Badu;The Alchemist",
+      "t": "Echos",
+      "c": [
+        "Hip Hop",
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "2z7pzlOSQmJF8s6LYAsV6G",
+      "a": "Liana Flores",
+      "t": "So it goes",
+      "c": [
+        "Brazilian"
+      ],
+      "vb": "Chill"
+    },
+    {
+      "sid": "6N1eCaZR3zb05tLtD09M2c",
+      "a": "Liana Flores",
+      "t": "So mysterious",
+      "c": [
+        "Brazilian"
+      ],
+      "vb": "Chill"
+    },
+    {
+      "sid": "5h19fYUgATWNR0WHsMoW5T",
+      "a": "High Rise",
+      "t": "I Know Yo' Game",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "7bq7UeVvlaFfBabebjjAFZ",
+      "a": "Kotoa",
+      "t": "Good Will Follow",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "Feel Good"
+    },
+    {
+      "sid": "561OEU7Zw4rHfDTzoUyJWa",
+      "a": "anaiis",
+      "t": "Sunshine",
+      "c": [
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "1Ibi14wy23kq9YxWu5BOUn",
+      "a": "Rochelle Jordan;Ron Trent",
+      "t": "I'm Your Muse - Ron Trent Remix",
+      "c": [
+        "House",
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "5VdIGD0gA9Ah4sMnxTkRRx",
+      "a": "Ryo Kawasaki;The Golden Dragon",
+      "t": "You Are The Sunlight",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "3LKqrPI3rAv2fGJOIMHIws",
+      "a": "Cleo Sol",
+      "t": "Sentimental Love",
+      "c": [
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "0yb5cFJg1xVJC6YRg0RJHv",
+      "a": "Key Tronics Ensemble",
+      "t": "You For Me - First Slow Version",
+      "c": [
+        "House"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "3f08rY4wKZE9SDwFbdbzWn",
+      "a": "Kaidi Tatham;Vanessa Freeman;The First Word All Stars",
+      "t": "Do What You Gotta Do",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "0H2vUpNX8vXmpN4IHkfo2Y",
+      "a": "Detroit Rising;EVM128",
+      "t": "Open Letter - Broken Remix",
+      "c": [
+        "House",
+        "Jazz"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "60j666pOMNfskNdVTt11ER",
+      "a": "John Beltran",
+      "t": "Gratiot - Fireground Remix",
+      "c": [
+        "Downtempo",
+        "House"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "0IRjmouGKjH2S4Q8pR1qac",
+      "a": "Wonky Logic",
+      "t": "Strange Attractor",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Groover"
+    },
+    {
+      "sid": "0S8eqbXOYaFauwMyBKo8ZN",
+      "a": "Erica Tucceri",
+      "t": "Grazie Ragazzi",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "1OjVy9yKjrIeZXqYP8WJXj",
+      "a": "Gerardo Frisina",
+      "t": "Duala",
+      "c": [
+        "House",
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "6IIzIKExaYBZDK1BuzsoQq",
+      "a": "matahari sons;Mo' Horizons",
+      "t": "Tanto Chao e Mar",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "6IkiCMtbU5DvmFNDwz7nZ6",
+      "a": "Menahan Street Band;Arthur Verocai",
+      "t": "Palace of Illusions",
+      "c": [
+        "Brazilian",
+        "Jazz",
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "2ieNJ9THA1FKOgn16rMfV9",
+      "a": "Don Glori",
+      "t": "Macrocosm",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "6a8dInL7KpHA7g5fxGZPgQ",
+      "a": "Cozmic Cat",
+      "t": "The Revolution",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "2YPP52aPZiFUxTmbQTUiR6",
+      "a": "The War On Drugs",
+      "t": "Who's That",
+      "c": [
+        "Indie & Rock"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "1IhPoqGveZhNDX1voOFcWL",
+      "a": "Finn Rees",
+      "t": "Feel The Sun",
+      "c": [
+        "House",
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "5j8Q5Wz6HMvWU9TYugHIvS",
+      "a": "Mr. Fingers",
+      "t": "Praise to the Vibes - Mr. Fingers Extended Version",
+      "c": [
+        "House"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "58NRngZsJEPA5fzvpDskZ8",
+      "a": "Marie Dahlstrom",
+      "t": "1 Journey Away",
+      "c": [
+        "Soul & R&B"
+      ],
+      "vb": "Soulful"
+    },
+    {
+      "sid": "3C3JxQXnXv8NiTkd5Kgopj",
+      "a": "Jimetta Rose",
+      "t": "Sleeping Beauty",
+      "c": [
+        "Jazz"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "7eymEP0XYD23ROgKz0z67V",
+      "a": "Moses Boyd;Amber-Simone",
+      "t": "Criticise",
+      "c": [
+        "Jazz",
+        "Soul & R&B"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "06qDFGANfhX1CYfjK0PVkq",
+      "a": "Chassol",
+      "t": "Rude Crude Lude",
+      "c": [
+        "Electronic"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "1aqipSPH5wjL4Joyy2Rd2m",
+      "a": "Andrei Nikolsky",
+      "t": "Flight of Fancy",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "3kyf87Cxegld11TimbAlRH",
+      "a": "Ships of the Pharaohs;Last Nubian",
+      "t": "Joys",
+      "c": [
+        "House",
+        "Jazz"
+      ],
+      "vb": "Peak Time"
+    },
+    {
+      "sid": "1KqgkFWmBw6epPjr2hmdd5",
+      "a": "Lonely Deckchair",
+      "t": "Rayman's Kingdom",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "3TdkwnbayG3FXEHvv1bLvT",
+      "a": "Argento",
+      "t": "Ritmi Marini",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "0Ik5Y5BskQ1gC2zDCJHlvO",
+      "a": "Medlar;mtsjungles",
+      "t": "Solar",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "1NlgVPxML1adA7DIKxUKEF",
+      "a": "Mark de Clive-Lowe;Andrea Lombardini;Tommaso Cappellato",
+      "t": "Terra De Luz",
+      "c": [
+        "Disco & Boogie",
+        "Jazz"
+      ],
+      "vb": "Instrumental Journey"
+    },
+    {
+      "sid": "3JkUzlxiyjqD1fNvxf9IdF",
+      "a": "Caunedo",
+      "t": "Guaguanrock - Le Spam Mix",
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": ""
+    },
+    {
+      "sid": "6RjD2ZQOkyQOe8WZIgtS7o",
+      "a": "Harari",
+      "t": "Harari",
+      "c": [
+        "Jazz"
+      ],
+      "vb": "Groover"
+    },
+    {
+      "sid": "1amXR53ralJNbkuwKl06S9",
+      "a": "Ghost Funk Orchestra",
+      "t": "Yours",
+      "c": [
+        "Indie & Rock"
+      ],
+      "vb": "Groover"
+    },
+    {
+      "sid": "0H39YANY8DykNZKDGBn2pF",
+      "a": "Katie Kissoon",
+      "t": "You're The One (You're My Number One)",
+      "c": [
+        "Disco & Boogie",
+        "Soul & R&B"
+      ],
+      "vb": "Feel Good"
+    },
+    {
+      "sid": "6amrkFiHBqjA85H28KTlAU",
+      "a": "Heaven & Earth",
+      "t": "I Really Love You",
+      "c": [
+        "Disco & Boogie",
+        "Soul & R&B"
+      ],
+      "vb": "Feel Good"
+    },
+    {
+      "sid": "0MPxVEbit8sCN5XPkPdOqG",
+      "a": "Peter Brown",
+      "t": "Do You Wanna Get Funky with Me - Long Version",
+      "c": [
+        "Disco & Boogie",
+        "Soul & R&B"
+      ],
+      "vb": "Feel Good"
+    },
+    {
+      "sid": "2h9KpWSDru7F8AjVr8piEb",
+      "a": "Nickodemus;Sammy Ayala;Captain Planet",
+      "t": "Baila a tú Manera - Captain Planet Remix",
+      "c": [
+        "Afro & World"
+      ],
+      "vb": "Sunshine"
+    },
+    {
+      "sid": "4gN7YRJis6cs2v6wnzuDPO",
+      "a": "Fatback Band;Joaquin \"Joe\" Claussell",
+      "t": "Spanish Hustle (Joaquin \"Joe\" Claussell's Sacred Rhythm Version)",
+      "c": [
+        "Disco & Boogie",
+        "Funk",
+        "House",
+        "Jazz"
+      ],
+      "vb": "Groover"
+    },
+    {
+      "sid": "1yX6gc7Wm0k8N5EFY0g8Pv",
+      "a": "Kenny Summit;Director's Cut;Frankie Knuckles;Eric Kupper;Yasmeen",
+      "t": "Loving You - Kenny, Frankie & Eric's Classic Mix",
+      "c": [
+        "House"
+      ],
+      "vb": "Peak Time"
+    }
+  ],
+  "front_page_pins": [
+    "Liana Flores — And so it goes...",
+    "Erykah Badu & The Alchemist — Before The World Blows"
+  ]
+}
