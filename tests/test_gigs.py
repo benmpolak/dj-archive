@@ -1,5 +1,6 @@
 import importlib.util
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 spec=importlib.util.spec_from_file_location('gigs',Path(__file__).resolve().parents[1]/'gigs-fetch.py')
@@ -77,6 +78,34 @@ KENDRICK LAMAR – mentioned in the review
         self.assertEqual(g.ronnies_dates(''.join(blocks)),
                          {'2026-09-16': '18:30', '2026-10-07': '19:00'})
         self.assertEqual(g.ronnies_dates('Wed 16 Sept - Wed 7 Oct 2026'), {})
+
+    def test_ronnies_fetch_verifies_lineup_and_requests_booking_fragment(self):
+        base = 'https://www.ronniescotts.co.uk/find-a-show'
+        detail = base + '/actual-show'
+        listing = f"""<div class="listing"><h2 class="listing__title">Kendrick Lamar night</h2>
+        <button id="id-1234">Book</button><a href="{detail}">Details</a></div>"""
+        lineup = '<h3>Line-up</h3><p>CHE WAX – decks</p></div>'
+        drawer = """<div class="performance-option has-standard">
+        <h2 class="performance-option__heading">Thursday 17th September, 2026</h2>
+        <h3>Show Starts</h3><p>18:20</p></div>"""
+        artists = {g.normalize(n): {'name':n, 'tracks':2, 'plays':10, 'max_da':202609}
+                   for n in ['Kendrick Lamar', 'Che Wax']}
+        def fetch(url, **kwargs):
+            if url == base:
+                return listing
+            if url == detail:
+                return lineup
+            if url == base + '?id=1234&ajax=1':
+                self.assertEqual(kwargs['extra_headers']['X-Requested-With'], 'XMLHttpRequest')
+                return drawer
+            self.fail('Unexpected URL: ' + url)
+        with patch.object(g, 'http_get', side_effect=fetch), patch.object(g, 'load_artists', return_value=artists):
+            events = g.fetch_ronnies()
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0]['names'], ['CHE WAX'])
+        self.assertEqual(events[0]['date'], '2026-09-17')
+        self.assertEqual(events[0]['start'], '18:20')
+        self.assertTrue(events[0]['lineup_verified'])
 
     def test_ronnies_preserves_real_url_and_booking_id(self):
         html = """<div class="listing"><h2 class="listing__title">A Quartet &amp; Guests</h2>
