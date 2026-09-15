@@ -25,6 +25,7 @@ from html import unescape
 from pathlib import Path
 from urllib.parse import quote
 from concurrent.futures import ThreadPoolExecutor
+from threading import Lock
 from datetime import date, timedelta
 from collections import defaultdict
 
@@ -487,6 +488,29 @@ def fetch_ronnies():
         raise RuntimeError("No Ronnie Scott's detail links found")
     artists = load_artists()
     failures = []
+    reader_lock = Lock()
+    reader_next = [0.0]
+    checked = [0]
+    def read_lineup(url):
+        # The public reader can cache Cloudflare challenge pages. Ask for a
+        # fresh render and pace requests within its anonymous 20/min limit.
+        for attempt in range(2):
+            with reader_lock:
+                delay = reader_next[0] - time.monotonic()
+                if delay > 0:
+                    time.sleep(delay)
+                reader_next[0] = time.monotonic() + 3.2
+            req = urllib.request.Request('https://r.jina.ai/' + url,
+                headers={'X-No-Cache': 'true', 'X-Timeout': '20'})
+            try:
+                with urllib.request.urlopen(req, timeout=35) as response:
+                    return ronnies_performers(response.read().decode('utf-8', 'replace'))
+            except urllib.error.HTTPError as error:
+                if error.code != 429 or attempt:
+                    raise
+                with reader_lock:
+                    reader_next[0] = max(reader_next[0], time.monotonic() + 60)
+        return []
     def one(show):
         names = []
         try:
@@ -495,11 +519,13 @@ def fetch_ronnies():
             pass
         if not names:
             try:
-                with urllib.request.urlopen('https://r.jina.ai/' + show['url'], timeout=45) as response:
-                    content = response.read().decode('utf-8', 'replace')
-                names = ronnies_performers(content)
+                names = read_lineup(show['url'])
             except Exception:
                 pass
+        with reader_lock:
+            checked[0] += 1
+            if checked[0] % 20 == 0:
+                print(f"    Ronnie Scott's: checked {checked[0]}/{len(shows)} line-ups", flush=True)
         if not names:
             failures.append(show['url'])
             return []
