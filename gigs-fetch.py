@@ -74,8 +74,8 @@ class _Redirect308(urllib.request.HTTPRedirectHandler):
 _OPENER = urllib.request.build_opener(_Redirect308)
 
 
-def http_get(url, referer=None, data=None, timeout=30):
-    headers = {'User-Agent': UA}
+def http_get(url, referer=None, data=None, timeout=30, extra_headers=None):
+    headers = {'User-Agent': UA, **(extra_headers or {})}
     if referer:
         headers['Referer'] = referer
     if data is not None:
@@ -487,6 +487,15 @@ def fetch_ronnies():
     if not shows:
         raise RuntimeError("No Ronnie Scott's detail links found")
     artists = load_artists()
+    # Titles only shortlist pages to inspect. The actual match below still
+    # requires a separately published Line-up, never a title-derived name.
+    candidates = {name for name, artist in artists.items()
+                  if not too_thin(artist) and name not in DEAD_ARTISTS | EXCLUDE_ARTISTS}
+    total_shows = len(shows)
+    shows = {url: show for url, show in shows.items()
+             if any(' ' + name + ' ' in ' ' + normalize(show['title']) + ' '
+                    for name in candidates)}
+    print(f"    Ronnie Scott's: {total_shows} listings; checking {len(shows)} possible archive matches", flush=True)
     failures = []
     reader_lock = Lock()
     reader_next = [0.0]
@@ -534,7 +543,11 @@ def fetch_ronnies():
         if not match_event(event, artists):
             return []
         try:
-            dates = ronnies_dates(http_get(base + '?id=' + show['id']))
+            dates = ronnies_dates(http_get(base + '?id=' + show['id'] + '&ajax=1',
+                extra_headers={'X-Requested-With': 'XMLHttpRequest',
+                               'X-Loadmore-Key': 'ajax-drawer'}))
+            if not dates:
+                raise ValueError('No performance dates in booking drawer')
         except Exception:
             failures.append(show['url'])
             return []
@@ -554,8 +567,6 @@ def bluenote_performers(html):
     names = re.findall(r'<div\b[^>]*class=[\'"][^\'"]*\bartist-bio-wrap\b[^\'"]*[\'"][^>]*>'
                        r'\s*<div\b[^>]*>\s*<h3\b[^>]*>(.*?)</h3>', html, re.S | re.I)
     return list(dict.fromkeys(html_text(name) for name in names if html_text(name)))
-
-
 
 
 def _fetch_showtime(page_url, venue, link_host):
