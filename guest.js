@@ -329,9 +329,8 @@
     var gs=groupRecords().filter(function(g){
       return g.da>=cutoffDa&&!g.vy&&hasSpotify(g)&&g.tracks.every(function(t){return (parseInt(t.r)||0)<yr});
     });
-    /* These records only entered the archive in the last three months, so p1 is
-       effectively plays since arrival — the right weighting for this time zone. */
-    gs.sort(function(a,b){return (b.p1-a.p1)||(b.pc-a.pc)||(b.da-a.da)||(b.idx-a.idx)});
+    /* New imports have no listening history yet; put fresh discoveries first. */
+    gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)||(b.p1-a.p1)||(b.pc-a.pc)});
     gs=onePerArtist(gs);
     return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'dug up '+fmtDa(g.da)+(g.p1?' · '+g.p1+' plays':'')});

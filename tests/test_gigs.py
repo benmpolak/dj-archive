@@ -36,4 +36,53 @@ class GigRules(unittest.TestCase):
         saved={'artist':'Kendrick Lamar','how':'lineup','source':'RA','title':'Kendrick night','date':'2099-01-01','performers':['Che Wax']}
         self.assertEqual(g.hydrate_saved_matches({'matches':[saved]},self.artists),[])
 
+class JazzVenueParsers(unittest.TestCase):
+    def test_blue_note_attractions_not_title_or_description(self):
+        html = """<title>Stevie Wonder celebration</title><h1>Stevie Wonder</h1>
+        <div class='col-7 artist-bio-wrap '><div class='inner'>
+        <h3>Che Wax &amp; Friends</h3><p>Inspired by Kendrick Lamar</p></div></div>
+        <div class="artist-bio-wrap"><div><h3>Groove Collective</h3></div></div>"""
+        self.assertEqual(g.bluenote_performers(html), ['Che Wax & Friends', 'Groove Collective'])
+        self.assertEqual(g.bluenote_performers('<h1>Kendrick Lamar</h1>'), [])
+
+    def test_ronnies_html_lineup_excludes_related_artist(self):
+        html = """<h1>Music of Kendrick Lamar</h1><div>
+        <h3 class="performance-info__heading">Line-up</h3>
+        <p>CHE WAX – decks<br>I. JORDAN – keyboards</p></div>
+        <h2>Related shows</h2><p>KENDRICK LAMAR – vocals</p>"""
+        self.assertEqual(g.ronnies_performers(html), ['CHE WAX', 'I. JORDAN'])
+
+    def test_ronnies_reader_lineup_stops_at_end_of_section(self):
+        markdown = """# Tribute to Kendrick Lamar
+### Line-up
+
+CHE WAX – decks
+I. JORDAN – keyboards
+
+Times and Tickets
+
+KENDRICK LAMAR – mentioned in the review
+"""
+        self.assertEqual(g.ronnies_performers(markdown), ['CHE WAX', 'I. JORDAN'])
+        self.assertEqual(g.ronnies_performers('Title: Just a moment...\n403 Forbidden'), [])
+
+    def test_ronnies_exact_dates_and_first_show_start(self):
+        blocks = []
+        for day, start in [('Wednesday 16th September, 2026', '21:30'),
+                           ('Wednesday 16th September, 2026', '18:30'),
+                           ('Wednesday 7th October, 2026', '19:00')]:
+            blocks.append(f"""<div id="x" class="performance-option has-standard">
+            <h2 class="performance-option__heading">{day}<span>17:30</span></h2>
+            <h3>Doors Open</h3><p>17:30</p><h3>Show Starts</h3><p>{start}</p></div>""")
+        self.assertEqual(g.ronnies_dates(''.join(blocks)),
+                         {'2026-09-16': '18:30', '2026-10-07': '19:00'})
+        self.assertEqual(g.ronnies_dates('Wed 16 Sept - Wed 7 Oct 2026'), {})
+
+    def test_ronnies_preserves_real_url_and_booking_id(self):
+        html = """<div class="listing"><h2 class="listing__title">A Quartet &amp; Guests</h2>
+        <button id="id-1234">Book Now</button>
+        <a href="https://www.ronniescotts.co.uk/find-a-show/different-slug">Find out more</a></div>"""
+        self.assertEqual(g.ronnies_listings(html), [{'title':'A Quartet & Guests', 'id':'1234',
+            'url':'https://www.ronniescotts.co.uk/find-a-show/different-slug'}])
+
 if __name__=='__main__':unittest.main()

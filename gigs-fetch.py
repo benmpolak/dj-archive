@@ -7,8 +7,7 @@ Sources:
     Eventim Apollo, Spiritland King's Cross, The O2 Arena (site scrapes)
   - AMG/Live Nation internal API (O2 Academy Brixton, Shepherd's Bush Empire,
     Forum Kentish Town, Islington Academies)
-  - Ronnie Scott's via the r.jina.ai reader service (their site doesn't serve
-    plain fetches; the reader renders it)
+  - Ronnie Scott's official line-ups and performance dates (reader fallback)
   - Blue Note London via Yoast tm_events sitemap + event detail pages
   - Ticketmaster Discovery API IF env TM_API_KEY is set (optional extra)
 Gaps (checked 2026-07-20): Union Chapel (JS-only); Space Talk & One Eighty One
@@ -22,6 +21,7 @@ first_seen per show persists across runs via gigs-data.json -> "Just announced".
 Usage: python3 gigs-fetch.py [--days 365] [--out gigs.html]
 """
 import argparse, json, os, re, sys, time, unicodedata, urllib.request
+from html import unescape
 from pathlib import Path
 from urllib.parse import quote
 from concurrent.futures import ThreadPoolExecutor
@@ -30,7 +30,7 @@ from collections import defaultdict
 
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126.0 Safari/537.36")
-HERE = __file__.rsplit('/', 1)[0]
+HERE = str(Path(__file__).resolve().parent)
 TODAY = date.today()
 
 MONTHS = {m.lower(): i + 1 for i, m in enumerate(
@@ -409,64 +409,127 @@ def fetch_barbican():
     return events
 
 
-RONNIE_DATE_RE = re.compile(
-    r'^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+(\d{1,2})'
-    r'(?:\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*)?'
-    r'(?:\s+(20\d\d))?\s*(?:-|–|$)')
+def html_text(value):
+    return re.sub(r'\s+', ' ', unescape(re.sub(r'<[^>]+>', ' ', value))).strip()
+
+
+def ronnies_listings(html):
+    """Actual detail links and booking IDs, never guessed title slugs."""
+    shows = {}
+    for block in html.split('<div class="listing">')[1:]:
+        link = re.search(r'href="(https://www\.ronniescotts\.co\.uk/find-a-show/[^"?]+)"', block)
+        title = re.search(r'<h2 class="listing__title">(.*?)</h2>', block, re.S)
+        ident = re.search(r'<button[^>]*id="id-(\d+)"', block)
+        if link and title and ident:
+            url = unescape(link.group(1))
+            shows[url] = {'url': url, 'title': html_text(title.group(1)), 'id': ident.group(1)}
+    return list(shows.values())
+
+
+def ronnies_performers(content):
+    """Names in the Line-up block only; exclude prose and related shows."""
+    section = re.search(r'<h3\b[^>]*>\s*Line-up\s*</h3>(.*?)</div>', content, re.S | re.I)
+    if section:
+        text = re.sub(r'<(?:br\s*/?|/p)>', '\n', section.group(1), flags=re.I)
+        text = unescape(re.sub(r'<[^>]+>', '', text))
+    else:
+        section = re.search(r'^#{1,6}\s+Line-up\s*\n(.*?)(?=\nTimes and Tickets|\n#{1,6}\s|\Z)',
+                            content, re.S | re.M | re.I)
+        if not section:
+            return []
+        text = section.group(1)
+    names = []
+    for line in text.splitlines():
+        line = re.sub(r'\[([^]]+)\]\([^)]*\)', r'\1', line).strip(' *\t')
+        match = re.match(r'^(.+?)\s+[–—-]\s+\S', line)
+        if match:
+            name = match.group(1).strip(' *')
+            if name and name not in names:
+                names.append(name)
+    return names
+
+
+def ronnies_dates(html):
+    """Exact performance dates; a residency's range is not a daily run."""
+    dates = {}
+    for block in re.split(r'<div\b[^>]*class="performance-option\s', html)[1:]:
+        heading = re.search(r'<h2 class="performance-option__heading">(.*?)</h2>', block, re.S)
+        if not heading:
+            continue
+        dm = re.search(r'(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+),?\s+(20\d\d)',
+                       html_text(heading.group(1)))
+        if not dm or dm.group(2).lower()[:3] not in MONTHS:
+            continue
+        try:
+            day = date(int(dm.group(3)), MONTHS[dm.group(2).lower()[:3]], int(dm.group(1)))
+        except ValueError:
+            continue
+        tm = re.search(r'<h3[^>]*>Show Starts</h3>\s*<p[^>]*>(\d{2}:\d{2})</p>', block)
+        start = tm.group(1) if tm else ''
+        key = str(day)
+        if key not in dates or (start and (not dates[key] or start < dates[key])):
+            dates[key] = start
+    return dates
 
 
 def fetch_ronnies():
-    """Ronnie Scott's find-a-show, rendered through the r.jina.ai reader service
-    (their site doesn't serve plain fetches). Markdown pattern per show:
-    a date line ("Tue 21 Jul 2026" / "Wed 22 - Wed 29 Jul 2026"), then
-    "## Title", then a "[Find out more](url)" link."""
-    events, seen = [], set()
-    for page in range(1, 16):
+    base = 'https://www.ronniescotts.co.uk/find-a-show'
+    first = http_get(base)
+    shows = {s['url']: s for s in ronnies_listings(first)}
+    pages = re.search(r'totalPages:\s*(\d+)', first)
+    count = min(int(pages.group(1)), 60) if pages else 1
+    def listing(page):
+        return ronnies_listings(http_get(f'{base}?page={page}'))
+    with ThreadPoolExecutor(4) as pool:
+        for batch in pool.map(listing, range(2, count + 1)):
+            shows.update((s['url'], s) for s in batch)
+    if not shows:
+        raise RuntimeError("No Ronnie Scott's detail links found")
+    artists = load_artists()
+    failures = []
+    def one(show):
+        names = []
         try:
-            md = http_get(f'https://r.jina.ai/https://www.ronniescotts.co.uk/find-a-show?page={page}',
-                          timeout=60)
+            names = ronnies_performers(http_get(show['url'], timeout=15))
         except Exception:
-            break
-        pend_date, added = None, 0
-        for line in md.splitlines():
-            line = line.strip()
-            dm = RONNIE_DATE_RE.match(line)
-            if dm:
-                day = int(dm.group(1))
-                mon = dm.group(2)
-                yr = dm.group(3)
-                if not mon:  # "Wed 22 - Wed 29 Jul 2026": month/year only at range end
-                    tail = re.search(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(20\d\d)', line)
-                    if tail:
-                        mon, yr = tail.group(1), tail.group(2)
-                if mon:
-                    if yr:
-                        try:
-                            pend_date = date(int(yr), MONTHS[mon.lower()[:3]], day)
-                        except ValueError:
-                            pend_date = None
-                    else:
-                        pend_date = infer_year(day, MONTHS[mon.lower()[:3]])
-                continue
-            if line.startswith('## ') and pend_date:
-                title = line[3:].strip()
-                slug = re.sub(r'[^a-z0-9]+', '-', title.lower().replace("'", '').replace('\u2019', '')).strip('-')
-                if (title, str(pend_date)) not in seen:
-                    seen.add((title, str(pend_date)))
-                    events.append({'date': str(pend_date), 'title': title,
-                                   'venue': "Ronnie Scott's",
-                                   'url': f'https://www.ronniescotts.co.uk/find-a-show/{slug}',
-                                   'names': [title], 'start': '',
-                                   'source': 'RonnieScotts', 'hint': 'gig'})
-                    added += 1
-                continue
-            lm = re.search(r'\[Find out more\]\((https://www\.ronniescotts\.co\.uk[^)]+)\)', line)
-            if lm and events:
-                events[-1]['url'] = lm.group(1)
-        if not added:
-            break
-        time.sleep(2)
+            pass
+        if not names:
+            try:
+                with urllib.request.urlopen('https://r.jina.ai/' + show['url'], timeout=45) as response:
+                    content = response.read().decode('utf-8', 'replace')
+                names = ronnies_performers(content)
+            except Exception:
+                pass
+        if not names:
+            failures.append(show['url'])
+            return []
+        event = {'title': show['title'], 'venue': "Ronnie Scott's", 'url': show['url'],
+                 'names': names, 'lineup_verified': True, 'source': 'RonnieScotts', 'hint': 'gig'}
+        if not match_event(event, artists):
+            return []
+        try:
+            dates = ronnies_dates(http_get(base + '?id=' + show['id']))
+        except Exception:
+            failures.append(show['url'])
+            return []
+        return [dict(event, date=d, start=start) for d, start in sorted(dates.items())]
+    events = []
+    with ThreadPoolExecutor(4) as pool:
+        for batch in pool.map(one, shows.values()):
+            events.extend(batch)
+    print(f"    Ronnie Scott's: {len(shows)} show pages; {len(failures)} without accessible line-up/dates")
+    if not events:
+        raise RuntimeError("Ronnie Scott's returned no verified performances")
     return events
+
+
+def bluenote_performers(html):
+    """Ticketmaster attraction headings, distinct from the event/page title."""
+    names = re.findall(r'<div\b[^>]*class=[\'"][^\'"]*\bartist-bio-wrap\b[^\'"]*[\'"][^>]*>'
+                       r'\s*<div\b[^>]*>\s*<h3\b[^>]*>(.*?)</h3>', html, re.S | re.I)
+    return list(dict.fromkeys(html_text(name) for name in names if html_text(name)))
+
+
 
 
 def _fetch_showtime(page_url, venue, link_host):
@@ -611,6 +674,9 @@ def fetch_bluenote():
             return []
         title = re.sub(r'&#?\w+;', lambda m: {'&amp;': '&', '&#039;': "'",
                        '&#8217;': '’'}.get(m.group(0), ' '), tm.group(1)).strip()
+        names = bluenote_performers(h)
+        if not names:
+            return []
         dates = {f'{yyyy}-{mm}-{dd}' for dd, mm, yyyy in re.findall(
             r'ticketmaster\.[a-z.]+/[a-z0-9-]*?-(\d{2})-(\d{2})-(\d{4})/event/', h)}
         if not dates:
@@ -628,7 +694,7 @@ def fetch_bluenote():
             hh = int(st.group(1)) % 12 + (12 if st.group(3) == 'PM' else 0)
             start = f'{hh:02d}:{st.group(2)}'
         return [{'date': d, 'title': title, 'venue': 'Blue Note London', 'url': u,
-                 'names': [title], 'start': start,
+                 'names': names, 'lineup_verified': True, 'start': start,
                  'source': 'BlueNote', 'hint': 'gig'} for d in sorted(dates)]
 
     events, seen = [], set()
@@ -1235,8 +1301,14 @@ def hydrate_saved_matches(payload, artists):
     return rebuilt
 
 
-def save_matches(matches, generated, n_events):
+def save_matches(matches, generated, n_events, source_counts=None):
+    if source_counts is None:
+        try:
+            source_counts = json.loads(Path(HERE, 'gigs-data.json').read_text()).get('source_counts', {})
+        except (OSError, ValueError):
+            source_counts = {}
     payload = {'generated': generated, 'events': n_events, 'matching_rule': 'explicit-performers-v1',
+               'source_counts': source_counts,
                'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url', 'source',
                                               'how', 'score', 'etype', 'first_seen')},
                             'performers': m['performers'], 'artist': m['artist']['name'],
@@ -1245,6 +1317,14 @@ def save_matches(matches, generated, n_events):
 
 
 def existing_sources_note():
+    try:
+        counts = json.loads(Path(HERE, 'gigs-data.json').read_text()).get('source_counts', {})
+        if counts:
+            return ('Sources: ' + ', '.join(name for name, count in counts.items() if count) +
+                    '. Only explicitly listed performers qualify. Title mentions, cancelled shows '
+                    'and tribute nights are excluded.')
+    except (OSError, ValueError):
+        pass
     return ('Sources: RA, KOKO, EartH, Jazz Cafe, Roundhouse, Ally Pally, '
             'Barbican, AMG/Live Nation, Apollo, Spiritland, Blue Note London, '
             'Ronnie Scott\'s, '
@@ -1311,6 +1391,11 @@ def main():
         except Exception as e:
             print(f'  {label} FAILED: {e}', file=sys.stderr)
             src_counts[label] = 0
+
+    missing_jazz = [name for name in ('Blue Note', "Ronnie Scott's") if not src_counts.get(name)]
+    if missing_jazz:
+        sys.exit('Jazz source failed: ' + ', '.join(missing_jazz) +
+                 '. Keeping the existing gig files for review.')
 
     # hand-added shows (e.g. Instagram-only listening bars, swept manually):
     # gigs-extra.json = [{"date","title","venue","url","names":[...]}]
@@ -1380,21 +1465,9 @@ def main():
     for m in matches:
         m['score'] += 5 * len(m['co'])
 
-    # Ronnie's URLs are slug-guesses — validate the few matched ones via the
-    # proxy and fall back to the listings page when the guess 404s
-    for m in matches:
-        if m['source'] != 'RonnieScotts' or m['url'].endswith('/find-a-show'):
-            continue
-        try:
-            head = http_get('https://r.jina.ai/' + m['url'], timeout=60)[:400]
-            if 'Page not found' in head:
-                m['url'] = 'https://www.ronniescotts.co.uk/find-a-show'
-        except Exception:
-            pass
-        time.sleep(1.5)
     print(f'{len(events)} events in window -> {len(matches)} matched shows')
 
-    save_matches(matches, str(TODAY), len(events))
+    save_matches(matches, str(TODAY), len(events), src_counts)
 
     got = [k for k, v in src_counts.items() if v]
     note = ('Sources: ' + ', '.join(got) +

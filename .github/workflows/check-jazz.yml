@@ -1,0 +1,37 @@
+name: Check jazz feeds
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check parsers
+        run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Fetch both jazz venues
+        run: |
+          python -u - <<'PY'
+          import importlib.util, json, pathlib
+          from concurrent.futures import ThreadPoolExecutor
+          spec = importlib.util.spec_from_file_location('gigs', pathlib.Path('gigs-fetch.py').resolve())
+          g = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(g)
+          def run(pair):
+              source, fn = pair
+              events = fn()
+              pathlib.Path(source + '-events.json').write_text(json.dumps(events))
+              print(source, len(events), 'events', flush=True)
+          with ThreadPoolExecutor(2) as pool:
+              list(pool.map(run, [('bluenote', g.fetch_bluenote), ('ronnies', g.fetch_ronnies)]))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jazz-events
+          path: '*-events.json'
