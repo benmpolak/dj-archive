@@ -1,20 +1,20 @@
 {
- "generated": "2026-09-16",
- "events": 3092,
+ "generated": "2026-09-17",
+ "events": 3060,
  "matching_rule": "explicit-performers-v1",
  "source_counts": {
-  "RA": 2029,
+  "RA": 2076,
   "KOKO": 76,
-  "EartH": 69,
+  "EartH": 0,
   "Jazz Cafe": 189,
-  "Roundhouse": 14,
+  "Roundhouse": 12,
   "Ally Pally": 74,
-  "Barbican": 62,
-  "AMG/Live Nation": 336,
+  "Barbican": 61,
+  "AMG/Live Nation": 335,
   "Apollo": 83,
-  "Spiritland": 11,
+  "Spiritland": 0,
   "Blue Note": 74,
-  "Ronnie Scott's": 55,
+  "Ronnie Scott's": 54,
   "The O2": 93,
   "OVO Arena": 12,
   "Wembley Stadium": 11,
@@ -22,22 +22,6 @@
   "Ticketmaster": 0
  },
  "matches": [
-  {
-   "date": "2026-09-16",
-   "title": "Mind, Body and Bass",
-   "venue": "The Halley Space",
-   "url": "https://ra.co/events/2534168",
-   "source": "RA",
-   "how": "lineup",
-   "score": 66.6,
-   "etype": "dj",
-   "first_seen": "2026-09-10",
-   "performers": [
-    "ZENA"
-   ],
-   "artist": "ZENA",
-   "co": []
-  },
   {
    "date": "2026-09-17",
    "title": "COME UNITY: Quantic, Jamz Supernova, Florentino, Bonita, Slick N Bobby, Bushbby  + +",
@@ -276,19 +260,19 @@
   },
   {
    "date": "2026-09-19",
-   "title": "Discolypso 10 Year Anniversary [Day + Night] - London",
+   "title": "Discolypso with Todd Terje, Idjut Boys, Ray Mang, Dombrance",
    "venue": "Loft Studios",
    "url": "https://ra.co/events/2447540",
    "source": "RA",
    "how": "lineup",
-   "score": 40.4,
+   "score": 45.4,
    "etype": "day",
    "first_seen": "2000-01-01",
    "performers": [
     "Todd Terje",
     "Idjut Boys",
     "Dombrance",
-    "Flying Mojito Bros",
+    "Ray Mang",
     "Isaac Ferry",
     "Discolypso Crew",
     "Luigi Sambuy",
@@ -296,7 +280,9 @@
     "Will Kayll"
    ],
    "artist": "Todd Terje",
-   "co": []
+   "co": [
+    "Ray Mang"
+   ]
   },
   {
    "date": "2026-09-19",
@@ -724,7 +710,7 @@
   },
   {
    "date": "2026-09-27",
-   "title": "perspectives\u2022",
+   "title": "perspectives\u2022 with temple rat (live), forest, ena b. (live), alicia and annx",
    "venue": "Club Cheek",
    "url": "https://ra.co/events/2491246",
    "source": "RA",
@@ -1017,28 +1003,6 @@
   },
   {
    "date": "2026-10-10",
-   "title": "Faith's Three Room Special",
-   "venue": "Omeara",
-   "url": "https://ra.co/events/2454353",
-   "source": "RA",
-   "how": "lineup",
-   "score": 84.4,
-   "etype": "day",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Radio Slave",
-    "DJ Nature",
-    "Terry Farley",
-    "Logan Fisher",
-    "Stuart Patterson",
-    "LEV (UK)",
-    "Venus Flytraxx"
-   ],
-   "artist": "DJ Nature",
-   "co": []
-  },
-  {
-   "date": "2026-10-10",
    "title": "Neighbourhood - Andy Martin, Benny Rodrigues, D-Leria, Decoder, Gonno, OK Williams, Shy One\u2026",
    "venue": "FOLD",
    "url": "https://ra.co/events/2426235",
@@ -1068,7 +1032,29 @@
   },
   {
    "date": "2026-10-10",
-   "title": "Young Marco + Elkka play all the hits at Village Underground",
+   "title": "Faith's Three Room Special",
+   "venue": "Omeara",
+   "url": "https://ra.co/events/2454353",
+   "source": "RA",
+   "how": "lineup",
+   "score": 84.4,
+   "etype": "day",
+   "first_seen": "2000-01-01",
+   "performers": [
+    "Radio Slave",
+    "DJ Nature",
+    "Terry Farley",
+    "Logan Fisher",
+    "Stuart Patterson",
+    "LEV (UK)",
+    "Venus Flytraxx"
+   ],
+   "artist": "DJ Nature",
+   "co": []
+  },
+  {
+   "date": "2026-10-10",
+   "title": "Young Marco & Elkka - Village Underground",
    "venue": "Village Underground",
    "url": "https://ra.co/events/2503828",
    "source": "RA",
@@ -1212,7 +1198,8 @@
    "etype": "dj",
    "first_seen": "2026-09-16",
    "performers": [
-    "Dimitri From Paris"
+    "Dimitri From Paris",
+    "Nualah"
    ],
    "artist": "Dimitri From Paris",
    "co": []
@@ -1504,22 +1491,6 @@
   },
   {
    "date": "2026-10-24",
-   "title": "Emma-Jean Thackray & Lagoon Lurve - Movementt",
-   "venue": "The Carpet Shop",
-   "url": "https://ra.co/events/2522023",
-   "source": "RA",
-   "how": "lineup",
-   "score": 84.9,
-   "etype": "dj",
-   "first_seen": "2026-08-27",
-   "performers": [
-    "Emma-Jean Thackray"
-   ],
-   "artist": "Emma-Jean Thackray",
-   "co": []
-  },
-  {
-   "date": "2026-10-24",
    "title": "Klangkarussell (360 DJ Set)",
    "venue": "UNLOCKED",
    "url": "https://ra.co/events/2538006",
@@ -1532,6 +1503,22 @@
     "Klangkarussell"
    ],
    "artist": "Klangkarussell",
+   "co": []
+  },
+  {
+   "date": "2026-10-24",
+   "title": "Emma-Jean Thackray & Lagoon Lurve - Movementt",
+   "venue": "The Carpet Shop",
+   "url": "https://ra.co/events/2522023",
+   "source": "RA",
+   "how": "lineup",
+   "score": 84.9,
+   "etype": "dj",
+   "first_seen": "2026-08-27",
+   "performers": [
+    "Emma-Jean Thackray"
+   ],
+   "artist": "Emma-Jean Thackray",
    "co": []
   },
   {
@@ -1588,7 +1575,7 @@
   },
   {
    "date": "2026-10-30",
-   "title": "Close Encounters of the Dub Kind (Halloween Rave): Tim Reaper, Jay Carder + DJ Cosworth",
+   "title": "Tim Reaper, Jay Carder + DJ Cosworth - Halloween Rave",
    "venue": "Gaffe",
    "url": "https://ra.co/events/2522737",
    "source": "RA",
@@ -1955,22 +1942,6 @@
   },
   {
    "date": "2026-11-07",
-   "title": "Phonox: George FitzGerald (All Night Long)",
-   "venue": "Phonox",
-   "url": "https://ra.co/events/2527604",
-   "source": "RA",
-   "how": "lineup",
-   "score": 15.2,
-   "etype": "dj",
-   "first_seen": "2026-09-03",
-   "performers": [
-    "George FitzGerald"
-   ],
-   "artist": "George FitzGerald",
-   "co": []
-  },
-  {
-   "date": "2026-11-07",
    "title": "Fever 105: Breakbot, Alexander Robotnick, System Olympia, Theon Bower, Metroplane + more",
    "venue": "Colour Factory",
    "url": "https://ra.co/events/2499873",
@@ -1993,6 +1964,22 @@
    ]
   },
   {
+   "date": "2026-11-07",
+   "title": "Phonox: George FitzGerald (All Night Long)",
+   "venue": "Phonox",
+   "url": "https://ra.co/events/2527604",
+   "source": "RA",
+   "how": "lineup",
+   "score": 15.2,
+   "etype": "dj",
+   "first_seen": "2026-09-03",
+   "performers": [
+    "George FitzGerald"
+   ],
+   "artist": "George FitzGerald",
+   "co": []
+  },
+  {
    "date": "2026-11-12",
    "title": "Gold Panda",
    "venue": "ICA",
@@ -2007,6 +1994,27 @@
    ],
    "artist": "Gold Panda",
    "co": []
+  },
+  {
+   "date": "2026-11-13",
+   "title": "4by4: DJ EZ, Todd Edwards, MJ Cole, Matt Jam Lamont",
+   "venue": "Electric Brixton",
+   "url": "https://ra.co/events/2518475",
+   "source": "RA",
+   "how": "lineup",
+   "score": 25.4,
+   "etype": "dj",
+   "first_seen": "2026-09-17",
+   "performers": [
+    "DJ EZ",
+    "Todd Edwards",
+    "MJ Cole",
+    "Matt Jam Lamont"
+   ],
+   "artist": "MJ Cole",
+   "co": [
+    "Todd Edwards"
+   ]
   },
   {
    "date": "2026-11-13",
@@ -2083,6 +2091,25 @@
   },
   {
    "date": "2026-11-14",
+   "title": "15 Years of Rhythm Section: Bradley Zero, Jorg Kunning (Live), Scarlett O'Malley + more",
+   "venue": "Palais",
+   "url": "https://ra.co/events/2537753",
+   "source": "RA",
+   "how": "lineup",
+   "score": 55.2,
+   "etype": "gig",
+   "first_seen": "2026-09-16",
+   "performers": [
+    "Bradley Zero",
+    "Jorg Kuning",
+    "Scarlett O'Malley",
+    "Z Lovecraft"
+   ],
+   "artist": "Scarlett O'Malley",
+   "co": []
+  },
+  {
+   "date": "2026-11-14",
    "title": "Girls of the Internet (Live)",
    "venue": "Club Cheek",
    "url": "https://ra.co/events/2507780",
@@ -2114,25 +2141,6 @@
     "Darwin"
    ],
    "artist": "Tim Reaper",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "15 Years of Rhythm Section: Bradley Zero, Jorg Kunning (Live), Scarlett O'Malley + more",
-   "venue": "Palais",
-   "url": "https://ra.co/events/2537753",
-   "source": "RA",
-   "how": "lineup",
-   "score": 55.2,
-   "etype": "gig",
-   "first_seen": "2026-09-16",
-   "performers": [
-    "Bradley Zero",
-    "Jorg Kuning",
-    "Scarlett O'Malley",
-    "Z Lovecraft"
-   ],
-   "artist": "Scarlett O'Malley",
    "co": []
   },
   {
@@ -2427,24 +2435,6 @@
     "Joseph Capriati"
    ],
    "artist": "Joseph Capriati",
-   "co": []
-  },
-  {
-   "date": "2026-12-31",
-   "title": "Percolate New Years Eve Extravaganza",
-   "venue": "Outernet Live",
-   "url": "https://ra.co/events/2535174",
-   "source": "RA",
-   "how": "lineup",
-   "score": 128.5,
-   "etype": "dj",
-   "first_seen": "2026-09-16",
-   "performers": [
-    "Crazy P",
-    "Lucy Lennox",
-    "Saturn Sisters"
-   ],
-   "artist": "Crazy P",
    "co": []
   },
   {
@@ -3632,10 +3622,58 @@
    "co": []
   },
   {
+   "date": "2026-12-18",
+   "title": "Digable Planets",
+   "venue": "Blue Note London",
+   "url": "https://www.bluenotejazz.com/london/tm-event/digable-planets/",
+   "source": "BlueNote",
+   "how": "lineup",
+   "score": 27.0,
+   "etype": "gig",
+   "first_seen": "2000-01-01",
+   "performers": [
+    "Digable Planets"
+   ],
+   "artist": "Digable Planets",
+   "co": []
+  },
+  {
+   "date": "2026-12-19",
+   "title": "Digable Planets",
+   "venue": "Blue Note London",
+   "url": "https://www.bluenotejazz.com/london/tm-event/digable-planets/",
+   "source": "BlueNote",
+   "how": "lineup",
+   "score": 27.0,
+   "etype": "gig",
+   "first_seen": "2000-01-01",
+   "performers": [
+    "Digable Planets"
+   ],
+   "artist": "Digable Planets",
+   "co": []
+  },
+  {
+   "date": "2026-09-25",
+   "title": "Sinead Harnett",
+   "venue": "Blue Note London",
+   "url": "https://www.bluenotejazz.com/london/tm-event/sinead-harnett/",
+   "source": "BlueNote",
+   "how": "lineup",
+   "score": 14.4,
+   "etype": "gig",
+   "first_seen": "2000-01-01",
+   "performers": [
+    "Sinead Harnett"
+   ],
+   "artist": "Sin\u00e9ad Harnett",
+   "co": []
+  },
+  {
    "date": "2026-09-27",
    "title": "Yussef Dayes",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/yussef-dayes/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/yussef-dayes-2/",
    "source": "BlueNote",
    "how": "lineup",
    "score": 46.9,
@@ -3667,7 +3705,7 @@
    "date": "2026-10-19",
    "title": "Shabaka",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/shabaka/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/shabaka-2/",
    "source": "BlueNote",
    "how": "lineup",
    "score": 56.7,
@@ -3683,7 +3721,7 @@
    "date": "2026-10-20",
    "title": "Shabaka",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/shabaka/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/shabaka-2/",
    "source": "BlueNote",
    "how": "lineup",
    "score": 56.7,
@@ -3699,7 +3737,7 @@
    "date": "2026-10-24",
    "title": "Keyon Harrold",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/keyon-harrold/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/keyon-harrold-2/",
    "source": "BlueNote",
    "how": "lineup",
    "score": 15.1,
@@ -3715,7 +3753,7 @@
    "date": "2026-10-25",
    "title": "Keyon Harrold",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/keyon-harrold/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/keyon-harrold-2/",
    "source": "BlueNote",
    "how": "lineup",
    "score": 15.1,
@@ -3811,7 +3849,7 @@
    "date": "2026-12-03",
    "title": "New Regency Orchestra",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/new-regency-orchestra/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/new-regency-orchestra-2/",
    "source": "BlueNote",
    "how": "lineup",
    "score": 44.0,
@@ -3821,54 +3859,6 @@
     "New Regency Orchestra"
    ],
    "artist": "New Regency Orchestra",
-   "co": []
-  },
-  {
-   "date": "2026-12-18",
-   "title": "Digable Planets",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/digable-planets-2/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 27.0,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Digable Planets"
-   ],
-   "artist": "Digable Planets",
-   "co": []
-  },
-  {
-   "date": "2026-12-19",
-   "title": "Digable Planets",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/digable-planets-2/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 27.0,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Digable Planets"
-   ],
-   "artist": "Digable Planets",
-   "co": []
-  },
-  {
-   "date": "2026-09-25",
-   "title": "Sinead Harnett",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/sinead-harnett/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 14.4,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Sinead Harnett"
-   ],
-   "artist": "Sin\u00e9ad Harnett",
    "co": []
   },
   {
@@ -3996,7 +3986,7 @@
    "performers": [
     "REUBEN JAMES",
     "FERG ISLAND",
-    "ISAAC KIZITO"
+    "DEXTER HERCULES"
    ],
    "artist": "Reuben James",
    "co": []
@@ -4431,11 +4421,12 @@
    "url": "https://www.ronniescotts.co.uk/find-a-show/greg-foat",
    "source": "RonnieScotts",
    "how": "lineup",
-   "score": 265.3,
+   "score": 270.3,
    "etype": "gig",
    "first_seen": "2000-01-01",
    "performers": [
     "GREG FOAT",
+    "SOKRATIS VOTSKOS",
     "DANIEL VILD\u00d3SOLA",
     "JIHAD DARWISH",
     "BEN GROSE",
@@ -4443,6 +4434,7 @@
    ],
    "artist": "Greg Foat",
    "co": [
+    "Sokratis Votskos",
     "Jihad Darwish"
    ]
   },
@@ -4672,28 +4664,6 @@
    ],
    "artist": "Louis Cole",
    "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Chip Wickham",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.ronniescotts.co.uk/find-a-show/chip-wickham",
-   "source": "RonnieScotts",
-   "how": "lineup",
-   "score": 131.1,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "CHIP WICKHAM",
-    "AARON WOOD",
-    "FINN REES",
-    "SIMON HOUGHTON",
-    "RICCARDO CHIABERTA"
-   ],
-   "artist": "Finn Rees",
-   "co": [
-    "Chip Wickham"
-   ]
   },
   {
    "date": "2026-11-16",
