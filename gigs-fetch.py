@@ -1140,6 +1140,7 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 <button class="fc fc-range" data-range="30" type="button">Next 30 days</button>
 <button class="fc" id="fsaved" type="button">Saved</button>
 </div>
+<div class="f-line"><span class="f-label">Month</span>{month_chips}</div>
 <div class="filter-more" id="filter-more">
 <div class="f-line"><span class="f-label">Venue</span><label class="visually-hidden" for="venue">Venue</label><select id="venue">{venue_opts}</select></div>
 <div class="f-line"><span class="f-label">Type</span>
@@ -1148,7 +1149,6 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 <button class="fc fc-t" data-t="day" type="button">Day parties</button>
 <button class="fc" id="fnew" type="button">New this week</button>
 </div>
-<div class="f-line"><span class="f-label">Month</span>{month_chips}</div>
 <div class="f-line"><span class="f-label">Crate</span>{crate_chips}</div>
 </div>
 </div></div>
@@ -1180,9 +1180,9 @@ function toggle(btn,group,key,val){{
   apply();
 }}
 on('.fc-t','click',function(){{toggle(this,'.fc-t','t',this.dataset.t)}});
-on('.fc-mo','click',function(){{toggle(this,'.fc-mo','mo',this.dataset.mo)}});
+on('.fc-mo','click',function(){{F.range=null;document.querySelectorAll('.fc-range').forEach(function(b){{b.classList.remove('on')}});toggle(this,'.fc-mo','mo',this.dataset.mo)}});
 on('.fc-c','click',function(){{toggle(this,'.fc-c','c',this.dataset.c)}});
-on('.fc-range','click',function(){{toggle(this,'.fc-range','range',this.dataset.range)}});
+on('.fc-range','click',function(){{F.mo=null;document.querySelectorAll('.fc-mo').forEach(function(b){{b.classList.remove('on')}});toggle(this,'.fc-range','range',this.dataset.range)}});
 document.getElementById('fnew').addEventListener('click',function(){{
   this.classList.toggle('on');F.n=this.classList.contains('on');apply()}});
 document.getElementById('fsaved').addEventListener('click',function(){{
