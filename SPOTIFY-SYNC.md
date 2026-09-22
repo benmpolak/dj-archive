@@ -1,6 +1,6 @@
 # Weekly Spotify import
 
-Ben authorised a weekly direct Spotify import on 22 September 2026. The selected scope is in `spotify-sync.json`: the current calendar month's playlist plus eleven regular playlists. Sunshine dance and Hip Hop were selected as the two additional regulars from the recorded June-September activity. During the first seven days of a month, also check the previous month to catch additions made after its last weekly run. Never automatically include other playlists based only on discovering them in the account.
+Ben authorised a weekly direct Spotify import on 22 September 2026. The selected scope is in `spotify-sync.json`: the current calendar month's playlist plus eleven regular playlists. Sunshine dance and Hip Hop were selected as the two additional regulars from the recorded June-September activity. During the first seven days of a month, also check the previous month to catch additions made after its last weekly run. Never automatically include other playlists based only on discovering them in the account. Regulars are pinned to exact Spotify IDs, so renaming them does not lose the connection; ambiguous monthly names stop for review. Brasil and Hispanic were verified against every Spotify ID in Ben’s 22 September exports, avoiding older lower-case playlists with the same names.
 
 The scheduled Codex task runs on Monday at 08:30 Europe/London in the existing task. This is a local job: the Mac and Codex need to be available for it to execute. It is not a server-side Spotify subscription.
 
