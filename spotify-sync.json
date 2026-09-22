@@ -1,0 +1,25 @@
+{
+  "client_id": "16c7847eda6740e3a02fd2d334bc803a",
+  "redirect_uri": "http://127.0.0.1:8080",
+  "timezone": "Europe/London",
+  "regular_playlists": [
+    "Summer Sounds", "Brasil", "Africa Sounds", "Hispanic",
+    "Brazilian Boogie", "All That Jazz", "Indie", "Older Dance",
+    "Soul & Disco revival", "Sunshine dance", "Hip Hop"
+  ],
+  "monthly_playlist": "current calendar month and year",
+  "playlist_ids": {
+    "Summer Sounds": "6XKcgp8pAy0SZMGapBO5SP",
+    "Brasil": "7zng4W5eYeVBajgMdh0yne",
+    "Africa Sounds": "1tGS5rxap6ixBGpGHHL2LX",
+    "Hispanic": "47AaOdzsX823KiH5CZPpYy",
+    "Brazilian Boogie": "1Qmu1DBfg0ARBRJetVmARi",
+    "All That Jazz": "5j9q6bN16g00857Axt5QMt",
+    "Indie": "1JfDUlIUuQtDAmOK83glMl",
+    "Older Dance": "7kg8KygfvHv1Rb3hQa8F04",
+    "Soul & Disco revival": "6oIny21wbCFmjY4lmgpMNM",
+    "Sunshine dance": "278g6IFFEN7TcmcSSztVdg",
+    "Hip Hop": "1lGeJuNATYlEC2aVkE1scn"
+  },
+  "previous_month_grace_days": 7
+}

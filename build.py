@@ -2,11 +2,11 @@
 """Rebuild source modules and the small shared desk-screen catalogue.
 No fetching, credentials, playlist mutations or deployment.
 """
-import hashlib, importlib.util, json, re
+import argparse, hashlib, importlib.util, json, re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 
-def main():
+def main(catalogue_only=False):
     path = ROOT / 'index.html'
     html = path.read_text()
     start = html.index('const DATA=') + len('const DATA=')
@@ -43,6 +43,9 @@ def main():
                 'catalogueRevision': before[:16], 'shards': sorted(shards), 'lookup': 'tracks-{firstCharacterOfSpotifyId}.json',
                 'gigs': '../gigs-data.json', 'selectionContract': '../music-core.js'}
     (out / 'manifest.json').write_text(json.dumps(manifest, indent=2))
+    if catalogue_only:
+        print(f'Built {len(data):,} unchanged tracks and {len(shards)} catalogue shards; Gig Radar untouched.')
+        return
     spec = importlib.util.spec_from_file_location('gigs', ROOT / 'gigs-fetch.py')
     gigs = importlib.util.module_from_spec(spec);spec.loader.exec_module(gigs)
     payload = json.loads((ROOT / 'gigs-data.json').read_text())
@@ -52,4 +55,7 @@ def main():
         gigs.render(matches, payload['events'], len(artists), gigs.existing_sources_note(), str(ROOT / filename), public=public, generated=payload['generated'])
     print(f'Built {len(data):,} unchanged tracks, {len(matches)} verified gigs and {len(shards)} catalogue shards.')
 
-if __name__ == '__main__': main()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--catalogue-only', action='store_true', help='Rebuild music without refreshing unrelated Gig Radar content')
+    main(parser.parse_args().catalogue_only)
