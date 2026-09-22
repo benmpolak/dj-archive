@@ -1,0 +1,903 @@
+{
+  "files": [
+    "Africa_Sounds.csv",
+    "All_That_Jazz.csv",
+    "Brasil.csv",
+    "Brazilian_Boogie.csv",
+    "Hispanic.csv",
+    "Indie.csv",
+    "Older_Dance.csv",
+    "September_2026.csv",
+    "Soul_&_Disco_revival_.csv",
+    "Summer_Sounds.csv"
+  ],
+  "input_rows": 3785,
+  "unique_spotify_ids": 3607,
+  "tracks_added": 25,
+  "total": 17414,
+  "new_playlist_events": 28,
+  "duplicate_tracks_added": 0,
+  "local_rows": [
+    {
+      "file": "Brasil.csv",
+      "artist": "Gustavo Lima",
+      "title": "Balada Boa"
+    },
+    {
+      "file": "Indie.csv",
+      "artist": "The Morning Benders",
+      "title": "Excuses"
+    },
+    {
+      "file": "Summer_Sounds.csv",
+      "artist": "Avalanches",
+      "title": "Since I Left You"
+    }
+  ],
+  "existing_track_changes": [
+    {
+      "artist": "Triste Janero",
+      "title": "Without Him",
+      "fields": [
+        "n"
+      ]
+    }
+  ],
+  "new_tracks": [
+    {
+      "a": "Edu Lobo",
+      "t": "Casa Forte",
+      "al": "Cantiga De Longe",
+      "r": 1970,
+      "d": 0.367,
+      "e": 0.603,
+      "v": 0.439,
+      "tp": 121.2,
+      "ins": 0.0011,
+      "c": [
+        "Brazilian"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 27,
+      "g": "bossa nova, brazilian jazz, mpb",
+      "sid": "37eiNLEDydiofUTcsXqbLB",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-17T09:21:15Z",
+      "rd": "1970-04-07",
+      "duration": 189333,
+      "playlists": [
+        "Brasil"
+      ],
+      "labels": [
+        "Universal Music Ltda."
+      ]
+    },
+    {
+      "a": "Tim Maia",
+      "t": "Réu Confesso",
+      "al": "Tim Maia 1973",
+      "r": 1973,
+      "d": 0.536,
+      "e": 0.766,
+      "v": 0.758,
+      "tp": 87.9,
+      "ins": 0.0051,
+      "c": [
+        "Brazilian"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 65,
+      "g": "mpb",
+      "sid": "3BpiaGyTIb7VIoAYbvSzTH",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-17T13:57:26Z",
+      "rd": "1973-01-08",
+      "duration": 217604,
+      "playlists": [
+        "Brasil"
+      ],
+      "labels": [
+        "Universal Music Ltda."
+      ]
+    },
+    {
+      "a": "Spanish Harlem Orchestra",
+      "t": "Bailador",
+      "al": "Swing Forever",
+      "r": 2024,
+      "d": 0.617,
+      "e": 0.758,
+      "v": 0.92,
+      "tp": 191.9,
+      "ins": 0.0,
+      "c": [
+        "Afro & World"
+      ],
+      "vb": "",
+      "n": 2,
+      "p": 10,
+      "g": "latin jazz, salsa, cha cha cha, afro-cuban jazz, mambo, timba, son cubano",
+      "sid": "2ygoWzQcjAtxXJoLMoxAqP",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-17T08:56:49Z",
+      "rd": "2024-08-23",
+      "duration": 269800,
+      "playlists": [
+        "Hispanic",
+        "September 2026"
+      ],
+      "labels": [
+        "Ovation Records"
+      ]
+    },
+    {
+      "a": "Ratcliffe",
+      "t": "Grapesoda",
+      "al": "City Dreams EP",
+      "r": 1996,
+      "d": 0.739,
+      "e": 0.919,
+      "v": 0.493,
+      "tp": 125.9,
+      "ins": 0.916,
+      "c": [
+        "House"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 7,
+      "g": "chicago house",
+      "sid": "2o8DMfJMfy4ZHx4fOCKpHF",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:16:10Z",
+      "rd": "1996-06-08",
+      "duration": 298693,
+      "playlists": [
+        "Older Dance"
+      ],
+      "labels": [
+        "Atlantic Jaxx Recordings"
+      ]
+    },
+    {
+      "a": "Loleatta Holloway;Coflo",
+      "t": "Can't Let You Go - Coflo Dub",
+      "al": "Can't Let You Go (Remixes)",
+      "r": 2026,
+      "d": 0.766,
+      "e": 0.873,
+      "v": 0.518,
+      "tp": 127.0,
+      "ins": 0.0,
+      "c": [
+        "Disco & Boogie",
+        "House",
+        "Soul & R&B"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 21,
+      "g": "philly soul, disco, chicago house, post-disco, disco house",
+      "sid": "6Q1RhsXFY6TaDdYqkg1QyU",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-15T23:01:53Z",
+      "rd": "2026-08-21",
+      "duration": 412000,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Vega Records"
+      ]
+    },
+    {
+      "a": "Cípri",
+      "t": "shenlong não existe",
+      "al": "Gueto Esnobe",
+      "r": 2026,
+      "d": 0.595,
+      "e": 0.624,
+      "v": 0.348,
+      "tp": 139.9,
+      "ins": 0.036,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 2,
+      "g": "",
+      "sid": "3YjKz82T6bBt1oNaoZMaF4",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-16T08:24:55Z",
+      "rd": "2026-04-01",
+      "duration": 311063,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "CHINELADA RECORDS"
+      ]
+    },
+    {
+      "a": "João Selva",
+      "t": "Futuro",
+      "al": "Futuro",
+      "r": 2026,
+      "d": 0.782,
+      "e": 0.703,
+      "v": 0.844,
+      "tp": 100.0,
+      "ins": 0.0011,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 29,
+      "g": "",
+      "sid": "7vQ6tfSr7AHWJHMw3YrUUI",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-16T21:07:43Z",
+      "rd": "2026-09-16",
+      "duration": 228000,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Mr Bongo"
+      ]
+    },
+    {
+      "a": "Orchestra Mambo International;Chip Wickham",
+      "t": "Flauta Pa' Ti",
+      "al": "Flauta Pa' Ti",
+      "r": 2026,
+      "d": 0.772,
+      "e": 0.793,
+      "v": 0.774,
+      "tp": 100.0,
+      "ins": 0.897,
+      "c": [
+        "Afro & World",
+        "Jazz"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 19,
+      "g": "latin jazz, mambo, nu jazz, ambient jazz, jazz, soul jazz",
+      "sid": "2PBxhBBYTqrSycStEEZKI2",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-17T14:39:26Z",
+      "rd": "2026-09-15",
+      "duration": 271600,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "LOFT RECORDS"
+      ]
+    },
+    {
+      "a": "GEMINI",
+      "t": "Kalavinka",
+      "al": "GEMINI:zed",
+      "r": 2026,
+      "d": 0.681,
+      "e": 0.516,
+      "v": 0.484,
+      "tp": 114.1,
+      "ins": 0.864,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 4,
+      "g": "",
+      "sid": "1klR3ykVvU15y5EyWBQNVR",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-17T18:51:02Z",
+      "rd": "2026-09-16",
+      "duration": 195263,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "JAZZY SPORT"
+      ]
+    },
+    {
+      "a": "Pu Poo Platter",
+      "t": "地下河 Undercurrent",
+      "al": "地下河 Undercurrent",
+      "r": 2026,
+      "d": 0.471,
+      "e": 0.338,
+      "v": 0.176,
+      "tp": 111.5,
+      "ins": 0.645,
+      "c": [
+        "Indie & Rock"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 29,
+      "g": "chinese indie",
+      "sid": "12x2GKuisLOFLZHUeaIo23",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-18T08:58:59Z",
+      "rd": "2026-02-09",
+      "duration": 393600,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Cashmere Records"
+      ]
+    },
+    {
+      "a": "Coflo;Aya Moor",
+      "t": "Gimme That",
+      "al": "Gimme That EP",
+      "r": 2026,
+      "d": 0.791,
+      "e": 0.624,
+      "v": 0.678,
+      "tp": 123.0,
+      "ins": 0.0169,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 12,
+      "g": "",
+      "sid": "0247KE4JZwqLrzYzE4KdMy",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-18T06:26:11Z",
+      "rd": "2026-09-18",
+      "duration": 236217,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Soul Quest Records"
+      ]
+    },
+    {
+      "a": "Greg Foat",
+      "t": "Shirahama Beach",
+      "al": "everyone",
+      "r": 2026,
+      "d": 0.812,
+      "e": 0.633,
+      "v": 0.643,
+      "tp": 110.6,
+      "ins": 0.802,
+      "c": [
+        "Jazz"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 27,
+      "g": "ambient jazz, nu jazz, experimental jazz",
+      "sid": "0v0JQtKe1T8BF6m6UsVkoq",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-18T06:26:37Z",
+      "rd": "2026-09-18",
+      "duration": 300000,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Blue Crystal Records"
+      ]
+    },
+    {
+      "a": "JIM;Jason Williamson",
+      "t": "CHALET CAFÉ",
+      "al": "The Curious Case Of Existence",
+      "r": 2026,
+      "d": 0.61,
+      "e": 0.69,
+      "v": 0.624,
+      "tp": 100.0,
+      "ins": 0.0015,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 22,
+      "g": "",
+      "sid": "7rMtkPP1XWSpaoQdvyTmCM",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-18T07:07:04Z",
+      "rd": "2026-09-18",
+      "duration": 314192,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Vicious Charm Recordings"
+      ]
+    },
+    {
+      "a": "MATTERS UNKNOWN;Miles Spilsbury",
+      "t": "The Wind and the Forest",
+      "al": "The Wind and the Forest",
+      "r": 2026,
+      "d": 0.217,
+      "e": 0.306,
+      "v": 0.17,
+      "tp": 136.7,
+      "ins": 0.925,
+      "c": [
+        "Jazz"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 8,
+      "g": "indie jazz, nu jazz, ambient jazz, experimental jazz",
+      "sid": "6q20SCF4VHVMNskFSITDPk",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-18T09:03:06Z",
+      "rd": "2026-09-17",
+      "duration": 163525,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Tru Thoughts"
+      ]
+    },
+    {
+      "a": "TEXT",
+      "t": "Still Love You",
+      "al": "Us / Still Love You",
+      "r": 2026,
+      "d": 0.749,
+      "e": 0.949,
+      "v": 0.188,
+      "tp": 125.0,
+      "ins": 0.724,
+      "c": [
+        "Electronic"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 10,
+      "g": "uk garage, breakbeat, bassline",
+      "sid": "46GK8pJDQvIDzvFHcReco6",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-18T11:23:35Z",
+      "rd": "2026-08-14",
+      "duration": 222601,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Well Street Records"
+      ]
+    },
+    {
+      "a": "Jembaa Groove;Tim Lyre;The Cavemen.",
+      "t": "Be A Lover",
+      "al": "Be A Lover",
+      "r": 2026,
+      "d": 0.723,
+      "e": 0.768,
+      "v": 0.88,
+      "tp": 107.0,
+      "ins": 0.0031,
+      "c": [
+        "Afro & World",
+        "Soul & R&B"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 24,
+      "g": "highlife, alté, afro r&b, afro soul, afrobeats, afrobeat",
+      "sid": "7Fn48GDjPljq2faNl54YfJ",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-22T09:30:02Z",
+      "rd": "2026-09-18",
+      "duration": 165986,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Agogo Records"
+      ]
+    },
+    {
+      "a": "Rhode & Brown;Sianza",
+      "t": "Rayo De Luz",
+      "al": "Multitudes",
+      "r": 2026,
+      "d": 0.647,
+      "e": 0.709,
+      "v": 0.828,
+      "tp": 105.0,
+      "ins": 0.408,
+      "c": [
+        "Disco & Boogie",
+        "House"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 18,
+      "g": "lo-fi house, italo disco, disco house, acid house, indie dance",
+      "sid": "2RQgpYi9E5LLNfyTa2w9RO",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:01:41Z",
+      "rd": "2026-09-04",
+      "duration": 259136,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Permanent Vacation"
+      ]
+    },
+    {
+      "a": "Bel Cobain;IZCO",
+      "t": "Mind Iz A Dancer (IZCO Remix)",
+      "al": "Mind Iz A Dancer (IZCO Remix)",
+      "r": 2026,
+      "d": 0.812,
+      "e": 0.528,
+      "v": 0.604,
+      "tp": 124.0,
+      "ins": 0.856,
+      "c": [
+        "Electronic",
+        "House",
+        "Soul & R&B"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 31,
+      "g": "uk r&b, uk garage, uk funky, jungle",
+      "sid": "0ZxdipI3r5I4GP3Pcod2lG",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:26:53Z",
+      "rd": "2026-09-16",
+      "duration": 258025,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Brownswood Recordings"
+      ]
+    },
+    {
+      "a": "Orchestra Mambo International",
+      "t": "Yenyere",
+      "al": "¡Apúntalo!",
+      "r": 2026,
+      "d": 0.76,
+      "e": 0.79,
+      "v": 0.924,
+      "tp": 102.5,
+      "ins": 0.0014,
+      "c": [
+        "Afro & World",
+        "Jazz"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 5,
+      "g": "latin jazz, mambo",
+      "sid": "3GoMmXKjXtzMOIOxokqTbz",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:29:05Z",
+      "rd": "2026-09-18",
+      "duration": 259700,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Loft Recordings"
+      ]
+    },
+    {
+      "a": "JIM",
+      "t": "PLAY OUT TO FADE",
+      "al": "The Curious Case Of Existence",
+      "r": 2026,
+      "d": 0.602,
+      "e": 0.69,
+      "v": 0.903,
+      "tp": 156.0,
+      "ins": 0.412,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 15,
+      "g": "",
+      "sid": "09vpFYy3KiD1v9CXMRBeZJ",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:30:35Z",
+      "rd": "2026-09-18",
+      "duration": 297255,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Vicious Charm Recordings"
+      ]
+    },
+    {
+      "a": "Okonski",
+      "t": "Lafayette Ave - Live at The Jalopy Theatre",
+      "al": "Additions",
+      "r": 2026,
+      "d": 0.619,
+      "e": 0.289,
+      "v": 0.217,
+      "tp": 147.4,
+      "ins": 0.881,
+      "c": [
+        "Jazz"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 28,
+      "g": "ambient jazz",
+      "sid": "1sKjfDSYLKiWnWQ9oEZzUs",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:32:20Z",
+      "rd": "2026-09-18",
+      "duration": 214760,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Colemine Records"
+      ]
+    },
+    {
+      "a": "Cannon Thrower",
+      "t": "Think It Over",
+      "al": "Think It Over",
+      "r": 2026,
+      "d": 0.438,
+      "e": 0.26,
+      "v": 0.197,
+      "tp": 113.4,
+      "ins": 0.0013,
+      "c": [
+        "Uncategorized"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 3,
+      "g": "",
+      "sid": "1XdboUGECxuAp7ruO2LhM3",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:35:41Z",
+      "rd": "2026-09-01",
+      "duration": 271750,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Super Disco Edits"
+      ]
+    },
+    {
+      "a": "Deep Soul Syndicate;Ed Ramsey",
+      "t": "Rhythm World - Original Mix",
+      "al": "Rhythm World",
+      "r": 2026,
+      "d": 0.636,
+      "e": 0.9,
+      "v": 0.685,
+      "tp": 125.0,
+      "ins": 0.417,
+      "c": [
+        "Soul & R&B"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 3,
+      "g": "afro soul",
+      "sid": "79DGreAxWd50T3P4Tjsizb",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-22T10:15:38Z",
+      "rd": "2026-09-18",
+      "duration": 441600,
+      "playlists": [
+        "September 2026"
+      ],
+      "labels": [
+        "Makin Moves"
+      ]
+    },
+    {
+      "a": "Taeko Onuki",
+      "t": "Summer Connection",
+      "al": "SUNSHOWER",
+      "r": 1977,
+      "d": 0.529,
+      "e": 0.83,
+      "v": 0.616,
+      "tp": 105.3,
+      "ins": 0.0001,
+      "c": [
+        "Disco & Boogie",
+        "Soul & R&B"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 46,
+      "g": "city pop, shibuya-kei",
+      "sid": "7jRBeWs7TvE8N8W4tEk3nb",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-21T21:36:14Z",
+      "rd": "1977-07-25",
+      "duration": 270733,
+      "playlists": [
+        "Soul & Disco revival"
+      ],
+      "labels": [
+        "NIPPON CROWN CO., Ltd"
+      ]
+    },
+    {
+      "a": "Tokyo Riddim Band",
+      "t": "Denshi Lenzi",
+      "al": "Denshi Lenzi",
+      "r": 2024,
+      "d": 0.781,
+      "e": 0.419,
+      "v": 0.578,
+      "tp": 128.0,
+      "ins": 0.0002,
+      "c": [
+        "Reggae & Dub"
+      ],
+      "vb": "",
+      "n": 1,
+      "p": 26,
+      "g": "dub, lovers rock",
+      "sid": "6FX0ACgjnoe0JXeFo2ueL8",
+      "vy": 0,
+      "era": "Latest",
+      "tags": [],
+      "did": "",
+      "da": 202609,
+      "addedAt": "2026-09-17T18:51:59Z",
+      "rd": "2024-05-17",
+      "duration": 239817,
+      "playlists": [
+        "Summer Sounds"
+      ],
+      "labels": [
+        "Time Capsule"
+      ]
+    }
+  ],
+  "verification": {
+    "import_idempotent": true,
+    "existing_listening_history_preserved": true,
+    "existing_tracks_preserved": true,
+    "artwork_added": 25,
+    "music_core_tests_passed": 4,
+    "gig_tests_passed": 15,
+    "homepage_new_in_added": [
+      "Okonski - Additions"
+    ],
+    "homepage_unearthed_added": [
+      "Tokyo Riddim Band - Denshi Lenzi",
+      "Taeko Onuki - SUNSHOWER",
+      "Ratcliffe - City Dreams EP",
+      "Spanish Harlem Orchestra - Swing Forever",
+      "Tim Maia - Tim Maia 1973",
+      "Edu Lobo - Cantiga De Longe"
+    ],
+    "other_homepage_shelves_unchanged": true
+  }
+}
