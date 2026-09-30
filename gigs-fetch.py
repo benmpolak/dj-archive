@@ -276,11 +276,13 @@ def fetch_koko():
 
 
 def fetch_earth():
+    """Every EartH URL ends in its DICE event code; DICE's MusicEvent JSON-LD
+    carries the bill (and the real title and year). The slug never names anyone."""
     html = http_get('https://earthackney.co.uk/events/')
-    events, seen = [], set()
+    listings, seen = [], set()
     for m in re.finditer(r'href="(https://earthackney\.co\.uk/events/([a-z0-9-]+)-(\d{1,2})(?:st|nd|rd|th)-'
-                         r'([a-z]{3,4})-earth-london-tickets-[a-z0-9]+/?)"', html):
-        url, slug, day, mon = m.groups()
+                         r'([a-z]{3,4})-earth-london-tickets-([a-z0-9]+)/?)"', html):
+        url, slug, day, mon, code = m.groups()
         if url in seen:
             continue
         seen.add(url)
@@ -288,10 +290,17 @@ def fetch_earth():
         if not d:
             continue
         title = slug.replace('-', ' ').title()
-        events.append({'date': str(d), 'title': title, 'venue': 'EartH',
-                       'url': url, 'names': [title], 'start': '',
-                       'source': 'EartH', 'hint': 'gig'})
-    return events
+        listings.append(({'date': str(d), 'title': title, 'venue': 'EartH',
+                          'url': url, 'names': [], 'start': '',
+                          'source': 'EartH', 'hint': 'gig'}, code))
+
+    def one(item):
+        ev, code = item
+        return dice_verified(ev, fetch_dice('https://dice.fm/event/' + code, bundle=False),
+                             'earth', dice_title=True)
+
+    with ThreadPoolExecutor(8) as ex:
+        return [ev for batch in ex.map(one, listings) for ev in batch]
 
 
 def fetch_jazzcafe():
@@ -369,9 +378,56 @@ def fetch_roundhouse():
     return events
 
 
+def dice_links(html):
+    """DICE ticket links on a venue's event page, not its DICE venue page."""
+    return list(dict.fromkeys(re.findall(r'href="(https://link\.dice\.fm/(?!venue/)[^"]+)"', html)))
+
+
+def dice_shows(html):
+    """DICE MusicEvent JSON-LD: performers come from `performer` only."""
+    shows = []
+    for block in re.findall(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', html, re.S):
+        try:
+            it = json.loads(block)
+        except ValueError:
+            continue
+        if isinstance(it, dict) and 'Event' in str(it.get('@type', '')) and it.get('startDate'):
+            shows.append({'date': it['startDate'][:10], 'start': it['startDate'][11:16],
+                          'title': (it.get('name') or '').strip(),
+                          'names': performer_names(it.get('performer')),
+                          'status': it.get('eventStatus', ''),
+                          'venue': (it.get('location') or {}).get('name', '')})
+    return shows
+
+
+def fetch_dice(url, bundle=True):
+    """Multi-night runs link to a DICE bundle page whose nights are separate
+    /event/ pages — follow those one level only."""
+    try:
+        h = http_get(url)
+    except Exception:
+        return []
+    shows = dice_shows(h)
+    if shows or not bundle:
+        return shows
+    nights = sorted(set(re.findall(r'href="(?:https://dice\.fm)?(/event/[a-z0-9-]+)"', h)))
+    return [s for n in nights[:8] for s in fetch_dice('https://dice.fm' + n, bundle=False)]
+
+
+def dice_verified(ev, shows, venue, dice_title=False):
+    """A verified copy of the listing per named DICE bill at `venue` (a
+    normalize()d prefix); otherwise the listing itself, unverified."""
+    keys = ('date', 'start', 'names', 'status') + (('title',) if dice_title else ())
+    shows = [s for s in shows if s['names'] and re.match(re.escape(venue) + r'\b', normalize(s['venue']))]
+    return [ev | {k: s[k] for k in keys if s[k]} | {'lineup_verified': True} for s in shows] or [ev]
+
+
 def fetch_allypally():
+    """Ally Pally's own pages name no performers (their JSON-LD Event has no
+    `performer`), but music nights link to DICE, whose MusicEvent JSON-LD lists
+    the bill. Listings without that stay unverified and never match."""
     html = http_get('https://www.alexandrapalace.com/whats-on/')
-    events, seen = [], set()
+    listings, seen = [], set()
     for m in re.finditer(
             r'<p class="dates uc"><strong>([^<]+)</strong></p>\s*'
             r'<a href="(https://www\.alexandrapalace\.com/whats-on/[^"]+)"[^>]*>'
@@ -384,15 +440,65 @@ def fetch_allypally():
         if not dm:
             continue
         d = date(int(dm.group(3)), MONTHS.get(dm.group(2).lower(), 1), int(dm.group(1)))
-        events.append({'date': str(d), 'title': title.strip(), 'venue': 'Alexandra Palace',
-                       'url': url, 'names': [title.strip()], 'start': '',
-                       'source': 'AllyPally', 'hint': 'gig'})
+        listings.append({'date': str(d), 'title': html_text(title), 'venue': 'Alexandra Palace',
+                         'url': url, 'names': [], 'start': '',
+                         'source': 'AllyPally', 'hint': 'gig'})
+
+    def one(ev):
+        try:
+            page = http_get(ev['url'])
+        except Exception:
+            return [ev]
+        return dice_verified(ev, [s for link in dice_links(page) for s in fetch_dice(link)],
+                             'alexandra palace')
+
+    events = []
+    with ThreadPoolExecutor(8) as ex:
+        for batch in ex.map(one, listings):
+            events.extend(batch)
     return events
+
+
+def barbican_performers(html):
+    """Names in the page's "Performers" lists only — never Programme (composers),
+    Creative Team or Cast. An untitled list continues the one before it; film
+    credits put the role first ("Performed by" / London Symphony Orchestra)."""
+    names, heading = [], ''
+    for title, body in re.findall(r'<div class="related-people">\s*<h3 class="related-people__title">'
+                                  r'(.*?)</h3>(.*?)</ul>', html, re.S):
+        heading = html_text(title) or heading
+        if heading.lower() != 'performers':
+            continue
+        rows = [(html_text(label), html_text(value)) for label, value in re.findall(
+            r'label-value-list__label">(.*?)</span>.*?label-value-list__value">(.*?)</span>', body, re.S)]
+        if any(label.lower().endswith(' by') for label, _ in rows):
+            names += [value for label, value in rows if 'perform' in label.lower() and value]
+        else:
+            names += [label for label, _ in rows if label]
+    return list(dict.fromkeys(names))
+
+
+def barbican_event(url):
+    """No JSON-LD Event here; the date is the event byline's <time>, not the
+    related-event cards further down. Start is left blank so afternoon
+    concerts aren't classified as day parties."""
+    try:
+        h = http_get(url)
+    except Exception:
+        return None
+    tm = re.search(r'<h1[^>]*>(.*?)</h1>', h, re.S)
+    dm = re.search(r'event-byline__date.*?<time datetime="(\d{4}-\d\d-\d\d)T', h, re.S)
+    if not (tm and dm):
+        return None
+    names = barbican_performers(h)
+    return {'date': dm.group(1), 'title': html_text(tm.group(1)), 'venue': 'Barbican', 'url': url,
+            'names': names, 'lineup_verified': bool(names), 'start': '',
+            'source': 'Barbican', 'hint': 'gig'}
 
 
 def fetch_barbican():
     urls = set()
-    for page in range(0, 4):
+    for page in range(0, 12):
         try:
             h = http_get(f'https://www.barbican.org.uk/whats-on/contemporary-music?page={page}')
         except Exception:
@@ -403,8 +509,7 @@ def fetch_barbican():
         urls |= found
     events = []
     with ThreadPoolExecutor(8) as ex:
-        for ev in ex.map(lambda u: _detail_event('https://www.barbican.org.uk' + u,
-                                                 'Barbican', 'gig'), sorted(urls)[:80]):
+        for ev in ex.map(lambda u: barbican_event('https://www.barbican.org.uk' + u), sorted(urls)[:150]):
             if ev:
                 events.append(ev)
     return events
@@ -861,6 +966,21 @@ def match_event(ev, artists):
             continue
         hits[norm] = 'lineup'
     return hits
+
+
+def drop_repeat_nights(matches):
+    """The same night can arrive from RA and the venue's own feed under
+    different titles and room names ("EartH" / "EartH Kitchen"). Keep the
+    first row; a later one survives only if it adds an archive artist."""
+    seen, kept = set(), []
+    for m in matches:
+        room = normalize(m['venue']).split(' ')[0]
+        keys = {(r['name'], m['date'], room) for r in [m['artist']] + m['co']}
+        if keys <= seen:
+            continue
+        seen |= keys
+        kept.append(m)
+    return kept
 
 
 def classify(ev, title):
@@ -1496,7 +1616,7 @@ def main():
                 g.update({k: m[k] for k in ('artist', 'score', 'how', 'first_seen')})
             else:
                 g['co'].append(m['artist'])
-    matches = list(grouped.values())
+    matches = drop_repeat_nights(list(grouped.values()))
     if not matches:
         sys.exit('No verified performers found — retaining the existing gig files.')
     for m in matches:

@@ -33,6 +33,18 @@ class GigRules(unittest.TestCase):
         saved={'artist':'Che Wax','how':'lineup','source':'RA','title':'Che Wax night','date':'2099-01-01','co':['Kendrick Lamar']}
         rows=g.hydrate_saved_matches({'matches':[saved]},self.artists)
         self.assertEqual(rows[0]['co'],[])
+    def test_same_night_from_ra_and_venue_feed_shown_once(self):
+        a = {n: {'name': n} for n in ['Che Wax', 'Groove Collective', 'I. JORDAN']}
+        row = lambda artist, venue, title, source, co=(): {'artist': a[artist], 'co': [a[c] for c in co], 'date': '2026-11-20',
+                                                           'venue': venue, 'title': title, 'source': source}
+        rows = [row('Che Wax', 'EartH Kitchen', 'Balearic London x Che Wax', 'RA'),
+                row('Che Wax', 'EartH', 'Che Wax', 'EartH'),                                   # same night, other feed
+                row('Groove Collective', 'EartH', 'Che Wax', 'EartH', co=['Che Wax']),          # adds an artist
+                row('I. JORDAN', 'Village Underground', 'I. JORDAN (Live)', 'RA'),
+                row('I. JORDAN', 'The Jazz Cafe', 'I. JORDAN', 'JazzCafe')]                     # different venue
+        self.assertEqual([(r['source'], r['venue']) for r in g.drop_repeat_nights(rows)],
+                         [('RA', 'EartH Kitchen'), ('EartH', 'EartH'), ('RA', 'Village Underground'), ('JazzCafe', 'The Jazz Cafe')])
+        self.assertEqual(g.drop_repeat_nights(rows)[1]['artist']['name'], 'Groove Collective')
     def test_explicit_performer_cannot_be_faked_by_title(self):
         saved={'artist':'Kendrick Lamar','how':'lineup','source':'RA','title':'Kendrick night','date':'2099-01-01','performers':['Che Wax']}
         self.assertEqual(g.hydrate_saved_matches({'matches':[saved]},self.artists),[])
@@ -113,5 +125,128 @@ KENDRICK LAMAR – mentioned in the review
         <a href="https://www.ronniescotts.co.uk/find-a-show/different-slug">Find out more</a></div>"""
         self.assertEqual(g.ronnies_listings(html), [{'title':'A Quartet & Guests', 'id':'1234',
             'url':'https://www.ronniescotts.co.uk/find-a-show/different-slug'}])
+
+class AllyPallyParser(unittest.TestCase):
+    LISTING = """
+    <p class="dates uc"><strong>23 Oct 2026</strong></p>
+    <a href="https://www.alexandrapalace.com/whats-on/kendrick-night/" class="event_target"><h3>Kendrick Lamar&#8217;s Night</h3></a>
+    <p class="dates uc"><strong>26 - 27 Feb 2027</strong></p>
+    <a href="https://www.alexandrapalace.com/whats-on/groove-run/" class="event_target"><h3>Groove Collective</h3></a>
+    <p class="dates uc"><strong>3 Oct 2026</strong></p>
+    <a href="https://www.alexandrapalace.com/whats-on/darts/" class="event_target"><h3>Kendrick Lamar</h3></a>"""
+
+    @staticmethod
+    def dice(day, performers, venue='Alexandra Palace', status='https://schema.org/EventScheduled'):
+        ld = {'@type':'MusicEvent','name':'Kendrick Lamar','startDate':f'{day}T18:30:00+01:00',
+              'eventStatus':status,'location':{'@type':'Place','name':venue},
+              'performer':[{'@type':'PerformingGroup','name':n} for n in performers]}
+        return f'<script type="application/ld+json">{g.json.dumps(ld)}</script>'
+
+    def fetch(self, url, **kwargs):
+        pages = {
+            'https://www.alexandrapalace.com/whats-on/': self.LISTING,
+            # own JSON-LD has no performer; only the DICE link carries the bill
+            'https://www.alexandrapalace.com/whats-on/kendrick-night/':
+                '<h1>Kendrick Lamar</h1><a href="https://link.dice.fm/venue/alexandra-palace">DICE</a>'
+                '<a href="https://link.dice.fm/abc123">Tickets</a>',
+            'https://www.alexandrapalace.com/whats-on/groove-run/': '<a href="https://link.dice.fm/bundle1">Tickets</a>',
+            'https://www.alexandrapalace.com/whats-on/darts/': '<h1>Kendrick Lamar</h1><a href="https://tickets.example/x">Tickets</a>',
+            'https://link.dice.fm/abc123': self.dice('2026-10-23', ['Che Wax', 'I. JORDAN']),
+            'https://link.dice.fm/bundle1': '<a href="/event/night1">Fri</a><a href="https://dice.fm/event/night2">Sat</a>'
+                                            '<a href="/event/elsewhere">Other venue</a>',
+            'https://dice.fm/event/night1': self.dice('2027-02-26', ['Groove Collective']),
+            'https://dice.fm/event/night2': self.dice('2027-02-27', ['Groove Collective']),
+            'https://dice.fm/event/elsewhere': self.dice('2027-02-28', ['Groove Collective'], venue='Roundhouse'),
+        }
+        if url not in pages:
+            self.fail('Unexpected URL: ' + url)
+        return pages[url]
+
+    def events(self):
+        with patch.object(g, 'http_get', side_effect=self.fetch):
+            return {(e['url'].rsplit('/', 2)[-2], e['date']): e for e in g.fetch_allypally()}
+
+    def test_performers_come_from_dice_not_title(self):
+        ev = self.events()[('kendrick-night', '2026-10-23')]
+        self.assertEqual(ev['names'], ['Che Wax', 'I. JORDAN'])
+        self.assertEqual((ev['title'], ev['start'], ev['venue']), ('Kendrick Lamar’s Night', '18:30', 'Alexandra Palace'))
+        self.assertTrue(ev['lineup_verified'])
+        artists = {g.normalize(n): {'name':n,'tracks':20,'plays':100,'max_da':202608} for n in ['Kendrick Lamar','Che Wax']}
+        self.assertEqual(g.match_event(ev, artists), {'che wax':'lineup'})
+
+    def test_bundle_nights_each_listed_and_other_venues_dropped(self):
+        runs = sorted(d for slug, d in self.events() if slug == 'groove-run')
+        self.assertEqual(runs, ['2027-02-26', '2027-02-27'])
+
+    def test_listing_without_dice_lineup_stays_unverified(self):
+        ev = self.events()[('darts', '2026-10-03')]
+        self.assertEqual(ev['names'], [])
+        self.assertFalse(ev.get('lineup_verified'))
+        self.assertEqual(g.match_event(ev, {'kendrick lamar': {'name':'Kendrick Lamar','tracks':20,'plays':100,'max_da':202608}}), {})
+
+    def test_dice_cancelled_status_is_kept_for_exclusion(self):
+        shows = g.dice_shows(self.dice('2026-10-23', ['Che Wax'], status='https://schema.org/EventCancelled'))
+        self.assertTrue(g.is_cancelled(shows[0]))
+        self.assertEqual(g.dice_shows('<script type="application/ld+json">{"@type":"WebSite"}</script>'), [])
+
+class EarthParser(unittest.TestCase):
+    def fetch(self, url, **kwargs):
+        pages = {
+            'https://earthackney.co.uk/events/':
+                '<a href="https://earthackney.co.uk/events/kendrick-lamar-night-9th-oct-earth-london-tickets-abc123/">x</a>'
+                '<a href="https://earthackney.co.uk/events/kendrick-lamar-night-9th-oct-earth-london-tickets-abc123/">dup</a>'
+                '<a href="https://earthackney.co.uk/events/groove-collective-12th-nov-earth-london-tickets-zzz999/">y</a>',
+            'https://dice.fm/event/abc123': AllyPallyParser.dice('2027-10-09', ['Che Wax'], venue='EartH'),
+            'https://dice.fm/event/zzz999': AllyPallyParser.dice('2026-11-12', ['Groove Collective'], venue='Somewhere Else'),
+        }
+        if url not in pages:
+            self.fail('Unexpected URL: ' + url)
+        return pages[url]
+
+    def test_dice_code_in_url_supplies_bill_title_and_year(self):
+        with patch.object(g, 'http_get', side_effect=self.fetch):
+            events = g.fetch_earth()
+        self.assertEqual(len(events), 2)
+        ev, other = events
+        self.assertEqual((ev['date'], ev['start'], ev['title'], ev['names']), ('2027-10-09', '18:30', 'Kendrick Lamar', ['Che Wax']))
+        self.assertTrue(ev['lineup_verified'])
+        artists = {g.normalize(n): {'name':n,'tracks':20,'plays':100,'max_da':202608} for n in ['Kendrick Lamar','Che Wax','Groove Collective']}
+        self.assertEqual(g.match_event(ev, artists), {'che wax':'lineup'})
+        self.assertEqual((other['names'], other.get('lineup_verified')), ([], None))
+        self.assertEqual(g.match_event(other, artists), {})
+
+class BarbicanParser(unittest.TestCase):
+    @staticmethod
+    def people(title, rows):
+        items = ''.join(f'<li> <span class="label-value-list__label"> {a} </span>&nbsp; '
+                        f'<span class="label-value-list__value"> {b} </span> </li>' for a, b in rows)
+        return (f'<div class="related-people"> <h3 class="related-people__title">{title}</h3> '
+                f'<div class="label-value-list"><ul class="label-value-list__list">{items}</ul></div></div>')
+
+    def test_only_performers_lists_count(self):
+        html = (self.people('', [('Kendrick Lamar', 'laser programming')])            # untitled, nothing before it
+                + self.people('Programme', [('Kendrick Lamar', 'Composition No. 1')])  # composers
+                + self.people('', [('Kendrick Lamar', 'Song 2')])                      # continues Programme
+                + self.people('Performers', [('Che Wax', ''), ('Groove Collective', 'band')])
+                + self.people('', [('I. JORDAN', 'keys')])                             # continues Performers
+                + self.people('Creative Team', [('Music by Kendrick Lamar', '')])
+                + self.people('Cast', [('Kendrick Lamar', 'Hamlet')]))
+        self.assertEqual(g.barbican_performers(html), ['Che Wax', 'Groove Collective', 'I. JORDAN'])
+
+    def test_film_credits_are_role_first(self):
+        html = self.people('Performers', [('Directed &amp; Performed by', 'Che Wax'), ('Composed by', 'Kendrick Lamar'),
+                                          ('Performed by', 'Groove Collective'), ('Conductor', 'I. JORDAN')])
+        self.assertEqual(g.barbican_performers(html), ['Che Wax', 'Groove Collective'])
+
+    def test_event_date_from_byline_not_related_cards(self):
+        page = ('<h1><span>Ed O&#039;Brien</span></h1><div class="event-byline"><span class="event-byline__date">'
+                '<time datetime="2026-10-16T19:30:00Z">Fri 16 Oct 2026, 19:30</time></span></div>'
+                '<div class="promo-card__date"><time datetime="2026-09-01T16:00:00Z">Tue 1 Sep</time></div>')
+        with patch.object(g, 'http_get', return_value=page):
+            ev = g.barbican_event('https://www.barbican.org.uk/whats-on/2026/event/ed')
+        self.assertEqual((ev['date'], ev['start'], ev['title']), ('2026-10-16', '', "Ed O'Brien"))
+        self.assertEqual((ev['names'], ev['lineup_verified']), ([], False))
+        with patch.object(g, 'http_get', return_value=page + self.people('Performers', [('Che Wax', '')])):
+            self.assertTrue(g.barbican_event('https://www.barbican.org.uk/whats-on/2026/event/ed')['lineup_verified'])
 
 if __name__=='__main__':unittest.main()
