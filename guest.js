@@ -317,9 +317,9 @@
       var pinnedArtists={};pinned.forEach(function(g){pinnedArtists[artistKey(g)]=1});
       gs=pinned.concat(gs.filter(function(g){return !pinnedArtists[artistKey(g)]}));
     }
-    /* Stable month sort keeps pins and listening rank within each month. */
-    gs.sort(function(a,b){return b.da-a.da});
-    return takeUnseen(gs,50).map(function(g){
+    /* Keep the selected records fixed; sort only their display order by month.
+       Stable sorting retains pins and listening rank within each month. */
+    return takeUnseen(gs,50).sort(function(a,b){return b.da-a.da}).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
   }
