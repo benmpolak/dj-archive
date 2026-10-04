@@ -257,6 +257,9 @@
      counts, release year or date window say; stay put until unpinned.
      Key = first artist|album, lowercase (same shape as SHELF_RECORD_EXCLUDE). */
   var SHELF_PIN=[
+    'orchestra mambo international|¡apúntalo!',
+    'john roseboro|va va voom',
+    'hnny|fyra',
     'liana flores|and so it goes...',
     'erykah badu|before the world blows',
     'patchwork inc.|more patchwork'
@@ -311,8 +314,8 @@
       var byKey={};groupRecords().forEach(function(g){byKey[pinKey(g)]=g});
       var pinned=SHELF_PIN.map(function(k){return byKey[k]})
         .filter(function(g){return g&&hasSpotify(g)});
-      var isPinned={};SHELF_PIN.forEach(function(k){isPinned[k]=1});
-      gs=pinned.concat(gs.filter(function(g){return !isPinned[pinKey(g)]}));
+      var pinnedArtists={};pinned.forEach(function(g){pinnedArtists[artistKey(g)]=1});
+      gs=pinned.concat(gs.filter(function(g){return !pinnedArtists[artistKey(g)]}));
     }
     return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
