@@ -5309,8 +5309,8 @@ window.addEventListener('hashchange',go);})();
   }
   /* never on the racks, whatever the play counts say */
   var SHELF_EXCLUDE={'everton f.c.':1,'everton':1};
-  /* hand-pinned RECORDS — front of New in, in this order, whatever the play
-     counts, release year or date window say; stay put until unpinned.
+  /* hand-pinned RECORDS — first within their archive month in New in, in this
+     order, whatever the play counts, release year or date window say; stay put until unpinned.
      Key = first artist|album, lowercase (same shape as SHELF_RECORD_EXCLUDE). */
   var SHELF_PIN=[
     'orchestra mambo international|¡apúntalo!',
@@ -5344,8 +5344,8 @@ window.addEventListener('hashchange',go);})();
     return gs;
   }
   function newReleasesShelf(){
-    /* brand-new MUSIC: this year's releases added in the last two months,
-       ordered by how much Ben has actually played them.
+    /* brand-new MUSIC: this year's releases added in the archive's last three months,
+       newest archive month first, then pinned records and listening rank.
        (Archive stores release year only, so "past 90 days" = this year's releases.) */
     var yr=new Date().getFullYear();
     var maxDa=0;DATA.forEach(function(t){if((t.da||0)>maxDa)maxDa=t.da});
@@ -5373,6 +5373,8 @@ window.addEventListener('hashchange',go);})();
       var pinnedArtists={};pinned.forEach(function(g){pinnedArtists[artistKey(g)]=1});
       gs=pinned.concat(gs.filter(function(g){return !pinnedArtists[artistKey(g)]}));
     }
+    /* Stable month sort keeps pins and listening rank within each month. */
+    gs.sort(function(a,b){return b.da-a.da});
     return takeUnseen(gs,50).map(function(g){
       return card(g,function(g,t){return (t.r?t.r+' · ':'')+'archived '+fmtDa(g.da)});
     }).join('');
