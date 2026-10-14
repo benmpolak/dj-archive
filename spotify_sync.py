@@ -162,22 +162,47 @@ def access_token(config, private):
     return saved['access_token']
 
 
-def pages(get, url):
+def pages(get, url, label='Spotify list'):
     rows, seen, total = [], set(), None
     while url:
-        if not url.startswith(API) or url in seen or len(seen) >= 2000:
+        if not isinstance(url, str) or not url.startswith(API) or url in seen or len(seen) >= 2000:
             raise SyncError('Invalid Spotify pagination; archive unchanged.')
+        query = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
+        try:
+            offset = int(query.get('offset', ['0'])[0])
+            limit = int(query.get('limit', ['20'])[0])
+        except ValueError:
+            raise SyncError('Invalid Spotify pagination; archive unchanged.') from None
+        if offset != len(rows) or not 1 <= limit <= 50:
+            raise SyncError('Invalid Spotify page range; archive unchanged.')
         seen.add(url)
-        page = get(url)
-        if not isinstance(page.get('items'), list) or not isinstance(page.get('total'), int):
-            raise SyncError('Incomplete Spotify page; archive unchanged.')
-        if total is not None and total != page['total']:
-            raise SyncError('Playlist changed during reading. Retry the complete check.')
-        total = page['total']
+        # Spotify can return HTTP 200 with an empty/short items array even though
+        # total and next still describe a full page. Never advance past that gap.
+        for attempt in range(3):
+            page = get(url)
+            if (not isinstance(page, dict) or not isinstance(page.get('items'), list)
+                    or type(page.get('total')) is not int or page['total'] < 0
+                    or type(page.get('offset')) is not int or page['offset'] != offset
+                    or type(page.get('limit')) is not int or page['limit'] != limit
+                    or 'next' not in page):
+                raise SyncError(f'{label}: invalid Spotify page metadata; archive unchanged.')
+            if total is not None and total != page['total']:
+                raise SyncError(f'{label} changed during reading. Retry the complete check.')
+            total = page['total']
+            expected = min(limit, max(0, total - offset))
+            received = len(page['items'])
+            if received == expected:
+                break
+            if received > expected or attempt == 2:
+                raise SyncError(f'{label}: incomplete page at offset {offset} '
+                                f'({received} of {expected} items); archive unchanged.')
+            time.sleep(2 * (attempt + 1))
         rows.extend(page['items'])
         url = page.get('next')
+        if (url is not None and (not isinstance(url, str) or not url)) or (url and len(rows) >= total):
+            raise SyncError('Invalid Spotify pagination; archive unchanged.')
     if len(rows) != total:
-        raise SyncError('Spotify returned a truncated playlist; archive unchanged.')
+        raise SyncError(f'{label}: Spotify returned a truncated list; archive unchanged.')
     return rows
 
 
@@ -214,12 +239,12 @@ def targets(playlists, config, today, user_id):
 def fetch_snapshot(config, token, today):
     get = lambda url: request_json(url, token=token)
     user = get(API + 'me')['id']
-    selected, missing = targets(pages(get, API + 'me/playlists?limit=50'), config, today, user)
+    selected, missing = targets(pages(get, API + 'me/playlists?limit=50', 'Spotify playlist inventory'), config, today, user)
     snapshot = {'date': today.isoformat(), 'playlists': [], 'missing_monthly': missing}
     for name, playlist in selected:
         pid = playlist['id']
         before = get(API + 'playlists/' + pid)
-        items = pages(get, API + f'playlists/{pid}/items?limit=50')
+        items = pages(get, API + f'playlists/{pid}/items?limit=50', name)
         after = get(API + 'playlists/' + pid)
         if not before.get('snapshot_id') or before['snapshot_id'] != after.get('snapshot_id'):
             raise SyncError(f'{name} changed during reading. Retry the complete check.')
