@@ -16,6 +16,8 @@ def main(catalogue_only=False):
         source = (ROOT / name).read_text()
         if name == 'guest.js':
             source = source.replace('/*__GUEST_ART__*/{}', (ROOT / 'guest-art.json').read_text().strip())
+            records = ROOT / 'vinyl-records.json'
+            source = source.replace('/*__VINYL_RECORDS__*/[]', records.read_text().strip().replace('<', '\\u003c') if records.exists() else '[]')
         pattern = rf'<{tag} id="{ident}">.*?</{tag}>'
         html, n = re.subn(pattern, lambda _: f'<{tag} id="{ident}">\n{source}\n</{tag}>', html, count=1, flags=re.S)
         if n != 1:

@@ -297,6 +297,8 @@ def prepare(root, snapshot, stage):
     stage.mkdir(parents=True, exist_ok=True)
     for name in ('playlist-import.py', 'index.html', 'build.py', 'guest.js', 'dealer.js', 'design-pass.css'):
         shutil.copy2(root / name, stage / name)
+    if (root / 'vinyl-records.json').exists():
+        shutil.copy2(root / 'vinyl-records.json', stage / 'vinyl-records.json')
     exports = stage / 'exports'
     exports.mkdir()
     sources = collections.defaultdict(list)

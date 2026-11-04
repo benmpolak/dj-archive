@@ -59,3 +59,12 @@ Each track object in `DATA`: `{a (artist), t (title), al (album), r (release yea
 - Require structured source lineup/performer evidence or explicitly verified manual performers. Drop uncertain cached matches, rather than labelling them confirmed.
 - Exclude cancelled/postponed events. Keep performer evidence in the exported data so the archive and desk screen apply the same rule.
 - Run `python3 build.py` after changing `guest.js`, `dealer.js` or `design-pass.css`. It rebuilds the injected modules and shared device catalogue without changing imported track data.
+
+## Front page and Discogs imports
+
+- Preserve Ben's front-page rules: one card per record across shelves; one per artist within a shelf, with separate various-artists compilations treated as records. Keep existing pins and taste exclusions in `guest.js`.
+- Just bought on vinyl shows purchases from the current year, newest first. Albums/EPs need at least four tracks, a verified Spotify recording and their actual sleeve. Two-track singles qualify only when Ben explicitly pins the release. Off-Spotify exceptions remain the existing hand-curated overrides.
+- A compilation must appear as one physical release with its own title, sleeve and Discogs link, even when its tracks already exist under other albums. The Cuban boxset is represented by the DJ Koco mix override, never again as individual compilation-track cards.
+- `vinyl-records.json` holds verified physical-release metadata, purchase dates and references to archive tracks for the November 2026 additions onward. `build.py` injects it into the guest layer. The Spotify staging workflow must copy it, so later playlist updates preserve the shelf.
+- Reuse existing recordings when verified; preserve their Spotify IDs, album metadata, listening counts, archive dates and any prior vinyl ownership. Store the physical purchase date on the release rather than replacing an older archive date. Do not substitute a different remix or Spotify-only bonus track for the actual pressing's tracklist.
+- Stage Discogs imports and compare against the prior archive before applying. Keep raw exports, API responses and backups out of commits. For music-only imports use `python3 build.py --catalogue-only`, preserving Gig Radar. Check the actual desktop/mobile shelves and publication before reporting completion.

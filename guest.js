@@ -34,6 +34,24 @@
   function crateColor(t){var c=(t.c||[])[0];return (window.CC&&CC[c])||'#e8a040'}
 
   /* ---------- shelf data: group records (artist+album) from baked fields ---------- */
+  var _vinylRecords=/*__VINYL_RECORDS__*/[];
+  function ownedRecordGroups(){
+    var bySid={},byName={};
+    DATA.forEach(function(t,i){
+      if(!bySid[t.sid])bySid[t.sid]={t:t,i:i};
+      byName[t.a+'|'+t.t]={t:t,i:i};
+    });
+    return _vinylRecords.map(function(record){
+      var g={tracks:[],da:record.da,added:record.added,idx:0,p1:0,pc:0,vy:1,ids:{},uc:0,record:record,va:record.a==='Various Artists'};
+      record.tracks.forEach(function(ref){
+        var row=bySid[ref.sid]||byName[ref.a+'|'+ref.t];
+        if(!row||g.ids[row.t.sid])return;
+        g.ids[row.t.sid]=1;g.tracks.push(row.t);g.uc++;
+        g.idx=Math.max(g.idx,row.i);g.p1+=row.t.p1||0;g.pc+=row.t.pc||0;
+      });
+      return g;
+    }).filter(function(g){return g.tracks.length===g.record.tracks.length});
+  }
   function groupRecords(){
     var groups={};
     DATA.forEach(function(t,i){
@@ -73,7 +91,7 @@
     var t=rep(g,function(t){return t.p1||0});
     var sid=(t.sid||'').length===22?t.sid:'';
     var cc=crateColor(t);
-    var albumName=(t.al||'').trim();
+    var albumName=(g.record?g.record.al:(t.al||'')).trim();
     /* Three or more archived tracks means Ben is treating this as an album, so
        prefer its album sleeve over whichever launch single supplied the track id. */
     var useAlbumArt=!!albumName&&g.uc>=3;
@@ -81,22 +99,24 @@
     var artQuery=primary(t.a)+' '+(useAlbumArt?albumName:(t.al||t.t));
     var tw=ART_TWEAKS[(primary(t.a).split(',')[0].trim()+'|'+(t.al||'').trim()).toLowerCase()];
     var twCss=tw?';background-size:'+tw.s+';background-position:'+tw.p:'';
-    var artist=primary(t.a),title=t.al||t.t,metaText=meta(g,t);
+    var artist=primary(g.record?g.record.a:t.a),title=g.record?g.record.al:(t.al||t.t),metaText=meta(g,t);
     /* a V/A comp reads like the record, not like whichever track got played
        most — the sleeve line says Various Artists, the album title leads */
     if(g.va){artist='Various Artists';artQuery=albumName;artKey='alb:va|'+albumName.toLowerCase()}
+    if(g.record)artKey='discogs:'+g.record.did;
     /* Listening evidence belongs in the opened record view, not under every
        sleeve. Keep the rack visual and fast to scan. */
     var rackMeta=metaText.replace(/\s*·\s*\d+\s+plays?\s*$/i,'');
     return '<div class="gh-card" role="button" tabindex="0" aria-label="View '+E(artist)+' — '+E(title)+'"'
-      +' data-sid="'+E(sid)+'" data-did="'+E(t.did||'')+'"'
+      +' data-sid="'+E(sid)+'" data-did="'+E(g.record?g.record.did:(t.did||''))+'"'
       +' data-artist="'+E(artist)+'" data-album="'+E(title)+'"'
       +' data-crate="'+E((t.c||[])[0]||'')+'" data-crates="'+E((t.c||[]).join('|'))+'" data-vibe="'+E(t.vb||'')+'"'
       +' data-meta="'+E(metaText)+'">'
       +'<div class="gh-card-art"'+(sid?' data-art-sid="'+sid+'"':'')+(useAlbumArt?' data-art-album="1"':'')
+      +(g.record?' data-art-did="'+E(g.record.did)+'"':'')
       +' data-art-key="'+E(artKey)+'"'
       +' data-art-q="'+E(artQuery)+'" style="background-image:linear-gradient(150deg,'+cc+'55,'+cc+'14 75%)'+twCss+'">'
-      +'<span class="gh-card-albtxt">'+E(t.al||t.t)+'</span>'
+      +'<span class="gh-card-albtxt">'+E(title)+'</span>'
       +'<span class="gh-card-play" '+playAttr(t)+' title="Play">▶︎</span>'
       +(g.vy?'<span class="gh-card-vinyl">VINYL</span>':'')
       +'</div>'
@@ -161,6 +181,10 @@
   }
   function fetchArt(el){
     if(el.dataset.artDone)return Promise.resolve();el.dataset.artDone='1';
+    if(el.dataset.artDid){
+      var owned=_vinylRecords.find(function(r){return r.did===el.dataset.artDid});
+      if(owned&&owned.art){setArt(el,owned.art);return Promise.resolve()}
+    }
     var key=el.dataset.artKey;
     if(key&&_bakedArt[key]){setArt(el,_bakedArt[key]);return Promise.resolve()}
     if(key&&_artCache[key]){setArt(el,_artCache[key]);return Promise.resolve()}
@@ -232,6 +256,7 @@
      Key on the first artist before ';' AND ',' — playlist imports join
      collaborators with commas ("Okonski, Cochemea" vs "Okonski, Rachel Kitchlew"). */
   function artistKey(g){
+    if(g.record)return g.va?'va:'+g.record.did:primary(g.record.a).split(',')[0].trim().toLowerCase();
     return primary(rep(g,function(t){return t.p1||0}).a).split(',')[0].trim().toLowerCase();
   }
   /* A record can live in several factual shelves, but the guest homepage should
@@ -239,6 +264,7 @@
      the full depth of choice inside each rack. */
   var _shelfSeen={};
   function recordKey(g){
+    if(g.record)return primary(g.record.a).toLowerCase()+'|'+g.record.al.trim().toLowerCase();
     var t=rep(g,function(t){return t.p1||0});
     return primary(t.a).toLowerCase()+'|'+String(t.al||t.t).trim().toLowerCase();
   }
@@ -246,7 +272,8 @@
     var out=[];
     for(var i=0;i<gs.length&&out.length<limit;i++){
       var k=recordKey(gs[i]);
-      if(SHELF_RECORD_EXCLUDE[k]||_shelfSeen[k])continue;
+      var album=(rep(gs[i]).al||'').trim().toLowerCase();
+      if(SHELF_RECORD_EXCLUDE[k]||SHELF_ALBUM_EXCLUDE[album]||_shelfSeen[k])continue;
       _shelfSeen[k]=1;out.push(gs[i]);
     }
     return out;
@@ -269,6 +296,8 @@
     return artistKey(g)+'|'+String(t.al||t.t).trim().toLowerCase();
   }
   var SHELF_RECORD_EXCLUDE={'gary barlow|paddington bear (from “the adventures of paddington”)':1};
+  /* The Cuban boxset is already represented by the DJ Koco override card. */
+  var SHELF_ALBUM_EXCLUDE={'cuban 45s (dj mix)':1};
   function onePerArtist(gs){
     var seen={};
     return gs.filter(function(g){
@@ -384,10 +413,16 @@
       '13927173':1,  // Fonda Rae / Classic Tracks white-label comp — "looks crap"
       '33024036':1,  // Fania Latin Sound of NY 45 — single reissue
       '37068723':1}; // Cuban Boxset — represented by the VINYL_OVERRIDES mix card instead
-    var gs=groupRecords();
+    var managed={};_vinylRecords.forEach(function(r){managed[r.did]=1});
+    /* A compilation purchase owns its tracks, not each track's original album.
+       Keep legacy groups only when they also have independent vinyl ownership. */
+    var gs=groupRecords().filter(function(g){
+      return !g.tracks.some(function(t){return t.vy&&managed[t.did]})||
+        g.tracks.some(function(t){return t.vy&&!managed[t.did]});
+    });
     var byDid={};
     DATA.forEach(function(t,i){
-      if(!t.vy||!t.did||SHELF_COMP_EXCLUDE[t.did])return;
+      if(!t.vy||!t.did||SHELF_COMP_EXCLUDE[t.did]||managed[t.did])return;
       (byDid[t.did]=byDid[t.did]||[]).push({t:t,i:i});
     });
     Object.keys(byDid).forEach(function(did){
@@ -407,21 +442,21 @@
         if(!g.ids[sid]){g.ids[sid]=1;g.uc++;g.p1+=(t.p1||0);g.pc+=(t.pc||0)}});
       gs.push(g);
     });
-    return gs;
+    return gs.concat(ownedRecordGroups().filter(function(g){return !SHELF_COMP_EXCLUDE[g.record.did]}));
   }
   function freshVinylShelf(){
     /* albums and EPs only (4+ tracks, or VINYL_PIN), bought THIS year — 45s make loose, one-song cards */
     var thisYr=new Date().getFullYear()*100+1;
     var gs=vinylShelfGroups().filter(function(g){
-      return g.da>=thisYr&&g.vy&&hasSpotify(g)&&
+      return g.da>=thisYr&&g.vy&&hasSpotify(g)&&(!g.record||g.record.art)&&
         (g.tracks.length>=4||g.tracks.some(function(t){return VINYL_PIN[t.did]}));
     });
-    gs.sort(function(a,b){return (b.da-a.da)||(b.idx-a.idx)});
+    gs.sort(function(a,b){return (b.da-a.da)||String(b.added||'').localeCompare(String(a.added||''))||(b.idx-a.idx)});
     gs=onePerArtist(gs);
     /* overrides slot into the date order like any other record — latest
        additions first across the whole rack, not pinned to the front */
     var items=takeUnseen(gs,25-VINYL_OVERRIDES.length).map(function(g){
-      return {da:g.da||0,html:card(g,function(g,t){return (t.r?t.r+' · ':'')+'added '+fmtDa(g.da)})};
+      return {da:g.da||0,html:card(g,function(g,t){var r=g.record?g.record.r:t.r;return (r?r+' · ':'')+'added '+fmtDa(g.da)})};
     });
     VINYL_OVERRIDES.forEach(function(o){items.push({da:o.da||0,html:overrideCard(o)})});
     items.sort(function(a,b){return b.da-a.da});

@@ -161,6 +161,9 @@ class SpotifySyncTests(unittest.TestCase):
                 shutil.copy2(ROOT/name,root/name)
             for name in ('guest.js','dealer.js','design-pass.css'):
                 (root/name).write_text('/* test module */')
+            records = [{'did':'discogs-id','al':'Owned record','tracks':[{'sid':'A'*22}]}]
+            (root/'vinyl-records.json').write_text(json.dumps(records))
+            (root/'guest.js').write_text('var owned=/*__VINYL_RECORDS__*/[];')
             old = {'sid':'A'*22,'a':'Artist','t':'Kept song','al':'Old album','r':1973,'c':['Brazilian'],
                    'n':1,'pc':700,'p1':90,'vy':1,'did':'discogs-id','vb':'Soulful','tp':123.4,'da':202001}
             data = [old, {'sid':'C'*22,'a':'Removed from Spotify','t':'Keep in archive','c':['Jazz'],'n':1,'pc':12}]
@@ -179,6 +182,8 @@ class SpotifySyncTests(unittest.TestCase):
             stage = Path(folder)/'first'
             report = sync.prepare(root,snapshot,stage)
             updated,_,_ = sync.read_data((stage/'index.html').read_text())
+            self.assertEqual(json.loads((stage/'vinyl-records.json').read_text()),records)
+            self.assertIn('Owned record',(stage/'index.html').read_text())
             self.assertEqual(report['tracks_added'],1)
             self.assertEqual(updated[:2],data)
             self.assertEqual(updated[2]['n'],2)
