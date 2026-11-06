@@ -1458,7 +1458,7 @@ def hydrate_saved_matches(payload, artists):
     return rebuilt
 
 
-def save_matches(matches, generated, n_events, source_counts=None):
+def save_matches(matches, generated, n_events, source_counts=None, carried_from=None):
     if source_counts is None:
         try:
             source_counts = json.loads(Path(HERE, 'gigs-data.json').read_text()).get('source_counts', {})
@@ -1470,6 +1470,8 @@ def save_matches(matches, generated, n_events, source_counts=None):
                                               'how', 'score', 'etype', 'first_seen')},
                             'performers': m['performers'], 'artist': m['artist']['name'],
                             'co': [r['name'] for r in m['co']]} for m in matches]}
+    if carried_from:
+        payload['carried_from'] = carried_from
     Path(HERE, 'gigs-data.json').write_text(json.dumps(payload, indent=1))
 
 
@@ -1516,6 +1518,7 @@ def main():
 
     # previous run's first_seen map
     prev_seen, prev_sources, bootstrap = {}, set(), True
+    prev = {'matches': []}
     try:
         prev = json.load(open(f'{HERE}/gigs-data.json'))
         pm = prev.get('matches', [])
@@ -1549,10 +1552,19 @@ def main():
             print(f'  {label} FAILED: {e}', file=sys.stderr)
             src_counts[label] = 0
 
-    missing_jazz = [name for name in ('Blue Note', "Ronnie Scott's") if not src_counts.get(name)]
-    if missing_jazz:
-        sys.exit('Jazz source failed: ' + ', '.join(missing_jazz) +
-                 '. Keeping the existing gig files for review.')
+    # A blocked jazz listing shouldn't freeze every other venue. Keep its upcoming shows
+    # from the last good listings, re-checked like saved data, and say so on the page.
+    carried, carried_from = [], {}
+    for name, source in (('Blue Note', 'BlueNote'), ("Ronnie Scott's", 'RonnieScotts')):
+        if src_counts.get(name):
+            continue
+        kept = hydrate_saved_matches({'matches': [m for m in prev['matches'] if m.get('source') == source]}, artists)
+        if not kept:
+            sys.exit(f'Jazz source failed: {name}, with no saved shows to keep. '
+                     'Keeping the existing gig files for review.')
+        carried += kept
+        carried_from[name] = prev.get('carried_from', {}).get(name, prev.get('generated', str(TODAY)))
+        print(f'::warning::{name} listing unavailable; keeping {len(kept)} shows from {carried_from[name]}')
 
     # hand-added shows (e.g. Instagram-only listening bars, swept manually):
     # gigs-extra.json = [{"date","title","venue","url","names":[...]}]
@@ -1621,14 +1633,17 @@ def main():
         sys.exit('No verified performers found — retaining the existing gig files.')
     for m in matches:
         m['score'] += 5 * len(m['co'])
+    matches += carried
 
     print(f'{len(events)} events in window -> {len(matches)} matched shows')
 
-    save_matches(matches, str(TODAY), len(events), src_counts)
+    save_matches(matches, str(TODAY), len(events), src_counts, carried_from)
 
     got = [k for k, v in src_counts.items() if v]
-    note = ('Sources: ' + ', '.join(got) +
-            '. Only explicitly listed performers qualify. Title mentions and cancelled shows are excluded. '
+    held = ''.join(f' {name} shows are from its {date.fromisoformat(day).strftime("%-d %b")} listings; '
+                   'its site is blocking the refresh.' for name, day in carried_from.items())
+    note = ('Sources: ' + ', '.join(got) + '.' + held +
+            ' Only explicitly listed performers qualify. Title mentions and cancelled shows are excluded. '
             'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
             'Title-only venue feeds are excluded. Space Talk, One Eighty One &amp; Brilliant Corners programme on '
             'Instagram only (their RA-listed nights are covered). SJQ via RA.')

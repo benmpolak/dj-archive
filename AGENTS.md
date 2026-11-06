@@ -57,6 +57,7 @@ Each track object in `DATA`: `{a (artist), t (title), al (album), r (release yea
 
 - Only explicitly listed performers qualify. A name in an event title never qualifies an artist, including titles copied into a scraper's names field.
 - Require structured source lineup/performer evidence or explicitly verified manual performers. Drop uncertain cached matches, rather than labelling them confirmed.
+- If Blue Note's or Ronnie Scott's listing is blocked or empty, keep that venue's upcoming shows from the last good listings (re-checked like saved data, dated in `carried_from`) and say so in the page note. With no saved shows to keep, the run still stops.
 - Exclude cancelled/postponed events. Keep performer evidence in the exported data so the archive and desk screen apply the same rule.
 - Run `python3 build.py` after changing `guest.js`, `dealer.js` or `design-pass.css`. It rebuilds the injected modules and shared device catalogue without changing imported track data.
 

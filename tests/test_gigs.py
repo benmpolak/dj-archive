@@ -250,3 +250,56 @@ class BarbicanParser(unittest.TestCase):
             self.assertTrue(g.barbican_event('https://www.barbican.org.uk/whats-on/2026/event/ed')['lineup_verified'])
 
 if __name__=='__main__':unittest.main()
+
+class BlockedJazzListing(unittest.TestCase):
+    def run_main(self, saved, ronnies):
+        import json, sys, tempfile
+        tmp = tempfile.mkdtemp()
+        Path(tmp, 'gigs-data.json').write_text(json.dumps(saved))
+        artists = {g.normalize(n): {'name': n, 'tracks': 20, 'plays': 100, 'p1': 0, 'p3': 0, 'max_da': 202608,
+                                    'the': False, 'crate': ''} for n in ['Che Wax', 'Juliet Roberts']}
+        day = str(g.TODAY + g.timedelta(days=7))
+        ra = [{'date': day, 'title': f'Night {i}', 'venue': f'Club {i}', 'url': f'https://ra.co/events/{i}',
+               'names': ['Che Wax'] if i == 0 else ['Somebody Else'], 'start': '', 'source': 'RA', 'hint': '',
+               'lineup_verified': True} for i in range(120)]
+        notes = []
+        fetchers = [n for n in dir(g) if n.startswith('fetch_') and n not in ('fetch_ra', 'fetch_ronnies')]
+        with patch.object(g, 'HERE', tmp), patch.object(g, 'load_artists', return_value=artists), \
+             patch.object(g, 'fetch_ra', return_value=ra), patch.object(g, 'fetch_ronnies', side_effect=ronnies), \
+             patch.object(g, 'render', side_effect=lambda m, n, a, note, *x, **k: notes.append(note)), \
+             patch.object(sys, 'argv', ['gigs-fetch.py', '--out', tmp + '/gigs.html']):
+            for name in fetchers:
+                patch.object(g, name, return_value=[{'date': day, 'title': 'Jazz', 'venue': 'Blue Note London',
+                             'url': 'https://www.bluenotejazz.com/london/x', 'names': [], 'start': '',
+                             'source': 'BlueNote', 'hint': 'gig'}] if name == 'fetch_bluenote' else []).start()
+            try:
+                g.main()
+            finally:
+                patch.stopall()
+        return json.loads(Path(tmp, 'gigs-data.json').read_text()), notes[0]
+
+    def saved(self, **extra):
+        day = str(g.TODAY + g.timedelta(days=7))
+        return {'generated': '2026-10-22', 'matches': [
+            {'date': day, 'title': 'Juliet Roberts Live', 'venue': "Ronnie Scott's",
+             'url': 'https://www.ronniescotts.co.uk/find-a-show/juliet', 'source': 'RonnieScotts', 'how': 'lineup',
+             'score': 11.4, 'etype': 'gig', 'first_seen': '2026-10-22', 'performers': ['JULIET ROBERTS'],
+             'artist': 'Juliet Roberts', 'co': []},
+            {'date': '2020-01-01', 'title': 'Old Show', 'venue': "Ronnie Scott's", 'url': 'https://x/old',
+             'source': 'RonnieScotts', 'how': 'lineup', 'score': 1, 'etype': 'gig', 'first_seen': '2019-12-01',
+             'performers': ['JULIET ROBERTS'], 'artist': 'Juliet Roberts', 'co': []}], **extra}
+
+    def test_blocked_ronnies_keeps_its_upcoming_shows_and_refreshes_the_rest(self):
+        data, note = self.run_main(self.saved(), OSError('HTTP Error 403: Forbidden'))
+        self.assertEqual(sorted(m['artist'] for m in data['matches']), ['Che Wax', 'Juliet Roberts'])
+        self.assertEqual(data['carried_from'], {"Ronnie Scott's": '2026-10-22'})
+        self.assertIn("Ronnie Scott's shows are from its 22 Oct listings", note)
+
+    def test_carried_date_stays_with_the_last_real_listing(self):
+        data, _ = self.run_main(self.saved(generated='2026-10-29', carried_from={"Ronnie Scott's": '2026-10-22'}),
+                                OSError('403'))
+        self.assertEqual(data['carried_from'], {"Ronnie Scott's": '2026-10-22'})
+
+    def test_no_saved_shows_still_stops_the_refresh(self):
+        with self.assertRaises(SystemExit):
+            self.run_main({'generated': '2026-10-22', 'matches': []}, OSError('403'))
