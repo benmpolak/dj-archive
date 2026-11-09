@@ -10,6 +10,7 @@
     const clean = {
       selections: [],
       draft: null,
+      draftDescription: "",
       lastSelection: null,
       meta: {},
     };
@@ -30,6 +31,8 @@
           if (saved[k]) clean[k] = C.validate(saved[k]);
         } catch (e) {}
       });
+      if (clean.draft && typeof saved.draftDescription === "string")
+        clean.draftDescription = saved.draftDescription.slice(0, 10000);
       if (
         saved.meta &&
         typeof saved.meta === "object" &&
@@ -365,12 +368,22 @@
     targets.forEach((d) => (state.meta[C.trackId(d)] = { g: d.g, vb: d.vb }));
     persist();
   };
+  // A generated set description is a paragraph, while selection names are
+  // limited to 120 characters. Keep the paragraph separately in the draft.
+  function setSelectionName(description, fallback) {
+    const text = String(description || fallback).trim();
+    if (text.length <= 120) return text;
+    const sentence = text.match(/^.*?[.!?](?:\s|$)/)?.[0].trim();
+    if (sentence && sentence.length <= 120) return sentence;
+    return text.slice(0, 117).replace(/\s+\S*$/, "").trimEnd() + "…";
+  }
   const originalRender = window.renderSet;
   window.renderSet = function () {
     try {
       state.draft = djSet.length
-        ? C.selection(setDesc || "Current set", djSet, "set-builder")
+        ? C.selection(setSelectionName(setDesc, "Current set"), djSet, "set-builder")
         : null;
+      state.draftDescription = djSet.length ? setDesc : "";
       persist();
     } catch (e) {
       showToast(
@@ -383,45 +396,208 @@
   window.clearSet = function () {
     originalClear();
     state.draft = null;
+    state.draftDescription = "";
     persist();
   };
   if (state.draft) {
     try {
       const draft = C.resolve(state.draft, DATA);
       djSet = draft.tracks;
-      setDesc = draft.selection.name;
+      setDesc = state.draftDescription || draft.selection.name;
     } catch (e) {
       state.draft = null;
     }
   }
+  // Keep the existing filtering, sorting and tool handlers; give them one home.
+  function mountArchive() {
+    const main = document.querySelector('.main-area');
+    const table = document.getElementById('table-wrap');
+    const search = document.getElementById('search');
+    if (!main || !table || !search) return;
+    document.body.classList.add('archive-ready');
+    const toolbar = document.createElement('section');
+    toolbar.className = 'archive-toolbar';
+    toolbar.setAttribute('aria-label', 'Find tracks');
+    toolbar.innerHTML = '<div class="archive-search"><label for="search">Full archive</label></div><div class="archive-controls"><label class="archive-sort-label" for="archive-sort">Sort</label><select id="archive-sort" aria-label="Sort tracks"></select><button type="button" id="archive-direction" aria-label="Reverse sort order">↓</button><button type="button" id="archive-filter-button">Filters</button><details id="archive-tools"><summary>Tools</summary><div class="archive-tools-panel"><div class="archive-tool-actions"></div><div class="archive-dates"><span>Added in the last</span></div></div></details></div>';
+    toolbar.querySelector('.archive-search').append(search);
+    search.setAttribute('aria-label', 'Search artist, track or album');
+    search.placeholder = 'Search artist, track or album';
+    main.prepend(toolbar);
+    const tools = toolbar.querySelector('#archive-tools');
+    const actions = toolbar.querySelector('.archive-tool-actions');
+    const panel = toolbar.querySelector('.archive-tools-panel');
+    const quick = document.querySelector('.cc-quick-actions');
+    quick?.querySelectorAll('button').forEach(b => actions.append(b));
+    const dig = button('Dig deeper', () => {
+      tools.open = false;
+      const artist = search.value.trim();
+      if (artist) digDeeper(artist);
+      else {
+        search.focus();
+        showToast('Search for an artist, then choose Dig deeper in Tools');
+      }
+    });
+    dig.id = 'archive-dig';
+    dig.title = 'Find related music for the artist in your search';
+    actions.append(dig);
+    const dates = document.getElementById('cc-time-chips');
+    if (dates) {
+      toolbar.querySelector('.archive-dates').append(dates);
+      dates.querySelectorAll('.time-chip').forEach(chip => {
+        chip.setAttribute('role', 'button');
+        chip.tabIndex = 0;
+        chip.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); chip.click(); }
+        });
+      });
+    }
+    const spotify = document.getElementById('cc-spotify-connect');
+    if (spotify) panel.append(spotify);
+    const playlists = document.getElementById('playlist-actions');
+    if (playlists) panel.append(playlists);
+    actions.addEventListener('click', e => { if (e.target.closest('button')) tools.open = false; });
+    document.addEventListener('click', e => {
+      if (tools.open && !tools.contains(e.target)) tools.open = false;
+    });
+    tools.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { tools.open = false; tools.querySelector('summary').focus(); }
+    });
+
+    const sort = toolbar.querySelector('#archive-sort');
+    const labels = {recent:'Recently added', artist:'Artist A–Z', tempo:'BPM', year:'Release year', album:'Album', plays:'All-time plays', playsY:'Plays this year', playsM:'Plays in 30 days', playsW:'Plays in 7 days'};
+    const oldSort = document.querySelector('.sort-controls');
+    Object.entries(labels).forEach(([value, label]) => sort.add(new Option(label, value)));
+    const direction = toolbar.querySelector('#archive-direction');
+    const syncSort = () => {
+      sort.value = sorted_key;
+      direction.textContent = sdir === 1 ? '↑' : '↓';
+      direction.setAttribute('aria-label', 'Reverse sort order: currently ' + (sdir === 1 ? 'ascending' : 'descending'));
+      dates?.querySelectorAll('.time-chip').forEach(chip => chip.setAttribute('aria-pressed', String(chip.classList.contains('active'))));
+    };
+    sort.onchange = () => { oldSort.querySelector('[data-s="' + sort.value + '"]').click(); syncSort(); };
+    direction.onclick = () => { oldSort.querySelector('[data-s="' + sorted_key + '"]').click(); syncSort(); };
+    new MutationObserver(syncSort).observe(oldSort, {subtree:true, attributes:true, attributeFilter:['class']});
+    if (dates) new MutationObserver(syncSort).observe(dates, {subtree:true, attributes:true, attributeFilter:['class']});
+    syncSort();
+
+    const filters = document.createElement('dialog');
+    filters.id = 'archive-filters';
+    filters.className = 'music-dialog archive-filters';
+    filters.setAttribute('aria-labelledby', 'archive-filters-title');
+    filters.innerHTML = '<div class="archive-filter-head"><h2 id="archive-filters-title">Filter the archive</h2><button type="button" aria-label="Close filters">×</button></div>';
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) filters.append(sidebar);
+    document.body.append(filters);
+    const filterButton = toolbar.querySelector('#archive-filter-button');
+    filterButton.onclick = () => filters.showModal();
+    filters.querySelector('.archive-filter-head button').onclick = () => filters.close();
+    filters.addEventListener('close', () => filterButton.focus());
+    const about = filters.querySelector('.about-link');
+    if (about) about.addEventListener('click', () => filters.close(), {capture:true});
+    filters.querySelectorAll('.chip, .mood-group-label, .folder-label, .bpm-zone, .about-link').forEach(chip => {
+      if (chip.tagName === 'A') return;
+      chip.setAttribute('role', 'button');
+      chip.tabIndex = 0;
+      chip.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); chip.click(); }
+      });
+    });
+
+    // The old nodes retain their IDs because the existing core updates them.
+    // Their duplicate mobile controls and introductory panel stay out of the list.
+    const stats = document.querySelector('.stats-bar');
+    const tryToday = stats?.nextElementSibling;
+    if (tryToday?.textContent.startsWith('Try today:')) tryToday.classList.add('archive-try-today');
+    const cleanLabels = root => {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const clean = node.data.replace(/[\p{Extended_Pictographic}\p{Regional_Indicator}\uFE0F\u200D]/gu, '').replace(/^\s+/, '');
+        if (node.data !== clean) node.data = clean;
+      }
+    };
+    cleanLabels(panel);
+    cleanLabels(filters);
+    new MutationObserver(() => cleanLabels(panel)).observe(panel, {subtree:true, childList:true, characterData:true});
+
+    table.tabIndex = 0;
+    table.setAttribute('role', 'region');
+    table.setAttribute('aria-label', 'Full archive tracks');
+    const tbody = document.getElementById('tbody');
+    const details = (track, row) => {
+      const host = open(track.t);
+      dialog.querySelector('.mh-close').setAttribute('aria-label', 'Close track details');
+      const artist = document.createElement('p');
+      artist.className = 'archive-detail-artist';
+      artist.textContent = track.a.replace(/;/g, '; ');
+      const list = document.createElement('dl');
+      list.className = 'archive-track-metadata';
+      const metadata = [
+        ['Album', track.al], ['Released', track.r], ['Added', daFmt(track.da)],
+        ['BPM', track.tp > 0 ? Math.round(track.tp) : ''], ['Plays', track.pc || 0],
+        ['Plays this year', track.py || 0], ['Plays in 30 days', track.pm || 0], ['Plays in 7 days', track.pw || 0],
+        ['Vibe', track.vb], ['Crates', (track.c || []).join(', ')],
+        ['Genre', track.g], ['Subgenre', (track.sg || []).join(', ')], ['Vinyl', track.vy ? 'In the collection' : '']
+      ];
+      metadata.forEach(([label, value]) => {
+        if (value === '' || value === undefined || value === null) return;
+        const dt = document.createElement('dt'), dd = document.createElement('dd');
+        dt.textContent = label; dd.textContent = value;
+        list.append(dt, dd);
+      });
+      const extra = document.createElement('div');
+      extra.className = 'mh-actions';
+      extra.append(button('Similar tracks', e => { e.stopPropagation(); close(); showTrackPop(track, e); }));
+      extra.append(button('Artist map', e => { e.stopPropagation(); close(); openArtistMap(track.a); }));
+      if (document.body.classList.contains('owner')) extra.append(button('Edit tags', e => { e.stopPropagation(); close(); openQuickTag(e, Number(row.dataset.i)); }));
+      if (track.vy && track.did) {
+        const link = document.createElement('a');
+        link.href = 'https://www.discogs.com/release/' + track.did;
+        link.textContent = 'View vinyl on Discogs'; link.target = '_blank'; link.rel = 'noopener';
+        extra.append(link);
+      }
+      host.append(artist, list, extra);
+    };
+    const decorateRows = () => {
+      tbody.querySelectorAll('tr:not([data-archive-row])').forEach(row => {
+        row.dataset.archiveRow = 'true';
+        const artistName = row.querySelector('.artist-link');
+        if (artistName) artistName.textContent = artistName.textContent.replace(/;/g, '; ');
+        const cell = document.createElement('td');
+        cell.className = 'col-details';
+        const b = button('•••', e => {
+          e.stopPropagation();
+          const track = filtered[Number(row.dataset.i)];
+          if (track) details(track, row);
+        }, 'archive-track-details');
+        const track = filtered[Number(row.dataset.i)];
+        b.setAttribute('aria-label', 'Details for ' + (track?.t || 'track'));
+        cell.append(b); row.append(cell);
+        const play = row.querySelector('.play-btn');
+        if (play && play.tagName !== 'A') {
+          play.setAttribute('role', 'button'); play.tabIndex = 0;
+          play.setAttribute('aria-label', 'Play ' + (track?.t || 'track'));
+          play.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play.click(); }
+          });
+        }
+        const map = row.querySelector('.qt-edit[title="Artist map"]');
+        if (map) map.textContent = 'Map';
+      });
+    };
+    new MutationObserver(decorateRows).observe(tbody, {childList:true});
+    decorateRows();
+  }
+
   // Navigation and deep links are shared by guest and owner views.
   function mount() {
     const nav = document.createElement("nav");
     nav.className = "music-nav";
     nav.setAttribute("aria-label", "Music");
     nav.innerHTML =
-      '<a class="music-brand" href="index.html">DJ Archive</a><a href="index.html" aria-current="page">Discover</a><a href="?view=records">Full archive</a><a href="gigs.html">Gigs</a><a href="?view=saved">Saved</a>';
+      '<a class="music-brand" href="index.html">DJ Archive</a><a href="index.html" aria-current="page">Discover</a><a href="?view=records">Full archive</a><a href="gigs.html">Gigs</a><a href="?view=saved">Saved</a><a href="https://the-dial-listen.benmpolak.workers.dev/">The Dial</a>';
     document.body.prepend(nav);
-    const table = document.getElementById("table-wrap");
-    if (table) {
-      table.tabIndex = 0;
-      table.setAttribute("role", "region");
-      table.setAttribute("aria-label", "Full archive tracks. Scroll sideways for more columns.");
-      const controls = document.createElement("div");
-      controls.className = "archive-scroll-tools";
-      controls.innerHTML = '<span>Scroll across for all columns</span><button type="button" aria-label="Scroll archive left">←</button><button type="button" aria-label="Scroll archive right">→</button>';
-      table.before(controls);
-      const [left, right] = controls.querySelectorAll("button");
-      left.onclick = () => table.scrollBy({left: -Math.max(260, table.clientWidth * .7), behavior: "smooth"});
-      right.onclick = () => table.scrollBy({left: Math.max(260, table.clientWidth * .7), behavior: "smooth"});
-      const updateScroll = () => {
-        left.disabled = table.scrollLeft < 2;
-        right.disabled = table.scrollLeft + table.clientWidth >= table.scrollWidth - 2;
-      };
-      table.addEventListener("scroll", updateScroll, {passive: true});
-      new ResizeObserver(updateScroll).observe(table);
-      updateScroll();
-    }
+    mountArchive();
     const updateNav = () => {
       const inArchive = !document.body.classList.contains("guest-focus");
       nav.querySelectorAll("[aria-current]").forEach(a => a.removeAttribute("aria-current"));
@@ -459,7 +635,7 @@
           "Keep this set",
           () => {
             if (djSet.length)
-              MusicHome.keep(setDesc || "My set", djSet, "set-builder");
+              MusicHome.keep(setSelectionName(setDesc, "My set"), djSet, "set-builder");
             else showToast("Add some tracks first");
           },
           "mh-keep-set",

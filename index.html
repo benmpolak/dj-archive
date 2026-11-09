@@ -1466,7 +1466,7 @@ function shuffleFiltered(){
   const pool=filtered.length>5?filtered:DATA;
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
   filtered=pool;page=0;q('#tbody').innerHTML=rows(filtered.slice(0,PAGE_SZ),0);
-  updateStats();showToast('Shuffled '+filtered.length+' tracks');
+  stats();showToast('Shuffled '+filtered.length+' tracks');
 }
 function describeSet(seed){
   if(!djSet.length)return'';
