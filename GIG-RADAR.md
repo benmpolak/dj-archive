@@ -1,0 +1,11 @@
+# Gig Radar refresh
+
+`python3 gigs-fetch.py` remains the scheduled full refresh. `python3 gigs-fetch.py --refresh-ronnies` updates only Ronnie Scott’s, retaining other venues’ raw rows and their existing generation date. `--render-existing` and `build.py` preserve the source counts and last verified dates without fetching listings.
+
+Ronnie Scott’s is tried through its normal public pages. A blocked or incomplete response stops that source immediately. The backup is Songkick’s separately published calendar for venue 36418, parsed by `gigs_ronnies.py`. There is no reader proxy, private endpoint, challenge bypass or request retry. The parser requires the venue’s official identity and 47 Frith Street address, explicit typed performers, an exact date, a valid status and a canonical concert URL. It follows only the calendar’s own next-page links, sequentially and within a fixed limit. Any failed or malformed page rejects the whole backup response.
+
+Songkick is a third-party listing source, not a freshly confirmed venue line-up. Existing venue titles and performers stay intact. A matching backup listing can corroborate the date, shown separately with its own check date. New backup-only shows are labelled Songkick. Missing backup entries are not cancellations: older evidence remains dated until replaced, explicitly cancelled or past. A cancellation or reschedule on an already known concert URL retires that prior backup entry. Show titles are used only to identify duplicates, never to qualify a performer as an archive match.
+
+Each stored match can carry `checked_at`, `retained_from` and `listing_check`. Do not erase these during a no-fetch rebuild or relabel old venue performers as freshly checked. `carried_from` remains the oldest retained source date. Both private-style and shareable pages show the per-listing provenance.
+
+Validation: `python3 -m unittest discover -s tests -p 'test_*.py'`. The source, integration and rebuild tests use synthetic data and block real network calls. Inspect staged desktop/mobile pages before copying generated gig outputs into the checkout. Catalogue records, imported metadata and unrelated venues must remain unchanged by a targeted refresh.

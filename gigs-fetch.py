@@ -7,7 +7,7 @@ Sources:
     Eventim Apollo, Spiritland King's Cross, The O2 Arena (site scrapes)
   - AMG/Live Nation internal API (O2 Academy Brixton, Shepherd's Bush Empire,
     Forum Kentish Town, Islington Academies)
-  - Ronnie Scott's official line-ups and performance dates (reader fallback)
+  - Ronnie Scott's official line-ups/dates, with an attributed public Songkick backup
   - Blue Note London via Yoast tm_events sitemap + event detail pages
   - Ticketmaster Discovery API IF env TM_API_KEY is set (optional extra)
 Gaps (checked 2026-07-20): Union Chapel (JS-only); Space Talk & One Eighty One
@@ -25,7 +25,6 @@ from html import unescape
 from pathlib import Path
 from urllib.parse import quote
 from concurrent.futures import ThreadPoolExecutor
-from threading import Lock
 from datetime import date, timedelta
 from collections import defaultdict
 
@@ -578,93 +577,63 @@ def ronnies_dates(html):
     return dates
 
 
-def fetch_ronnies():
+class RonnieEvents(list):
+    """A complete venue response or a separately attributed backup calendar."""
+    def __init__(self, events, source='RonnieScotts'):
+        super().__init__(events)
+        self.source = source
+
+
+def fetch_ronnies_official():
     base = 'https://www.ronniescotts.co.uk/find-a-show'
     first = http_get(base)
-    shows = {s['url']: s for s in ronnies_listings(first)}
+    shows = {show['url']: show for show in ronnies_listings(first)}
     pages = re.search(r'totalPages:\s*(\d+)', first)
-    count = min(int(pages.group(1)), 60) if pages else 1
-    def listing(page):
-        return ronnies_listings(http_get(f'{base}?page={page}'))
-    with ThreadPoolExecutor(4) as pool:
-        for batch in pool.map(listing, range(2, count + 1)):
-            shows.update((s['url'], s) for s in batch)
+    count = int(pages.group(1)) if pages else 1
+    if count > 60:
+        raise ValueError("Ronnie Scott's listing exceeds the checked page limit")
+    # Stop on a blocked or incomplete response. Never use a reader/proxy to
+    # get around the venue's access controls, or call a partial run complete.
+    for page in range(2, count + 1):
+        batch = ronnies_listings(http_get(f'{base}?page={page}'))
+        if not batch:
+            raise ValueError("Incomplete Ronnie Scott's listing page")
+        shows.update((show['url'], show) for show in batch)
     if not shows:
         raise RuntimeError("No Ronnie Scott's detail links found")
     artists = load_artists()
-    # Titles only shortlist pages to inspect. The actual match below still
-    # requires a separately published Line-up, never a title-derived name.
     candidates = {name for name, artist in artists.items()
                   if not too_thin(artist) and name not in DEAD_ARTISTS | EXCLUDE_ARTISTS}
-    total_shows = len(shows)
-    shows = {url: show for url, show in shows.items()
+    shows = [show for show in shows.values()
              if any(' ' + name + ' ' in ' ' + normalize(show['title']) + ' '
-                    for name in candidates)}
-    print(f"    Ronnie Scott's: {total_shows} listings; checking {len(shows)} possible archive matches", flush=True)
-    failures = []
-    reader_lock = Lock()
-    reader_next = [0.0]
-    checked = [0]
-    def read_lineup(url):
-        # The public reader can cache Cloudflare challenge pages. Ask for a
-        # fresh render and pace requests within its anonymous 20/min limit.
-        for attempt in range(2):
-            with reader_lock:
-                delay = reader_next[0] - time.monotonic()
-                if delay > 0:
-                    time.sleep(delay)
-                reader_next[0] = time.monotonic() + 3.2
-            req = urllib.request.Request('https://r.jina.ai/' + url,
-                headers={'X-No-Cache': 'true', 'X-Timeout': '20'})
-            try:
-                with urllib.request.urlopen(req, timeout=35) as response:
-                    return ronnies_performers(response.read().decode('utf-8', 'replace'))
-            except urllib.error.HTTPError as error:
-                if error.code != 429 or attempt:
-                    raise
-                with reader_lock:
-                    reader_next[0] = max(reader_next[0], time.monotonic() + 60)
-        return []
-    def one(show):
-        names = []
-        try:
-            names = ronnies_performers(http_get(show['url'], timeout=15))
-        except Exception:
-            pass
-        if not names:
-            try:
-                names = read_lineup(show['url'])
-            except Exception:
-                pass
-        with reader_lock:
-            checked[0] += 1
-            if checked[0] % 20 == 0:
-                print(f"    Ronnie Scott's: checked {checked[0]}/{len(shows)} line-ups", flush=True)
-        if not names:
-            failures.append(show['url'])
-            return []
-        event = {'title': show['title'], 'venue': "Ronnie Scott's", 'url': show['url'],
-                 'names': names, 'lineup_verified': True, 'source': 'RonnieScotts', 'hint': 'gig'}
-        if not match_event(event, artists):
-            return []
-        try:
-            dates = ronnies_dates(http_get(base + '?id=' + show['id'] + '&ajax=1',
-                extra_headers={'X-Requested-With': 'XMLHttpRequest',
-                               'X-Loadmore-Key': 'ajax-drawer'}))
-            if not dates:
-                raise ValueError('No performance dates in booking drawer')
-        except Exception:
-            failures.append(show['url'])
-            return []
-        return [dict(event, date=d, start=start) for d, start in sorted(dates.items())]
+                    for name in candidates)]
     events = []
-    with ThreadPoolExecutor(4) as pool:
-        for batch in pool.map(one, shows.values()):
-            events.extend(batch)
-    print(f"    Ronnie Scott's: {len(shows)} show pages; {len(failures)} without accessible line-up/dates")
-    if not events:
-        raise RuntimeError("Ronnie Scott's returned no verified performances")
-    return events
+    for show in shows:
+        names = ronnies_performers(http_get(show['url'], timeout=15))
+        if not names:
+            raise ValueError("Ronnie Scott's show has no accessible line-up")
+        event = {'title': show['title'], 'venue': "Ronnie Scott's", 'url': show['url'],
+                 'names': names, 'lineup_verified': True, 'source': 'RonnieScotts',
+                 'hint': 'gig', 'checked_at': str(TODAY)}
+        if not match_event(event, artists):
+            continue
+        dates = ronnies_dates(http_get(base + '?id=' + show['id'] + '&ajax=1',
+            extra_headers={'X-Requested-With': 'XMLHttpRequest', 'X-Loadmore-Key': 'ajax-drawer'}))
+        if not dates:
+            raise ValueError("No performance dates in Ronnie Scott's booking drawer")
+        events.extend(dict(event, date=day, start=start) for day, start in sorted(dates.items()))
+    return RonnieEvents(events)
+
+
+def fetch_ronnies():
+    try:
+        return fetch_ronnies_official()
+    except Exception as error:
+        print(f"    Ronnie Scott's venue feed unavailable: {error}; checking Songkick's public calendar", flush=True)
+    from gigs_ronnies import fetch_songkick_ronnies
+    events = fetch_songkick_ronnies(lambda url: http_get(url, timeout=25,
+        extra_headers={'User-Agent': 'GigRadar/1.0 (+https://benmpolak.github.io/dj-archive/)'}), TODAY)
+    return RonnieEvents(events, 'RonnieSongkick')
 
 
 def bluenote_performers(html):
@@ -1084,6 +1053,27 @@ def render(matches, n_events, n_artists, sources_note, out, public=False, genera
                 f'aria-label="Add {nm} to calendar" title="Add to calendar">+ Cal</button>'
                 f'<a class="mini-action" href="index.html?hear={quote(m["artist"]["name"])}">Hear five tracks</a>')
 
+    def source_note(m):
+        if m.get('source') not in ('RonnieScotts', 'RonnieSongkick'):
+            return ''
+        def short(day):
+            try:
+                return date.fromisoformat(day).strftime('%-d %b')
+            except (ValueError, TypeError):
+                return ''
+        check = m.get('listing_check') or {}
+        if m.get('retained_from'):
+            text = ("Songkick listing " if m['source'] == 'RonnieSongkick' else "Venue line-up ") + short(m['retained_from'])
+            if check.get('date'):
+                text += ' · date also listed on Songkick ' + short(check['date'])
+            else:
+                text += ' · awaiting a fresh listing'
+        elif m.get('source') == 'RonnieSongkick':
+            text = 'Songkick listing · checked ' + short(m.get('checked_at'))
+        else:
+            text = 'Venue listing · checked ' + short(m.get('checked_at'))
+        return '<div class="source-check">' + esc(text) + '</div>'
+
     def card(m):
         d = date.fromisoformat(m['date'])
         nm = esc(m['artist']['name'])
@@ -1093,6 +1083,7 @@ def render(matches, n_events, n_artists, sources_note, out, public=False, genera
   <div class="card-artist"><a class="a-link" href="index.html#find={nm}" onclick="try{{localStorage.setItem('gr_find',this.dataset.a)}}catch(e){{}}" data-a="{nm}" title="See them in the archive">{nm}</a><a class="sp-link" href="https://open.spotify.com/search/{nm}" target="_blank" rel="noopener" title="Open in Spotify">&#9654;</a></div>
   <div class="card-event">{esc(m['title'])}</div>
   <div class="card-venue">{esc(m['venue'])}</div>
+  {source_note(m)}
   <div class="badges">{badge_html(m)}</div>
   {f'<div class="why">{why(m)}</div>' if why(m) else ''}
   <div class="card-actions">{event_actions(m)}<a class="mini-action" href="{esc(m['url'])}" target="_blank" rel="noopener">Tickets</a></div>
@@ -1115,6 +1106,7 @@ def render(matches, n_events, n_artists, sources_note, out, public=False, genera
   <div class="r-main">
     <div class="r-artist"><a class="a-link" href="index.html#find={esc(m['artist']['name'])}" onclick="try{{localStorage.setItem('gr_find',this.dataset.a)}}catch(e){{}}" data-a="{esc(m['artist']['name'])}" title="See them in the archive">{esc(m['artist']['name'])}</a><a class="sp-link" href="https://open.spotify.com/search/{esc(m['artist']['name'])}" target="_blank" rel="noopener" title="Open in Spotify">&#9654;</a><span class="r-type">{TYPE_LABEL[m['etype']]}</span>{co} {badge_html(m)}</div>
     <div class="r-sub">{title}{('<span class="dot">·</span>' if title else '')}<span class="r-venue">{esc(m['venue'])}</span></div>
+    {source_note(m)}
     {f'<div class="why">{why(m)}</div>' if why(m) and not public else ''}
   </div>
   <div class="row-actions">{event_actions(m)}<a class="tix" href="{esc(m['url'])}" target="_blank" rel="noopener">Tickets</a></div>
@@ -1200,6 +1192,7 @@ h2,.eyebrow{{font-size:0.72em;text-transform:uppercase;letter-spacing:0.16em;col
 .bdg{{display:inline-block;border-radius:6px;padding:1px 7px;font-size:0.62em;font-weight:600;letter-spacing:0.04em;margin:1px 4px 1px 0}}
 .bdg-just{{background:rgba(96,232,160,0.16);color:var(--green);border:1px solid rgba(96,232,160,0.3)}}
 .bdg-trib{{background:rgba(160,64,232,0.12);color:#b07ae0}}
+.source-check{{color:var(--dim);font-size:0.68em;line-height:1.5;margin-top:5px}}
 .why{{color:var(--dim);font-size:0.7em;margin-top:6px;line-height:1.5}}
 .card-actions{{display:flex;gap:6px;margin-top:10px}}
 .row{{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:border-color .12s}}
@@ -1365,7 +1358,7 @@ function apply(skipUrl){{
     show(h,count>0);
   }});
   show(document.getElementById('picks-w'),!active());
-  show(document.getElementById('none'),total===0);
+  document.getElementById('none').style.display=total===0?'block':'none';
   document.getElementById('result-count').textContent='Showing '+total+' show'+(total===1?'':'s');
   document.getElementById('clear').classList.toggle('vis',!!active());
   var filterCount=[F.v,F.t,F.mo,F.c,F.n,F.range,F.saved].filter(Boolean).length;
@@ -1429,7 +1422,7 @@ def performer_names(value):
 
 def is_cancelled(event):
     return bool(re.search(r'\bcancelled\b|\bcanceled\b|\bpostponed\b', event.get('title', ''), re.I)
-                or re.search(r'cancel|postpon', str(event.get('status', '')), re.I))
+                or re.search(r'cancel|postpon|movedonline', str(event.get('status', '')), re.I))
 
 
 def hydrate_saved_matches(payload, artists):
@@ -1458,6 +1451,127 @@ def hydrate_saved_matches(payload, artists):
     return rebuilt
 
 
+def serialise_match(match):
+    return {**{key: match[key] for key in ('date', 'title', 'venue', 'url', 'source',
+                'how', 'score', 'etype', 'first_seen')},
+            'performers': match['performers'], 'artist': match['artist']['name'],
+            'co': [artist['name'] for artist in match['co']],
+            **{key: match[key] for key in ('checked_at', 'retained_from', 'listing_check') if key in match}}
+
+
+def same_ronnies_show(match, event):
+    if match['date'] != event.get('date'):
+        return False
+    checked_url = (match.get('listing_check') or {}).get('url')
+    if event.get('url') and event['url'] in (match.get('url'), checked_url):
+        return True
+    # A title can identify a duplicate listing, but never qualifies an artist.
+    old, new = normalize(match['title']), normalize(event.get('title', ''))
+    return bool(new and (old == new or (len(new) >= 4 and ' ' + new + ' ' in ' ' + old + ' ')))
+
+
+def reconcile_ronnies(fresh, retained, events):
+    """Keep venue line-ups intact; a backup can corroborate the date only.
+
+    Missing backup entries are not cancellations. Explicit cancelled backup
+    events suppress the corresponding retained listing, without changing others.
+    """
+    cancelled = [event for event in events if is_cancelled(event)]
+    current_urls = {event['url'] for event in events}
+    retained = [dict(match) for match in retained
+                if not (match['source'] == 'RonnieSongkick' and match['url'] in current_urls)
+                and not any(same_ronnies_show(match, event) for event in cancelled)]
+    additions = []
+    for match in fresh:
+        retained = [old for old in retained if not (old['source'] == 'RonnieSongkick' and same_ronnies_show(old, match))]
+        duplicates = [old for old in retained if same_ronnies_show(old, match)]
+        if duplicates:
+            for old in duplicates:
+                old['listing_check'] = {'source': 'Songkick', 'date': match['checked_at'], 'url': match['url']}
+        else:
+            additions.append(match)
+    return retained + drop_repeat_nights(additions)
+
+
+def matched_ronnies(events, artists, previous):
+    seen = {(match['artist'], match['date']): match.get('first_seen', '2000-01-01')
+            for match in previous.get('matches', [])}
+    groups = {}
+    for event in events:
+        if not str(TODAY) <= event['date'] <= str(TODAY + timedelta(days=365)):
+            continue
+        hits = match_event(event, artists)
+        for norm, how in hits.items():
+            if is_tribute(event['title'], how) or norm in DEAD_ARTISTS | EXCLUDE_ARTISTS:
+                continue
+            artist = artists[norm]
+            match = {'date': event['date'], 'title': event['title'], 'venue': event['venue'],
+                     'url': event['url'], 'source': event['source'], 'how': how,
+                     'artist': artist, 'co': [], 'performers': event['names'], 'all_names': event['names'],
+                     'etype': classify(event, event['title']), 'score': artist_score(artist),
+                     'first_seen': seen.get((artist['name'], event['date']), str(TODAY)),
+                     'checked_at': event.get('checked_at', str(TODAY))}
+            key = (match['date'], normalize(match['title']))
+            old = groups.get(key)
+            if old is not None:
+                names = list(dict.fromkeys(old['performers'] + match['performers']))
+                old['performers'] = old['all_names'] = names
+                match['performers'] = match['all_names'] = names
+            if old is None:
+                groups[key] = match
+            elif artist['name'] != old['artist']['name'] and artist['name'] not in {item['name'] for item in old['co']}:
+                if match['score'] > old['score']:
+                    match['co'] = old['co'] + [old['artist']]
+                    groups[key] = match
+                else:
+                    old['co'].append(artist)
+    matches = drop_repeat_nights(list(groups.values()))
+    for match in matches:
+        match['score'] += 5 * len(match['co'])
+    return matches
+
+
+def refresh_ronnies_only(artists, out):
+    """A targeted refresh preserves every other venue row and its generation date."""
+    previous = json.loads(Path(HERE, 'gigs-data.json').read_text())
+    events = fetch_ronnies()  # An incomplete/failed fallback raises before any write.
+    source = getattr(events, 'source', 'RonnieScotts')
+    fresh = matched_ronnies(events, artists, previous)
+    counts = dict(previous.get('source_counts', {}))
+    carried = dict(previous.get('carried_from', {}))
+    if source == 'RonnieSongkick':
+        old = hydrate_saved_matches({'matches': [match for match in previous['matches']
+                                     if match.get('source') in ('RonnieScotts', 'RonnieSongkick')]}, artists)
+        for match in old:
+            match['retained_from'] = match.get('retained_from') or match.get('checked_at') or carried.get("Ronnie Scott's", previous['generated'])
+        fresh = reconcile_ronnies(fresh, old, events)
+        counts["Ronnie Scott's"] = 0
+        counts["Songkick (Ronnie Scott's)"] = len(events)
+        dates = [match['retained_from'] for match in fresh if match.get('retained_from')]
+        if dates:
+            carried["Ronnie Scott's"] = min(dates)
+        else:
+            carried.pop("Ronnie Scott's", None)
+    else:
+        counts["Ronnie Scott's"] = len(events)
+        counts.pop("Songkick (Ronnie Scott's)", None)
+        carried.pop("Ronnie Scott's", None)
+    payload = {**previous, 'source_counts': counts,
+               'matches': [match for match in previous['matches'] if match.get('source') not in ('RonnieScotts', 'RonnieSongkick')]
+                          + [serialise_match(match) for match in fresh]}
+    if carried:
+        payload['carried_from'] = carried
+    else:
+        payload.pop('carried_from', None)
+    Path(HERE, 'gigs-data.json').write_text(json.dumps(payload, indent=1))
+    visible = hydrate_saved_matches(payload, artists)
+    note = existing_sources_note()
+    render(visible, payload.get('events', 0), len(artists), note, out, generated=payload['generated'])
+    render(visible, payload.get('events', 0), len(artists), note, out.replace('gigs.html', 'gigs-share.html'),
+           public=True, generated=payload['generated'])
+    print(f"Ronnie Scott's refreshed: {len(events)} source events, {len(fresh)} matched shows; other venue data unchanged")
+
+
 def save_matches(matches, generated, n_events, source_counts=None, carried_from=None):
     if source_counts is None:
         try:
@@ -1466,10 +1580,7 @@ def save_matches(matches, generated, n_events, source_counts=None, carried_from=
             source_counts = {}
     payload = {'generated': generated, 'events': n_events, 'matching_rule': 'explicit-performers-v1',
                'source_counts': source_counts,
-               'matches': [{**{k: m[k] for k in ('date', 'title', 'venue', 'url', 'source',
-                                              'how', 'score', 'etype', 'first_seen')},
-                            'performers': m['performers'], 'artist': m['artist']['name'],
-                            'co': [r['name'] for r in m['co']]} for m in matches]}
+               'matches': [serialise_match(match) for match in matches]}
     if carried_from:
         payload['carried_from'] = carried_from
     Path(HERE, 'gigs-data.json').write_text(json.dumps(payload, indent=1))
@@ -1477,10 +1588,24 @@ def save_matches(matches, generated, n_events, source_counts=None, carried_from=
 
 def existing_sources_note():
     try:
-        counts = json.loads(Path(HERE, 'gigs-data.json').read_text()).get('source_counts', {})
-        if counts:
-            return ('Sources: ' + ', '.join(name for name, count in counts.items() if count) +
-                    '. Only explicitly listed performers qualify. Title mentions, cancelled shows '
+        payload = json.loads(Path(HERE, 'gigs-data.json').read_text())
+        counts, carried = payload.get('source_counts', {}), payload.get('carried_from', {})
+        if counts or carried:
+            sources = ', '.join(name for name, count in counts.items() if count)
+            checks = [m.get('checked_at', '') for m in payload.get('matches', []) if m.get('source') == 'RonnieSongkick']
+            checks += [(m.get('listing_check') or {}).get('date', '') for m in payload.get('matches', [])]
+            held = ''
+            for name, day in carried.items():
+                when = date.fromisoformat(day).strftime('%-d %b')
+                if name == "Ronnie Scott's" and any(checks):
+                    held += f" Earlier Ronnie Scott's listings are retained from {when}; the venue feed is unavailable."
+                else:
+                    held += f' {name} shows are from its {when} listings; its site is blocking the refresh.'
+            if any(checks):
+                held += " Ronnie Scott's backup: Songkick listings checked " + date.fromisoformat(max(checks)).strftime('%-d %b') + ". Earlier venue line-ups keep their original dates."
+
+            return (('Sources: ' + sources + '.' if sources else 'Saved listings.') + held +
+                    ' Only explicitly listed performers qualify. Title mentions, cancelled shows '
                     'and tribute nights are excluded.')
     except (OSError, ValueError):
         pass
@@ -1499,17 +1624,23 @@ def main():
     ap.add_argument('--out', default=f'{HERE}/gigs.html')
     ap.add_argument('--render-existing', action='store_true',
                     help='rebuild HTML from gigs-data.json without fetching listings')
+    ap.add_argument('--refresh-ronnies', action='store_true', help="refresh Ronnie Scott's only, retaining other venue data")
     args = ap.parse_args()
 
     print('Loading archive artists...')
     artists = load_artists()
     print(f'  {len(artists)} unique artists')
 
+    if args.refresh_ronnies:
+        refresh_ronnies_only(artists, args.out)
+        return
+
     if args.render_existing:
         payload = json.load(open(f'{HERE}/gigs-data.json'))
         matches = hydrate_saved_matches(payload, artists)
         note = existing_sources_note()
-        save_matches(matches, payload['generated'], payload.get('events', 0))
+        save_matches(matches, payload['generated'], payload.get('events', 0),
+                     payload.get('source_counts', {}), payload.get('carried_from', {}))
         render(matches, payload.get('events', 0), len(artists), note, args.out, generated=payload['generated'])
         share_out = args.out.replace('gigs.html', 'gigs-share.html')
         render(matches, payload.get('events', 0), len(artists), note, share_out, public=True, generated=payload['generated'])
@@ -1531,7 +1662,7 @@ def main():
     except Exception:
         pass
 
-    events, src_counts = [], {}
+    events, src_counts, ronnies_batch = [], {}, None
     for label, fn in [('RA', lambda: fetch_ra(args.days)), ('KOKO', fetch_koko),
                       ('EartH', fetch_earth), ('Jazz Cafe', fetch_jazzcafe),
                       ('Roundhouse', fetch_roundhouse), ('Ally Pally', fetch_allypally),
@@ -1547,6 +1678,11 @@ def main():
             batch = fn()
             print(f'  {label}: {len(batch)} events')
             src_counts[label] = len(batch)
+            if label == "Ronnie Scott's":
+                ronnies_batch = batch
+                if getattr(batch, 'source', None) == 'RonnieSongkick':
+                    src_counts[label] = 0
+                    src_counts["Songkick (Ronnie Scott's)"] = len(batch)
             events.extend(batch)
         except Exception as e:
             print(f'  {label} FAILED: {e}', file=sys.stderr)
@@ -1556,15 +1692,23 @@ def main():
     # from the last good listings, re-checked like saved data, and say so on the page.
     carried, carried_from = [], {}
     for name, source in (('Blue Note', 'BlueNote'), ("Ronnie Scott's", 'RonnieScotts')):
-        if src_counts.get(name):
+        official_complete = name == "Ronnie Scott's" and getattr(ronnies_batch, 'source', None) == 'RonnieScotts'
+        if src_counts.get(name) or official_complete:
             continue
-        kept = hydrate_saved_matches({'matches': [m for m in prev['matches'] if m.get('source') == source]}, artists)
-        if not kept:
+        fallback = name == "Ronnie Scott's" and getattr(ronnies_batch, 'source', None) == 'RonnieSongkick'
+        sources = {source, 'RonnieSongkick'} if name == "Ronnie Scott's" else {source}
+        kept = hydrate_saved_matches({'matches': [m for m in prev['matches'] if m.get('source') in sources]}, artists)
+        if not kept and not fallback:
             sys.exit(f'Jazz source failed: {name}, with no saved shows to keep. '
                      'Keeping the existing gig files for review.')
-        carried += kept
-        carried_from[name] = prev.get('carried_from', {}).get(name, prev.get('generated', str(TODAY)))
-        print(f'::warning::{name} listing unavailable; keeping {len(kept)} shows from {carried_from[name]}')
+        if kept:
+            day = prev.get('carried_from', {}).get(name, prev.get('generated', str(TODAY)))
+            for match in kept:
+                if name == "Ronnie Scott's":
+                    match['retained_from'] = match.get('retained_from') or match.get('checked_at') or day
+            carried += kept
+            carried_from[name] = day
+            print(f'::warning::{name} venue listing unavailable; keeping {len(kept)} earlier line-ups from {day}')
 
     # hand-added shows (e.g. Instagram-only listening bars, swept manually):
     # gigs-extra.json = [{"date","title","venue","url","names":[...]}]
@@ -1614,7 +1758,7 @@ def main():
                             'etype': classify(ev, ev['title']),
                             'first_seen': ('2000-01-01' if bootstrap or ev['source'] not in prev_sources
                                            else prev_seen.get((r['name'], ev['date']), str(TODAY))),
-                            'score': artist_score(r)})
+                            'score': artist_score(r), **({'checked_at': ev['checked_at']} if ev.get('checked_at') else {})})
     print(f'  dropped {n_trib} tribute/covers-night matches')
 
     grouped = {}
@@ -1633,20 +1777,25 @@ def main():
         sys.exit('No verified performers found — retaining the existing gig files.')
     for m in matches:
         m['score'] += 5 * len(m['co'])
+    if getattr(ronnies_batch, 'source', None) == 'RonnieSongkick':
+        backup = [match for match in matches if match['source'] == 'RonnieSongkick']
+        old = [match for match in carried if match['source'] in ('RonnieScotts', 'RonnieSongkick')]
+        matches = [match for match in matches if match['source'] != 'RonnieSongkick']
+        reconciled = reconcile_ronnies(backup, old, ronnies_batch)
+        matches += reconciled
+        dates = [match['retained_from'] for match in reconciled if match.get('retained_from')]
+        if dates:
+            carried_from["Ronnie Scott's"] = min(dates)
+        else:
+            carried_from.pop("Ronnie Scott's", None)
+        carried = [match for match in carried if match['source'] not in ('RonnieScotts', 'RonnieSongkick')]
     matches += carried
 
     print(f'{len(events)} events in window -> {len(matches)} matched shows')
 
     save_matches(matches, str(TODAY), len(events), src_counts, carried_from)
 
-    got = [k for k, v in src_counts.items() if v]
-    held = ''.join(f' {name} shows are from its {date.fromisoformat(day).strftime("%-d %b")} listings; '
-                   'its site is blocking the refresh.' for name, day in carried_from.items())
-    note = ('Sources: ' + ', '.join(got) + '.' + held +
-            ' Only explicitly listed performers qualify. Title mentions and cancelled shows are excluded. '
-            'Gaps: Union Chapel, Tottenham &amp; London Stadium (no listings feeds); '
-            'Title-only venue feeds are excluded. Space Talk, One Eighty One &amp; Brilliant Corners programme on '
-            'Instagram only (their RA-listed nights are covered). SJQ via RA.')
+    note = existing_sources_note()
     render(matches, len(events), len(artists), note, args.out)
     share_out = args.out.replace('gigs.html', 'gigs-share.html')
     render(matches, len(events), len(artists), note, share_out, public=True)

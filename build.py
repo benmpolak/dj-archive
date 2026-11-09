@@ -52,7 +52,8 @@ def main(catalogue_only=False):
     gigs = importlib.util.module_from_spec(spec);spec.loader.exec_module(gigs)
     payload = json.loads((ROOT / 'gigs-data.json').read_text())
     artists = gigs.load_artists();matches = gigs.hydrate_saved_matches(payload, artists)
-    gigs.save_matches(matches, payload['generated'], payload['events'])
+    gigs.save_matches(matches, payload['generated'], payload['events'],
+                      payload.get('source_counts', {}), payload.get('carried_from', {}))
     for filename, public in [('gigs.html', False), ('gigs-share.html', True)]:
         gigs.render(matches, payload['events'], len(artists), gigs.existing_sources_note(), str(ROOT / filename), public=public, generated=payload['generated'])
     print(f'Built {len(data):,} unchanged tracks, {len(matches)} verified gigs and {len(shards)} catalogue shards.')

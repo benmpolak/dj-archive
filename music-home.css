@@ -844,3 +844,8 @@ body.guest-focus .gh-browse-tools .gh-rifle { flex: 1; min-width: 240px; margin:
   .gh-browse-tools { gap: 0; }
   .gh-browse-tools .gh-rifle { flex-basis: 100%; }
 }
+
+@media (max-width: 360px) {
+  .music-nav { gap: 0; }
+  .music-nav a { padding-inline: 10px; min-height: 44px; }
+}

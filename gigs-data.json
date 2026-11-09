@@ -19,7 +19,8 @@
   "OVO Arena": 11,
   "Wembley Stadium": 13,
   "Open Air Theatre": 0,
-  "Ticketmaster": 0
+  "Ticketmaster": 0,
+  "Songkick (Ronnie Scott's)": 74
  },
  "matches": [
   {
@@ -4004,7 +4005,8 @@
     "MEGAN KHAN"
    ],
    "artist": "Tony Momrelle",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-11-26",
@@ -4025,7 +4027,8 @@
     "SIMON JINADU"
    ],
    "artist": "Vanessa Haynes",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2027-01-30",
@@ -4046,7 +4049,8 @@
     "SIMON JINADU"
    ],
    "artist": "Vanessa Haynes",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2027-02-18",
@@ -4067,7 +4071,8 @@
     "SIMON JINADU"
    ],
    "artist": "Vanessa Haynes",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2027-03-18",
@@ -4088,7 +4093,8 @@
     "SIMON JINADU"
    ],
    "artist": "Vanessa Haynes",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-11-13",
@@ -4104,7 +4110,8 @@
     "CHIMINYO"
    ],
    "artist": "Chiminyo",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-12-11",
@@ -4120,7 +4127,8 @@
     "CHIMINYO"
    ],
    "artist": "Chiminyo",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-12-02",
@@ -4151,45 +4159,8 @@
    "artist": "Mark Kavuma",
    "co": [
     "Mussinghi Brian Edwards"
-   ]
-  },
-  {
-   "date": "2026-11-06",
-   "title": "Theo Croker",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.ronniescotts.co.uk/find-a-show/theo-croker",
-   "source": "RonnieScotts",
-   "how": "lineup",
-   "score": 89.5,
-   "etype": "gig",
-   "first_seen": "2026-10-08",
-   "performers": [
-    "THEO CROKER",
-    "TYLER BULLOCK",
-    "ERIC WHEELER",
-    "KOLEBY ROYSTON"
    ],
-   "artist": "Theo Croker",
-   "co": []
-  },
-  {
-   "date": "2026-11-07",
-   "title": "Theo Croker",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.ronniescotts.co.uk/find-a-show/theo-croker",
-   "source": "RonnieScotts",
-   "how": "lineup",
-   "score": 89.5,
-   "etype": "gig",
-   "first_seen": "2026-10-08",
-   "performers": [
-    "THEO CROKER",
-    "TYLER BULLOCK",
-    "ERIC WHEELER",
-    "KOLEBY ROYSTON"
-   ],
-   "artist": "Theo Croker",
-   "co": []
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-11-09",
@@ -4206,7 +4177,13 @@
     "LOUIS COLE"
    ],
    "artist": "Louis Cole",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43211053-david-binney-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-11-14",
@@ -4228,7 +4205,13 @@
    "artist": "Finn Rees",
    "co": [
     "Chip Wickham"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43354314-chip-wickham-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-11-18",
@@ -4249,7 +4232,13 @@
    "artist": "Ego Ella May",
    "co": [
     "Jihad Darwish"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43418286-ego-ella-may-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-11-21",
@@ -4272,7 +4261,8 @@
     "ISOBELLA BURNHAM"
    ],
    "artist": "Isobella Burnham",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-12-10",
@@ -4294,7 +4284,13 @@
     "WESTLEY JOSEPH"
    ],
    "artist": "Omar",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43310364-omar-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-12-11",
@@ -4316,7 +4312,13 @@
     "WESTLEY JOSEPH"
    ],
    "artist": "Omar",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43310369-omar-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-12-10",
@@ -4338,7 +4340,8 @@
     "> Wonky Logic isn\u2019t just one of the most versatile and unique musicians out there"
    ],
    "artist": "Wonky Logic",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-12-10",
@@ -4358,7 +4361,8 @@
     "JEROME JOHNSON"
    ],
    "artist": "Jackson Mathod",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-12-28",
@@ -4385,7 +4389,13 @@
    "artist": "Paul Booth",
    "co": [
     "Ryan Quigley"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43372687-incognito-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-12-29",
@@ -4412,7 +4422,13 @@
    "artist": "Paul Booth",
    "co": [
     "Ryan Quigley"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43372688-incognito-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-12-30",
@@ -4439,7 +4455,13 @@
    "artist": "Paul Booth",
    "co": [
     "Ryan Quigley"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43372689-incognito-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2026-12-31",
@@ -4455,7 +4477,8 @@
     "VANESSA HAYNES"
    ],
    "artist": "Vanessa Haynes",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2026-12-31",
@@ -4482,7 +4505,13 @@
    "artist": "Paul Booth",
    "co": [
     "Ryan Quigley"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43459604-incognito-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-01-13",
@@ -4509,7 +4538,13 @@
     "Rearranged originals from across The Dan's back catalogue will be getting a rare live workout"
    ],
    "artist": "Trevor Mires",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43415846-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-01-14",
@@ -4536,7 +4571,13 @@
     "Rearranged originals from across The Dan's back catalogue will be getting a rare live workout"
    ],
    "artist": "Trevor Mires",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43415847-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-01-15",
@@ -4563,7 +4604,13 @@
     "Rearranged originals from across The Dan's back catalogue will be getting a rare live workout"
    ],
    "artist": "Trevor Mires",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43415848-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-01-16",
@@ -4590,7 +4637,13 @@
     "Rearranged originals from across The Dan's back catalogue will be getting a rare live workout"
    ],
    "artist": "Trevor Mires",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43415850-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-01-17",
@@ -4617,7 +4670,13 @@
     "Rearranged originals from across The Dan's back catalogue will be getting a rare live workout"
    ],
    "artist": "Trevor Mires",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43415853-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-01-18",
@@ -4643,7 +4702,13 @@
    "artist": "Daniel Casimir",
    "co": [
     "Binker Golding"
-   ]
+   ],
+   "retained_from": "2026-10-22",
+   "listing_check": {
+    "source": "Songkick",
+    "date": "2026-11-09",
+    "url": "https://www.songkick.com/concerts/43465069-daniel-casimir-at-ronnie-scotts-jazz-club"
+   }
   },
   {
    "date": "2027-02-17",
@@ -4670,7 +4735,8 @@
     "Expect serious musicianship, spontaneous improvisation, and infectious, danceable grooves"
    ],
    "artist": "Omar",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2027-02-18",
@@ -4697,7 +4763,8 @@
     "Expect serious musicianship, spontaneous improvisation, and infectious, danceable grooves"
    ],
    "artist": "Omar",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
   },
   {
    "date": "2027-02-19",
@@ -4724,7 +4791,244 @@
     "Expect serious musicianship, spontaneous improvisation, and infectious, danceable grooves"
    ],
    "artist": "Omar",
-   "co": []
+   "co": [],
+   "retained_from": "2026-10-22"
+  },
+  {
+   "date": "2026-11-16",
+   "title": "Nathan Haines",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43395622-nathan-haines-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 137.9,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Nathan Haines",
+    "Vanessa Freeman",
+    "Oscar Jerome"
+   ],
+   "artist": "Nathan Haines",
+   "co": [
+    "Vanessa Freeman",
+    "Oscar Jerome"
+   ],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2026-11-20",
+   "title": "Jeroboam",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43381097-jeroboam-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 29.0,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Jeroboam",
+    "Wolfgang Valbrun"
+   ],
+   "artist": "J\u00e9roboam",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2026-11-21",
+   "title": "Jeroboam",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43485989-jeroboam-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 29.0,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Jeroboam",
+    "Wolfgang Valbrun"
+   ],
+   "artist": "J\u00e9roboam",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2026-11-25",
+   "title": "The James Taylor Quartet",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43497390-james-taylor-quartet-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 12.6,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "The James Taylor Quartet"
+   ],
+   "artist": "James Taylor Quartet",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2026-12-18",
+   "title": "Zaimie",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43486081-zaimie-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 19.0,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Zaimie",
+    "Ziggy Funk"
+   ],
+   "artist": "Zaimie",
+   "co": [
+    "Ziggy Funk"
+   ],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-01-06",
+   "title": "Danny Keane Cello",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43464902-danny-keane-cello-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 14.3,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Danny Keane Cello",
+    "Byron Wallen",
+    "James Arben",
+    "Liran Donin"
+   ],
+   "artist": "Byron Wallen",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-01-07",
+   "title": "Luke Smith",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43464912-luke-smith-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 7.9,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Luke Smith",
+    "Sid Gauld",
+    "Luca Boscagin",
+    "David Mrakpor",
+    "Selina Albright"
+   ],
+   "artist": "David Mrakpor",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-01-11",
+   "title": "Richard Spaven",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43488636-richard-spaven-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 77.9,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Richard Spaven",
+    "Stuart McCallum",
+    "James Copus"
+   ],
+   "artist": "Richard Spaven",
+   "co": [
+    "James Copus"
+   ],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-01-19",
+   "title": "Fred Wesley & The New J.B.'s",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43488642-fred-wesley-and-the-new-jbs-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 10.9,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Fred Wesley & The New J.B.'s",
+    "Fred Wesley"
+   ],
+   "artist": "Fred Wesley",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-01-23",
+   "title": "Camilla George",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43415862-camilla-george-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 20.4,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Camilla George"
+   ],
+   "artist": "Camilla George",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-02-02",
+   "title": "Alex Hitchcock",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43404394-alex-hitchcock-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 29.5,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Alex Hitchcock",
+    "Myele Manzanza",
+    "Michelangelo Scandroglio"
+   ],
+   "artist": "Myele Manzanza",
+   "co": [],
+   "checked_at": "2026-11-09"
+  },
+  {
+   "date": "2027-02-20",
+   "title": "Callum Au",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43465083-callum-au-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 17.1,
+   "etype": "gig",
+   "first_seen": "2026-11-09",
+   "performers": [
+    "Callum Au",
+    "Callum Au Big Band",
+    "Tom Walsh",
+    "Freddie Gavita",
+    "Andy Wood",
+    "Daniel Higham",
+    "Nadim Teimoori",
+    "Gemma Moore",
+    "Chris Eldred"
+   ],
+   "artist": "Freddie Gavita",
+   "co": [],
+   "checked_at": "2026-11-09"
   }
  ],
  "carried_from": {
