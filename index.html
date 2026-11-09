@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>window._musicIncoming=location.search;</script>
+<script>window._musicIncoming=location.search;window._musicFindHash=location.hash;</script>
 <link rel="stylesheet" href="music-home.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4660,11 +4660,11 @@ body.gh-detail-open .main-area{overflow:hidden}
 
 </style>
 <script id="find-route">
-(function(){var CAP=location.hash||'';function go(){var q='';
+(function(){var CAP=window._musicFindHash||location.hash||'';function go(event){var q='';
 try{q=localStorage.getItem('gr_find')||'';if(q)localStorage.removeItem('gr_find');}catch(e){}
-if(!q){var m=CAP.match(/[#&]find=([^&]+)/);if(m)q=decodeURIComponent(m[1]);}
+if(!q){var hash=event&&event.newURL?new URL(event.newURL).hash:location.hash;var m=(hash||CAP).match(/[#&]find=([^&]+)/);if(m)try{q=decodeURIComponent(m[1]);}catch(e){return;}}
 if(!q)return;var el=document.getElementById('search');
-if(el){el.value=q;el.dispatchEvent(new Event('input',{bubbles:true}));}}
+if(el){if(window._ghExplore)window._ghExplore();el.value=q;el.dispatchEvent(new Event('input',{bubbles:true}));}}
 window.addEventListener('load',function(){setTimeout(go,150)});
 window.addEventListener('hashchange',go);})();
 </script>
