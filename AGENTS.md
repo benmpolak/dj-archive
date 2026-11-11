@@ -69,3 +69,10 @@ Each track object in `DATA`: `{a (artist), t (title), al (album), r (release yea
 - `vinyl-records.json` holds verified physical-release metadata, purchase dates and references to archive tracks for the November 2026 additions onward. `build.py` injects it into the guest layer. The Spotify staging workflow must copy it, so later playlist updates preserve the shelf.
 - Reuse existing recordings when verified; preserve their Spotify IDs, album metadata, listening counts, archive dates and any prior vinyl ownership. Store the physical purchase date on the release rather than replacing an older archive date. Do not substitute a different remix or Spotify-only bonus track for the actual pressing's tracklist.
 - Stage Discogs imports and compare against the prior archive before applying. Keep raw exports, API responses and backups out of commits. For music-only imports use `python3 build.py --catalogue-only`, preserving Gig Radar. Check the actual desktop/mobile shelves and publication before reporting completion.
+
+## Listening history refresh
+
+- When a new Spotify Extended Streaming History export arrives, unzip it outside the repository and run `python3 refresh-listening.py "/path/to/Spotify Extended Streaming History"`. Without `--apply` it is a dry run. It reruns the original panel calculations (play counts and windows, Biggest Binges, Trips, Your Eras, Obsession Arcs, This Time of Year) on a scratch copy and refuses to touch anything but those data lines. Then run `python3 build.py --catalogue-only` and the tests.
+- Check a new run by replaying the previous export's end date first (`--until YYYY-MM-DD`): it should reproduce the live panels almost exactly.
+- Football and children's songs (Everton, Paddington Bear) stay out of the panels; their play counts in the track table are left alone. The Hunt, Unmined Albums and Playlisted need the separate Account data export. The stats panels with pasted snapshot figures (listening clock, listened abroad, seasonal) are not recalculated.
+- Last refreshed 11 November 2026 from an export ending 10 November 2026. Never commit the export: it holds full listening history and IP addresses.
