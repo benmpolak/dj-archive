@@ -4,3 +4,6 @@ _backup-*
 *.log
 
 __pycache__/
+
+# API output from enrichment runs: bulky, rebuilt by the scripts
+enrichment/*.json

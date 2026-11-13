@@ -15,8 +15,9 @@ run. Without --apply it reports what would change and leaves index.html alone.
 --until trims the export to an earlier end date, for comparing against old data.
 
 Football and children's songs stay out of the panels, as they always have (Ben
-swapped Everton out of Track of the Year; guest.js keeps it off the racks). Their
-play counts in the track table are left alone.
+swapped Everton out of Track of the Year; guest.js keeps it off the racks). His
+Spotify history includes his children's plays, so tracks he confirms as theirs go
+in PANEL_EXCLUDE_TRACKS. Play counts in the track table are left alone.
 
 Not covered: The Hunt, Unmined Albums and Playlisted need Spotify's Account data
 export, and the stats panels with pasted snapshot figures (listening clock, listened
@@ -29,11 +30,33 @@ DATA_LINES = ['BINGES', 'TRIPS', 'ERAS', 'ERASD', 'OBSESS', 'MONTHLY']
 # Kept out of every panel, never out of the track table.
 PANEL_EXCLUDE_ARTISTS = ('everton f.c.',)
 PANEL_EXCLUDE_TITLES = ('paddington bear',)
+# The children's favourites, confirmed by Ben (11 Nov 2026): first artist and
+# exact title, then the date their plays took over ('' = every play). Lovely Day
+# was Ben's from 2017 to 2022; from 2023 it is played alongside children's music.
+PANEL_EXCLUDE_TRACKS = {
+    ('daft punk', 'one more time'): '',
+    ('daft punk', 'around the world'): '',
+    ('bill withers', 'lovely day - studio rio version'): '2023-01-01',
+}
 
 
 def excluded_sids(data):
-    return {t['sid'] for t in data if t.get('sid') and (
-        t.get('a', '').lower().startswith(PANEL_EXCLUDE_ARTISTS) or any(x in t.get('t', '').lower() for x in PANEL_EXCLUDE_TITLES))}
+    """Spotify ID -> first excluded date ('' = every play)."""
+    found = {}
+    for t in data:
+        artist, title = t.get('a', '').lower(), t.get('t', '').lower()
+        if not t.get('sid'):
+            continue
+        if artist.startswith(PANEL_EXCLUDE_ARTISTS) or any(x in title for x in PANEL_EXCLUDE_TITLES):
+            found[t['sid']] = ''
+        elif (artist.split(';')[0].strip(), title) in PANEL_EXCLUDE_TRACKS:
+            found[t['sid']] = PANEL_EXCLUDE_TRACKS[(artist.split(';')[0].strip(), title)]
+    return found
+
+
+def in_panels(row, skip):
+    sid = (row.get('spotify_track_uri') or '').split(':')[-1]
+    return sid not in skip or row.get('ts', '')[:10] < skip[sid]
 
 
 def load_history(folder, until):
@@ -102,7 +125,8 @@ def monthly(data, rows, skip):
     """This Time of Year: for each calendar month, the 15 archive tracks most
     played (30 seconds or more) in that month across every year. Ties go to the
     track first played in that month."""
-    tracks = {t['sid']: t for t in data if t.get('sid') and len(str(t['sid'])) == 22 and t['sid'] not in skip}
+    tracks = {t['sid']: t for t in data if t.get('sid') and len(str(t['sid'])) == 22}
+    rows = [r for r in rows if in_panels(r, skip)]
     counts = collections.defaultdict(collections.Counter)
     for r in sorted(rows, key=lambda r: r.get('ts', '')):
         uri = r.get('spotify_track_uri') or ''
@@ -141,7 +165,7 @@ def main():
         skip = excluded_sids(parse_data(live)[0])
         history, panel_history = os.path.join(work, 'history'), os.path.join(work, 'panel-history')
         write_history(rows, history)
-        write_history([r for r in rows if (r.get('spotify_track_uri') or '').split(':')[-1] not in skip], panel_history)
+        write_history([r for r in rows if in_panels(r, skip)], panel_history)
 
         run_original('ingest-plays-multiwindow.py', work, history,
                      [(r'REF = datetime\.date\(\d+, \d+, \d+\)', 'REF = datetime.date(%d, %d, %d)' % (ref.year, ref.month, ref.day))])
