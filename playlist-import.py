@@ -48,6 +48,16 @@ PLAYLIST_CRATES = {
     'Soul_&_Disco_revival':  ['Soul & R&B', 'Disco & Boogie'],
     'Summer_Sounds':         [],
     'Sunshine_dance':        ['House'],
+    'Dance_2016':            ['House'],
+    'Dance_2017':            ['House'],
+    'Dance_2018':            ['House'],
+    'Dance_2019':            ['House'],
+    'Dance_2020':            ['House'],
+    'Dance_2021':            ['House'],
+    'Dance_2022':            ['House'],
+    'Dance_2023':            ['House'],
+    'Dance_2024':            ['House'],
+    'Dance_2025':            ['House'],
 }
 
 def playlist_key(filename):

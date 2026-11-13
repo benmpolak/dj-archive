@@ -5,7 +5,9 @@
   "regular_playlists": [
     "Summer Sounds", "Brasil", "Africa Sounds", "Hispanic",
     "Brazilian Boogie", "All That Jazz", "Indie", "Older Dance",
-    "Soul & Disco revival", "Sunshine dance", "Hip Hop"
+    "Soul & Disco revival", "Sunshine dance", "Hip Hop",
+    "Dance 2016", "Dance 2017", "Dance 2018", "Dance 2019", "Dance 2020",
+    "Dance 2021", "Dance 2022", "Dance 2023", "Dance 2024", "Dance 2025"
   ],
   "monthly_playlist": "current calendar month and year",
   "playlist_ids": {
@@ -19,7 +21,17 @@
     "Older Dance": "7kg8KygfvHv1Rb3hQa8F04",
     "Soul & Disco revival": "6oIny21wbCFmjY4lmgpMNM",
     "Sunshine dance": "278g6IFFEN7TcmcSSztVdg",
-    "Hip Hop": "1lGeJuNATYlEC2aVkE1scn"
+    "Hip Hop": "1lGeJuNATYlEC2aVkE1scn",
+    "Dance 2016": "0gyBTm7rMPjYj5OhkrMjjr",
+    "Dance 2017": "1jFCNZngLze3EdWnmDe4TH",
+    "Dance 2018": "2SL8gKWY7ebR0fTbOu3Zz7",
+    "Dance 2019": "74RA2N2TKHvWQq7xCqNay8",
+    "Dance 2020": "0ADdyWH8dCZeI99cD1irdD",
+    "Dance 2021": "6m2UOwEJ8t7xnHSDrW9uoT",
+    "Dance 2022": "0XgYyAxUkixqYE7OnPDBph",
+    "Dance 2023": "78LoULLn0I9FFlrTlSlsK3",
+    "Dance 2024": "7i2GfmGsRF4M8s6i0dV3ln",
+    "Dance 2025": "3btnyXTxUvZgq0D9LgKM7Z"
   },
   "previous_month_grace_days": 7
 }
