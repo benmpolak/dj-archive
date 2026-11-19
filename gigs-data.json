@@ -1,471 +1,43 @@
 {
- "generated": "2026-11-12",
- "events": 2964,
+ "generated": "2026-11-19",
+ "events": 2850,
  "matching_rule": "explicit-performers-v1",
  "source_counts": {
-  "RA": 1964,
-  "KOKO": 75,
-  "EartH": 68,
-  "Jazz Cafe": 192,
-  "Roundhouse": 22,
+  "RA": 1884,
+  "KOKO": 74,
+  "EartH": 64,
+  "Jazz Cafe": 188,
+  "Roundhouse": 21,
   "Ally Pally": 62,
-  "Barbican": 61,
-  "AMG/Live Nation": 295,
-  "Apollo": 80,
+  "Barbican": 65,
+  "AMG/Live Nation": 287,
+  "Apollo": 79,
   "Spiritland": 0,
-  "Blue Note": 51,
+  "Blue Note": 43,
   "Ronnie Scott's": 0,
-  "Songkick (Ronnie Scott's)": 77,
+  "Songkick (Ronnie Scott's)": 68,
   "The O2": 96,
   "OVO Arena": 11,
-  "Wembley Stadium": 13,
+  "Wembley Stadium": 14,
   "Open Air Theatre": 0,
   "Ticketmaster": 0
  },
  "matches": [
   {
-   "date": "2026-11-12",
-   "title": "Gold Panda",
-   "venue": "ICA",
-   "url": "https://ra.co/events/2459730",
+   "date": "2026-11-19",
+   "title": "'jg' album launch FREE w RSVP",
+   "venue": "All My Friends",
+   "url": "https://ra.co/events/2584839",
    "source": "RA",
    "how": "lineup",
-   "score": 21.0,
+   "score": 10.9,
    "etype": "dj",
-   "first_seen": "2000-01-01",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Gold Panda"
+    "Jacques Greene",
+    "Kiimi"
    ],
-   "artist": "Gold Panda",
-   "co": []
-  },
-  {
-   "date": "2026-11-13",
-   "title": "DJ EZ - London Weekender",
-   "venue": "Electric Brixton",
-   "url": "https://ra.co/events/2518475",
-   "source": "RA",
-   "how": "lineup",
-   "score": 79.2,
-   "etype": "dj",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "DJ EZ",
-    "Todd Edwards",
-    "MJ Cole",
-    "Matt Jam Lamont",
-    "Donae'o",
-    "Slimzee",
-    "Roll Deep",
-    "Kenny Ken"
-   ],
-   "artist": "Donae'o",
-   "co": [
-    "Todd Edwards",
-    "MJ Cole"
-   ]
-  },
-  {
-   "date": "2026-11-13",
-   "title": "La Discoth\u00e8que with Purple Disco Machine, Folamour, Dan Shake, Ron Trent, Jayda G",
-   "venue": "DRUMSHEDS",
-   "url": "https://ra.co/events/2496919",
-   "source": "RA",
-   "how": "lineup",
-   "score": 145.2,
-   "etype": "dj",
-   "first_seen": "2026-10-15",
-   "performers": [
-    "Purple Disco Machine",
-    "Folamour",
-    "Daisybelle",
-    "DJ Paulette",
-    "Dombresky",
-    "Dan Shake",
-    "Hel\u00e9na Star",
-    "Jayda G",
-    "Jennifer Loveless",
-    "Ron Trent",
-    "SIGGY",
-    "Tarzsa"
-   ],
-   "artist": "Ron Trent",
-   "co": [
-    "Purple Disco Machine",
-    "Daisybelle",
-    "Dan Shake",
-    "Jayda G",
-    "Folamour"
-   ]
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Chaos In The CBD present 'In Dust We Trust' Tour [SOLD OUT]",
-   "venue": "FOLD",
-   "url": "https://ra.co/events/2529511",
-   "source": "RA",
-   "how": "lineup",
-   "score": 106.4,
-   "etype": "day",
-   "first_seen": "2026-09-10",
-   "performers": [
-    "Chaos In The CBD",
-    "Sanctuary"
-   ],
-   "artist": "Chaos In The CBD",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "DJ EZ, Donae'o, Slimzee & Roll Deep, Kenny Ken - Soundz of London (Sat 14th Nov)",
-   "venue": "Electric Brixton",
-   "url": "https://ra.co/events/2542234",
-   "source": "RA",
-   "how": "lineup",
-   "score": 69.2,
-   "etype": "dj",
-   "first_seen": "2026-10-01",
-   "performers": [
-    "DJ EZ",
-    "Donae'o",
-    "Slimzee",
-    "Roll Deep",
-    "Kenny Ken"
-   ],
-   "artist": "Donae'o",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "15 Years of Rhythm Section: Bradley Zero, Jorg Kunning (Live), Scarlett O'Malley + more",
-   "venue": "Palais",
-   "url": "https://ra.co/events/2537753",
-   "source": "RA",
-   "how": "lineup",
-   "score": 55.2,
-   "etype": "gig",
-   "first_seen": "2026-09-16",
-   "performers": [
-    "Bradley Zero",
-    "Jorg Kuning",
-    "Scarlett O'Malley",
-    "Z Lovecraft",
-    "LINETT KAMALA"
-   ],
-   "artist": "Scarlett O'Malley",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Opal Sunn Live (Alex Kassian & Hiroaki OBA) w/ ddwy & Tom VR",
-   "venue": "TBA - E16",
-   "url": "https://ra.co/events/2555545",
-   "source": "RA",
-   "how": "lineup",
-   "score": 86.4,
-   "etype": "day",
-   "first_seen": "2026-10-08",
-   "performers": [
-    "Opal Sunn",
-    "Alex Kassian",
-    "Hiroaki OBA",
-    "ddwy",
-    "Tom VR"
-   ],
-   "artist": "Alex Kassian",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "KOKO Electronic: Claptone",
-   "venue": "KOKO",
-   "url": "https://ra.co/events/2544936",
-   "source": "RA",
-   "how": "lineup",
-   "score": 16.3,
-   "etype": "dj",
-   "first_seen": "2026-10-01",
-   "performers": [
-    "Claptone",
-    "Crusy",
-    "Will Silver"
-   ],
-   "artist": "Claptone",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Jensen Interceptor, Darwin, Jay Carder, and Tim Reaper",
-   "venue": "Colour Factory",
-   "url": "https://ra.co/events/2537510",
-   "source": "RA",
-   "how": "lineup",
-   "score": 7.9,
-   "etype": "dj",
-   "first_seen": "2026-09-16",
-   "performers": [
-    "Jensen Interceptor",
-    "Jay Carder",
-    "Tim Reaper",
-    "Darwin"
-   ],
-   "artist": "Tim Reaper",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Hotflush: Scuba (All Night Long) - Venue MOT",
-   "venue": "M.O.T",
-   "url": "https://ra.co/events/2527068",
-   "source": "RA",
-   "how": "lineup",
-   "score": 11.5,
-   "etype": "dj",
-   "first_seen": "2026-09-03",
-   "performers": [
-    "Scuba"
-   ],
-   "artist": "Scuba",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Girls of the Internet (Live)",
-   "venue": "Club Cheek",
-   "url": "https://ra.co/events/2507780",
-   "source": "RA",
-   "how": "lineup",
-   "score": 24.2,
-   "etype": "gig",
-   "first_seen": "2026-09-10",
-   "performers": [
-    "Girls of the Internet"
-   ],
-   "artist": "Girls of the Internet",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Deep Into Soul x Djoon",
-   "venue": "93 Feet East",
-   "url": "https://ra.co/events/2549334",
-   "source": "RA",
-   "how": "lineup",
-   "score": 31.4,
-   "etype": "day",
-   "first_seen": "2026-10-15",
-   "performers": [
-    "Kapela",
-    "Sy Sez",
-    "Neil Pierce",
-    "Afshin",
-    "Trinidadian Deep",
-    "Emmaculate",
-    "merlin bobb",
-    "Wez Whynt",
-    "Kanem",
-    "Ross Purcell",
-    "Chris Hewitt",
-    "DJ DuBois"
-   ],
-   "artist": "Emmaculate",
-   "co": [
-    "Trinidadian Deep",
-    "Wez Whynt"
-   ]
-  },
-  {
-   "date": "2026-11-14",
-   "title": "plentyppl: A Day with Maurice Fulton",
-   "venue": "Colour Factory",
-   "url": "https://ra.co/events/2560087",
-   "source": "RA",
-   "how": "lineup",
-   "score": 16.4,
-   "etype": "day",
-   "first_seen": "2026-10-15",
-   "performers": [
-    "Maurice Fulton",
-    "CasuallyClued",
-    "Marvin Jupiter"
-   ],
-   "artist": "Maurice Fulton",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Zaperoco w/ El Magico Baobab + Jamz Supernova",
-   "venue": "Hackney Bridge",
-   "url": "https://ra.co/events/2555781",
-   "source": "RA",
-   "how": "lineup",
-   "score": 16.9,
-   "etype": "dj",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "Amancai",
-    "Jamz Supernova"
-   ],
-   "artist": "Jamz Supernova",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Deep Supply",
-   "venue": "Ministry Of Sound",
-   "url": "https://ra.co/events/2547526",
-   "source": "RA",
-   "how": "lineup",
-   "score": 141.8,
-   "etype": "day",
-   "first_seen": "2026-10-22",
-   "performers": [
-    "Billy Cocks",
-    "The Journey Men",
-    "Groove Assassin",
-    "Atjazz",
-    "David Bailey (UK)"
-   ],
-   "artist": "Atjazz",
-   "co": [
-    "David Bailey"
-   ]
-  },
-  {
-   "date": "2026-11-14",
-   "title": "DeepDig: Handson Family (4 Hour Set) // Vanessa Freeman",
-   "venue": "Grow",
-   "url": "https://ra.co/events/2557663",
-   "source": "RA",
-   "how": "lineup",
-   "score": 71.7,
-   "etype": "dj",
-   "first_seen": "2026-10-15",
-   "performers": [
-    "Handson Family",
-    "Vanessa Freeman"
-   ],
-   "artist": "Vanessa Freeman",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Shinmitsuna fun'iki",
-   "venue": "Gwenda",
-   "url": "https://ra.co/events/2570465",
-   "source": "RA",
-   "how": "lineup",
-   "score": 13.2,
-   "etype": "dj",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "Mike Anderson",
-    "Joe Smooth",
-    "Teknobrat"
-   ],
-   "artist": "Joe Smooth",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Goldie: Dare To Dream (8PM Show)",
-   "venue": "Royal Festival Hall",
-   "url": "https://ra.co/events/2576751",
-   "source": "RA",
-   "how": "lineup",
-   "score": 90.9,
-   "etype": "dj",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "Goldie",
-    "anaiis",
-    "Cleveland Watkiss"
-   ],
-   "artist": "anaiis",
-   "co": [
-    "Goldie"
-   ]
-  },
-  {
-   "date": "2026-11-14",
-   "title": "The Chill Out Tent",
-   "venue": "Wood Street Bear",
-   "url": "https://ra.co/events/2574188",
-   "source": "RA",
-   "how": "lineup",
-   "score": 10.3,
-   "etype": "day",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "Chris Coco"
-   ],
-   "artist": "Chris Coco",
-   "co": []
-  },
-  {
-   "date": "2026-11-15",
-   "title": "Folamour",
-   "venue": "Palais",
-   "url": "https://ra.co/events/2577254",
-   "source": "RA",
-   "how": "lineup",
-   "score": 108.0,
-   "etype": "dj",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "Folamour",
-    "Hugo LX"
-   ],
-   "artist": "Folamour",
-   "co": []
-  },
-  {
-   "date": "2026-11-15",
-   "title": "Horse Meat Disco at Eagle London",
-   "venue": "The Eagle",
-   "url": "https://ra.co/events/2574648",
-   "source": "RA",
-   "how": "lineup",
-   "score": 13.8,
-   "etype": "dj",
-   "first_seen": "2026-11-06",
-   "performers": [
-    "Horse Meat Disco"
-   ],
-   "artist": "Horse Meat Disco",
-   "co": []
-  },
-  {
-   "date": "2026-11-18",
-   "title": "EartH presents Gigi Masin",
-   "venue": "EartH",
-   "url": "https://ra.co/events/2466196",
-   "source": "RA",
-   "how": "lineup",
-   "score": 34.8,
-   "etype": "dj",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Gigi Masin",
-    "Tony Njoku"
-   ],
-   "artist": "Gigi Masin",
-   "co": []
-  },
-  {
-   "date": "2026-11-18",
-   "title": "Rymden",
-   "venue": "The Jazz Cafe",
-   "url": "https://ra.co/events/2564783",
-   "source": "RA",
-   "how": "lineup",
-   "score": 9.6,
-   "etype": "dj",
-   "first_seen": "2026-10-22",
-   "performers": [
-    "Bugge Wesseltoft"
-   ],
-   "artist": "Bugge Wesseltoft",
+   "artist": "Jacques Greene",
    "co": []
   },
   {
@@ -516,7 +88,7 @@
    "url": "https://ra.co/events/2564823",
    "source": "RA",
    "how": "lineup",
-   "score": 34.2,
+   "score": 75.4,
    "etype": "dj",
    "first_seen": "2026-10-22",
    "performers": [
@@ -665,7 +237,7 @@
   },
   {
    "date": "2026-11-21",
-   "title": "KOKO Electronic: Francis Mercier, Saturday 21st Nov (Pt.2)",
+   "title": "KOKO Electronic: Francis Mercier, Saturday 21st Nov (Pt.2) [SOLD OUT]",
    "venue": "KOKO",
    "url": "https://ra.co/events/2533475",
    "source": "RA",
@@ -679,6 +251,24 @@
     "Storm Mollison"
    ],
    "artist": "Mak\u00e8z",
+   "co": []
+  },
+  {
+   "date": "2026-11-21",
+   "title": "Places + Faces \u2014 London Party (+Secret Guests, Novelist, Travy, G La Sosita, Clara Rosa ++more)",
+   "venue": "UNLOCKED",
+   "url": "https://ra.co/events/2543799",
+   "source": "RA",
+   "how": "lineup",
+   "score": 10.7,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Novelist",
+    "Clara Rosa",
+    "XT1ANA"
+   ],
+   "artist": "Novelist",
    "co": []
   },
   {
@@ -747,7 +337,7 @@
    "url": "https://ra.co/events/2537972",
    "source": "RA",
    "how": "lineup",
-   "score": 141.8,
+   "score": 143.0,
    "etype": "day",
    "first_seen": "2026-09-24",
    "performers": [
@@ -911,7 +501,7 @@
    "url": "https://ra.co/events/2581840",
    "source": "RA",
    "how": "lineup",
-   "score": 44.3,
+   "score": 47.9,
    "etype": "dj",
    "first_seen": "2026-11-12",
    "performers": [
@@ -980,7 +570,7 @@
    "url": "https://ra.co/events/2529963",
    "source": "RA",
    "how": "lineup",
-   "score": 83.7,
+   "score": 84.9,
    "etype": "day",
    "first_seen": "2026-09-10",
    "performers": [
@@ -1056,24 +646,27 @@
   },
   {
    "date": "2026-11-28",
-   "title": "25 Years of Genius CRU: MC Fizzy, Zed Bias Mc Neat",
-   "venue": "Onyx (E1)",
-   "url": "https://ra.co/events/2557694",
+   "title": "FUSE 18th Birthday \u2794 After Dark",
+   "venue": "NUMBER 90 LONDON",
+   "url": "https://ra.co/events/2589293",
    "source": "RA",
    "how": "lineup",
-   "score": 12.3,
-   "etype": "day",
-   "first_seen": "2026-10-15",
+   "score": 10.7,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
    "performers": [
-    "MC FIZZY",
-    "Zed Bias",
-    "Neat MC",
-    "Pied Piper",
-    "MC Kie",
-    "MC Creed",
-    "Sam Beach"
+    "Elina",
+    "Enzo Siragusa",
+    "Mella Dee",
+    "Melody RA+RE",
+    "ADMNTi",
+    "B.Love",
+    "Julian Anthony",
+    "PACH",
+    "Reeshy",
+    "Samuel Deep"
    ],
-   "artist": "Zed Bias",
+   "artist": "Mella Dee",
    "co": []
   },
   {
@@ -1105,7 +698,7 @@
    "url": "https://ra.co/events/2570457",
    "source": "RA",
    "how": "lineup",
-   "score": 19.9,
+   "score": 61.1,
    "etype": "dj",
    "first_seen": "2026-11-06",
    "performers": [
@@ -1119,23 +712,18 @@
   },
   {
    "date": "2026-11-28",
-   "title": "Soul Deep - Infinity Rhythm Sessions",
-   "venue": "Rolling Stock",
-   "url": "https://ra.co/events/2551507",
+   "title": "4 Hours With: Daisybelle",
+   "venue": "Club Empire",
+   "url": "https://ra.co/events/2575989",
    "source": "RA",
    "how": "lineup",
-   "score": 38.9,
+   "score": 45.7,
    "etype": "dj",
-   "first_seen": "2026-10-08",
+   "first_seen": "2026-11-06",
    "performers": [
-    "Mr Roach",
-    "KingCrowney",
-    "Mike Millrain",
-    "Randy Peterson",
-    "Mikey DJ",
-    "Matty Gillespie"
+    "Daisybelle"
    ],
-   "artist": "KingCrowney",
+   "artist": "Daisybelle",
    "co": []
   },
   {
@@ -1166,18 +754,23 @@
   },
   {
    "date": "2026-11-28",
-   "title": "4 Hours With: Daisybelle",
-   "venue": "Club Empire",
-   "url": "https://ra.co/events/2575989",
+   "title": "Soul Deep - Infinity Rhythm Sessions",
+   "venue": "Rolling Stock",
+   "url": "https://ra.co/events/2551507",
    "source": "RA",
    "how": "lineup",
-   "score": 45.7,
+   "score": 38.9,
    "etype": "dj",
-   "first_seen": "2026-11-06",
+   "first_seen": "2026-10-08",
    "performers": [
-    "Daisybelle"
+    "Mr Roach",
+    "KingCrowney",
+    "Mike Millrain",
+    "Randy Peterson",
+    "Mikey DJ",
+    "Matty Gillespie"
    ],
-   "artist": "Daisybelle",
+   "artist": "KingCrowney",
    "co": []
   },
   {
@@ -1260,7 +853,7 @@
   },
   {
    "date": "2026-12-04",
-   "title": "Night Tales: Carl Craig [Extended Set]",
+   "title": "Night Tales: Carl Craig [All Night Long]",
    "venue": "Night Tales",
    "url": "https://ra.co/events/2541966",
    "source": "RA",
@@ -1308,6 +901,23 @@
   },
   {
    "date": "2026-12-04",
+   "title": "plentyppl",
+   "venue": "The Carpet Shop",
+   "url": "https://ra.co/events/2582162",
+   "source": "RA",
+   "how": "lineup",
+   "score": 89.6,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Dego",
+    "Marvin Jupiter"
+   ],
+   "artist": "Dego",
+   "co": []
+  },
+  {
+   "date": "2026-12-04",
    "title": "David Morales",
    "venue": "Soho Mews House",
    "url": "https://ra.co/events/2547117",
@@ -1320,6 +930,50 @@
     "David Morales"
    ],
    "artist": "David Morales",
+   "co": []
+  },
+  {
+   "date": "2026-12-04",
+   "title": "Omakas\u00e9",
+   "venue": "The Cross",
+   "url": "https://ra.co/events/2567482",
+   "source": "RA",
+   "how": "lineup",
+   "score": 24.2,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Girls of the Internet"
+   ],
+   "artist": "Girls of the Internet",
+   "co": []
+  },
+  {
+   "date": "2026-12-05",
+   "title": "The Cause presents CRACKER... A Proper Festive Rave Up",
+   "venue": "The Cause",
+   "url": "https://ra.co/events/2332655",
+   "source": "RA",
+   "how": "lineup",
+   "score": 11.5,
+   "etype": "day",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Sue Veneers",
+    "Jayda G",
+    "Tyree Cooper",
+    "Grace Sands",
+    "THC",
+    "Jenny Cara",
+    "Michelle Manetti",
+    "Riva",
+    "Teecra",
+    "Angel Maze",
+    "Macy See",
+    "FEMMI",
+    "Rodent"
+   ],
+   "artist": "Jayda G",
    "co": []
   },
   {
@@ -1350,7 +1004,11 @@
    "etype": "day",
    "first_seen": "2026-08-20",
    "performers": [
-    "DJ Marky"
+    "DJ Marky",
+    "DJ Die",
+    "Gardna",
+    "Makoto",
+    "MC GQ"
    ],
    "artist": "DJ Marky",
    "co": []
@@ -1424,14 +1082,19 @@
    "url": "https://ra.co/events/2539734",
    "source": "RA",
    "how": "lineup",
-   "score": 71.8,
+   "score": 169.9,
    "etype": "dj",
-   "first_seen": "2026-09-24",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Theo Parrish"
+    "Theo Parrish",
+    "Ruby Savage",
+    "Shy One",
+    "Nick Castle"
    ],
-   "artist": "Theo Parrish",
-   "co": []
+   "artist": "Shy One",
+   "co": [
+    "Theo Parrish"
+   ]
   },
   {
    "date": "2026-12-11",
@@ -1572,6 +1235,27 @@
   },
   {
    "date": "2026-12-12",
+   "title": "Eglo Records XMas Party with IG Culture, D'Monk, Saige Sounds & Alex Nut",
+   "venue": "The Carpet Shop",
+   "url": "https://ra.co/events/2587867",
+   "source": "RA",
+   "how": "lineup",
+   "score": 71.4,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "IG Culture",
+    "D'Monk",
+    "Alexander Nut",
+    "Saige Sounds"
+   ],
+   "artist": "IG Culture",
+   "co": [
+    "D\u2019Monk"
+   ]
+  },
+  {
+   "date": "2026-12-12",
    "title": "Greg Wilson, Terry Farley, Karis",
    "venue": "The Fox and Firkin",
    "url": "https://ra.co/events/2580469",
@@ -1586,25 +1270,6 @@
     "Karis."
    ],
    "artist": "Greg Wilson",
-   "co": []
-  },
-  {
-   "date": "2026-12-12",
-   "title": "UNLOCKED Electronic: Mak\u00e8z, D Stone + Special Guest TBA",
-   "venue": "UNLOCKED",
-   "url": "https://ra.co/events/2576212",
-   "source": "RA",
-   "how": "lineup",
-   "score": 35.1,
-   "etype": "day",
-   "first_seen": "2026-11-12",
-   "performers": [
-    "Mak\u00e8z",
-    "D Stone",
-    "Hayley Zalassi",
-    "Rennie Peters"
-   ],
-   "artist": "Mak\u00e8z",
    "co": []
   },
   {
@@ -1765,6 +1430,29 @@
   },
   {
    "date": "2026-12-18",
+   "title": "Dance Yourself Free: DJ Gregory,  Jamz Supernova, Karen Nyame KG & More",
+   "venue": "Colour Factory",
+   "url": "https://ra.co/events/2567185",
+   "source": "RA",
+   "how": "lineup",
+   "score": 21.9,
+   "etype": "dj",
+   "first_seen": "2026-11-12",
+   "performers": [
+    "DJ Gregory",
+    "Jamz Supernova",
+    "Karen Nyame KG",
+    "Supa D",
+    "Samtheman",
+    "kisa"
+   ],
+   "artist": "Jamz Supernova",
+   "co": [
+    "DJ Gregory"
+   ]
+  },
+  {
+   "date": "2026-12-18",
    "title": "Granville Collective - London",
    "venue": "NUMBER 90 LONDON",
    "url": "https://ra.co/events/2393739",
@@ -1804,26 +1492,20 @@
   },
   {
    "date": "2026-12-18",
-   "title": "Dance Yourself Free: DJ Gregory,  Jamz Supernova, Karen Nyame KG & More",
-   "venue": "Colour Factory",
-   "url": "https://ra.co/events/2567185",
+   "title": "IN THE LOOP XMAS PARTY",
+   "venue": "The BBE Store",
+   "url": "https://ra.co/events/2589174",
    "source": "RA",
    "how": "lineup",
-   "score": 21.9,
+   "score": 92.6,
    "etype": "dj",
-   "first_seen": "2026-11-12",
+   "first_seen": "2026-11-19",
    "performers": [
-    "DJ Gregory",
-    "Jamz Supernova",
-    "Karen Nyame KG",
-    "Supa D",
-    "Samtheman",
-    "kisa"
+    "In The Loop: Millie & Pheebs",
+    "Last Nubian"
    ],
-   "artist": "Jamz Supernova",
-   "co": [
-    "DJ Gregory"
-   ]
+   "artist": "Last Nubian",
+   "co": []
   },
   {
    "date": "2026-12-19",
@@ -1878,6 +1560,26 @@
   },
   {
    "date": "2026-12-19",
+   "title": "UNLOCKED Electronic & Jive Talk presents: Winter Warmer",
+   "venue": "UNLOCKED",
+   "url": "https://ra.co/events/2588570",
+   "source": "RA",
+   "how": "lineup",
+   "score": 45.7,
+   "etype": "day",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Jive Talk",
+    "Trixie (UK)",
+    "Daisybelle",
+    "T. Jacques",
+    "Amy Cutter"
+   ],
+   "artist": "Daisybelle",
+   "co": []
+  },
+  {
+   "date": "2026-12-19",
    "title": "Skream - Open to Close",
    "venue": "Village Underground",
    "url": "https://ra.co/events/2566725",
@@ -1899,7 +1601,7 @@
    "url": "https://ra.co/events/2564806",
    "source": "RA",
    "how": "lineup",
-   "score": 27.5,
+   "score": 32.5,
    "etype": "day",
    "first_seen": "2026-10-22",
    "performers": [
@@ -1918,6 +1620,7 @@
    ],
    "artist": "Bellaire",
    "co": [
+    "Anz",
     "Floorplan",
     "SG Lewis"
    ]
@@ -1965,6 +1668,54 @@
   },
   {
    "date": "2026-12-31",
+   "title": "The Cause New Year's Festival: Double Trouble",
+   "venue": "The Cause",
+   "url": "https://ra.co/events/2331582",
+   "source": "RA",
+   "how": "lineup",
+   "score": 20.8,
+   "etype": "day",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "A For Alpha",
+    "Amaliah",
+    "Andre Zimmer",
+    "Andy Martin",
+    "Lemon D",
+    "DJ SWISHA",
+    "DJ Subaru",
+    "Tam Tam",
+    "Edward",
+    "IAMBP",
+    "Paquita Gordon",
+    "Jake Reed",
+    "Josh Keit",
+    "Nate Oldfield",
+    "Isaac Carter",
+    "Ivan Smagghe",
+    "Shonky",
+    "mi-el",
+    "Olita (UK)",
+    "re:ni",
+    "S.D.S",
+    "YDLR",
+    "Free Zing",
+    "Jos",
+    "Izzy",
+    "Copes",
+    "KT",
+    "Matthias (1)",
+    "Ryan Jones",
+    "Darush",
+    "Wallace"
+   ],
+   "artist": "Wallace",
+   "co": [
+    "DJ Swisha"
+   ]
+  },
+  {
+   "date": "2026-12-31",
    "title": "Phonox NYE: Midland & Shanti Celeste [10 Hour Extended Session]",
    "venue": "Phonox",
    "url": "https://ra.co/events/2559909",
@@ -1979,27 +1730,6 @@
    ],
    "artist": "Midland",
    "co": []
-  },
-  {
-   "date": "2026-12-31",
-   "title": "New Years Eve Extravaganza: Crazy P, Horse Meat Disco",
-   "venue": "Outernet Live",
-   "url": "https://ra.co/events/2535174",
-   "source": "RA",
-   "how": "lineup",
-   "score": 113.5,
-   "etype": "dj",
-   "first_seen": "2026-09-24",
-   "performers": [
-    "Crazy P",
-    "Horse Meat Disco",
-    "Lucy Lennox",
-    "Saturn Sisters"
-   ],
-   "artist": "Crazy P",
-   "co": [
-    "Horse Meat Disco"
-   ]
   },
   {
    "date": "2026-12-31",
@@ -2026,6 +1756,27 @@
    ],
    "artist": "Scarlett O'Malley",
    "co": []
+  },
+  {
+   "date": "2026-12-31",
+   "title": "New Years Eve Extravaganza: Crazy P, Horse Meat Disco",
+   "venue": "Outernet Live",
+   "url": "https://ra.co/events/2535174",
+   "source": "RA",
+   "how": "lineup",
+   "score": 113.5,
+   "etype": "dj",
+   "first_seen": "2026-09-24",
+   "performers": [
+    "Crazy P",
+    "Horse Meat Disco",
+    "Lucy Lennox",
+    "Saturn Sisters"
+   ],
+   "artist": "Crazy P",
+   "co": [
+    "Horse Meat Disco"
+   ]
   },
   {
    "date": "2026-12-31",
@@ -2090,12 +1841,28 @@
   },
   {
    "date": "2026-12-31",
+   "title": "Labyrinth NYE: Daphni All Night Long",
+   "venue": "FOLD",
+   "url": "https://ra.co/events/2580544",
+   "source": "RA",
+   "how": "lineup",
+   "score": 30.9,
+   "etype": "dj",
+   "first_seen": "2026-11-12",
+   "performers": [
+    "Daphni"
+   ],
+   "artist": "Daphni",
+   "co": []
+  },
+  {
+   "date": "2026-12-31",
    "title": "Colour Factory NYE: Batu, Kode9, MUSCLECARS, Manami",
    "venue": "Colour Factory",
    "url": "https://ra.co/events/2580394",
    "source": "RA",
    "how": "lineup",
-   "score": 158.9,
+   "score": 160.1,
    "etype": "dj",
    "first_seen": "2026-11-12",
    "performers": [
@@ -2148,18 +1915,18 @@
   },
   {
    "date": "2026-12-31",
-   "title": "Labyrinth NYE: Daphni All Night Long",
-   "venue": "FOLD",
-   "url": "https://ra.co/events/2580544",
+   "title": "STUDIO 77: NEW YEARS EVE | Dan Shake",
+   "venue": "77",
+   "url": "https://ra.co/events/2557747",
    "source": "RA",
    "how": "lineup",
-   "score": 27.3,
+   "score": 19.2,
    "etype": "dj",
-   "first_seen": "2026-11-12",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Daphni"
+    "Dan Shake"
    ],
-   "artist": "Daphni",
+   "artist": "Dan Shake",
    "co": []
   },
   {
@@ -2197,6 +1964,22 @@
    "co": []
   },
   {
+   "date": "2026-12-31",
+   "title": "New Years Eve with Chris Read (BBE), Simon Lee (Faze Action), Davey Jay & Leng Records",
+   "venue": "Filly Brook",
+   "url": "https://ra.co/events/2586145",
+   "source": "RA",
+   "how": "lineup",
+   "score": 19.8,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Faze Action"
+   ],
+   "artist": "Faze Action",
+   "co": []
+  },
+  {
    "date": "2027-01-01",
    "title": "Higher Love London - New Years Day",
    "venue": "OVO Arena Wembley",
@@ -2217,6 +2000,80 @@
     "Wheats"
    ],
    "artist": "Kolter",
+   "co": []
+  },
+  {
+   "date": "2027-01-01",
+   "title": "Another Thought: NYD",
+   "venue": "40ft Brewery - Blackhorse Road",
+   "url": "https://ra.co/events/2575971",
+   "source": "RA",
+   "how": "lineup",
+   "score": 68.9,
+   "etype": "day",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Prosumer",
+    "Nadia Ksaiba",
+    "Frank Tope",
+    "Tayo",
+    "Ariane V",
+    "Ben Gomori"
+   ],
+   "artist": "Ben Gomori",
+   "co": []
+  },
+  {
+   "date": "2027-01-01",
+   "title": "NYD Carry On: The Cause x Sundays.... from 8am onwards x",
+   "venue": "All My Friends",
+   "url": "https://ra.co/events/2587196",
+   "source": "RA",
+   "how": "lineup",
+   "score": 15.8,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Edward",
+    "Free Zing",
+    "IAMBP",
+    "Jos",
+    "Izzy",
+    "Copes",
+    "KT",
+    "Matthias (1)",
+    "Ryan Jones",
+    "Darush",
+    "Wallace"
+   ],
+   "artist": "Wallace",
+   "co": []
+  },
+  {
+   "date": "2027-01-01",
+   "title": "LEGACY New Years Day Special",
+   "venue": "The Steel Yard",
+   "url": "https://ra.co/events/2584497",
+   "source": "RA",
+   "how": "lineup",
+   "score": 138.0,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Atjazz",
+    "Matt Jam Lamont",
+    "Groove Assassin",
+    "Mike ruff cut Lloyd",
+    "DJ Listener",
+    "Gavin Peters",
+    "DJ DEC",
+    "MC Creed",
+    "Neat MC",
+    "DJ GGB",
+    "INTUIT",
+    "DJ Majesty"
+   ],
+   "artist": "Atjazz",
    "co": []
   },
   {
@@ -2289,6 +2146,22 @@
     "Todd Edwards"
    ],
    "artist": "Todd Edwards",
+   "co": []
+  },
+  {
+   "date": "2027-01-16",
+   "title": "Paraiso Disco with Melle Brown: House, Disco, Classics",
+   "venue": "Night Tales",
+   "url": "https://ra.co/events/2536615",
+   "source": "RA",
+   "how": "lineup",
+   "score": 10.3,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Melle Brown"
+   ],
+   "artist": "Melle Brown",
    "co": []
   },
   {
@@ -2396,6 +2269,22 @@
    "co": []
   },
   {
+   "date": "2027-02-06",
+   "title": "Donae'O's Birthday Bash",
+   "venue": "Bread & Butter Arch",
+   "url": "https://ra.co/events/2587685",
+   "source": "RA",
+   "how": "lineup",
+   "score": 69.2,
+   "etype": "dj",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Donae'o"
+   ],
+   "artist": "Donae'o",
+   "co": []
+  },
+  {
    "date": "2027-02-13",
    "title": "fabric: DJ Seinfeld, Luke Alessi, Gerd Janson + more TBA",
    "venue": "fabric",
@@ -2449,7 +2338,7 @@
   {
    "date": "2027-03-27",
    "title": "Raindance Easter Special Returns",
-   "venue": "TAC (Tottenham Arts Collective)",
+   "venue": "fabric",
    "url": "https://ra.co/events/2581060",
    "source": "RA",
    "how": "lineup",
@@ -2460,7 +2349,6 @@
     "DJ Brockie",
     "Shades Of Rhythm",
     "Aphrodite",
-    "DJ SS",
     "RAZE (USA)",
     "Mark XTC",
     "Slipmatt",
@@ -2492,7 +2380,7 @@
    "url": "https://ra.co/events/2550762",
    "source": "RA",
    "how": "lineup",
-   "score": 141.1,
+   "score": 142.3,
    "etype": "dj",
    "first_seen": "2026-11-12",
    "performers": [
@@ -2557,7 +2445,7 @@
    "url": "https://ra.co/events/2437470",
    "source": "RA",
    "how": "lineup",
-   "score": 150.5,
+   "score": 152.9,
    "etype": "day",
    "first_seen": "2026-10-22",
    "performers": [
@@ -2711,145 +2599,26 @@
    "co": []
   },
   {
-   "date": "2027-08-26",
-   "title": "Dimensions Festival 2027",
-   "venue": "The Garden Tisno",
-   "url": "https://ra.co/events/2527188",
+   "date": "2027-08-28",
+   "title": "RALLY 2027",
+   "venue": "Southwark Park",
+   "url": "https://ra.co/events/2582881",
    "source": "RA",
    "how": "lineup",
-   "score": 179.9,
+   "score": 15.2,
    "etype": "day",
-   "first_seen": "2026-11-06",
+   "first_seen": "2026-11-19",
    "performers": [
-    "A Guy Called Gerald",
-    "Admo",
-    "Albion Street Music",
-    "Alexander Skancke",
-    "Alexia",
-    "Angel D'lite",
-    "tINI",
-    "Steve O'Sullivan",
-    "Brawther",
-    "Cabanne",
-    "Carl H",
-    "CHIDA",
-    "Ciel",
-    "Convextion",
-    "E.R.P.",
-    "Dan Andrei",
-    "Dea (6)",
-    "Dee Diggs",
-    "DJ Godfather",
-    "DJ Masda",
-    "dj sweet6teen",
-    "Katia Curie",
-    "Dyed Soundorom",
-    "E.LINA",
-    "Dylan Payne",
-    "e/tape",
-    "Ash Rah",
-    "Edward",
-    "Eli Verveine",
-    "Francesco Del Garda",
-    "Franziska Berns",
-    "Free Zing",
-    "Gabrielle Kwarteng",
-    "GNMR",
-    "Grace Sands",
-    "H-Foundation",
-    "Hipp-e",
-    "Halo Varga",
-    "Hamish & Toby",
-    "Heels & Souls",
-    "Helena Hauff",
-    "IAMBP",
-    "Jane Fitz",
-    "Paquita Gordon",
-    "Jennifer Loveless",
-    "JT Donaldson",
-    "Kia (DE)",
-    "Kuba'97",
-    "Kyle Toole",
-    "Luisa",
-    "Mad Professor",
-    "Malika",
-    "Mandana",
-    "Mari.te",
-    "Mathew Jonson",
-    "Matthew Neequaye",
-    "Melina Serser",
-    "Miki",
-    "Morgan",
-    "Mountain People",
-    "Noizar",
-    "O.BEE",
-    "Pancratio",
-    "PARAMIDA",
-    "Picasso",
-    "Polygonia",
-    "Que Sakamoto",
-    "Remove Me",
+    "Kelela",
+    "ABRA",
+    "FiNE",
+    "Helen Sun",
+    "Loidis",
+    "OK Williams",
     "Rhadoo",
-    "Richard Akingbehin",
-    "Ron Obvious",
-    "S.Moreira",
-    "Sansibar",
-    "S\u00e9arlait",
-    "Shy One",
-    "LAMALICE",
-    "Massa\u00ef",
-    "Snad",
-    "Sonja Moonear",
-    "Sugar Free",
-    "Vlada",
-    "The Ghost",
-    "Theo Parrish",
-    "Vass",
-    "Vladimir Ivkovic",
-    "XDB",
-    "Vera",
-    "Yamour",
-    "Zeina",
-    "Zip"
+    "Shanti Celeste"
    ],
-   "artist": "Shy One",
-   "co": [
-    "JT Donaldson",
-    "Mad Professor",
-    "Theo Parrish"
-   ]
-  },
-  {
-   "date": "2026-11-13",
-   "title": "Emma-Jean Thackray: Dear Miles - A Love Letter",
-   "venue": "EartH",
-   "url": "https://earthackney.co.uk/events/emma-jean-thackray-dear-miles-a-love-letter-13th-nov-earth-london-tickets-eoyqwy/",
-   "source": "EartH",
-   "how": "lineup",
-   "score": 126.1,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Emma-Jean Thackray"
-   ],
-   "artist": "Emma-Jean Thackray",
-   "co": []
-  },
-  {
-   "date": "2026-11-15",
-   "title": "Joyce Moreno",
-   "venue": "EartH",
-   "url": "https://earthackney.co.uk/events/joyce-moreno-15th-nov-earth-london-tickets-eomnwo/",
-   "source": "EartH",
-   "how": "lineup",
-   "score": 84.2,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Joyce Moreno",
-    "Tom Ribeira"
-   ],
-   "artist": "Joyce Moreno",
+   "artist": "Kelela",
    "co": []
   },
   {
@@ -2922,22 +2691,6 @@
     "The Cinematic Orchestra"
    ],
    "artist": "The Cinematic Orchestra",
-   "co": []
-  },
-  {
-   "date": "2026-11-12",
-   "title": "Takuya Kuroda",
-   "venue": "The Jazz Cafe",
-   "url": "https://thejazzcafe.com/event/takuya-kuroda-4/",
-   "source": "JazzCafe",
-   "how": "lineup",
-   "score": 61.0,
-   "etype": "gig",
-   "first_seen": "2026-07-30",
-   "performers": [
-    "Takuya Kuroda"
-   ],
-   "artist": "Takuya Kuroda",
    "co": []
   },
   {
@@ -3069,6 +2822,22 @@
    "co": []
   },
   {
+   "date": "2027-03-11",
+   "title": "Butcher Brown",
+   "venue": "The Jazz Cafe",
+   "url": "https://thejazzcafe.com/event/butcher-brown-3/",
+   "source": "JazzCafe",
+   "how": "lineup",
+   "score": 38.9,
+   "etype": "gig",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Butcher Brown"
+   ],
+   "artist": "Butcher Brown",
+   "co": []
+  },
+  {
    "date": "2027-03-27",
    "title": "Brooklyn Funk Essentials",
    "venue": "The Jazz Cafe",
@@ -3101,23 +2870,6 @@
    "co": []
   },
   {
-   "date": "2026-11-14",
-   "title": "Bill Ryder-Jones",
-   "venue": "Alexandra Palace",
-   "url": "https://www.alexandrapalace.com/whats-on/bill-ryder-jones/",
-   "source": "AllyPally",
-   "how": "lineup",
-   "score": 21.4,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Bill Ryder-Jones",
-    "Royal Liverpool Philharmonic Orchestra"
-   ],
-   "artist": "Bill Ryder-Jones",
-   "co": []
-  },
-  {
    "date": "2026-11-26",
    "title": "Nia Archives",
    "venue": "Alexandra Palace",
@@ -3143,7 +2895,7 @@
    "url": "https://www.alexandrapalace.com/whats-on/bonobo/",
    "source": "AllyPally",
    "how": "lineup",
-   "score": 123.5,
+   "score": 124.7,
    "etype": "gig",
    "first_seen": "2000-01-01",
    "performers": [
@@ -3159,7 +2911,7 @@
    "url": "https://www.alexandrapalace.com/whats-on/bonobo/",
    "source": "AllyPally",
    "how": "lineup",
-   "score": 123.5,
+   "score": 124.7,
    "etype": "gig",
    "first_seen": "2000-01-01",
    "performers": [
@@ -3205,42 +2957,6 @@
    "co": []
   },
   {
-   "date": "2026-11-14",
-   "title": "Asha Puthli: The Cosmic Voyager",
-   "venue": "Barbican",
-   "url": "https://www.barbican.org.uk/whats-on/2026/event/asha-puthli",
-   "source": "Barbican",
-   "how": "lineup",
-   "score": 62.9,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Asha Puthli",
-    "Anoushka Shankar",
-    "Yazz Ahmed",
-    "Sarathy Korwar"
-   ],
-   "artist": "Asha Puthli",
-   "co": []
-  },
-  {
-   "date": "2026-12-14",
-   "title": "Trees with London Symphony Orchestra",
-   "venue": "Barbican",
-   "url": "https://www.barbican.org.uk/whats-on/2026/event/caroline-shaw-trees-with-london-symphony-orchestra",
-   "source": "Barbican",
-   "how": "lineup",
-   "score": 19.8,
-   "etype": "gig",
-   "first_seen": "2026-10-22",
-   "performers": [
-    "Sam Green",
-    "London Symphony Orchestra"
-   ],
-   "artist": "London Symphony Orchestra",
-   "co": []
-  },
-  {
    "date": "2026-12-18",
    "title": "Endtroducing at 30..... DJ Shadow & The BBC Symphony Orchestra",
    "venue": "Barbican",
@@ -3269,27 +2985,16 @@
    "etype": "gig",
    "first_seen": "2000-01-01",
    "performers": [
-    "London Symphony Orchestra",
-    "Soweto Kinch"
+    "Soweto Kinch",
+    "Tom Richards",
+    "Rick Simpson",
+    "Josh Vadiveloo",
+    "Louis Hamilton-Foad",
+    "Cherise Adams-Burnett",
+    "Tyrone Isaac-Stuart",
+    "London Symphony Orchestra"
    ],
    "artist": "London Symphony Orchestra",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "OK Go",
-   "venue": "O2 Forum Kentish Town",
-   "url": "https://www.academymusicgroup.com/o2forumkentishtown/events/ok-go-tickets-ae55970",
-   "source": "AMG",
-   "how": "lineup",
-   "score": 9.7,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "OK GO",
-    "Michael Wilbur (of Moon Hooch)"
-   ],
-   "artist": "OK Go",
    "co": []
   },
   {
@@ -3304,7 +3009,8 @@
    "first_seen": "2000-01-01",
    "performers": [
     "Mystery Jets",
-    "A Girl In The Year Above"
+    "A Girl In The Year Above",
+    "Henry Grace"
    ],
    "artist": "Mystery Jets",
    "co": []
@@ -3321,7 +3027,8 @@
    "first_seen": "2000-01-01",
    "performers": [
     "Yard Act",
-    "Pigeon"
+    "Pigeon",
+    "Silver Gore"
    ],
    "artist": "Yard Act",
    "co": [
@@ -3650,56 +3357,6 @@
    "co": []
   },
   {
-   "date": "2026-11-13",
-   "title": "Robert Glasper",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/robert-glasper-2/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 96.2,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Robert Glasper"
-   ],
-   "artist": "Robert Glasper",
-   "co": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "Robert Glasper with Special Guest Marsha Ambrosius",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/robert-glasper-5/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 96.2,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Robert Glasper",
-    "Marsha Ambrosius"
-   ],
-   "artist": "Robert Glasper",
-   "co": []
-  },
-  {
-   "date": "2026-11-15",
-   "title": "Robert Glasper with Special Guest Marsha Ambrosius",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/robert-glasper-5/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 96.2,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Robert Glasper",
-    "Marsha Ambrosius"
-   ],
-   "artist": "Robert Glasper",
-   "co": []
-  },
-  {
    "date": "2026-11-19",
    "title": "Robert Glasper",
    "venue": "Blue Note London",
@@ -3730,44 +3387,6 @@
    ],
    "artist": "Robert Glasper",
    "co": []
-  },
-  {
-   "date": "2026-11-17",
-   "title": "Slum Village FT Blue Lab Beats & Friends",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/slum-village-ft-blue-lab-beats-friends-2/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 91.6,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Slum Village",
-    "Blue Lab Beats"
-   ],
-   "artist": "Blue Lab Beats",
-   "co": [
-    "Slum Village"
-   ]
-  },
-  {
-   "date": "2026-11-18",
-   "title": "Slum Village FT Blue Lab Beats & Friends",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/slum-village-ft-blue-lab-beats-friends-2/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 91.6,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Slum Village",
-    "Blue Lab Beats"
-   ],
-   "artist": "Blue Lab Beats",
-   "co": [
-    "Slum Village"
-   ]
   },
   {
    "date": "2026-12-08",
@@ -3838,70 +3457,6 @@
    ]
   },
   {
-   "date": "2027-01-06",
-   "title": "Brandee Younger",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/brandee-younger/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 35.8,
-   "etype": "gig",
-   "first_seen": "2026-10-15",
-   "performers": [
-    "Brandee Younger"
-   ],
-   "artist": "Brandee Younger",
-   "co": []
-  },
-  {
-   "date": "2027-01-07",
-   "title": "Brandee Younger",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/brandee-younger/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 35.8,
-   "etype": "gig",
-   "first_seen": "2026-10-01",
-   "performers": [
-    "Brandee Younger"
-   ],
-   "artist": "Brandee Younger",
-   "co": []
-  },
-  {
-   "date": "2026-12-18",
-   "title": "Digable Planets",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/digable-planets/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 27.0,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Digable Planets"
-   ],
-   "artist": "Digable Planets",
-   "co": []
-  },
-  {
-   "date": "2026-12-19",
-   "title": "Digable Planets",
-   "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/digable-planets/",
-   "source": "BlueNote",
-   "how": "lineup",
-   "score": 27.0,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "Digable Planets"
-   ],
-   "artist": "Digable Planets",
-   "co": []
-  },
-  {
    "date": "2027-01-02",
    "title": "Mark Kavuma & The Banger Factory ft. Sahra",
    "venue": "Blue Note London",
@@ -3934,35 +3489,35 @@
    "co": []
   },
   {
-   "date": "2026-11-28",
-   "title": "Nubiyan Twist",
+   "date": "2026-12-16",
+   "title": "KOKOROKO",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/nubiyan-twist-3/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/kokoroko/",
    "source": "BlueNote",
    "how": "lineup",
-   "score": 58.3,
+   "score": 132.8,
    "etype": "gig",
-   "first_seen": "2026-10-01",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Nubiyan Twist"
+    "KOKOROKO"
    ],
-   "artist": "Nubiyan Twist",
+   "artist": "Kokoroko",
    "co": []
   },
   {
-   "date": "2026-12-02",
-   "title": "Theon Cross",
+   "date": "2026-12-09",
+   "title": "Ziggy Zeitgeist & Friends feat Esa Williams",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/theon-cross-2/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/ziggy-zeitgeist-friends/",
    "source": "BlueNote",
    "how": "lineup",
-   "score": 2.4,
+   "score": 50.9,
    "etype": "gig",
-   "first_seen": "2000-01-01",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Theon Cross"
+    "Ziggy Zeitgeist"
    ],
-   "artist": "Theon Cross",
+   "artist": "Ziggy Zeitgeist",
    "co": []
   },
   {
@@ -3982,35 +3537,67 @@
    "co": []
   },
   {
-   "date": "2027-02-27",
-   "title": "Keyon Harrold",
+   "date": "2027-01-18",
+   "title": "Jasmine Myra",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/keyon-harrold-3/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/jasmine-myra/",
    "source": "BlueNote",
    "how": "lineup",
-   "score": 15.1,
+   "score": 58.7,
    "etype": "gig",
-   "first_seen": "2026-11-12",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Keyon Harrold"
+    "Jasmine Myra"
    ],
-   "artist": "Keyon Harrold",
+   "artist": "Jasmine Myra",
    "co": []
   },
   {
-   "date": "2027-02-28",
-   "title": "Keyon Harrold",
+   "date": "2027-02-05",
+   "title": "Galliano",
    "venue": "Blue Note London",
-   "url": "https://www.bluenotejazz.com/london/tm-event/keyon-harrold-3/",
+   "url": "https://www.bluenotejazz.com/london/tm-event/galliano/",
    "source": "BlueNote",
    "how": "lineup",
-   "score": 15.1,
+   "score": 56.7,
    "etype": "gig",
-   "first_seen": "2026-11-12",
+   "first_seen": "2026-11-19",
    "performers": [
-    "Keyon Harrold"
+    "Galliano"
    ],
-   "artist": "Keyon Harrold",
+   "artist": "Galliano",
+   "co": []
+  },
+  {
+   "date": "2027-02-06",
+   "title": "Galliano",
+   "venue": "Blue Note London",
+   "url": "https://www.bluenotejazz.com/london/tm-event/galliano/",
+   "source": "BlueNote",
+   "how": "lineup",
+   "score": 56.7,
+   "etype": "gig",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Galliano"
+   ],
+   "artist": "Galliano",
+   "co": []
+  },
+  {
+   "date": "2026-11-28",
+   "title": "Nubiyan Twist",
+   "venue": "Blue Note London",
+   "url": "https://www.bluenotejazz.com/london/tm-event/nubiyan-twist-3/",
+   "source": "BlueNote",
+   "how": "lineup",
+   "score": 58.3,
+   "etype": "gig",
+   "first_seen": "2026-10-01",
+   "performers": [
+    "Nubiyan Twist"
+   ],
+   "artist": "Nubiyan Twist",
    "co": []
   },
   {
@@ -4125,28 +3712,6 @@
    "retained_from": "2026-10-22"
   },
   {
-   "date": "2026-11-13",
-   "title": "Late Late Electronic hosted by Chiminyo",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.ronniescotts.co.uk/find-a-show/late-late-electronic-chiminyo",
-   "source": "RonnieScotts",
-   "how": "lineup",
-   "score": 63.8,
-   "etype": "gig",
-   "first_seen": "2026-10-22",
-   "performers": [
-    "CHIMINYO"
-   ],
-   "artist": "Chiminyo",
-   "co": [],
-   "retained_from": "2026-10-22",
-   "listing_check": {
-    "source": "Songkick",
-    "date": "2026-11-12",
-    "url": "https://www.songkick.com/concerts/43507118-chiminyo-at-ronnie-scotts-jazz-club"
-   }
-  },
-  {
    "date": "2026-12-11",
    "title": "Late Late Electronic hosted by Chiminyo",
    "venue": "Ronnie Scott's",
@@ -4196,61 +3761,6 @@
    "retained_from": "2026-10-22"
   },
   {
-   "date": "2026-11-14",
-   "title": "Chip Wickham",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.ronniescotts.co.uk/find-a-show/chip-wickham",
-   "source": "RonnieScotts",
-   "how": "lineup",
-   "score": 131.1,
-   "etype": "gig",
-   "first_seen": "2026-10-08",
-   "performers": [
-    "CHIP WICKHAM",
-    "AARON WOOD",
-    "FINN REES",
-    "SIMON HOUGHTON",
-    "RICCARDO CHIABERTA"
-   ],
-   "artist": "Finn Rees",
-   "co": [
-    "Chip Wickham"
-   ],
-   "retained_from": "2026-10-22",
-   "listing_check": {
-    "source": "Songkick",
-    "date": "2026-11-12",
-    "url": "https://www.songkick.com/concerts/43354314-chip-wickham-at-ronnie-scotts-jazz-club"
-   }
-  },
-  {
-   "date": "2026-11-18",
-   "title": "Ego Ella May",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.ronniescotts.co.uk/find-a-show/ego-ella-may",
-   "source": "RonnieScotts",
-   "how": "lineup",
-   "score": 48.3,
-   "etype": "gig",
-   "first_seen": "2000-01-01",
-   "performers": [
-    "EGO ELLA MAY",
-    "NATHAN BRITTON",
-    "JIHAD DARWISH",
-    "JANSEN SANTANA"
-   ],
-   "artist": "Ego Ella May",
-   "co": [
-    "Jihad Darwish"
-   ],
-   "retained_from": "2026-10-22",
-   "listing_check": {
-    "source": "Songkick",
-    "date": "2026-11-12",
-    "url": "https://www.songkick.com/concerts/43418286-ego-ella-may-at-ronnie-scotts-jazz-club"
-   }
-  },
-  {
    "date": "2026-11-21",
    "title": "Blue Lab Beats & Friends",
    "venue": "Ronnie Scott's",
@@ -4298,7 +3808,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43310364-omar-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4326,7 +3836,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43310369-omar-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4403,7 +3913,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43372687-incognito-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4436,7 +3946,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43372688-incognito-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4469,7 +3979,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43372689-incognito-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4519,7 +4029,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43459604-incognito-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4552,7 +4062,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43415846-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4585,7 +4095,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43415847-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4618,7 +4128,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43415848-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4651,7 +4161,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43415850-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4684,7 +4194,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43415853-stacey-brothers-big-band-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4716,7 +4226,7 @@
    "retained_from": "2026-10-22",
    "listing_check": {
     "source": "Songkick",
-    "date": "2026-11-12",
+    "date": "2026-11-19",
     "url": "https://www.songkick.com/concerts/43465069-daniel-casimir-at-ronnie-scotts-jazz-club"
    }
   },
@@ -4805,28 +4315,6 @@
    "retained_from": "2026-10-22"
   },
   {
-   "date": "2026-11-16",
-   "title": "Nathan Haines",
-   "venue": "Ronnie Scott's",
-   "url": "https://www.songkick.com/concerts/43395622-nathan-haines-at-ronnie-scotts-jazz-club",
-   "source": "RonnieSongkick",
-   "how": "lineup",
-   "score": 137.9,
-   "etype": "gig",
-   "first_seen": "2026-11-09",
-   "performers": [
-    "Nathan Haines",
-    "Vanessa Freeman",
-    "Oscar Jerome"
-   ],
-   "artist": "Nathan Haines",
-   "co": [
-    "Vanessa Freeman",
-    "Oscar Jerome"
-   ],
-   "checked_at": "2026-11-12"
-  },
-  {
    "date": "2026-11-20",
    "title": "Jeroboam",
    "venue": "Ronnie Scott's",
@@ -4842,7 +4330,7 @@
    ],
    "artist": "J\u00e9roboam",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2026-11-21",
@@ -4860,7 +4348,7 @@
    ],
    "artist": "J\u00e9roboam",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2026-11-25",
@@ -4877,7 +4365,7 @@
    ],
    "artist": "James Taylor Quartet",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2026-11-26",
@@ -4894,7 +4382,7 @@
    ],
    "artist": "Myele Manzanza",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2026-12-18",
@@ -4908,13 +4396,35 @@
    "first_seen": "2026-11-12",
    "performers": [
     "Zaimie",
+    "Ziggy Funk",
+    "Helena May"
+   ],
+   "artist": "Ziggy Funk",
+   "co": [
+    "Zaimie"
+   ],
+   "checked_at": "2026-11-19"
+  },
+  {
+   "date": "2026-12-19",
+   "title": "Helena May",
+   "venue": "Ronnie Scott's",
+   "url": "https://www.songkick.com/concerts/43525297-helena-may-at-ronnie-scotts-jazz-club",
+   "source": "RonnieSongkick",
+   "how": "lineup",
+   "score": 15.9,
+   "etype": "gig",
+   "first_seen": "2026-11-19",
+   "performers": [
+    "Helena May",
+    "Zaimie",
     "Ziggy Funk"
    ],
    "artist": "Ziggy Funk",
    "co": [
     "Zaimie"
    ],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-05",
@@ -4938,7 +4448,7 @@
    ],
    "artist": "George Crowley",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-06",
@@ -4958,7 +4468,7 @@
    ],
    "artist": "Byron Wallen",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-07",
@@ -4979,7 +4489,7 @@
    ],
    "artist": "David Mrakpor",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-11",
@@ -5000,7 +4510,7 @@
    "co": [
     "James Copus"
    ],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-12",
@@ -5019,7 +4529,7 @@
    ],
    "artist": "L\u00e9on Phal",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-19",
@@ -5037,7 +4547,7 @@
    ],
    "artist": "Fred Wesley",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-01-23",
@@ -5054,7 +4564,7 @@
    ],
    "artist": "Camilla George",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-02-02",
@@ -5073,7 +4583,7 @@
    ],
    "artist": "Myele Manzanza",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   },
   {
    "date": "2027-02-20",
@@ -5098,7 +4608,7 @@
    ],
    "artist": "Freddie Gavita",
    "co": [],
-   "checked_at": "2026-11-12"
+   "checked_at": "2026-11-19"
   }
  ],
  "carried_from": {
