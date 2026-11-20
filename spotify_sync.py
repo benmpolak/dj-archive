@@ -12,6 +12,7 @@ import csv
 import datetime as dt
 import hashlib
 import http.server
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -27,6 +28,10 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from zoneinfo import ZoneInfo
+
+_filing_spec = importlib.util.spec_from_file_location('filing', Path(__file__).resolve().parent / 'filing.py')
+filing = importlib.util.module_from_spec(_filing_spec)
+_filing_spec.loader.exec_module(filing)
 
 ROOT = Path(__file__).resolve().parent
 PRIVATE = Path.home() / 'desk-screen' / '.secrets' / 'archive-sync'
@@ -364,6 +369,11 @@ def prepare(root, snapshot, stage):
     added_sids = [t['sid'] for t in data[len(baseline):]]
     if len(added_sids) != len(set(added_sids)) or old_sids.intersection(added_sids):
         raise SyncError('Import would introduce duplicate tracks.')
+    # File unfiled tracks from the archive's own filing (playlists, same artist, genre words).
+    # Runs after the importer checks above: it only ever fills empty tags and Uncategorized crates.
+    filing_path = root / 'filing-ledger.json'
+    filed_auto = json.loads(filing_path.read_text()) if filing_path.exists() else {}
+    tracks_filed = filing.apply(data, filing.propose(data, ledger, filed_auto), filed_auto, snapshot['date'])
     html = html[:start] + packed(data) + html[end:]
     by_month = collections.defaultdict(collections.Counter)
     for name, entries in ledger.items():
@@ -379,14 +389,15 @@ def prepare(root, snapshot, stage):
     (stage / 'index.html').write_text(html)
     (stage / 'add-ledger.json').write_text(json.dumps(ledger, ensure_ascii=False, indent=0))
     (stage / 'guest-art.json').write_text(json.dumps(art, ensure_ascii=False, indent=2) + '\n')
+    (stage / 'filing-ledger.json').write_text(filing.dump_ledger(filed_auto))
     # Explicitly avoid the Gig Radar pruning performed by a full build.
     subprocess.run([sys.executable, str(stage / 'build.py'), '--catalogue-only'], check=True, capture_output=True)
-    outputs = ['index.html', 'add-ledger.json', 'guest-art.json', 'music/manifest.json']
+    outputs = ['index.html', 'add-ledger.json', 'guest-art.json', 'filing-ledger.json', 'music/manifest.json']
     outputs += sorted(str(p.relative_to(stage)) for p in (stage / 'music').glob('tracks-*.json'))
     changes = [name for name in outputs if not (root / name).exists() or (root / name).read_bytes() != (stage / name).read_bytes()]
     return {'date': snapshot['date'], 'tracks_added': len(data) - len(baseline), 'total': len(data),
             'playlist_links_added': sum(len(p) for p in ledger.values()) - sum(len(p) for p in old_ledger.values()),
-            'artwork_added': len(art) - len(baseline_art), 'changed_files': changes,
+            'artwork_added': len(art) - len(baseline_art), 'tracks_filed': tracks_filed, 'changed_files': changes,
             'playlists': [{'name': p['name'], 'total': p['total'], 'skipped': p['skipped']} for p in snapshot['playlists']],
             'missing_monthly': snapshot['missing_monthly']}
 
